@@ -1,0 +1,15 @@
+.sanatorium{
+
+    display: grid;
+    margin-top: 5%;
+}
+.sanatorium__input{
+
+    width: 50vw;
+    height: 10vh;
+    outline: none;
+    border: 3px solid #009BDF;
+    font-family: 'Mediator Serif Regular';
+    font-size: 2em;
+    justify-self: center;
+}

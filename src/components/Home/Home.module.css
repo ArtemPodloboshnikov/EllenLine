@@ -1,0 +1,44 @@
+.home{
+
+    display: grid;
+    min-width: 100%;
+    min-height: 100%;
+}
+/* iPads: вертикальная ориентация */
+@media only screen and (min-device-width : 768px) and (max-device-width : 1024px) and (orientation : portrait) {
+    
+    .home{
+
+        margin-left: 20%;
+        min-width: 80%;
+    }
+
+}
+/* iPads: горизонтальная ориентация */
+@media only screen and (min-device-width : 1024px) and (max-device-width : 1366px) and (orientation : landscape) {
+
+    .home{
+
+        margin-left: 20%;
+        min-width: 80%;
+    }
+
+}
+/* Смартфоны: вертикальная ориентация */
+@media only screen and (max-width: 415px) and (orientation : portrait){
+  
+    .home{
+
+        margin-left: 30%;
+        min-width: 20%;
+    }
+}
+/* Смартфоны: горизонтальная ориентация */
+@media only screen and (max-width: 813px) and (min-height: 415px) and (orientation : landscape){
+  
+    .home{
+
+        margin-left: 30%;
+        min-width: 70%;
+    }
+}
