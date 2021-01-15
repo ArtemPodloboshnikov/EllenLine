@@ -7,14 +7,23 @@ import classes from './YandexMap.module.css';
 
 function YandexMap(props){
     //debugger;
-    //console.log(props.points[0].coordinates);
+    console.log(props.points);
     let mapState = {};
     if (Object.keys(props.points).length == 1)
     {
         mapState = {center: props.points[0].coordinates, zoom: 17};
     }
-    else{
-        mapState = {center: props.cityCoordinates, zoom: 10};
+    else
+    {
+        if (props.cityCoordinates.length == 0)
+        {
+            mapState = {center: props.points[0].coordinates, zoom: 10};
+        }
+        else
+        {
+
+            mapState = {center: props.cityCoordinates, zoom: 10};
+        }
     }
     //console.log(props.points[0].hintContent);
     const markState = {points: props.points,  modules: ['geoObject.addon.balloon', 'geoObject.addon.hint']}

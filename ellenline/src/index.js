@@ -7,8 +7,6 @@ import reportWebVitals from './reportWebVitals';
 import {BrowserRouter as Router, Route} from 'react-router-dom';
 import Header from './components/Common/Header/Header';
 import Footer from './components/Common/Footer/Footer';
-import ApolloClient from 'apollo-boost';
-import { ApolloProvider } from 'react-apollo'
 
 
 

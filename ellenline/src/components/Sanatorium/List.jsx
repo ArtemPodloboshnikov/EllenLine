@@ -1,71 +1,60 @@
 import React from 'react'
 import classes from './List.module.css';
 import YandexMap from '../Common/Map/YandexMap';
-import ky from 'ky';
 
-async function getData(){
+/*
+    {parking: true, playground: true, restaurant: true, pebblesBeach: true, sandyBeach: true, sportsGround: true, trainer: true, pool: true, poolUnderRoof: true, park: true, sauna: true, SPA: true, receptionWithAnimals: true, musculoskeletalSystem: true, gynecologicalDiseases: true, urologicalDiseases: true, cardiovascularSystem: true, respiratoryOrgans: true, nervousSystem: true, digestiveSystem: true, metabolicDiseases: true, childrenUnder3: true, singleOccupancy: true, familiesOf4: true}
+    [59.87026708231266, 30.26207174039379]
+*/
 
-    const json =  await ky.get('http://localhost:4000/getSanatoriums').json();
-    console.log(json);
-}
-getData();
-const points = [{coordinates: [58.52004065879686,31.261519338682145], hintContent: 'Господин Великий Новгород', balloonContentBody: 'ул. Новая, 2'}];
-const cityCoordinates = [58.52192654163379,31.282977010801268];
-const List = () => {
+function List(props){
+
     return (
+        
+           
         <div className={classes.list}>
             <div className={classes.map}>
-                <YandexMap cityCoordinates={cityCoordinates} points={points}/>
+                <YandexMap cityCoordinates={props.cityCoordinates} points={props.points}/>
             </div>
             <div className={classes.names}>
-                <div>
-                    <p>Государь Великий Новгород</p>
-                    <p>ул. Новая, 2</p>
-                    <div>
-                        {
-                            
+            
+                    
+                        {(()=>{
 
-                        }
-                    </div>
-                </div>
-                <div>
-                    <p>Государь Великий Новгород</p>
-                    <p>ул. Новая, 2</p>
-                </div>
-                <div>
-                    <p>Государь Великий Новгород</p>
-                    <p>ул. Новая, 2</p>
-                </div>
-                <div>
-                    <p>Государь Великий Новгород</p>
-                    <p>ул. Новая, 2</p>
-                </div>
-                <div>
-                    <p>Государь Великий Новгород</p>
-                    <p>ул. Новая, 2</p>
-                </div>
-                <div>
-                    <p>Государь Великий Новгород</p>
-                    <p>ул. Новая, 2</p>
-                </div>
-                <div>
-                    <p>Государь Великий Новгород</p>
-                    <p>ул. Новая, 2</p>
-                </div>
-                <div>
-                    <p>Государь Великий Новгород</p>
-                    <p>ул. Новая, 2</p>
-                </div>
-                <div>
-                    <p>Государь Великий Новгород</p>
-                    <p>ул. Новая, 2</p>
-                </div>
-                <div>
-                    <p>Государь Великий Новгород</p>
-                    <p>ул. Новая, 2</p>
-                </div>
+                            let sanatoriumsDivs = [];
+                            props.sanatoriums.map((sanatorium) => {
+                                console.log(sanatorium);
+                                sanatoriumsDivs.push(
+
+                                
+                                    <div>
+                                        <p>{sanatorium.title}</p>
+                                        <p>{sanatorium.address}</p>
+                                        {/* {(()=>{
+                                        
+                                            let icons = eval(sanatorium.icons);
+                                            console.log(icons)
+                                            for(let icon in icons){
+
+                                                if (icons[icon] == true)
+                                                {
+                                                    <img src={'images/cardIcons/' + icon + '.svg'} />
+                                                }
+                                            };
+                                        })()} */}
+                                    </div>
+        
+        
+    
+                                );
+                            });
+                            
+                            return sanatoriumsDivs;
+
+                        })()}
             </div>
         </div>
+      
     )
 }
 

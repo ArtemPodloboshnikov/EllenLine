@@ -11,7 +11,7 @@ const Services = () => {
             <div className={ classes.services }>
             <MediaQuery query="(min-device-width: 1433px)">
                 <div className={ classes.services__block + ' ' + classes.block__template_right }>
-                    <div className={classes.block__image} style={{backgroundImage: 'url(' + 'images/Home/hotel.png' + ')'}}>
+                    <div className={classes.block__image} style={{backgroundImage: 'url(' + 'images/Home/pansionate.jpg' + ')'}}>
                        
                     </div>
                     
@@ -25,7 +25,7 @@ const Services = () => {
                     </div>
                 </div>
                 <div className={ classes.services__block + ' ' + classes.block__template_left }>
-                    <div className={classes.block__image} style={{backgroundImage: 'url(' + 'images/Home/OreshikCastle.png' + ')'}}>
+                    <div className={classes.block__image} style={{backgroundImage: 'url(' + 'images/Home/excursions.jpg' + ')'}}>
                        
                     </div>
                     
@@ -39,7 +39,7 @@ const Services = () => {
                     </div>
                 </div>
                 <div className={ classes.services__block + ' ' + classes.block__template_right }>
-                    <div className={classes.block__image} style={{backgroundImage: 'url(' + 'images/Home/cruise.png' + ')'}}>
+                    <div className={classes.block__image} style={{backgroundImage: 'url(' + 'images/Home/cruise.jpg' + ')'}}>
                        
                     </div>
                     
