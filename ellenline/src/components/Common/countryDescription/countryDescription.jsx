@@ -2,6 +2,8 @@ import React from 'react'
 import classes from './countryDescription.module.css';
 
 const CountryDescription = (props) => {
+
+    console.log('List: ' + props.countries );
     return (
         <div className={classes.country}>
             <div className={classes.country__mark}>

@@ -92,12 +92,16 @@
         max-width: 20%;
     }
 }
+@media only screen and (min-device-width : 768px) and (max-device-width : 1024px) and (orientation : portrait){
+
+
+}
 /* iPads: горизонтальная ориентация */
 @media only screen and (min-device-width : 1024px) and (max-device-width : 1366px) and (orientation : landscape) {
 
 
 
-    .aside__links > a:first-child > img{
+    /* .aside__links > a:first-child > img{
 
         max-width: 100%;
         min-width: 0%;
@@ -107,6 +111,6 @@
     
         min-width: 45%;
         max-width: 45%;
-    }
+    } */
 
 }

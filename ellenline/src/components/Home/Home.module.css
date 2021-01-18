@@ -5,7 +5,7 @@
     min-height: 100%;
 }
 /* iPads: вертикальная ориентация */
-@media only screen and (min-device-width : 768px) and (max-device-width : 1024px) and (orientation : portrait) {
+/* @media only screen and (min-device-width : 768px) and (max-device-width : 1024px) and (orientation : portrait) {
     
     .home{
 
@@ -13,9 +13,9 @@
         min-width: 80%;
     }
 
-}
+} */
 /* iPads: горизонтальная ориентация */
-@media only screen and (min-device-width : 1024px) and (max-device-width : 1366px) and (orientation : landscape) {
+/* @media only screen and (min-device-width : 1024px) and (max-device-width : 1366px) and (orientation : landscape) {
 
     .home{
 
@@ -23,7 +23,7 @@
         min-width: 80%;
     }
 
-}
+} */
 /* Смартфоны: вертикальная ориентация */
 @media only screen and (max-width: 415px) and (orientation : portrait){
   

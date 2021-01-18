@@ -2,13 +2,13 @@ import React, {useEffect, useState} from 'react';
 import Search from '../Common/Search/Search';
 import List from './List';
 import CountryDescription from '../Common/countryDescription/countryDescription';
-import classes from './Sanatorium.module.css';
+import classes from './Relax.module.css';
 import ky from 'ky';
 
 
 
     
-const Sanatorium = () => {
+const Relax = () => {
 
     //  debugger;
    
@@ -16,7 +16,7 @@ const Sanatorium = () => {
 
        
     const [sanatoriums, setSanatoriums] = useState([]);
-
+    const [countries, setCountries] = useState([]);
     useEffect(()=>{
 
         document.title = `Санатории`;
@@ -25,7 +25,14 @@ const Sanatorium = () => {
     
             const json =  await ky.get('http://localhost:4000/getSanatoriums').json();
             setSanatoriums(json);
-            
+            let bufCountries = [];
+            sanatoriums.map((sanatorium) => { 
+
+                bufCountries.push({nameCountry: sanatorium.nameCountry, descriptionCountry: sanatorium.descriptionCountry});
+                delete sanatorium.nameCountry;
+                delete sanatorium.descriptionCountry;
+            })
+            setCountries(bufCountries);
         }
 
         getData()
@@ -38,16 +45,7 @@ const Sanatorium = () => {
     sanatoriums.map((sanatorium)=>{ points.push({coordinates: [sanatorium.coordinates.x, sanatorium.coordinates.y], hintContent: sanatorium.title, balloonContentBody: sanatorium.address});});
     const cityCoordinates = [58.52192654163379,31.282977010801268];
     
-    let countries = [];
     
-    sanatoriums.map((sanatorium) => { 
-
-        countries.push({nameCountry: sanatorium.nameCountry, descriptionCountry: sanatorium.descriptionCountry});
-        delete sanatorium.nameCountry;
-        delete sanatorium.descriptionCountry;
-    })
-    console.log(sanatoriums);
-
     return (
         <div className={classes.sanatorium}>
             
@@ -58,4 +56,4 @@ const Sanatorium = () => {
     )
 }
 
-export default Sanatorium
+export default Relax

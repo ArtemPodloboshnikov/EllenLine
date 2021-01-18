@@ -1,31 +1,38 @@
-import React, { useEffect } from 'react'
+import React, { useEffect, useState } from 'react'
 import Services from './Services'
 import Advantages from './Advantages';
 import Reviews from './Reviews';
 import Clients from './Clients';
+import QRcode from './QRcode'
 import classes from './Home.module.css';
-
+import ky from 'ky';
 
 function Home() {
+
+    const [data, setData] = useState({advantages: [], services: []});
     useEffect(() => {
         // Обновляем заголовок документа, используя API браузера
         document.title = `О нас`;
-        //let arUrl = window.location.pathname.split('/');
-        // if (arUrl[1] == "")
-        // {
-        //     console.log(arUrl);
-        //     let newUrl = '/home';
-        //     history.pushState('', '', newUrl);
-        // }
-        
-      });
+
+        async function getData(){
     
+          const json =  await ky.get('http://localhost:4000/file/getHomePage').json();
+          setData(json);
+          
+      }
+
+      getData()
+        
+      }, []);
+    console.log(data);
+
     return (
         <div className={classes.home}>
-          <Services/>
-          <Advantages/>
+          <Services data={data.services}/>
+          <Advantages data={data.advantages}/>
           <Reviews/>
           <Clients/>
+          <QRcode/>
         </div>
     )
 }
