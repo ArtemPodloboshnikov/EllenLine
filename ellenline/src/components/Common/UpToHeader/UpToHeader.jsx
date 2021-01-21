@@ -20,13 +20,9 @@ function UpToHeader(props){
    
 
     return (
-
-            
         <div onClick={handleUpButton} className={classes.wrap}>
             <img src='images/UpToHeader/topArrow.svg' />
         </div>
-            
-       
     )
 }
 

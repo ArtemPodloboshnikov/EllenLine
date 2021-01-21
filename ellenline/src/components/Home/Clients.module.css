@@ -38,15 +38,18 @@
     justify-items: center;
     align-items: center;
     grid-template-columns: repeat(3, 1fr);
-    grid-row-gap: 15%;
+    /* ZIMIN */
+    row-gap: 15%;
     position: relative;
     z-index: 2;
     justify-content: center;
+    padding: 100px 0;
 }
 .clients__content img{
 
     object-fit: contain;
     width: 100%;
+    /* ZIMIN */
     height: 130%;
 }
 .dhl_margin{
@@ -56,6 +59,32 @@
 .friedrichEbert_column{
 
     grid-column: 3;
+}
+/* ZIMIN */
+@media screen and (max-width: 768px)
+{
+    .friedrichEbert_column{
+        grid-column: 1;
+    }
+    .dhl_margin{
+
+        margin-left: 0%;
+    }
+    .clients__content{
+
+        grid-template-columns: repeat(2, 1fr);
+        gap: 10px;
+        width: 70%;
+        /* ZIMIN */
+        /* height: 250vh; */
+        /* margin-left: 15%; */
+        padding: 15px 0;
+        margin: 0 auto;
+    }
+    /* ZIMIN */
+    .clients__content img{
+        height: unset;
+    }   
 }
 /* iPads: вертикальная ориентация */
 @media only screen and (min-device-width : 768px) and (max-device-width : 1024px) and (orientation : portrait) {
@@ -93,7 +122,9 @@
         grid-row-gap: 0%;
         width: 70%;
         height: 250vh;
-        margin-left: 15%;
+        /* ZIMIN */
+        /* margin-left: 15%; */
+        margin: 0 auto;
     }
 
 }

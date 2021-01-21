@@ -2,12 +2,13 @@
 
     display: grid;
     width: 100%;
-    height: 100vh;
+    /* ZIMIN */
+    /* height: 100vh; */
     background-color: #009BDF;
     clip-path: polygon(0% 0%, 46% 16%, 100% 7%, 100% 100%, 0% 100%);
     display: grid;
-    grid-template-columns: 20% 20% 20% 10% 30%;
-    grid-template-rows: repeat(4, 1fr);
+    grid-template-columns: 20% 20% 20% 2.5% 30%;
+    grid-template-rows: repeat(3, 1fr);
     grid-template-areas: 
     ". . . . ."
     ". map map . info"
@@ -34,9 +35,11 @@
     align-self: start;
     grid-area: links;
     justify-items: center;
-    padding-top: 5%;
+    /* ZIMIN */
+    /* padding-top: 5%;
     padding-left: 30%;
-    padding-right: 30%;
+    padding-right: 30%; */
+    padding: 5% 30%;
     
 }
 .links{
@@ -67,6 +70,8 @@
 
     width: 25%;
     object-fit: contain;
+    /* ZIMIN */
+    margin: 0 auto;
 }
 .info__block{
 
@@ -87,4 +92,28 @@
 
    
 
+}
+/* ZIMIN */
+@media (max-width: 768px)
+{
+    .footer{
+        padding-top: 250px;
+        margin-left: 20%;
+        width: 80%;
+        grid-template-rows: 20px repeat(3, 1fr);
+        grid-template:      '. . . . .'
+                            '. . map . .'
+                            '. links links links .'
+                            '. info info info .';
+        /* grid-template-columns: ; */
+    }
+
+    /* .footer__map ymaps{
+        width: 500px !important;
+        height: 500px !important;
+    } */
+
+    .footer__info{
+        padding-bottom: 15px;
+    }
 }

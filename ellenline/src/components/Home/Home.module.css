@@ -29,16 +29,24 @@
   
     .home{
 
-        margin-left: 30%;
+        margin-left: 20%;
         min-width: 20%;
     }
 }
 /* Смартфоны: горизонтальная ориентация */
-@media only screen and (max-width: 813px) and (min-height: 415px) and (orientation : landscape){
+@media only screen and (max-width: 1024px) and (min-height: 415px) and (orientation : landscape){
   
     .home{
 
-        margin-left: 30%;
-        min-width: 70%;
+        margin-left: 20%;
+        min-width: 80%;
     }
 }
+/* ZIMIN */
+@media screen and (max-width: 1024px){
+    .home{
+        margin-left: 20%;
+        min-width: 80%;
+    }
+}
+

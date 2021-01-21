@@ -63,12 +63,15 @@ img{
   height: 25vh;
   background-color: #009BDF;
   color: #fff;
-  display: grid;
-  justify-items: center;
   align-items: center;
   font-family: 'Kazimir';
   font-size: 3rem;
   transform: skewY(-1.5deg);
+  /* ZIMIN */
+  display: flex;
+  /* justify-items: center; */
+
+
 }
 .section__title_left{
   transform: skewY(1.5deg);
@@ -78,6 +81,10 @@ img{
   position: relative;
   transform: skewY(1.5deg);
   align-content: center;
+  /* ZIMIN */ 
+  display: block;
+  text-align: center;
+  width: 100%;
 }
 .section__title_left p{
   transform: skewY(-1.5deg);
@@ -87,12 +94,14 @@ img{
 
   .section__title_left, .section__title_right{
     height: 15vh;
-    align-items: unset;
+    /* ZIMIN */
+    /* align-items: unset; */
     
   }
   .section__title_left p, .section__title_right p{
 
-    margin-top: 5%;
+    /* ZIMIN */
+    padding-top: 2.5%;
   }
 }
 /* iPads: горизонтальная ориентация */
@@ -100,12 +109,13 @@ img{
 
   .section__title_left, .section__title_right{
     height: 15vh;
-    align-items: unset;
+    /* ZIMIN */
+    /* align-items: unset; */
     
   }
   .section__title_left p, .section__title_right p{
-
-    margin-top: 5%;
+    /* ZIMIN */
+    padding-top: 2.5%;
   }
 
 }
@@ -114,12 +124,13 @@ img{
 
   .section__title_left, .section__title_right{
     height: 15vh;
-    align-items: unset;
+    /* ZIMIN */
+    /* align-items: unset; */
   }
   .section__title_left p, .section__title_right p{
-
-    margin-top: 5%;
     font-size: 0.7em;
+    /* ZIMIN */
+    padding-top: 2.5%;
   }
 }
 /* Смартфоны: горизонтальная ориентация */
@@ -127,11 +138,12 @@ img{
 
   .section__title_left, .section__title_right{
     height: 25vh;
-    align-items: unset;
+    /* ZIMIN */
+    /* align-items: unset; */
     
   }
   .section__title_left p, .section__title_right p{
-
-    margin-top: 5%;
+    /* ZIMIN */
+    padding-top: 2.5%;
   }
 }
