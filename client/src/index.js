@@ -7,8 +7,8 @@ import reportWebVitals from './reportWebVitals';
 import {BrowserRouter as Router, Route} from 'react-router-dom';
 import Header from './components/Common/Header/Header';
 import Footer from './components/Common/Footer/Footer';
-import InsertData from './components/Admin/InsertData/InsertData';
-import AdminHeader from './components/Common/Header/AdminHeader'
+import FormDBChange from './components/Admin/FormDBChange/FormDBChange';
+import AdminDBHeader from './components/Common/Header/AdminDBHeader'
 
 const simpleComponent = Сomponent => props =>{
    
@@ -24,7 +24,7 @@ const simpleComponent = Сomponent => props =>{
 const adminComponent = Сomponent => props => {
   return (
     <div>
-      <AdminHeader/>
+      <AdminDBHeader/>
       <Сomponent {...props}/>
     </div>
   )
@@ -35,8 +35,8 @@ ReactDOM.render((
   <Router>
       <Route exact path='/' component={simpleComponent(Home)}/>
       <Route exact path='/relax' component={simpleComponent(Relax)}/>
-      <Route exact path='/admin' component={adminComponent(InsertData)}/>
-      
+      <Route path='/admin/db/:category' component={adminComponent(FormDBChange)}/>
+      <Route exact path='/admin/db' component={adminComponent(FormDBChange)}/>
   </Router>
   ), document.getElementById('root')
 );

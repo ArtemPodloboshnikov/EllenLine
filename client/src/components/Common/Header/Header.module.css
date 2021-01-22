@@ -163,6 +163,8 @@
     width: 100%;
     height: 100%;
     text-align: center;
+    /* ZIMIN */
+    display: none;
 }
 .header__content{
 
@@ -171,11 +173,11 @@
     grid-template-rows: repeat(9, 10%);
     grid-template-areas: 
     '. buttons buttons buttons buttons buttons buttons buttons buttons'
-    '. . . . . . . . .'
+    'links . . . . . . . .'
     'links . . . . . . . .'
     'links . . . . . . . phone'
     'links . . . . . . . .'
-    'links . . . . . . . .'
+    '. . . . . . . . .'
     '. . . . . . . . .';
     z-index: 3;
     position: absolute;

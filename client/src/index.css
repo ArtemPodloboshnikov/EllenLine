@@ -53,6 +53,67 @@ img{
 
   object-fit: cover;
 }
+input, textarea, button{
+
+  border: none;
+  outline: none;
+  background-color: transparent;
+}
+input::-webkit-outer-spin-button,
+input::-webkit-inner-spin-button {
+    /* display: none; <- Crashes Chrome on hover */
+    -webkit-appearance: none;
+    margin: 0; /* <-- Apparently some margin are still there even though it's hidden */
+}
+[type="radio"]:checked,
+[type="radio"]:not(:checked) {
+  
+  display: none;
+}
+[type="radio"]:checked + .radio_button,
+[type="radio"]:not(:checked) + .radio_button
+{
+    position: relative;
+    padding-left: 28px;
+    cursor: pointer;
+    line-height: 20px;
+    display: inline-block;
+}
+[type="radio"]:checked + .radio_button:before,
+[type="radio"]:not(:checked) + .radio_button:before {
+    content: '';
+    position: absolute;
+    left: 0;
+    top: 0;
+    width: 18px;
+    height: 18px;
+    border: 1px solid #ddd;
+    background: #fff;
+}
+[type="radio"]:checked + .radio_button:after,
+[type="radio"]:not(:checked) + .radio_button:after {
+    content: '';
+    width: 12px;
+    height: 12px;
+    background: #009BDF;
+    position: absolute;
+    top: 4px;
+    left: 4px;
+    /* right: 4px;
+    bottom: 4px; */
+    -webkit-transition: all 0.2s ease;
+    transition: all 0.2s ease;
+}
+[type="radio"]:not(:checked) + .radio_button:after {
+    opacity: 0;
+    -webkit-transform: scale(0);
+    transform: scale(0);
+}
+[type="radio"]:checked + .radio_button:after {
+    opacity: 1;
+    -webkit-transform: scale(1);
+    transform: scale(1);
+}
 .section{
 
   margin-top: 10%;
@@ -63,12 +124,15 @@ img{
   height: 25vh;
   background-color: #009BDF;
   color: #fff;
-  display: grid;
-  justify-items: center;
   align-items: center;
   font-family: 'Kazimir';
   font-size: 3rem;
   transform: skewY(-1.5deg);
+  /* ZIMIN */
+  display: flex;
+  /* justify-items: center; */
+
+
 }
 .section__title_left{
   transform: skewY(1.5deg);
@@ -78,6 +142,10 @@ img{
   position: relative;
   transform: skewY(1.5deg);
   align-content: center;
+  /* ZIMIN */ 
+  display: block;
+  text-align: center;
+  width: 100%;
 }
 .section__title_left p{
   transform: skewY(-1.5deg);
@@ -87,12 +155,14 @@ img{
 
   .section__title_left, .section__title_right{
     height: 15vh;
-    align-items: unset;
+    /* ZIMIN */
+    /* align-items: unset; */
     
   }
   .section__title_left p, .section__title_right p{
 
-    margin-top: 5%;
+    /* ZIMIN */
+    padding-top: 2.5%;
   }
 }
 /* iPads: горизонтальная ориентация */
@@ -100,12 +170,13 @@ img{
 
   .section__title_left, .section__title_right{
     height: 15vh;
-    align-items: unset;
+    /* ZIMIN */
+    /* align-items: unset; */
     
   }
   .section__title_left p, .section__title_right p{
-
-    margin-top: 5%;
+    /* ZIMIN */
+    padding-top: 2.5%;
   }
 
 }
@@ -114,12 +185,13 @@ img{
 
   .section__title_left, .section__title_right{
     height: 15vh;
-    align-items: unset;
+    /* ZIMIN */
+    /* align-items: unset; */
   }
   .section__title_left p, .section__title_right p{
-
-    margin-top: 5%;
     font-size: 0.7em;
+    /* ZIMIN */
+    padding-top: 2.5%;
   }
 }
 /* Смартфоны: горизонтальная ориентация */
@@ -127,11 +199,12 @@ img{
 
   .section__title_left, .section__title_right{
     height: 25vh;
-    align-items: unset;
+    /* ZIMIN */
+    /* align-items: unset; */
     
   }
   .section__title_left p, .section__title_right p{
-
-    margin-top: 5%;
+    /* ZIMIN */
+    padding-top: 2.5%;
   }
 }
