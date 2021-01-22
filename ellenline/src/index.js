@@ -15,8 +15,10 @@ const simpleComponent = Сomponent => props =>{
   return (
     <div>
       <Header/>
+      <div className="main">
         <Сomponent {...props}/>
-      <Footer/>
+        <Footer />
+      </div>
     </div>
   )
   

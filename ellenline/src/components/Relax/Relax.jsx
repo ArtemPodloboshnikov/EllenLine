@@ -9,12 +9,6 @@ import ky from 'ky';
 
     
 const Relax = () => {
-
-    //  debugger;
-   
-
-
-       
     const [sanatoriums, setSanatoriums] = useState([]);
     const [countries, setCountries] = useState([]);
     useEffect(()=>{
@@ -42,16 +36,25 @@ const Relax = () => {
     
     
     let points = [];
-    sanatoriums.map((sanatorium)=>{ points.push({coordinates: [sanatorium.coordinates.x, sanatorium.coordinates.y], hintContent: sanatorium.title, balloonContentBody: sanatorium.address});});
+    sanatoriums.map((sanatorium) => 
+    { 
+        points.push({
+            coordinates: [sanatorium.coordinates.x, sanatorium.coordinates.y],
+            hintContent: sanatorium.title, balloonContentBody: sanatorium.address});
+    });
     const cityCoordinates = [58.52192654163379,31.282977010801268];
     
     
     return (
-        <div className={classes.sanatorium}>
-            
+        <div className={classes.relax}>
             <Search type='sanatorium' />
-            <CountryDescription countries={countries} />
-            <List sanatoriums={sanatoriums} points={points} cityCoordinates={cityCoordinates} />
+            {/* <div className={classes.choose}>
+                <h1 className={classes.pansionat}>Пансионаты</h1>
+                <h1 className={classes.sanatorium}>Санатории</h1>
+            </div> */}
+            {/* <CountryDescription countries={countries} /> */}
+            {/* <List sanatoriums={sanatoriums} points={points} cityCoordinates={cityCoordinates} /> */}
+
         </div>
     )
 }

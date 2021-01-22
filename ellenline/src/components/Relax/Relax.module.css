@@ -1,6 +1,19 @@
-.sanatorium{
+.relax{
 
     display: grid;
-    width: 100%;
     height: auto;
+    /* width: min-content; */
+    /* padding: 0 15px; */
+    padding-left: 15px;
+    padding-right: 25px;
+}
+
+.choose{
+
+}
+.pansionat{
+
+}
+.sanatorium{
+
 }

@@ -27,7 +27,7 @@ function Home() {
     console.log(data);
 
     return (
-        <div className={classes.home}>
+        <div>
           <Services data={data.services}/>
           <Advantages data={data.advantages}/>
           <Reviews/>

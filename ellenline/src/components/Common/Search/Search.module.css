@@ -1,15 +1,55 @@
 .sanatorium{
 
     display: grid;
+    height: calc(50px + 1vh);
     margin-top: 5%;
+    grid-template-columns: repeat(4, 1fr);
+    grid-template-areas: 'country city name stars';
+    gap: 15px;
 }
-.sanatorium__input{
-
-    width: 50vw;
-    height: 10vh;
+.sanatorium .country, .sanatorium .city, .sanatorium__input, .sanatorium .stars{
     outline: none;
     border: 3px solid #009BDF;
     font-family: 'Mediator Serif Regular';
     font-size: 2em;
-    justify-self: center;
+    min-width: 0;
+}
+.sanatorium select option{
+    font-size: unset;
+}
+.sanatorium .country{
+    grid-area: country;
+}
+.sanatorium .city
+{
+    grid-area: city;
+}
+.sanatorium__input{
+
+    grid-area: name;
+    /* width: 50vw; */
+    /* height: 10vh; */
+    outline: none;
+    border: 3px solid #009BDF;
+    font-family: 'Mediator Serif Regular';
+    font-size: 2em;
+    /* justify-self: center; */
+}
+.sanatorium .stars{
+    grid-area: stars;
+}
+@media screen and (max-width: 1024px)
+{
+    .sanatorium{
+        grid-template-columns: 50% 50%;
+        grid-template-rows: repeat(2, 1fr);
+        grid-template-areas: 'country city'
+                             'name stars';
+    }
+}
+@media screen and (max-width: 425px)
+{
+    .sanatorium{
+        /* MAKE ADAPTATION */
+    }
 }

@@ -17,41 +17,39 @@ function List(props){
                 <YandexMap cityCoordinates={props.cityCoordinates} points={props.points}/>
             </div>
             <div className={classes.names}>
-            
-                    
-                        {(()=>{
+                {(()=>{
 
-                            let sanatoriumsDivs = [];
-                            props.sanatoriums.map((sanatorium) => {
-                                console.log(sanatorium);
-                                sanatoriumsDivs.push(
+                    let sanatoriumsDivs = [];
+                    props.sanatoriums.map((sanatorium) => {
+                        console.log(sanatorium);
+                        sanatoriumsDivs.push(
 
+                        
+                            <div>
+                                <p>{sanatorium.title}</p>
+                                <p>{sanatorium.address}</p>
+                                {/* {(()=>{
                                 
-                                    <div>
-                                        <p>{sanatorium.title}</p>
-                                        <p>{sanatorium.address}</p>
-                                        {/* {(()=>{
-                                        
-                                            let icons = eval(sanatorium.icons);
-                                            console.log(icons)
-                                            for(let icon in icons){
+                                    let icons = eval(sanatorium.icons);
+                                    console.log(icons)
+                                    for(let icon in icons){
 
-                                                if (icons[icon] == true)
-                                                {
-                                                    <img src={'images/cardIcons/' + icon + '.svg'} />
-                                                }
-                                            };
-                                        })()} */}
-                                    </div>
-        
-        
-    
-                                );
-                            });
-                            
-                            return sanatoriumsDivs;
+                                        if (icons[icon] == true)
+                                        {
+                                            <img src={'images/cardIcons/' + icon + '.svg'} />
+                                        }
+                                    };
+                                })()} */}
+                            </div>
 
-                        })()}
+
+
+                        );
+                    });
+                    
+                    return sanatoriumsDivs;
+
+                })()}                    
             </div>
         </div>
       
