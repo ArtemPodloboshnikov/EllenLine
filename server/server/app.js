@@ -7,7 +7,6 @@ const cors = require('cors')
 const PORT = 4000;
 
 
-
 app.use(cors());
 
 app.use('/api', require('./queries'));

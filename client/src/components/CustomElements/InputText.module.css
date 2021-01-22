@@ -1,0 +1,22 @@
+.wrap{
+
+    transform: skewX(-20deg);
+    border: 5px solid #009BDF;
+    display: grid;
+    justify-items: center;
+    align-items: center;
+}
+.input::placeholder{
+
+    text-align: center;
+}
+.input{
+    background-color: transparent;
+    font-family: 'Mediator Serif Regular';
+    width: 98%;
+    position: relative;
+    transform: skewX(20deg);
+    border: none;
+    color: #333333;
+    text-align: center;
+}

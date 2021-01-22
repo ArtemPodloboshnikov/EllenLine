@@ -1,4 +1,4 @@
-.list{
+/* .list{
 
     display: grid;
     grid-template-columns: repeat(2, 1fr);
@@ -46,4 +46,14 @@
 
    word-break: break-all;
    font-size: 1.2em;
+} */
+/* ZIMIN`S CLASSES */
+.list{
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    grid-auto-rows: 250px;
+    /* grid-template-areas: 'item_1 item_2 item_3 item_4'; */
 }
+
+
+
