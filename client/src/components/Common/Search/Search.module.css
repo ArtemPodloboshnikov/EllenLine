@@ -41,6 +41,9 @@
         grid-template-areas: 'country city'
                              'name stars';
     }
+    .sanatorium .country, .sanatorium .city, .sanatorium__input, .sanatorium .stars{
+        font-size: 1.5em;
+    }
 }
 @media screen and (max-width: 425px)
 {
@@ -51,5 +54,8 @@
                              'city'
                              'name'
                              'stars';
+    }
+    .sanatorium .country, .sanatorium .city, .sanatorium__input, .sanatorium .stars{
+        font-size: 1em;
     }
 }

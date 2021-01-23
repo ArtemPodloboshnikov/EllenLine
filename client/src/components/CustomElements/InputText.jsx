@@ -9,12 +9,16 @@ const InputText = (props) => {
         setValue(e.target.value);
     }
     return (
-        <div className={classes.wrap + ' ' + props.className}>
-            <input className={classes.input + ' ' + props.classInput} value={value} onChange={printValue}
-                placeholder={props.placeholder}
-            />
-        </div>
+        // WAS DELETED CLASS class.input in input
+        <input className={props.className} value={value} onChange={printValue}
+            placeholder={props.placeholder}
+        />
     )
 }
+
+// ALSO WAS DELETED THIS CONTAINER
+{/* <div className={classes.wrap + ' ' + props.className}>
+</div> */}
+
 
 export default InputText

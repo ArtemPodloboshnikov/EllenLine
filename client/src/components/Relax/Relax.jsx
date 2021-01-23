@@ -1,10 +1,10 @@
 import React, {useEffect, useState} from 'react';
-import { Link, Route } from 'react-router-dom';
-import Search from '../Common/Search/Search';
-import List from './List';
+import { NavLink, Route } from 'react-router-dom';
+import List from './List.jsx'; 
 import CountryDescription from '../Common/countryDescription/countryDescription';
 import classes from './Relax.module.css';
-// import TextAres from './../CustomElements/TextArea.jsx';
+import ChooseResort from './ChooseResort.jsx';
+import Resort from './Resort.jsx';
 import ky from 'ky';
 
 
@@ -49,31 +49,13 @@ const Relax = () => {
     
     return (
         <div className={classes.relax}>
-            <Search type='sanatorium' className='search'/>
-            <div className={classes.choose}>
-                <div className={classes.pansionat}><Link to='pansionats'><h1>Пансионаты</h1></Link></div>
-                <div className={classes.sanatorium}><Link to='sanatoriums'><h1>Санатории</h1></Link></div>
-            </div>
-            <div className={classes.rest}>
-                <Route path='/relax/:category' component={List}></Route>
-                    {/* // items=1
-                    // {[
-                    //     { 
-                    //         title: 'Север', 
-                    //         imgSrc: 'https://static.wikia.nocookie.net/mlp/images/d/d1/Rarity_standing_S1E19_CROPPED.png/revision/latest/scale-to-width-down/340?cb=20130418142043',
-                    //         address: 'Народная 46',
-                    //         price: '20 000 руб.',
-                    //         services: [ 'cofe', 'tea' ]
-                    //     },
-                    //     {
-                    //         title: 'Юг', 
-                    //         imgSrc: 'https://static.wikia.nocookie.net/mlp/images/d/d1/Rarity_standing_S1E19_CROPPED.png/revision/latest/scale-to-width-down/340?cb=20130418142043',
-                    //         address: 'Английская 3',
-                    //         price: '10 000 руб.',
-                    //         services: [ 'tea' ]
-                    //     }
-                    // ] */}
-            </div>
+            {/* THIS MAYBE STUPID SHIT */}
+            <Route exact path='/relax' component={ChooseResort}></Route>
+            <Route exact path='/relax/:category' component={ChooseResort}></Route>
+            {/* PLEASE FIX THIS, IF THAT`S NOT HOW IT`S DONE, ALSO THERE ANOTHER <Route/> in <ChooseResort/>*/}
+
+            <Route exact path='/relax/:category/:id' component={Resort}></Route>
+            {/* <Route path='/relax/:category' component={ChooseResort}></Route> */}
 
             
             {/* <CountryDescription countries={countries} />

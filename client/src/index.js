@@ -37,8 +37,8 @@ ReactDOM.render((
   <Router>
       <Route exact path='/' component={simpleComponent(Home)}/>
       <Route path='/relax' component={simpleComponent(Relax)}/>
-      <Route path='/admin/db/:category' component={adminComponent(FormDBChange)}/>
       <Route exact path='/admin/db' component={adminComponent(FormDBChange)}/>
+      <Route path='/admin/db/:category' component={adminComponent(FormDBChange)}/>
   </Router>
   ), document.getElementById('root')
 );

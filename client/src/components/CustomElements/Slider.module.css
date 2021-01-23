@@ -1,0 +1,87 @@
+.slider{
+    position: relative;
+    height: 100%;
+    width: 100%;
+}
+
+.slider i{
+    font-size: 2.5em;
+}
+
+.item{
+    z-index: 0;
+    opacity: 0;
+    /* visibility: hidden; */
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    height: 100%;
+    width: 100%;
+    transition: opacity .25s linear;
+}
+
+.item.to_left{
+
+}
+
+.item.to_right
+{
+
+}
+
+.item.active{
+    /* visibility: visible; */
+    opacity: 1;
+}
+
+.left, .right{
+    z-index: 1;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    position: absolute;
+    top: 0;
+    bottom:0;
+    /* width: 10%; */
+    opacity: 0.25;
+    background-color: white;
+    transition: opacity .25s linear;
+}
+
+.left{
+    padding-left: 10px;
+    left: 0;
+}
+
+.right{
+    padding-right: 10px;
+    right: 0;
+}
+
+.left i, .right i{
+    margin: 0 15px;
+    transition: transform .25s linear;
+}
+
+.left:hover, .right:hover{
+    cursor: pointer;
+    opacity: .75;
+}
+
+.left:hover i{
+    transform: scale(1.25, 1.25) translate(-50%);
+} 
+
+.right:hover i{
+    transform: scale(1.25, 1.25) translate(50%);
+}
+
+.left i{
+    transform: translateX(-50%);
+}
+
+.right i{
+    transform: translateX(50%);
+}

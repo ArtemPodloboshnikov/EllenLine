@@ -1,0 +1,29 @@
+.resort{
+    display: grid;
+    grid-template-columns: 1fr;
+    grid-auto-rows: auto;
+}
+
+.enter{
+    display: grid;
+
+    height: 500px;
+    grid-template-areas: 'slider info'
+                         'slider wallet';
+    grid-template-columns: 1.25fr 1fr;
+    grid-template-rows: 4fr 1fr; 
+}
+
+.slider{
+    grid-area: slider;
+
+}
+
+.info{
+    grid-area: info;
+}
+
+.wallet{
+    grid-area: wallet;
+}
+

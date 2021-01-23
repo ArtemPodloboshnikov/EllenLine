@@ -52,7 +52,28 @@
     display: grid;
     grid-template-columns: repeat(4, 1fr);
     grid-auto-rows: 250px;
+    gap: 10px;
     /* grid-template-areas: 'item_1 item_2 item_3 item_4'; */
+}
+
+@media screen and (max-width: 1024px)
+{
+    .list{
+        grid-template-columns: repeat(3, 1fr);
+
+    }
+}
+@media screen and (max-width: 768px)
+{
+    .list{
+        grid-template-columns: repeat(2, 1fr);
+    }
+}
+@media screen and (max-width: 425px)
+{
+    .list{
+        grid-template-columns: 1fr;
+    }
 }
 
 

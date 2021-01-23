@@ -5,7 +5,6 @@ import SelectOption from './../../CustomElements/SelectOption.jsx';
 import InputNumber from './../../CustomElements/InputNumber.jsx';
 
 const Search = (props) => {
-
     return (
         <div className={classes.sanatorium + ' ' + props.className}>
             <SelectOption className={classes.country} 
