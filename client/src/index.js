@@ -8,7 +8,7 @@ import {BrowserRouter as Router, Route} from 'react-router-dom';
 import Header from './components/Common/Header/Header';
 import Footer from './components/Common/Footer/Footer';
 import FormDBChange from './components/Admin/FormDBChange/FormDBChange';
-import AdminDBHeader from './components/Common/Header/AdminDBHeader'
+import AdminHeader from './components/Common/Header/AdminHeader'
 
 const simpleComponent = Сomponent => props =>{
    
@@ -24,7 +24,7 @@ const simpleComponent = Сomponent => props =>{
 const adminComponent = Сomponent => props => {
   return (
     <div>
-      <AdminDBHeader/>
+      <AdminHeader/>
       <Сomponent {...props}/>
     </div>
   )
@@ -35,8 +35,8 @@ ReactDOM.render((
   <Router>
       <Route exact path='/' component={simpleComponent(Home)}/>
       <Route exact path='/relax' component={simpleComponent(Relax)}/>
-      <Route path='/admin/db/:category' component={adminComponent(FormDBChange)}/>
-      <Route exact path='/admin/db' component={adminComponent(FormDBChange)}/>
+      <Route path='/admin/:sector?/:category?' component={adminComponent(FormDBChange)}/>
+      {/* <Route exact path='/admin/db' component={adminComponent(FormDBChange)}/> */}
   </Router>
   ), document.getElementById('root')
 );

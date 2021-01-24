@@ -9,7 +9,7 @@ const Footer = () => {
 
         return (
         <div className={ classes.footer }>
-            <div className={ classes.footer__map } id="map"><YandexMap cityCoordinates={cityCoordinates} points={homeOnMap}/></div>
+            <YandexMap className={ classes.footer__map } id="map" cityCoordinates={cityCoordinates} points={homeOnMap}/>
             
             <div className={classes.footer__links}>
                 <div className={classes.links}>

@@ -1,4 +1,4 @@
-.header{
+.header_db{
 
     width: 100%;
     height: 50vh;
@@ -8,30 +8,58 @@
     grid-auto-flow: row;
     padding-top: 3%;
 }
-.queries_none{
+.header_db__parameters{
+
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    justify-content: center;
+    width: 80%;
+    height: 10vh;
+}
+.header_db__parameters > a{
+
+    width: 100%;
+    background-color: #fff;
+    color: #333333;
+    font-family: 'Kazimir';
+    font-size: 2.5em;
+    display: grid;
+    align-items: center;
+    text-align: center;
+}
+.header_db__parameters > a:nth-child(1){
+
+    clip-path: polygon(0 23%, 3% 0, 100% 0, 100% 100%, 3% 99%, 0 77%);
+}
+.header_db__parameters > a:nth-child(3){
+
+    clip-path: polygon(100% 23%, 97% 0, 0 0, 0 100%, 97% 100%, 100% 77%);
+}
+.header_db__queries_none{
 
     visibility: hidden;
 }
-.queries{
+.header_db__queries{
 
     display: grid;
     grid-template-columns: repeat(3, 1fr);
     justify-items: center;
     align-items: center;
 }
-.queries label{
+.header_db__queries label{
 
     color: #333333;
     font-family: 'Mediator Serif';
     font-size: 1.6em;
 }
-.queries a{
+.header_db__queries a{
 
     visibility: hidden;
 }
 [type="radio"]:checked + .radio_button::after,
 [type="radio"]:not(:checked) + .radio_button::after{
 
+    
     background: #009BDF;
 }
 [type="radio"]:checked + .radio_button::before,
@@ -65,7 +93,7 @@
     position: relative;
     z-index: 10;
 } */
-.trips, .relax{
+.header_db__trips, .header_db__relax{
 
     display: grid;
     justify-items: center;
@@ -76,33 +104,33 @@
     height: 10vh;
     
 }   
-.trips a:nth-child(1){
+.header_db__trips a:nth-child(1){
 
     clip-path: polygon(10% 0, 100% 0, 100% 100%, 0 100%);
 
 }
-.trips a:nth-child(2){
+.header_db__trips a:nth-child(2){
 
     clip-path: polygon(0 0, 90% 0, 100% 100%, 0 100%);
 }
-.relax a:nth-child(1){
+.header_db__relax a:nth-child(1){
 
     clip-path: polygon(0 0, 100% 0, 100% 100%, 10% 100%);
 }
 
-.relax a:nth-child(2){
+.header_db__relax a:nth-child(2){
 
     clip-path: polygon(0 0, 100% 0, 90% 100%, 0 100%);
 }
-.relax a{
+.header_db__relax a{
    
     margin-top: 1%;
 }
-.trips a{
+.header_db__trips a{
 
     margin-top: 2%;
 }
-.trips a, .relax a{
+.header_db__trips a, .header_db__relax a{
 
     font-size: 2.5em;
     width: 100%;
@@ -112,4 +140,22 @@
     font-family: 'Kazimir';
     background-color: #fff;
     color: #009BDF;
+}
+.header_admin{
+
+    width: 100%;
+    height: 50vh;
+    background-color: #009BDF;
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    grid-template-rows: repeat(2, 1fr);
+    justify-items: center;
+    align-items: center;
+}
+.header_admin > div{
+
+    color: #333333;
+    font-family: 'Mediator Serif';
+    font-size: 1.6em;
+    cursor: pointer;
 }

@@ -87,8 +87,9 @@ input::-webkit-inner-spin-button {
     top: 0;
     width: 18px;
     height: 18px;
-    border: 1px solid #ddd;
+    border: 1px solid #fff;
     background: #fff;
+    border-radius: 100%;
 }
 [type="radio"]:checked + .radio_button:after,
 [type="radio"]:not(:checked) + .radio_button:after {
@@ -99,8 +100,7 @@ input::-webkit-inner-spin-button {
     position: absolute;
     top: 4px;
     left: 4px;
-    /* right: 4px;
-    bottom: 4px; */
+    border-radius: 100%;
     -webkit-transition: all 0.2s ease;
     transition: all 0.2s ease;
 }

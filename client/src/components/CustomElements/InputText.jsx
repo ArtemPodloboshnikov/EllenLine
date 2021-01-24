@@ -10,8 +10,9 @@ const InputText = (props) => {
     }
     return (
         <div className={classes.wrap + ' ' + props.className}>
-            <input className={classes.input + ' ' + props.classInput} value={value} onChange={printValue}
-                placeholder={props.placeholder}
+            <input name={props.name} ref={props.register} 
+            className={classes.input + ' ' + props.classInput} 
+            value={value} onChange={printValue} placeholder={props.placeholder}
             />
         </div>
     )

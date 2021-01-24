@@ -1,0 +1,5 @@
+.wrap > div, .wrap > div > ymaps, .wrap > div > ymaps > ymaps{
+
+    width: 100% !important;
+    height: 100% !important;
+}

@@ -1,24 +1,32 @@
 .wrap{
 
     transform: skewX(-20deg);
-    background-color: #009BDF;
+    border: 5px solid #009BDF;
     display: grid;
     justify-items: center;
     align-items: center;
+    cursor: pointer;
+}
+.wrap:hover{
+
+    background-color: #009BDF;
+}
+.wrap:hover > input{
+    color: #fff;
 }
 .input::placeholder{
 
-    color: #333333;
     text-align: center;
 }
 .input{
-    background-color: transparent !important;
+    background-color: transparent;
     font-family: 'Mediator Serif Regular';
     font-size: 1.5em;
     width: 98%;
     position: relative;
     transform: skewX(20deg);
     border: none;
-    color: #fff;
+    color: #009BDF;
     text-align: center;
+    cursor: pointer;
 }

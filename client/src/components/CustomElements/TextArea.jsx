@@ -3,7 +3,13 @@ import classes from './TextArea.module.css'
 
 const TextArea = (props) => {
 
-    const [value, setValue] = useState(props.value);
+    let [value, setValue] = useState(props.value);
+    if (props.value !== undefined)
+    {
+        value = props.value;
+        setValue = props.setValue;
+    }
+
     const printValue = (e) =>{
 
         setValue(e.target.value);
@@ -15,7 +21,8 @@ const TextArea = (props) => {
             </div>
             <div className={classes.separate}></div>
             <div className={classes.text}>
-                <textarea className={props.classTextArea} value={value} onChange={printValue} placeholder={props.placeholder}/>
+                <textarea name={props.name} ref={props.register} className={props.classTextArea} 
+                value={value} onChange={printValue} placeholder={props.placeholder}/>
             </div>
         </div>
     )

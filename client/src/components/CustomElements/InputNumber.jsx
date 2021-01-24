@@ -46,7 +46,7 @@ const InputNumber = (props) => {
         if (enter_text <= props.min)
             enter_text = props.min;
         setValue(enter_text);
-        //FIXME value no changed in html
+        
     }
     const componentDidMount = ()=>{
 
@@ -55,7 +55,8 @@ const InputNumber = (props) => {
     // console.log(value);
     return (
         <div className={classes.inputNumber + ' ' + props.className}>
-            <input className={classes.input} placeholder={props.placeholder} value={value} onChange={printValue}/>
+            <input name={props.name} ref={props.register} className={classes.input} 
+            placeholder={props.placeholder} value={value} onChange={printValue}/>
             <div onClick={plus} className={classes.plus}>+</div>
             <div onClick={minus} className={classes.minus}>-</div>
         </div>
