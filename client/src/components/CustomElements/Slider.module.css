@@ -22,15 +22,6 @@
     transition: opacity .25s linear;
 }
 
-.item.to_left{
-
-}
-
-.item.to_right
-{
-
-}
-
 .item.active{
     /* visibility: visible; */
     opacity: 1;

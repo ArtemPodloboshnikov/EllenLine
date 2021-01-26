@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import { NavLink } from 'react-router-dom';
+import ConvertService from './../CustomElements/ConvertService.jsx';
 import classes from './ListItem.module.css';
 
 const ListItem = (props) => {
@@ -18,8 +19,9 @@ const ListItem = (props) => {
             for(let i = 0; i < services.length; i++)
             {
                 let service = services[i];
-                let column_offset = {gridColumn: `${(i + 1 - offset)}`};
-                // This is just example, services will be another
+                let column_offset = {gridColumn: `${i + 1}`};
+
+                //This is just example, services will be another
                 switch(service)
                 {
                     case 'food':
@@ -35,9 +37,9 @@ const ListItem = (props) => {
                         offset++;
                         continue;
                 }
+                // elements.push(<ConvertServic service={services[i]} style={{gridColumn: `${i + 1}`}}/>);
                 elements.push(service);
             }
-            console.log(offset + ' services was not added!');
         }
         return elements;
     }

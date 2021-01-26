@@ -19,23 +19,26 @@ const Slider = (props) => {
     }
 
     function OnClick(e) {
-        if(e.target.classList.contains(classes.right))
+        // console.log(e.target == <i></i>);
+        if(e.currentTarget.classList.contains(classes.right))
         {
             //right
             if(index < images.length - 1)
                 setIndex(index + 1);
+            console.log('right');
         }
         else
         {
             //left
             if(index > 0)
                 setIndex(index - 1);
+            console.log('left');
         }
         console.log(index);
     }
 
     return (
-        <div className={classes.slider}>
+        <div className={classes.slider + ' ' + props.className}>
             <div className={classes.left} onClick={(e) => OnClick(e)}>
                 <i class="fa fa-angle-left" aria-hidden="true"></i>
             </div>
