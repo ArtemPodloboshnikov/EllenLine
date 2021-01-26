@@ -2,7 +2,7 @@
 
     display: grid;
     grid-template-columns: 1fr 3fr 1fr;
-    border: 5px solid #009BDF;
+    border: 5px solid #0062FF;
     width: 100%;
 }
 .inputs{
@@ -14,17 +14,19 @@
 .input{
 
     font-family: 'Mediator Serif Regular';
-    border-right: 5px solid #009BDF;
-    border-left: 5px solid #009BDF;
-    color: #009BDF;
+    border-right: 5px solid #0062FF;
+    border-left: 5px solid #0062FF;
+    color: #0062FF !important;
     width: 100%;
 }
 .input::placeholder{
 
-    color: #009BDF;
+    color: #0062FF;
 }
-.controls{   
-    color: #009BDF;
+.controls{
+
+    
+    color: #0062FF;
     background-color: transparent;
     text-align: center;
     width: 100%;

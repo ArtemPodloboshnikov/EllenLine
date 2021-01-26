@@ -9,7 +9,7 @@
 }
 .sanatorium .country, .sanatorium .city, .sanatorium__input, .sanatorium .stars{
     outline: none;
-    border: 3px solid #009BDF;
+    border: 3px solid #0062FF;
     font-family: 'Mediator Serif Regular';
     font-size: 2em;
     min-width: 0;

@@ -1,13 +1,7 @@
 .form{
 
-    display: grid;
-    width: 80%;
-    height: 150vh;
-    border: 5px solid #333333;
-    margin: 0 auto;
-    margin-top: 3%;
-    grid-row-gap: 0%;
-    padding-top: 3%;
+    height: 250vh;
+ 
 }
 .inputText{
     justify-self: center;
@@ -20,7 +14,10 @@
     width: 70%;
     height: 62vh;
 }
-.inputText__input, .dynamicList__input, .textarea__title, .textarea__text{
+.textarea__text{
+    font-size: 1em !important;
+}
+.button__text, .inputText__input, .dynamicList__input, .textarea__title{
 
     font-size: 1.5em;
 }
@@ -47,4 +44,32 @@
     grid-column-gap: 3%;
     margin-left: 4.3%;
     /* background-color: red; */
+}
+.filesUploader{
+
+    width: 80%;
+    height: 30vh;
+    justify-self: center;
+}
+.filesUploader__text, .filesUploader__placeholder{
+
+    font-size: 1.5em;
+}
+.button{
+
+    width: 30%;
+    height: 10vh;
+    justify-self: center;
+}
+.map{
+
+    justify-self: center;
+    width: 80%;
+    height: 45vh;
+}
+.select{
+
+    justify-self: center;
+    width: 50%;
+    height: 10vh;
 }

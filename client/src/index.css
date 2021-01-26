@@ -143,20 +143,20 @@ input::-webkit-inner-spin-button {
     top: 0;
     width: 18px;
     height: 18px;
-    border: 1px solid #ddd;
+    border: 1px solid #fff;
     background: #fff;
+    border-radius: 100%;
 }
 [type="radio"]:checked + .radio_button:after,
 [type="radio"]:not(:checked) + .radio_button:after {
     content: '';
     width: 12px;
     height: 12px;
-    background: #009BDF;
+    background: #0062FF;
     position: absolute;
     top: 4px;
     left: 4px;
-    /* right: 4px;
-    bottom: 4px; */
+    border-radius: 100%;
     -webkit-transition: all 0.2s ease;
     transition: all 0.2s ease;
 }
@@ -178,7 +178,7 @@ input::-webkit-inner-spin-button {
 
   width: 100%;
   height: 25vh;
-  background-color: #009BDF;
+  background-color: #0062FF;
   color: #fff;
   align-items: center;
   font-family: 'Kazimir';

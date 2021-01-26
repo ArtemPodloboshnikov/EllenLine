@@ -6,7 +6,9 @@ const CreateInput = (params)=>{
     return (
         <div className={classes.wrap}>
             <div id={params.id} onClick={params.minusOnClick} className={classes.controls}>-</div>
-            <input id={params.id} className={classes.input + ' ' + params.classInput} value={params.value[params.id]} placeholder={params.placeholder} onChange={params.onChange}/>
+            <input name={params.name + params.id}  ref={params.register} id={params.id} 
+            className={classes.input + ' ' + params.classInput} value={params.value[params.id]} 
+            placeholder={params.placeholder} onChange={params.onChange}/>
             <div onClick={params.plusOnClick} className={classes.controls}>+</div>
         </div>
     )
@@ -29,7 +31,8 @@ const DynamicList = (props) => {
 
         inputs.push(
             <>
-                <CreateInput classInput={props.classInput} id={i} value={value} onChange={printValue} 
+                <CreateInput register={props.register} name={props.name} 
+                classInput={props.classInput} id={i} value={value} onChange={printValue} 
                 placeholder={props.placeholder} plusOnClick={()=>{
                     
                     setCountMemberArray(countMemberArray + 1);
@@ -45,9 +48,10 @@ const DynamicList = (props) => {
 
                         setCountMemberArray(countMemberArray - 1);
                         let new_array = [...value];
-                        console.log(e.target.id);
+                        //console.log(e.target.id);
                         new_array.splice(e.target.id, 1);
-
+                        let name = document.getElementsByName(props.name + e.target.id);
+                        name.value = '';
                         setValue(new_array);
                     }
                 }}
@@ -56,7 +60,8 @@ const DynamicList = (props) => {
         )
 
     }
-    console.log(value)
+    
+    //console.log(value)
     return (
         <div className={classes.inputs + ' ' + props.className}>
             {inputs}
