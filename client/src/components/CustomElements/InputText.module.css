@@ -1,14 +1,14 @@
 .wrap{
 
     transform: skewX(-20deg);
-    background-color: #009BDF;
+    background-color: #0062FF;
     display: grid;
     justify-items: center;
     align-items: center;
 }
 .input::placeholder{
 
-    color: #333333;
+    color: #FFDD00;
     text-align: center;
 }
 .input{

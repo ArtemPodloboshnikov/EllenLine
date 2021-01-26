@@ -30,9 +30,9 @@ const Cities = (props) => {
         
         data.idCountry = contries_cities.countries[data.country];
         data.idCity = contries_cities.cities[data.city];
-        console.log(data)
-        // delete data.name;
-        // setFormData(data);
+        delete data.country;
+        delete data.city;
+        setFormData(data);
     }
     useEffect(()=>{
 

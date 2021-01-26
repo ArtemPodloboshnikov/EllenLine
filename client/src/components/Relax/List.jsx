@@ -1,6 +1,6 @@
 import React from 'react'
 import classes from './List.module.css';
-import YandexMap from '../Common/Map/YandexMap';
+import PresentationMap from '../Common/Map/PresentationMap';
 
 /*
     {parking: true, playground: true, restaurant: true, pebblesBeach: true, sandyBeach: true, sportsGround: true, trainer: true, pool: true, poolUnderRoof: true, park: true, sauna: true, SPA: true, receptionWithAnimals: true, musculoskeletalSystem: true, gynecologicalDiseases: true, urologicalDiseases: true, cardiovascularSystem: true, respiratoryOrgans: true, nervousSystem: true, digestiveSystem: true, metabolicDiseases: true, childrenUnder3: true, singleOccupancy: true, familiesOf4: true}
@@ -14,7 +14,7 @@ function List(props){
            
         <div className={classes.list}>
             <div className={classes.map}>
-                <YandexMap cityCoordinates={props.cityCoordinates} points={props.points}/>
+                <PresentationMap cityCoordinates={props.cityCoordinates} points={props.points}/>
             </div>
             <div className={classes.names}>
             

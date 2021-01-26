@@ -15,7 +15,7 @@
 }
 .title, .text{
 
-    background-color: #009BDF;
+    background-color: #0062FF;
 }
 .title{
 
@@ -24,7 +24,7 @@
     display: grid;
     justify-items: center;
     align-items: center;
-    color: #333333;
+    color: #FFDD00;
     
 }
 .separate{

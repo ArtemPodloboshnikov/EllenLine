@@ -96,7 +96,7 @@ input::-webkit-inner-spin-button {
     content: '';
     width: 12px;
     height: 12px;
-    background: #009BDF;
+    background: #0062FF;
     position: absolute;
     top: 4px;
     left: 4px;
@@ -122,7 +122,7 @@ input::-webkit-inner-spin-button {
 
   width: 100%;
   height: 25vh;
-  background-color: #009BDF;
+  background-color: #0062FF;
   color: #fff;
   align-items: center;
   font-family: 'Kazimir';

@@ -6,11 +6,11 @@
 }
 .drag{
 
-    border: 5px solid #009BDF;
+    border: 5px solid #0062FF;
 }
 .drop{
 
-    border: 5px dashed #009BDF;
+    border: 5px dashed #0062FF;
 }
 .drag, .drop, .placeholder{
 
@@ -18,7 +18,7 @@
     height: 100%;
     background-color: transparent;
     font-family: 'Mediator Serif Regular';
-    color: #009BDF;
+    color: #0062FF;
     text-align: center;
     display: grid;
     align-items: center;

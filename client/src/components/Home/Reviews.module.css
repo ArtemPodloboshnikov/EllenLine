@@ -2,8 +2,8 @@
     margin-top: 10%;
     width: 100%;
     height: 63vh;
-    border-bottom: 7px solid #009BDF;
-    border-top: 7px solid #009BDF;
+    border-bottom: 7px solid #0062FF;
+    border-top: 7px solid #0062FF;
     background-color: #fff;
     grid-template-columns: 2fr 3fr;
     display: grid;
@@ -39,7 +39,7 @@
 .reviews__image div{
 
     font-family: 'Kazimir';
-    color: #009BDF;
+    color: #0062FF;
     align-self: start;
     text-align: center;
 }

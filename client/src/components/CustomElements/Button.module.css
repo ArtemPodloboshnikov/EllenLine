@@ -1,7 +1,7 @@
 .wrap{
 
     transform: skewX(-20deg);
-    border: 5px solid #009BDF;
+    border: 5px solid #0062FF;
     display: grid;
     justify-items: center;
     align-items: center;
@@ -9,7 +9,7 @@
 }
 .wrap:hover{
 
-    background-color: #009BDF;
+    background-color: #0062FF;
 }
 .wrap:hover > input{
     color: #fff;
@@ -26,7 +26,7 @@
     position: relative;
     transform: skewX(20deg);
     border: none;
-    color: #009BDF;
+    color: #0062FF;
     text-align: center;
     cursor: pointer;
 }

@@ -8,7 +8,7 @@ const AdminHeader = (props) => {
     
    
 
-    let textColor = ['#009BDF', '#009BDF', '#009BDF', '#009BDF', '#009BDF', '#009BDF', '#009BDF'];
+    let textColor = ['#0062FF', '#0062FF', '#0062FF', '#0062FF', '#0062FF', '#0062FF', '#0062FF'];
     const {sector, category} = useParams();
     console.log(sector);
    

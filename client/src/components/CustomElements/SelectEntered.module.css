@@ -2,7 +2,7 @@
 
     display: grid;
     grid-template-columns: 4fr 1fr;
-    background-color: #009BDF;
+    background-color: #0062FF;
     width: 100%;
     height: 100%;
 }
@@ -34,7 +34,7 @@
 }
 .input::placeholder{
 
-    color: #333333;
+    color: #FFDD00;
     text-align: center;
 }
 .input{
@@ -54,7 +54,7 @@
     position: relative;
     width: 100%;
     background-color: #fff;
-    color: #009BDF;
+    color: #0062FF;
     font-family: 'Mediator Serif Regular';
     font-size: 1.5em;
     background-color: #fff;

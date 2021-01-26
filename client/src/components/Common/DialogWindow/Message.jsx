@@ -7,23 +7,19 @@ const Message = (props) => {
     let text = ''; 
     switch (props.status)
     {
-        case 404:
+        case 404:{
             title = 'Запрос не отправлен';
-            break;
-        case 200:
-            title = 'Запрос выполнен'
-            break;
-    }
-
-    switch (props.body)
-    {
-        case 'Not Found':
             text = 'Страница отвечающая за отправку запроса — не была найдена';
             break;
-        case 'OK':
-            text = 'Данные успешно внесены в базу данных'
+        }
+        case 200:{
+            title = 'Запрос выполнен';
+            text = 'Данные успешно внесены в базу данных';
             break;
+        }
     }
+
+    
     return (
         <>
             <div className={classes.window} style={props.style}>

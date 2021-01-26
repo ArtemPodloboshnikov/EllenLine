@@ -8,7 +8,7 @@ import Button from '../../../CustomElements/Button'
 import { useForm } from "react-hook-form";
 import Message from '../../../Common/DialogWindow/Message';
 import FilesUploader from '../../../CustomElements/FilesUploader'
-import YandexMap from '../../../Common/Map/YandexMap';
+import EditMap from '../../../Common/Map/EditMap';
 import SelectEntered from '../../../CustomElements/SelectEntered'
 
 const Sanatorium = (props) => {
@@ -120,7 +120,7 @@ const Sanatorium = (props) => {
                 <SelectEntered register={register({required: true})} name='city' onChangeFunction={setCityName}
                 className={classes.select} placeholder='Город' options={Object.keys(contries_cities.cities)} />
 
-                <YandexMap cityName={cityName} points={[]} className={classes.map}/>
+                <EditMap cityName={cityName} points={[]} className={classes.map}/>
 
                 <div className={classes.form__services}>
                     <DynamicList name='inStock' register={register({required: true})} className={classes.dynamicList} 

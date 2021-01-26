@@ -14,7 +14,10 @@
     width: 70%;
     height: 62vh;
 }
-.button__text, .inputText__input, .dynamicList__input, .textarea__title, .textarea__text{
+.textarea__text{
+    font-size: 1em !important;
+}
+.button__text, .inputText__input, .dynamicList__input, .textarea__title{
 
     font-size: 1.5em;
 }

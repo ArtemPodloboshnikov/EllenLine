@@ -6,20 +6,21 @@ import classes from './YandexMap.module.css';
 //const markState = {points: [{geometry: [59.87026977960634, 30.26204491830366], hintContent: 'Эллинлайн', balloonContent: 'ул. Зайцева, 3, корп. 2, Санкт-Петербург'}]}
 
 
-function YandexMap(props){
+function EditMap(props){
    
    
     const [cityCoordinates, setCityCoordinates] = useState([59.93388253587983, 30.321229494686143]);
-
+    
+   
     const newPlacemark = (event) => {
         
         let map = event.originalEvent.target;
         console.log(map);
-        // event.target.events.add('click', (e)=>{
+        map.events.add('click', (e) =>{
 
-            if (!event.balloon.isOpen()) {
-                let coords = map.get('coords');
-                event.balloon.open(coords, {
+            if (!map.balloon.isOpen()) {
+                let coords = e.get('coords');
+                map.balloon.open(coords, {
                     contentHeader:'Событие!',
                     contentBody:'<p>Кто-то щелкнул по карте.</p>' +
                         '<p>Координаты щелчка: ' + [
@@ -28,11 +29,18 @@ function YandexMap(props){
                         ].join(', ') + '</p>',
                     contentFooter:'<sup>Щелкните еще раз</sup>'
                 });
+            
             }
             else {
-                event.balloon.close();
+                map.balloon.close();
             }
-        // })
+            
+
+        })
+
+           
+            
+    
     }
     
     useEffect(()=>{
@@ -52,13 +60,15 @@ function YandexMap(props){
             });
 
             setCityCoordinates(coordinates);
+           
         }
         
         getGeocode(props.cityName);
+        
 
     }, [props.cityName])
 
-    console.log(props.cityName);
+    //console.log(props.cityName);
 
     let mapState = {};
 
@@ -72,16 +82,17 @@ function YandexMap(props){
         mapState = {center: cityCoordinates, zoom: 10};
     }
   
-    console.log(cityCoordinates);
+   // console.log(cityCoordinates);
 
     const markState = {points: props.points,  modules: ['geoObject.addon.balloon', 'geoObject.addon.hint']}
 
-     return   (<div className={props.className + ' ' + classes.wrap} id={props.id}>
+    return   (<div className={props.className + ' ' + classes.wrap} id={props.id}>
             
             <YMaps enterprise query={{apikey: '5594e597-90cb-48f6-a139-b76c8a42a41a&lang=ru_RU'}} 
                version={"2.1"}>
        
             <Map state={mapState} onClick={newPlacemark}>
+           
             {/* <Clusterer options={{
                             preset: 'islands#invertedVioletClusterIcons',
                             clusterDisableClickZoom: true,
@@ -127,4 +138,4 @@ function YandexMap(props){
     
 };
 
-export default YandexMap;
+export default EditMap;
