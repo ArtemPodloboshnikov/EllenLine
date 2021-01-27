@@ -8,124 +8,6 @@
     color: #009BDF;
 }
 
-.enter{
-    display: grid;
-
-    height: 500px;
-    grid-template-areas: 'slider info'
-                         'slider wallet';
-    grid-template-columns: 1.25fr 1fr;
-    grid-template-rows: 4fr 1fr; 
-    row-gap: 10px;
-    column-gap: 10px;
-}
-
-.slider{
-    grid-area: slider;
-}
-
-.info, .wallet, .info button{
-    border: 3px solid #009BDF;
-}
-
-.info{
-    grid-area: info;
-    display: grid;
-    grid-template-rows: repeat(3, 1fr);
-}
-
-.info h1, .info h2, .info button{
-    justify-self: center;
-    align-self: center;
-    text-align: center;
-    margin: 0;
-}
-
-.info span, .info button{
-    display: block;
-    width: fit-content;
-    margin: 0 auto;
-    margin-bottom: 25px;
-}
-
-.info button{
-    display: block;
-    height: fit-content;
-    padding: 10px 20px;
-    margin-bottom: 0;
-    font-size: 1em;
-}
-
-.info button:hover{
-    cursor: pointer;
-}
-
-.info button:active{
-    background-color: #009BDF;
-    color: white;
-}
-
-.wallet{
-    grid-area: wallet;
-    display: grid;
-    grid-template-columns: 1fr 5fr;
-} 
-
-.wallet p, .wallet i{
-    justify-self: center;
-    align-self: center;
-}
-
-.wallet p{
-    /* margin: 0 auto; */
-    text-align: center;
-    font-size: 1.5em;
-}
-
-.wallet i{
-    font-size: calc(2em + 1vw);
-}
-
-.description{
-    padding-bottom: 20px;
-}
-
-.description > div{
-    position: relative;
-}
-
-.description .back{
-    position: absolute;
-    top: 0;
-    left: 0;
-    right: 0;
-    bottom: -1px;
-    background: linear-gradient(0deg, white, transparent);
-}
-
-.description p{
-    height: 100px;
-    overflow: hidden;
-}
-
-.description i{
-    float: right;
-    font-size: 2em;
-    transition: transform .25s linear;
-}
-
-.description i:hover{
-    cursor: pointer;
-    transform: scale(1.5, 1.5);
-}
-
-.description i.active{
-    transform: rotate(180deg);
-}
-
-.description i.active:hover{
-    transform: scale(1.5, 1.5) rotate(180deg);
-}
 
 .services{
     display: grid;
@@ -187,14 +69,6 @@
 
 @media screen and (max-width: 1024px)
 {
-    .enter{
-        height: 750px;
-        grid-template-areas: 'slider'
-                             'info'
-                             'wallet';
-        grid-template-columns: 1fr;
-        grid-template-rows: 4fr 1fr 1fr; 
-    }
 
     .services h1{
         /* font-size: 1.5  em; */

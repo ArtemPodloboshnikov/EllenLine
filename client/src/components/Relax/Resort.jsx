@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import FormBooking from './../CustomElements/FormBooking.jsx';
-import Slider from './../CustomElements/Slider.jsx';
+//import Slider from './../CustomElements/Slider.jsx';
+import InfoSection from './../CustomElements/InfoSection.jsx';
 import classes from './Resort.module.css';
 
 const Resort = (props) => {
@@ -22,7 +23,6 @@ const Resort = (props) => {
     let[text, setText] = useState(props.text);
     let[address, setAddress] = useState(props.address);
     //
-    const[expand, setExpand] = useState(false);
 
     //#region Convert Object
     const convert = 
@@ -82,22 +82,6 @@ const Resort = (props) => {
         console.log(id + ' ID resort');
     }
 
-    function ExpandDescription(e) {
-        // console.log();
-        let arrow = e.currentTarget;
-        if(arrow.classList.contains(classes.active))
-        {
-            arrow.classList.remove(classes.active);
-            //shrink
-        }
-        else
-        {
-            arrow.classList.add(classes.active);
-            //expand
-        }
-        setExpand(!expand);
-    }
-
     function ConvertServices(service) {
         let massiv = services[service];
         let converts = convert[service];
@@ -114,37 +98,12 @@ const Resort = (props) => {
 
     return (
         <div className={classes.resort}>
-
-            <div className={classes.enter}>
-                <Slider className={classes.slider} images={images}/>
-                <div className={classes.info}>
-                    <h1>{title}</h1>
-                    {/* STARS */}
-                    <div>
-                        <h2>от {price}</h2>
-                        <span>за человека</span>
-                    </div>
-                    <button>Забронировать</button>
-                </div>
-                <div className={classes.wallet}>
-                    <i class="fa fa-credit-card" aria-hidden="true"></i>
-                    <p>
-                        Можно оплатить наличными или картой на месте
-                    </p>
-                </div>
-            </div>
-
-            <div className={classes.description}>
-                <div>
-                    <div className={classes.back} style={{display: expand ? 'none' : 'block'}}/>
-                    <h1>Описание</h1>
-                    <p style={{height: expand ? 'auto' : '100px'}}>
-                        {text}
-                    </p>
-                </div>
-                <i class="fa fa-arrow-down" onClick={(e) => ExpandDescription(e)} aria-hidden="true"></i>
-            </div>
-
+            {/*  */}
+            <InfoSection title="DALER MADE THIS" 
+                         price={20000} 
+                         text="text"
+                         images={images}/>
+            {/*  */}
             <div className={classes.services}>
                 <div className={classes.available}>
                     <h1>В наличии</h1>

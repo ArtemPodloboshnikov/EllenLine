@@ -74,7 +74,6 @@ const InputNumber = (props) => {
     //#endregion
 
     return (
-<<<<<<< HEAD
         // UNCOMMENT IF NEEDED RESTORE, ALSO WAS DELETED CLASS classe.input IN input
         // <div className={classes.inputNumber + ' ' + props.className}>
         <input className={props.className}  
@@ -85,14 +84,6 @@ const InputNumber = (props) => {
         //     <div onClick={plus} className={classes.plus}>+</div>
         //     <div onClick={minus} className={classes.minus}>-</div>
         // </div> 
-=======
-        <div className={classes.inputNumber + ' ' + props.className}>
-            <input name={props.name} ref={props.register} className={classes.input} 
-            placeholder={props.placeholder} value={value} onChange={printValue}/>
-            <div onClick={plus} className={classes.plus}>+</div>
-            <div onClick={minus} className={classes.minus}>-</div>
-        </div>
->>>>>>> origin/main
     )
 }
 

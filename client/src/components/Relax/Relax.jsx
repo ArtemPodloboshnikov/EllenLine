@@ -13,28 +13,46 @@ import ky from 'ky';
 const Relax = () => {
     const [sanatoriums, setSanatoriums] = useState([]);
     const [countries, setCountries] = useState([]);
+
     useEffect(()=>{
 
-        document.title = `Санатории`;
-
-        async function getData(){
+        document.title = `Отдых`;
+        //#region Old Quest
+        // async function getData(){
     
-            const json =  await ky.get('http://localhost:4000/getSanatoriums').json();
-            setSanatoriums(json);
-            let bufCountries = [];
-            sanatoriums.map((sanatorium) => { 
+        //     const json =  await ky.get('http://localhost:4000/getSanatoriums').json();
+        //     setSanatoriums(json);
+        //     let bufCountries = [];
+        //     sanatoriums.map((sanatorium) => { 
 
-                bufCountries.push({nameCountry: sanatorium.nameCountry, descriptionCountry: sanatorium.descriptionCountry});
-                delete sanatorium.nameCountry;
-                delete sanatorium.descriptionCountry;
-            })
-            setCountries(bufCountries);
-        }
+        //         bufCountries.push({nameCountry: sanatorium.nameCountry, descriptionCountry: sanatorium.descriptionCountry});
+        //         delete sanatorium.nameCountry;
+        //         delete sanatorium.descriptionCountry;
+        //     })
+        //     setCountries(bufCountries);
+        // }
 
-        getData()
+        // getData();
+        //#endregion
 
-    }, []);
-    console.log(sanatoriums)
+        // async function getSanatoriums() 
+        // {
+        //     const answer = await fetch('http://localhost:4000/api/sanatoriums')
+        //     .then((res) => 
+        //     {
+        //         return res.json();
+        //     })
+        //     .then((data) => 
+        //     {
+        //         console.log('Returned: \n');
+        //         console.log(data);
+        //     });
+        //     console.log('Answer: \n');
+        //     console.log(answer);
+        // }
+
+        // getSanatoriums();
+    });
     
     
     let points = [];

@@ -3,6 +3,8 @@ import ReactDOM from 'react-dom';
 import './index.css';
 import Home from './components/Home/Home.jsx';
 import Relax from './components/Relax/Relax';
+import Tours from './components/Tours/Tours.jsx';
+//
 import reportWebVitals from './reportWebVitals';
 import {BrowserRouter as Router, Route} from 'react-router-dom';
 import Header from './components/Common/Header/Header';
@@ -36,7 +38,8 @@ const adminComponent = Сomponent => props => {
 ReactDOM.render((
   <Router>
       <Route exact path='/' component={simpleComponent(Home)}/>
-      <Route exact path='/relax' component={simpleComponent(Relax)}/>
+      <Route path='/relax' component={simpleComponent(Relax)}/>
+      <Route path='/tours' component={simpleComponent(Tours)}/>
       <Route path='/admin/:sector?/:category?' component={adminComponent(FormDBChange)}/>
       {/* <Route exact path='/admin/db' component={adminComponent(FormDBChange)}/> */}
   </Router>

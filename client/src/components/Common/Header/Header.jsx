@@ -51,7 +51,7 @@ const Header = (props) => {
                             <Link to='/' className={classes.header__button}>О нас</Link>
                             <Link style={{gridColumn: '2 / 4'}} to='/collaboration' className={classes.header__button}>Санкт-Петербург</Link>
                             <Link to='/'><img src='images/logo-header.svg'/></Link>
-                            <Link to='/sanatorium' className={classes.header__button}>Туры</Link>
+                            <Link to='/tours' className={classes.header__button}>Туры</Link>
                             <Link to='/places' className={classes.header__button}>Экскурсии</Link>
                             <div><Link to='/relax' className={classes.header__button} onMouseOver={showTree} onMouseOut={hideTree}>Отдых</Link><div onMouseOver={showTree} onMouseOut={hideTree} id='tree' className={classes.tree + ' ' + treeActive}>
                                 <Link className={classes.header__treeItem} to='/relax/sanatorium'>Санатории</Link>

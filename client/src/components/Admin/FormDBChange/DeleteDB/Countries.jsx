@@ -1,6 +1,6 @@
 import React, {useState, useEffect} from 'react'
 import Message from '../../../Common/DialogWindow/Message';
-import { useForm } from "react-hook-form";
+import { useForm } from 'react-hook-form';
 import SelectEntered from '../../../CustomElements/SelectEntered';
 import TextArea from '../../../CustomElements/TextArea';
 import Button from '../../../CustomElements/Button';

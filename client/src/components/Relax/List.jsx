@@ -1,11 +1,7 @@
 import React, { useState } from 'react';
 import classes from './List.module.css';
-<<<<<<< HEAD
-import YandexMap from '../Common/Map/YandexMap';
 import ListItem from './ListItem.jsx';
-=======
 import PresentationMap from '../Common/Map/PresentationMap';
->>>>>>> origin/main
 
 /*
     {parking: true, playground: true, restaurant: true, pebblesBeach: true, sandyBeach: true, sportsGround: true, trainer: true, pool: true, poolUnderRoof: true, park: true, sauna: true, SPA: true, receptionWithAnimals: true, musculoskeletalSystem: true, gynecologicalDiseases: true, urologicalDiseases: true, cardiovascularSystem: true, respiratoryOrgans: true, nervousSystem: true, digestiveSystem: true, metabolicDiseases: true, childrenUnder3: true, singleOccupancy: true, familiesOf4: true}
@@ -94,7 +90,6 @@ function List(props){
     
 
     return (
-<<<<<<< HEAD
         //#region Zimin`s comment
         // <div className={classes.list}>
         //     <div className={classes.map}>
@@ -102,18 +97,6 @@ function List(props){
         //     </div>
         //     <div className={classes.names}>
         //         {(()=>{
-=======
-        
-           
-        <div className={classes.list}>
-            <div className={classes.map}>
-                <PresentationMap cityCoordinates={props.cityCoordinates} points={props.points}/>
-            </div>
-            <div className={classes.names}>
-            
-                    
-                        {(()=>{
->>>>>>> origin/main
 
         //             let sanatoriumsDivs = [];
         //             props.sanatoriums.map((sanatorium) => {
