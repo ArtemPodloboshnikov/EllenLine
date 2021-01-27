@@ -1,0 +1,75 @@
+.form{
+
+    height: 250vh !important;
+ 
+}
+.inputText{
+    justify-self: center;
+    width: 70%;
+    height: 10vh;
+}
+.textarea{
+
+    justify-self: center;
+    width: 70%;
+    height: 62vh;
+}
+.textarea__text{
+    font-size: 1em !important;
+}
+.button__text, .inputText__input, .dynamicList__input, .textarea__title{
+
+    font-size: 1.5em;
+}
+.inputNumber{
+
+    width: 30%;
+    height: 10vh;
+    justify-self: center;
+}
+.dynamicList{
+
+    width: 105%;
+    height: 5vh;
+    justify-self: start;
+    
+}
+.form__services{
+
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    width: 90%;
+    justify-content: start;
+    margin: 0 auto;
+    grid-column-gap: 3%;
+    margin-left: 4.3%;
+    /* background-color: red; */
+}
+.filesUploader{
+
+    width: 80%;
+    height: 30vh;
+    justify-self: center;
+}
+.filesUploader__text, .filesUploader__placeholder{
+
+    font-size: 1.5em;
+}
+.button{
+
+    width: 30%;
+    height: 10vh;
+    justify-self: center;
+}
+.map{
+
+    justify-self: center;
+    width: 80%;
+    height: 45vh;
+}
+.select{
+
+    justify-self: center;
+    width: 50%;
+    height: 10vh;
+}

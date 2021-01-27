@@ -1,0 +1,55 @@
+.wrap{
+
+    display: grid;
+    grid-template-areas: 
+    'title'
+    'separate'
+    'text';
+    grid-template-rows: 0.5fr 0.1fr 4fr;
+   
+}
+.wrap *{
+
+    font-family: 'Mediator Serif Regular';
+    font-size: 1.5em;
+}
+.title, .text{
+
+    background-color: #0062FF;
+}
+.title{
+
+    clip-path: polygon(0 100%, 32% 0, 68% 0, 100% 100%);
+    grid-area: title;
+    display: grid;
+    justify-items: center;
+    align-items: center;
+    color: #FFDD00;
+    
+}
+.separate{
+
+    width: 100%;
+    background-color: #fff;
+    grid-area: separate;
+}
+.text{
+
+    clip-path: polygon(0 0, 0 91%, 14% 100%, 86% 100%, 100% 91%, 100% 0);
+    grid-area: text;
+    display: grid;
+    justify-items: center;
+}
+.text > textarea{
+    
+
+    width: 99%;
+    height: 90%;
+    resize: none;
+    color: #fff;
+    background-color: transparent;
+}
+.text > textarea::placeholder{
+
+    color: #fff;
+}
