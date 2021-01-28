@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import FormBooking from './../CustomElements/FormBooking.jsx';
 //import Slider from './../CustomElements/Slider.jsx';
 import InfoSection from './../CustomElements/InfoSection.jsx';
-import classes from './Resort.module.css';
+import classes from './Resort.module.scss';
 
 const Resort = (props) => {
     // const[idItem, setId] = useState(props.idItem);
@@ -133,7 +133,7 @@ const Resort = (props) => {
                 
             </div>
 
-            <FormBooking className={classes.booking}/>
+            <FormBooking className={classes.form}/>
         </div>
     )
 }

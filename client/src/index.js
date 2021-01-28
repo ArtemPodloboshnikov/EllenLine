@@ -1,6 +1,7 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 import './index.css';
+import './index.scss';
 import Home from './components/Home/Home.jsx';
 import Relax from './components/Relax/Relax';
 import Tours from './components/Tours/Tours.jsx';

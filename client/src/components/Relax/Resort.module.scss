@@ -1,3 +1,4 @@
+@import './../../index.scss';
 .resort{
     display: grid;
     grid-template-columns: 1fr;
@@ -5,7 +6,7 @@
 }
 
 .resort i{
-    color: #009BDF;
+    color: $primary_color;
 }
 
 
@@ -18,8 +19,7 @@
 }
 
 .services i{
-    justify-self: center;
-    align-self: center;
+    @extend %grid_center;
 }
 
 .available, .rooms, .common{
@@ -65,6 +65,10 @@
     justify-self: left;
     align-self: center;
     margin: 0;  
+}
+
+.form{
+    margin-top: 25px;
 }
 
 @media screen and (max-width: 1024px)

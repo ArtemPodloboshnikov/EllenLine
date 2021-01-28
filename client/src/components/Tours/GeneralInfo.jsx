@@ -65,7 +65,7 @@ const GeneralInfo = (props) => {
             <hr/>
             <div className={classes.paid_services}>
                 <div className={classes.title}>
-                    Оплаченные услуги
+                    Оплаченные услуги 
                 </div>
                 <div className={classes.service}>
                     {GenerateServices(paid_services)}

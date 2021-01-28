@@ -1,0 +1,30 @@
+$primary_color: #0062FF;
+$sub_color: white;
+$primary_font_color: black;
+// $sub_font_color: white; 
+
+%border 
+{
+    padding: .5px;
+    border: 3px solid $primary_color;
+    border-radius: 5px;
+}
+
+%grid_center
+{
+
+    align-self: center;
+    justify-self: center;
+}
+
+%button:hover{
+    cursor: pointer;
+}
+
+%button:active{
+    background-color: $primary_color;
+    color: $sub_color;
+}
+
+
+

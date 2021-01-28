@@ -5,7 +5,6 @@ const InputText = (props) => {
 
     const [value, setValue] = useState(props.value);
     const printValue = (e) =>{
-
         setValue(e.target.value);
     }
     return (

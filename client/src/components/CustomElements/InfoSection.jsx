@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import Slider from './../CustomElements/Slider.jsx';
-import classes from './InfoSection.module.css';
+import classes from './InfoSection.module.scss';
 
 const InfoSection = (props) => {
     const [title, setTitle] = useState(props.title);
@@ -12,14 +12,6 @@ const InfoSection = (props) => {
     const [index, setIndex] = useState(props.index ? props.index : 0);
     //If exists, then this tour not relax or something else
     const [duration, setDuration] = useState(props.duration ? props.duration : undefined);
-    // switch(props.type)
-    // {
-    //     case 'tour':
-    //         dur
-    //         break;
-    //     default:
-    //         break;
-    // }
 
 
     function ExpandDescription(e) {
@@ -39,11 +31,6 @@ const InfoSection = (props) => {
     }
 
     function ReturnMainTitle() {
-        // debugger;
-        // if(!duration)
-        //     return <h1>{title}</h1>;
-        // else
-        //     return;
         return <h1>{title}</h1>;
     }
 

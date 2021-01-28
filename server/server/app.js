@@ -6,10 +6,6 @@ const cors = require('cors')
 
 const PORT = 4000;
 
-<<<<<<< HEAD
-
-=======
->>>>>>> origin/main
 app.use(cors());
 
 app.use(bodyParser.urlencoded({ extended: false }));

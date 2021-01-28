@@ -1,0 +1,20 @@
+@import './../../index.scss';
+.date 
+{
+    display: block;
+    label, input 
+    {
+        display: block;
+    }
+    label
+    {
+        margin-bottom: 5px;
+        color: $primary_color;
+    }
+    input
+    {
+        @extend %border;
+        color: $sub_color;
+        background-color: $primary_color;
+    }
+}
