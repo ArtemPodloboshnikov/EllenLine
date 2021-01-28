@@ -17,24 +17,78 @@ const Sanatorium = (props) => {
     const [formData, setFormData] = useState({}); 
     const [dbData, setDbData] = useState({});
     const [message, setMessage] = useState({style: {display: 'none'}, status: '', body: ''});
+    const [countryName, setCountryName] = useState('Франция');
     const [cityName, setCityName] = useState('Санкт-Петербург');
+  
     const handleOnSubmit = (data)=>{
-        console.log(data)
-        setFormData(data)
+
+        let new_data = new FormData();
+        let commonServices = [];
+        for (let i = 0; ; i++)
+        {
+            
+            if (data['commonServices' + i] === undefined)
+            {
+                break;
+            }
+            commonServices.push(data['commonServices' + i]);
+            delete data['commonServices' + i]
+        }
+        data.commonServices = commonServices;
+
+        let servicesRoom = [];
+        for (let i = 0; ; i++)
+        {
+           
+            
+            if (data['servicesRoom' + i] === undefined)
+            {
+                break;
+            }
+            servicesRoom.push(data['servicesRoom' + i]);
+            delete data['servicesRoom' + i];
+        }
+        data.servicesRoom = servicesRoom;
+
+        let inStock = [];
+        for (let i = 0; ; i++)
+        {
+            
+            if (data['inStock' + i] === undefined)
+            {
+                break;
+            }
+            inStock.push(data['inStock' + i]);
+            delete data['inStock' + i];
+        }
+        data.inStock = inStock;
+
+        data.photosPath = [];
+        for (let i = 0; i < data.files.length; i++)
+        {
+            new_data.append('photos[]', data.files[i], data.files[i].name);
+            data.photosPath.push(`images/Sanatorium/${data.files[i].name}`);
+        }
+
+        delete data.files
+        data.coordinates = document.getElementsByName('coordinates')[0].value.split(',');
+        setFormData({photos: new_data, json: data})
     }
 
     let contries_cities = {countries: {}, cities: {}};
 
     if (Object.keys(dbData).length != 0) 
     {
-        console.log(dbData)
-        dbData.countries.map(data => {
-            contries_cities.countries[data.name] =  data.id;
+        
+        dbData.countryWithCities.map(data => {
             
+            contries_cities.cities[data.cityName] = data.idCity;
         });
-        dbData.cities.map(data => {
-            contries_cities.cities[data.name] =  data.id;
-        });
+        dbData.countries.map(data=>{
+
+            contries_cities.countries[data.name] = data.id;
+        })
+       
     }
 
     useEffect(()=>{
@@ -43,55 +97,78 @@ const Sanatorium = (props) => {
         async function get()
         {
             let result = {};
+
+            await fetch('http://localhost:4000/api/countries?with=cities&whereCountryName=' + countryName)
+              .then((response) => {
+                return response.json();
+              })
+              .then((data) => {
+                result = {countryWithCities: data};
+              });
             await fetch('http://localhost:4000/api/countries')
               .then((response) => {
                 return response.json();
               })
               .then((data) => {
-                result = {countries: data};
-              });
-            await fetch('http://localhost:4000/api/cities')
-              .then((response) => {
-                return response.json();
-              })
-              .then((data) => {
-                result = {...result, cities: data};
+                result = {...result, countries: data};
               });
             
             setDbData(result);
-           
         }
         get();
 
 
-    }, [])
+    }, [countryName])
 
     useEffect(()=>{
 
-        async function insert()
+        async function insert(data)
         {
-       
-            // const json =  await fetch('http://localhost:4000/api/sanatoriums', {
-            //     method: 'POST',
-            //     headers: {
-            //       'Content-Type': 'application/json;charset=utf-8'
-            //     },
-            //     body: JSON.stringify(formData)
-            // });
-            // console.log(json);
+            
+            // let request = new XMLHttpRequest()
+            // request.open("POST", "http://localhost:4000/api/sanatoriums")
+            // request.withCredentials = true
+            // request.send(formData)
+            let response =  await fetch('http://localhost:4000/api/sanatoriums', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json;charset=utf-8'
+                },
+                body: JSON.stringify(data)
+            });
+            console.log(response);
 
-            // if (json.status === 404)
-            // {
-            //     setMessage({style: {display: 'grid'}, status: json.status, body: json.statusText});
-            //     console.log(message);
-            // }
+            if (response.status === 404)
+            {
+                setMessage({style: {display: 'grid'}, status: json.status, body: json.statusText});
+                console.log(message);
+            }
             
             alert('Data send');
             
         }
+        async function uploadPhotos(data)
+        {
+
+            let response =  await fetch('http://localhost:4000/api/sanatoriumsPhotos', {
+                mode: 'no-cors',
+                method: 'POST',
+                body: data
+            });
+            console.log(response);
+            
+            
+            if (response.status === 404)
+            {
+                setMessage({style: {display: 'grid'}, status: json.status, body: json.statusText});
+                console.log(message);
+            }
+        }
         if (Object.keys(formData).length != 0)
         {
-            insert()
+            console.log(formData)
+            insert(formData.json)
+            uploadPhotos(formData.photos)
         }
 
     }, [formData])
@@ -114,13 +191,13 @@ const Sanatorium = (props) => {
                 className={classes.filesUploader} classInput={classes.filesUploader__text} 
                 classPlaceholder={classes.filesUploader__placeholder} placeholder='Фото санатория' />
                 
-                <SelectEntered register={register({required: true})} name='country' 
+                <SelectEntered register={register({required: true})} name='country' value={countryName} onChangeFunction={setCountryName}
                 className={classes.select} placeholder='Страна' options={Object.keys(contries_cities.countries)} />
 
                 <SelectEntered register={register({required: true})} name='city' onChangeFunction={setCityName}
                 className={classes.select} placeholder='Город' options={Object.keys(contries_cities.cities)} />
 
-                <EditMap cityName={cityName} points={[]} className={classes.map}/>
+                <EditMap name='coordinates' cityName={cityName} className={classes.map}/>
 
                 <div className={classes.form__services}>
                     <DynamicList name='inStock' register={register({required: true})} className={classes.dynamicList} 

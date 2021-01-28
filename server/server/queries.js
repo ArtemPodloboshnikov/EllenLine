@@ -2,7 +2,45 @@ const express = require('express');
 const router = express.Router();
 const MySQL = require('mysql');
 const async = require('async');
+const multer  = require("multer");
 
+
+function transliterate(word){
+  let a = {"Ё":"YO","Й":"I","Ц":"TS","У":"U","К":"K","Е":"E","Н":"N","Г":"G","Ш":"SH","Щ":"SCH","З":"Z","Х":"H","Ъ":"'","ё":"yo","й":"i","ц":"ts","у":"u","к":"k","е":"e","н":"n","г":"g","ш":"sh","щ":"sch","з":"z","х":"h","ъ":"'","Ф":"F","Ы":"I","В":"V","А":"a","П":"P","Р":"R","О":"O","Л":"L","Д":"D","Ж":"ZH","Э":"E","ф":"f","ы":"i","в":"v","а":"a","п":"p","р":"r","о":"o","л":"l","д":"d","ж":"zh","э":"e","Я":"Ya","Ч":"CH","С":"S","М":"M","И":"I","Т":"T","Ь":"'","Б":"B","Ю":"YU","я":"ya","ч":"ch","с":"s","м":"m","и":"i","т":"t","ь":"'","б":"b","ю":"yu", " ":"_"};
+  return word.split('').map(function (char) { 
+    return a[char] || char; 
+  }).join("");
+}
+
+function filesUploader(path, mimetypes = ["image/png", "image/jpg", "image/jpeg", "image/svg+xml"]){
+    const storageConfig = multer.diskStorage({
+        destination: (req, file, cb) =>{
+            cb(null, path);
+        },
+        filename: (req, file, cb) =>{
+            cb(null, transliterate(file.originalname));
+        }
+    });
+
+    const fileFilter = (req, file, cb) => {
+        
+        let flag = false;
+
+        mimetypes.map(mimetype => {
+
+            if (mimetype === file.mimetype)
+            {
+                flag = true;
+            }
+            
+        })
+
+        cb(null, flag);
+        
+    }
+
+    return multer({storage:storageConfig, fileFilter: fileFilter, limits : {fileSize : 1000000}}).array("photos[]");
+}
 const keysForTables = {'countries': {name: 'nBZiLpGdcwsFngZU', description: 'aSTCsopinbYKCElE'},
                        'cities': {name: 'yPkAx3jZlnZC'}} 
 
@@ -10,8 +48,7 @@ const HOST = '92.53.96.146';
 const DB_USER = 'cl98835_el';
 const PASSWORD = 'N3MntYQG';
 const DB_NAME = 'cl98835_el';
-
-
+ 
 const mysql = MySQL.createPool({
     port: 3306,
     connectionLimit: 5,
@@ -41,25 +78,46 @@ router.get('/sanatoriums', function(request, reply){
     })
 })
 
-router.post('/sanatoriums', function(request, reply){
+router.post('/sanatoriumsPhotos', filesUploader("images/Sanatorium"),function(request, reply){
 
     
-    const data = request.body;
 
+    let filedata = request.body;
+    if (filedata)
+    {
+
+        console.log('Файлы загружены')
+    }
+    else
+    {
+        console.log('Файлы не загружены')
+    }
+    
+})
+
+router.post('/sanatoriums', function(request, reply){
+    
+    let paths = []
+    request.body.photosPath.map((path)=>{
+
+        paths.push(transliterate(path));
+    })
+    request.body.photosPath = paths;
+    console.log(request.body);
     mysql.getConnection(function(err, connection) {
         if (err) {
             console.log(err);
             return;
         }
-        console.log('Hello');
-        connection.query('INSERT INTO relax (name, address, description, countStar, services, coordinates, photos, type, id_country, id_city) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)',
-        [data], function (error, results, fields) {
+        
+        // connection.query('INSERT INTO relax (name, address, description, countStar, services, coordinates, photos, type, id_country, id_city) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)',
+        // [data], function (error, results, fields) {
 
-            connection.release();
-            if (error) console.log(error);
+        //     connection.release();
+        //     if (error) console.log(error);
 
-            reply.status(200);
-        });
+        //     reply.status(200);
+        // });
     })
 })
 
@@ -70,6 +128,15 @@ router.get('/countries', function(request, reply){
     if (request.query.with == 'description')
     {
         sql = `SELECT id_country as id, AES_DECRYPT(name, '${keysForTables.countries.name}') as name, AES_DECRYPT(description, '${keysForTables.countries.description}') as description FROM countries`;
+    }
+    if (request.query.with == 'cities')
+    {
+        if (request.query.whereCountryName != undefined)
+        {
+            sql = `SELECT AES_DECRYPT(cities.name, '${keysForTables.cities.name}') as cityName, AES_DECRYPT(countries.name, '${keysForTables.countries.name}') as countryName, countries.id_country as idCountry, cities.id_city as idCity
+            FROM countries INNER JOIN countries_bind_cities as bind ON bind.id_country = countries.id_country INNER JOIN cities ON cities.id_city = bind.id_city WHERE countries.name = AES_ENCRYPT('${request.query.whereCountryName}', '${keysForTables.countries.name}')`;
+        }
+        
     }
     else
     {
@@ -87,26 +154,53 @@ router.get('/countries', function(request, reply){
 
             connection.release();
             if (error) console.log(error);
+           // console.log(buffer_results)
             let string_result = [];
-           
-            buffer_results.map(res=>{
+            if (request.query.with == 'cities')
+            {
+                buffer_results.map(res=>{
                
-                if (res.name != null || res.description != null)
-                {
-                    const name_str = res.name.toString();
+                   
+                    const name_str = res.countryName.toString();
+                    //console.log(res);
                     if (res.description != undefined)
                     {
                         const description = res.description.toString();
-                        string_result.push({id: res.id, name: name_str, description: description});
+                        string_result.push({idCountry: res.idCountry, countryName: name_str, 
+                            idCity: res.idCity, cityName: res.cityName.toString(), description: description});
 
                     }
                     else{
-                        string_result.push({id: res.id, name: name_str});
+                        string_result.push({idCountry: res.idCountry, countryName: name_str, 
+                            idCity: res.idCity, cityName: res.cityName.toString()});
                     }
-                   
+                       
+                        
                     
-                }
-            })
+                })
+            }
+            else
+            {
+                buffer_results.map(res=>{
+               
+                    if (res.name != null || res.description != null)
+                    {
+                        const name_str = res.name.toString();
+                        if (res.description != undefined)
+                        {
+                            const description = res.description.toString();
+                            string_result.push({id: res.id, name: name_str, description: description});
+    
+                        }
+                        else{
+                            string_result.push({id: res.id, name: name_str});
+                        }
+                       
+                        
+                    }
+                })
+            }
+            
             
             reply.send(string_result);
         });

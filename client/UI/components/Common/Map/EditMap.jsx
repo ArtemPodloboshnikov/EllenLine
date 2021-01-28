@@ -14,31 +14,33 @@ function EditMap(props){
    
     const newPlacemark = (event) => {
         
-        let map = event.originalEvent.target;
-        console.log(map);
-        map.events.add('click', (e) =>{
+        let map = event;
+       // console.log(map)
+        if (map !== null)
+        {
+            map.events.add('click', (e) =>{
 
-            if (!map.balloon.isOpen()) {
-                let coords = e.get('coords');
-                map.balloon.open(coords, {
-                    contentHeader:'Событие!',
-                    contentBody:'<p>Кто-то щелкнул по карте.</p>' +
-                        '<p>Координаты щелчка: ' + [
-                        coords[0].toPrecision(6),
-                        coords[1].toPrecision(6)
-                        ].join(', ') + '</p>',
-                    contentFooter:'<sup>Щелкните еще раз</sup>'
-                });
-            
-            }
-            else {
-                map.balloon.close();
-            }
-            
+                if (!map.balloon.isOpen()) {
+                    let coords = e.get('coords');
+                    map.balloon.open(coords, {
+                        contentHeader:'Метка',
+                        contentBody:'<p>Здесь поставить метку?</p>' +
+                            `<input type='hidden' name=${props.name} value='${[
+                            coords[0].toPrecision(6),
+                            coords[1].toPrecision(6)
+                            ]}'/>`,
+                        contentFooter:'<sup>Щелкните еще раз, чтобы снять метку</sup>'
+                    });
+                
+                }
+                else {
+                    map.balloon.close();
+                }
+                
 
-        })
+            })
 
-           
+        }
             
     
     }
@@ -58,7 +60,7 @@ function EditMap(props){
                 coordinates[1] = Number.parseFloat(coords[0]);
 
             });
-
+            
             setCityCoordinates(coordinates);
            
         }
@@ -70,28 +72,16 @@ function EditMap(props){
 
     //console.log(props.cityName);
 
-    let mapState = {};
-
-    if (Object.keys(props.points).length == 1)
-    {
-        mapState = {center: props.points[0].coordinates, zoom: 17};
-    }
-    else
-    {
-        
-        mapState = {center: cityCoordinates, zoom: 10};
-    }
+    let mapState = {center: cityCoordinates, zoom: 10};
   
    // console.log(cityCoordinates);
-
-    const markState = {points: props.points,  modules: ['geoObject.addon.balloon', 'geoObject.addon.hint']}
 
     return   (<div className={props.className + ' ' + classes.wrap} id={props.id}>
             
             <YMaps enterprise query={{apikey: '5594e597-90cb-48f6-a139-b76c8a42a41a&lang=ru_RU'}} 
                version={"2.1"}>
        
-            <Map state={mapState} onClick={newPlacemark}>
+            <Map state={mapState} instanceRef={map => newPlacemark(map)}>
            
             {/* <Clusterer options={{
                             preset: 'islands#invertedVioletClusterIcons',

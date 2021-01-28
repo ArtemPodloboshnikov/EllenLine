@@ -47,7 +47,7 @@ const AdminHeader = (props) => {
             Роли
         </div>
         <div id='db' onClick={clickOnSector}>
-            Что-то ещё
+            Панель бухгалтера
         </div>
     </div>
     );
