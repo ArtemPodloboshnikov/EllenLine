@@ -1,0 +1,12 @@
+.code{
+    margin-top: 3%;
+    display: grid;
+    justify-items: center;
+    align-items: center;
+    justify-content: center;
+    align-content: center;
+}
+.code > img{
+
+    width: 50%;
+}

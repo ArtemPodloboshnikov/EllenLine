@@ -1,0 +1,23 @@
+@import './../../index.scss';
+.select_option 
+{
+    i
+    {
+        @extend %grid_center;
+        height: 100%;
+        font-size: 1.75em;
+        padding: 1px;
+    }
+    select, option
+    {
+        @extend %border;
+    }
+}
+
+.dynamic_option 
+{
+    display: grid;
+    grid-template-columns: fit-content(25px) 1fr fit-content(25px);
+    column-gap: 1px;
+    // margin-bottom: 1.5px;
+}

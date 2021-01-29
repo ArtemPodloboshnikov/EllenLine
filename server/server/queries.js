@@ -44,7 +44,7 @@ function filesUploader(path, mimetypes = ["image/png", "image/jpg", "image/jpeg"
 const keysForTables = {'countries': {name: 'nBZiLpGdcwsFngZU', description: 'aSTCsopinbYKCElE'},
                        'cities': {name: 'yPkAx3jZlnZC'}} 
 
-const HOST = '92.53.96.146';
+const HOST = 'localhost';
 const DB_USER = 'cl98835_el';
 const PASSWORD = 'N3MntYQG';
 const DB_NAME = 'cl98835_el';
