@@ -10,12 +10,12 @@ export default function AdminLayout ({children, sector, title = 'Эллинла�
 
     function ConvertSector(to_sector) {
         switch (to_sector) {
-            
+
             case 'admin': return <AdminHeader/>;    
 
             case 'db': return <DbHeader/>;
 
-            case 'employees': return headers[2];
+            case 'employees': return <EmployeesHeader/>;
         }
     }
 
