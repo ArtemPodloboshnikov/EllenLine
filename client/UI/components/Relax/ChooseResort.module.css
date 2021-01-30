@@ -1,0 +1,81 @@
+.resort{
+    display: grid;
+    height: auto;
+    /* width: min-content; */
+    /* padding: 0 15px; */
+    grid-template-rows: 1fr; 
+    grid-template-areas: 'search'
+                         'choose'
+                         'rest';
+    gap: 35px;
+}
+
+.search{
+    grid-area: search;
+}
+
+.choose{
+    grid-area: choose;
+    display: grid;
+    height: auto;
+    grid-template-columns: repeat(2, 1fr);  
+    padding: 0 15px;
+}
+
+.pansionat, .sanatorium{
+    text-align: center;
+    border: 3px solid #009BDF;
+}
+.pansionat h1, .sanatorium h1{
+    color: black;
+    margin: 0;
+}
+.pansionat:hover, .sanatorium:hover,
+.pansionat a.active, .sanatorium a.active{
+    background-color: #009BDF;
+    color: white;
+}
+
+.pansionat{
+    /* grid-area: pan; */
+    border-right: none;
+    transform: skew(-20deg);
+}
+.pansionat h1{
+    border-right: 3px solid #009BDF;
+    transform: skew(20deg);
+}
+.sanatorium{
+    /* grid-area: san; */
+    border-left: none;
+    transform: skew(20deg);
+}
+.sanatorium h1{
+    border-left: 3px solid #009BDF;
+    transform: skew(-20deg);
+}
+
+.rest{
+    grid-area: rest;
+}
+
+@media screen and (max-width: 1024px)
+{
+    .sanatorium h1, .pansionat h1{
+        font-size: 1.5em;
+    }
+}
+@media screen and (max-width: 425px)
+{
+    .choose{
+        grid-template-columns: none;
+        grid-template-rows: repeat(2, 1fr);
+        padding: 0;
+    }
+    .sanatorium, .pansionat, .sanatorium h1, .pansionat h1{
+        transform: none;
+    }
+    .sanatorium h1, .pansionat h1{
+        font-size: 1em;
+    }
+}

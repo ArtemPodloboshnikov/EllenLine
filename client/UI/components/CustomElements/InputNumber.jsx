@@ -1,65 +1,89 @@
-import {useState} from 'react'
-import classes from './InputNumber.module.css'
+import React, {useEffect, useState} from 'react'
+import classes from './InputNumber.module.scss'
 
 const InputNumber = (props) => {
-   
-    const [value, setValue] = useState(props.value);
-    const isNumber = (val) => {
-        return !isNaN(val);
-    }
-    const plus = ()=>{
 
-        let new_value;
-        if (isNaN(value)) new_value = props.min;
-        else new_value = Number.parseInt(value) + 1;
-        console.log(value)
-        if (props.max <= new_value)
-            new_value = props.max;
-        if (props.min >= new_value)
-            new_value = props.min;
+    const [value, setValue] = useState(props.value ? props.value : NaN);
 
-        setValue(new_value);
-    }
-    const minus = ()=>{
-
-        let new_value;
-        if (isNaN(value)) new_value = props.min;
-        else new_value = Number.parseInt(value) - 1;
-        if (props.min >= new_value)
-             new_value = props.min;
-        if (props.max <= new_value)
-            new_value = props.max;
-        setValue(new_value);
-    }
-    const printValue = (event)=>{
-        
-        let enter_text = Number.parseInt(event.target.value);
-        if (isNaN(enter_text)) 
+    function CheckValue(e) {
+        let new_value = parseInt(e.target.value);
+        if(new_value < props.min)
         {
-            enter_text = undefined; 
-            event.target.value = ''
+            setValue(props.min);
         }
-        console.log(event.target.value);
-        console.log(value);
-        if (enter_text >= props.max)
-            enter_text = props.max;
-        if (enter_text <= props.min)
-            enter_text = props.min;
-        setValue(enter_text);
-        
+        else if(new_value > props.max)
+        {
+            setValue(props.max);    
+        }
+        else 
+        {
+            setValue(new_value);
+        }
     }
-    const componentDidMount = ()=>{
 
-        //console.log(input.current.value)
-    }
+    //#region  Zimin`s comment UNCOMMENT IF NEEDED RESTORE
+    // const isNumber = (val) => {
+    //     return !isNaN(val);
+    // }
+    // const plus = ()=>{
+
+    //     let new_value;
+    //     if (isNaN(value)) new_value = props.min;
+    //     else new_value = Number.parseInt(value) + 1;
+    //     console.log(value)
+    //     if (props.max <= new_value)
+    //         new_value = props.max;
+    //     if (props.min >= new_value)
+    //         new_value = props.min;
+
+    //     setValue(new_value);
+    // }
+    // const minus = ()=>{
+
+    //     let new_value;
+    //     if (isNaN(value)) new_value = props.min;
+    //     else new_value = Number.parseInt(value) - 1;
+    //     if (props.min >= new_value)
+    //          new_value = props.min;
+    //     if (props.max <= new_value)
+    //         new_value = props.max;
+    //     setValue(new_value);
+    // }
+    // const printValue = (event)=>{
+        
+    //     let enter_text = Number.parseInt(event.target.value);
+    //     if (isNaN(enter_text)) 
+    //     {
+    //         enter_text = undefined; 
+    //         event.target.value = ''
+    //     }
+    //     console.log(event.target.value);
+    //     console.log(value);
+    //     if (enter_text >= props.max)
+    //         enter_text = props.max;
+    //     if (enter_text <= props.min)
+    //         enter_text = props.min;
+    //     setValue(enter_text);
+    //     //FIXME value no changed in html
+    // }
+    // const componentDidMount = ()=>{
+
+    //     //console.log(input.current.value)
+    // }
     // console.log(value);
+    //#endregion
+
     return (
-        <div className={classes.inputNumber + ' ' + props.className}>
-            <input name={props.name} ref={props.register} className={classes.input} 
-            placeholder={props.placeholder} value={value} onChange={printValue}/>
-            <div onClick={plus} className={classes.plus}>+</div>
-            <div onClick={minus} className={classes.minus}>-</div>
-        </div>
+        // UNCOMMENT IF NEEDED RESTORE, ALSO WAS DELETED CLASS classe.input IN input
+        // <div className={classes.inputNumber + ' ' + props.className}>
+        <input className={classes.input + ' ' + props.className}  
+               type="number"
+               placeholder={props.placeholder} 
+               value={value} 
+               min={props.min} max={props.max} onChange={(e) => CheckValue(e)}/>
+        //     <div onClick={plus} className={classes.plus}>+</div>
+        //     <div onClick={minus} className={classes.minus}>-</div>
+        // </div> 
     )
 }
 

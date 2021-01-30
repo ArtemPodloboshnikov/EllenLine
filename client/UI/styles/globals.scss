@@ -1,3 +1,5 @@
+@import '../index.scss';
+
 @font-face{
 
   font-family: 'Kazimir';
@@ -17,15 +19,6 @@
   font-weight: 400;
   font-style: normal;
 }
-@function MainColor(){
-
-  $mainColor: #0062FF !global;
-  @return $mainColor;
-
-}
-$mainColor: #0062FF;
-$sideColor: #fff;
-$placeholderColor: #FFDD00;
 //$AttentionColor: #FF0062;
 
 h1, h2, h3, h4, h5{
@@ -60,6 +53,62 @@ code {
 
   outline: none;
 }
+/* .main{
+  
+} */
+.main{
+
+  display: grid;
+  min-width: 100%;
+  min-height: 100%;
+}
+/* iPads: вертикальная ориентация */
+/* @media only screen and (min-device-width : 768px) and (max-device-width : 1024px) and (orientation : portrait) {
+  
+  .home{
+
+      margin-left: 20%;
+      min-width: 80%;
+  }
+
+} */
+/* iPads: горизонтальная ориентация */
+/* @media only screen and (min-device-width : 1024px) and (max-device-width : 1366px) and (orientation : landscape) {
+
+  .home{
+
+      margin-left: 20%;
+      min-width: 80%;
+  }
+
+} */
+/* Смартфоны: вертикальная ориентация */
+@media only screen and (max-width: 415px) and (orientation : portrait){
+
+  .main{
+
+      margin-left: 20%;
+      min-width: 20%;
+  }
+}
+/* Смартфоны: горизонтальная ориентация */
+@media only screen and (max-width: 1024px) and (min-height: 415px) and (orientation : landscape){
+
+  .main{
+
+      margin-left: 20%;
+      min-width: 80%;
+  }
+}
+/* ZIMIN */
+@media screen and (max-width: 1024px){
+  .main{
+      margin-left: 20%;
+      min-width: 80%;
+  }
+}
+
+
 img{
 
   object-fit: cover;

@@ -1,0 +1,64 @@
+.sanatorium
+{
+
+    display: grid;
+    /* height: calc(50px + 1vh); */
+    margin-top: 5%;
+    grid-template-columns: repeat(4, 1fr);
+    grid-template-areas: 'country city name stars';
+    gap: 15px;
+}
+.sanatorium .country, .sanatorium .city, .sanatorium__input, .sanatorium .stars{
+    outline: none;
+    border: 3px solid #0062FF;
+    font-family: 'Mediator Serif Regular';
+    font-size: 2em;
+    min-width: 0;
+}
+.sanatorium select option{
+    font-size: unset;
+}
+.sanatorium .country{
+    grid-area: country;
+    width: 100%;
+}
+.sanatorium .city
+{
+    grid-area: city;
+    width: 100%;
+}
+.sanatorium__input{
+
+    grid-area: name;
+    /* width: 50vw; */
+    /* height: 10vh; */
+}
+.sanatorium .stars{
+    grid-area: stars;
+}
+@media screen and (max-width: 1024px)
+{
+    .sanatorium{
+        grid-template-columns: 50% 50%;
+        grid-template-rows: repeat(2, 1fr);
+        grid-template-areas: 'country city'
+                             'name stars';
+    }
+    .sanatorium .country, .sanatorium .city, .sanatorium__input, .sanatorium .stars{
+        font-size: 1.5em;
+    }
+}
+@media screen and (max-width: 425px)
+{
+    .sanatorium{
+        grid-template-columns: 1fr;
+        grid-template-rows: repeat(4, 1fr);
+        grid-template-areas: 'country'
+                             'city'
+                             'name'
+                             'stars';
+    }
+    .sanatorium .country, .sanatorium .city, .sanatorium__input, .sanatorium .stars{
+        font-size: 1em;
+    }
+}
