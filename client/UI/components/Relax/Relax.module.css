@@ -1,0 +1,14 @@
+.relax{
+    height: auto;
+    padding-top: 20px;
+    padding-left: 15px;
+    padding-right: 25px;
+    /* width: min-content; */
+    /* padding: 0 15px; */
+    /* grid-template-rows: 1fr; 
+    grid-template-areas: 'search'
+                         'choose'
+                         'rest';
+    gap: 35px; */
+}
+

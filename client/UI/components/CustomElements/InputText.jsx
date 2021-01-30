@@ -1,11 +1,10 @@
 import {useState} from 'react'
-import classes from './InputText.module.css'
+import classes from './InputText.module.scss'
 
 const InputText = (props) => {
 
     const [value, setValue] = useState(props.value);
     const printValue = (e) =>{
-
         setValue(e.target.value);
     }
     return (
@@ -17,5 +16,10 @@ const InputText = (props) => {
         </div>
     )
 }
+
+// ALSO WAS DELETED THIS CONTAINER
+{/* <div className={classes.wrap + ' ' + props.className}>
+</div> */}
+
 
 export default InputText

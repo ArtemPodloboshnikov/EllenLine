@@ -51,11 +51,11 @@ const Header = (props) => {
                             <Link href='/home'><a className={classes.header__button}>О нас</a></Link>
                             <Link href='/collaboration'><a className={classes.header__button} style={{gridColumn: '2 / 4'}}>Санкт-Петербург</a></Link>
                             <Link href='/home'><a><img src='images/logo.svg'/></a></Link>
-                            <Link href='/sanatorium'><a className={classes.header__button}>Туры</a></Link>
+                            <Link href='/tours'><a className={classes.header__button}>Туры</a></Link>
                             <Link href='/places'><a className={classes.header__button}>Экскурсии</a></Link>
                             <div><Link href='/relax'><a className={classes.header__button} onMouseOver={showTree} onMouseOut={hideTree}>Отдых</a></Link><div onMouseOver={showTree} onMouseOut={hideTree} id='tree' className={classes.tree + ' ' + treeActive}>
                                 <Link href='/relax/sanatorium'><a className={classes.header__treeItem}>Санатории</a></Link>
-                                <Link href='/relax/pension'><a className={classes.header__treeItem}>Пансионаты</a></Link>
+                                <Link href='/relax/pensionats'><a className={classes.header__treeItem}>Пансионаты</a></Link>
                             </div></div>
                             <label for={classes.search_active}><img src='images/Header/loupe.svg' /></label>
                         </div>

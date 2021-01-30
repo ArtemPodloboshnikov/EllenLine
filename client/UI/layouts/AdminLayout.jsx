@@ -5,26 +5,27 @@ import Head from 'next/head';
 
 export default function AdminLayout ({children, sector, title = 'Эллинлайн'}){
 
-    const headers = [<AdminHeader/>, <DbHeader/>, <EmployeesHeader/>];
-    console.log(sector)
+    // const headers = [<AdminHeader/>, <DbHeader/>];
+    console.log(sector);
+
+    function ConvertSector(to_sector) {
+        switch (to_sector) {
+            
+            case 'admin': return <AdminHeader/>;    
+
+            case 'db': return <DbHeader/>;
+
+            case 'employees': return headers[2];
+        }
+    }
+
     return(
         <>
             <Head>
                 <title>{title}</title>
             </Head>
             <main>
-                {(()=>{
-
-                   switch (sector){
-                       
-                       case 'admin': return headers[0];
-  
-                       case 'db': return headers[1];
-
-                       case 'employees': return headers[2];
-                   }
-                })()}
-               
+                {ConvertSector(sector)}
                 {children}
             </main>
         </>

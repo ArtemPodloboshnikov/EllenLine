@@ -1,0 +1,93 @@
+@import '../../../../index.scss';
+.resort{
+    display: grid;
+    grid-template-columns: 1fr;
+    grid-auto-rows: auto;
+}
+
+.resort i{
+    color: $primary_color;
+}
+
+
+.services{
+    display: grid;
+    padding-left: 10px;
+    padding-bottom: 20px;
+    grid-template-columns: repeat(3, 1fr);
+    background-color: Silver;
+}
+
+.services i{
+    @extend %grid_center;
+}
+
+.available, .rooms, .common{
+    /* display: grid; */
+    /* grid-template-columns: 1fr;
+    grid-auto-rows: 1fr; */
+}
+
+.service{
+    display: grid;
+    grid-template-columns: fit-content(50px) 1fr;
+    grid-auto-rows: 1fr;
+    row-gap: 10px;
+}
+
+.service i{
+    padding: 0 5px;
+    grid-column: 1;
+    font-size: 1.5em;
+}
+
+.service p{
+    margin: 0;
+    grid-column: 2;
+    font-size:1.5em;
+}
+
+.address{
+    grid-column-start: 1;
+    grid-column-end: 4;
+    display: grid;
+    grid-template-columns: fit-content(50px) 1fr;
+    column-gap: 10px;
+    margin-top: 50px;
+}
+
+.address i{
+    padding: 0 5px;
+    font-size: 3em;
+}
+
+.address h1{
+    justify-self: left;
+    align-self: center;
+    margin: 0;  
+}
+
+.form{
+    margin-top: 25px;
+}
+
+@media screen and (max-width: 1024px)
+{
+
+    .services h1{
+        /* font-size: 1.5  em; */
+    }
+
+}
+@media screen and (max-width: 768px)
+{
+    .services{
+        grid-template-columns: 1fr;
+        grid-auto-rows: fit-content(1fr);
+    }
+
+    .address{
+        grid-column-start: unset;
+        grid-column-end: unset;
+    }
+}

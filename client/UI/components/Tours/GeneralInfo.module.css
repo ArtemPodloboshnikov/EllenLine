@@ -1,0 +1,39 @@
+.timetable{
+    display: grid;
+    column-gap: 10px;
+    row-gap: 10px;
+    grid-template-columns: fit-content(200px) 1fr;
+    padding: 5px 25px;
+    background-color: lightgray;
+}
+
+.timetable h1{
+    grid-column-start: 1;
+    grid-column-end: 3;
+    margin: 0;
+}
+
+.timetable span{
+    grid-column: 1;
+    justify-self: left;
+    text-align: left;
+}
+
+.timetable p{
+    grid-column: 2;
+    margin: 0;
+}
+
+.paid_services, .add_services{
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+}
+
+.paid_services .title, .add_services .title{
+    grid-column: 1;
+    padding-left: 10px;
+}
+
+.paid_services .service, .add_services .service{
+    grid-column: 2;
+}
