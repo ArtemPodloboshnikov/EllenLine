@@ -10,7 +10,7 @@ const InputText = (props) => {
     }
     return (
         <div className={classes.wrap + ' ' + props.className}>
-            <input name={props.name} ref={props.register} 
+            <input name={props.name} ref={props.register} onBlur={props.onBlur}
             className={classes.input + ' ' + props.classInput} 
             value={value} onChange={printValue} placeholder={props.placeholder}
             />

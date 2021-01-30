@@ -12,7 +12,7 @@ class MyDocument extends Document {
     return (
       <Html>
         <Head>
-          <meta charset="utf-8" />
+          <meta charSet="utf-8" />
           <link rel="icon" href="/images/logo.svg" />
           <meta name="theme-color" content="#000000" />
           <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no"/>

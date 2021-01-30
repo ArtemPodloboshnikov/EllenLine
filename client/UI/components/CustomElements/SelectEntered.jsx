@@ -60,6 +60,12 @@ const SelectEntered = (props) => {
         
         let text = e.target.value;
 
+        if (props.type == 'select'){
+
+            text = '';
+            setValue(text);
+            return;
+        } 
         let possible = [];
 
         data.map((city)=>{

@@ -14,9 +14,9 @@ const Countries = (props) => {
     const [dbData, setDbData] = useState({});
     const [textAreaValue, setTextAreaValue] = useState();
 
-    let countries = {};
+    let countries = {Россия: ''};
     let nameCountryIds = {};
-
+    console.log(dbData)
     if (Object.keys(dbData).length != 0)
     {
         dbData.map((country)=>{
@@ -42,6 +42,7 @@ const Countries = (props) => {
                 return response.json();
               })
               .then((data) => {
+                  console.log(data)
                 setDbData(data);
               });
             

@@ -3,28 +3,28 @@ import Message from '../../../Common/DialogWindow/Message';
 import { useForm } from "react-hook-form";
 import SelectEntered from '../../../CustomElements/SelectEntered';
 import Button from '../../../CustomElements/Button';
-import classes from './Countries.module.css';
+import classes from './Languages.module.css';
 
-const Countries = (props) => {
+const Languages = (props) => {
 
     const {register, handleSubmit, errors} = useForm();
     const [message, setMessage] = useState({style: {display: 'none'}, status: '', body: ''});
     const [formData, setFormData] = useState({}); 
     const [dbData, setDbData] = useState({});
 
-    let nameCountryIds = {};
+    let nameLanguagesIds = {};
 
     if (Object.keys(dbData).length != 0)
     {
-        dbData.map((country)=>{
+        dbData.map((language)=>{
 
-            nameCountryIds[country.name] = country.id;
+            nameLanguagesIds[language.name[0].toUpperCase() + language.name.slice(1)] = language.id;
         })
     }
     const handleOnSubmit = (data)=>{
         
-        data.id = nameCountryIds[data.country];
-        delete data.country;
+        data.id = nameLanguagesIds[data.language];
+        delete data.language;
         setFormData(data);
         
     }
@@ -33,7 +33,7 @@ const Countries = (props) => {
 
         async function get()
         {
-            await fetch('http://localhost:4000/api/countries')
+            await fetch('http://localhost:4000/api/languages')
               .then((response) => {
                 return response.json();
               })
@@ -56,7 +56,7 @@ const Countries = (props) => {
         async function delete_row()
         {
        
-            const json =  await fetch('http://localhost:4000/api/countries', {
+            const json =  await fetch('http://localhost:4000/api/languages', {
                 method: 'DELETE',
                 headers: {
                   'Content-Type': 'application/json;charset=utf-8'
@@ -66,7 +66,7 @@ const Countries = (props) => {
             
 
            
-            setMessage({style: {display: 'grid'}, status: json.status, body: json.statusText});
+            setMessage({style: {display: 'grid'}, status: json.status, body: json.statusText, method: 'delete'});
             
             
             
@@ -82,10 +82,10 @@ const Countries = (props) => {
     return (
         <>
             <Message setFunction={setMessage} style={message.style} 
-            status={message.status} body={message.body}/>
+            status={message.status} body={message.body} method={message.method}/>
             <form className={props.className + ' ' + classes.form} onSubmit={handleSubmit(handleOnSubmit)}>
-                <SelectEntered register={register({required: true})} name='country'
-                className={classes.select} placeholder='Страна' options={Object.keys(nameCountryIds)} />
+                <SelectEntered register={register({required: true})} name='language'
+                className={classes.select} placeholder='Язык' options={Object.keys(nameLanguagesIds)} />
                    
                 <Button className={classes.button} value='Удалить' />
             </form>   
@@ -93,4 +93,4 @@ const Countries = (props) => {
     )
 }
 
-export default Countries
+export default Languages

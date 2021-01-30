@@ -17,16 +17,11 @@
   font-weight: 400;
   font-style: normal;
 }
-@function MainColor(){
 
-  $mainColor: #0062FF !global;
-  @return $mainColor;
-
-}
 $mainColor: #0062FF;
 $sideColor: #fff;
 $placeholderColor: #FFDD00;
-//$AttentionColor: #FF0062;
+$AttentionColor: #FF0062;
 
 h1, h2, h3, h4, h5{
   font-weight: normal;

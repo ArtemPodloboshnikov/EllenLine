@@ -3,6 +3,11 @@
     width: 100% !important;
     height: 100% !important;
 }
+.wrap *{
+
+    font-family: 'Mediator Serif Regular';
+    color: #0062FF;
+}
 #map{
     
 }

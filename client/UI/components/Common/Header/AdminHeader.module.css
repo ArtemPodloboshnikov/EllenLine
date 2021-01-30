@@ -9,7 +9,7 @@
     justify-items: center;
     align-items: center;
 }
-.header_admin > div{
+.header_admin > a{
 
     color: #fff;
     font-family: 'Mediator Serif';

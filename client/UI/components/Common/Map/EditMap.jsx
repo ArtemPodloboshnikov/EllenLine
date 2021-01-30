@@ -23,9 +23,8 @@ function EditMap(props){
                 if (!map.balloon.isOpen()) {
                     let coords = e.get('coords');
                     map.balloon.open(coords, {
-                        contentHeader:'Метка',
-                        contentBody:'<p>Здесь поставить метку?</p>' +
-                            `<input type='hidden' name=${props.name} value='${[
+                        contentHeader:'Метка поставлена',
+                        contentBody: `<input type='hidden' name=${props.name} value='${[
                             coords[0].toPrecision(6),
                             coords[1].toPrecision(6)
                             ]}'/>`,
@@ -72,7 +71,7 @@ function EditMap(props){
 
     //console.log(props.cityName);
 
-    let mapState = {center: cityCoordinates, zoom: 10};
+    let mapState = {center: cityCoordinates, zoom: props.zoom || 10};
   
    // console.log(cityCoordinates);
 

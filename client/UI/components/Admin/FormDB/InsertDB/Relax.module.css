@@ -1,6 +1,6 @@
 .form{
 
-    height: 250vh !important;
+    height: 290vh !important;
  
 }
 .inputText{
@@ -39,6 +39,7 @@
     display: grid;
     grid-template-columns: repeat(3, 1fr);
     width: 90%;
+    height: 10vh;
     justify-content: start;
     margin: 0 auto;
     grid-column-gap: 3%;
@@ -56,7 +57,7 @@
     font-size: 1.5em;
 }
 .button{
-
+  
     width: 30%;
     height: 10vh;
     justify-self: center;
