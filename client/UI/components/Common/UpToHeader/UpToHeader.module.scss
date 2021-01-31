@@ -1,0 +1,24 @@
+@import '../../../styles/index.scss';
+
+.wrap{
+
+    width: 8vw;
+    height: 18vh;
+    clip-path: polygon(0 50%, 34% 0, 100% 12%, 100% 88%, 34% 100%);
+    background-color: $primary_color;
+    position: fixed;
+    float: right;
+    right: 0;
+    top: 30%;
+    overflow: hidden;
+    display: grid;
+    align-items: center;
+    z-index: 50;
+    cursor: pointer;
+}
+.wrap img{
+
+    margin-left: 33%;
+    align-self: 1 / 3;
+    width: 45%;
+}

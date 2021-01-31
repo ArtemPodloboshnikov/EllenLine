@@ -1,5 +1,5 @@
 import {useState} from 'react'
-import classes from './DynamicList.module.css'
+import classes from './DynamicList.module.scss'
 
 const CreateInput = (params)=>{
 
@@ -36,7 +36,11 @@ const DynamicList = (props) => {
                 placeholder={props.placeholder} plusOnClick={()=>{
                     
                     setCountMemberArray(countMemberArray + 1);
-                    setValue([...value, ''])
+                    setValue([...value, '']);
+                    if (props.rows < countMemberArray)
+                    {
+                        props.setRows(props.rows + 1)
+                    }
                 }}
                 minusOnClick={(e)=>{
                     if (countMemberArray==1)

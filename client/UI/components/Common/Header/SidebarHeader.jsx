@@ -1,4 +1,4 @@
-import classes from './SidebarHeader.module.css';
+import classes from './SidebarHeader.module.scss';
 import Link from 'next/link'
 
 const SidebarHeader = () => {

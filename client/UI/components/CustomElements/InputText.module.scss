@@ -1,5 +1,5 @@
-@import '../../index.scss';
-/* .wrap{
+// @import '../../index.scss';
+ .wrap{
 
     transform: skewX(-20deg);
     background-color: #0062FF;
@@ -22,8 +22,8 @@
     border: none;
     color: #fff;
     text-align: center;
-} */
-.input
-{
-    @extend %border;
-}
+} 
+// .input
+// {
+//     @extend %border;
+// }

@@ -3,9 +3,9 @@ import Message from '../../../Common/DialogWindow/Message';
 import { useForm } from 'react-hook-form';
 import SelectEntered from '../../../CustomElements/SelectEntered';
 import Button from '../../../CustomElements/Button';
-import classes from './Countries.module.css';
+import classes from './Countries.module.scss';
 
-const Countries = () => {
+const Countries = (props) => {
 
     const {register, handleSubmit, errors} = useForm();
     const [message, setMessage] = useState({style: {display: 'none'}, status: '', body: ''});
@@ -83,7 +83,7 @@ const Countries = () => {
         <>
             <Message setFunction={setMessage} style={message.style} 
             status={message.status} body={message.body}/>
-            <form className={classes.form} onSubmit={handleSubmit(handleOnSubmit)}>
+            <form className={props.className + ' ' + classes.form} onSubmit={handleSubmit(handleOnSubmit)}>
                 <SelectEntered register={register({required: true})} name='country'
                 className={classes.select} placeholder='Страна' options={Object.keys(nameCountryIds)} />
                    

@@ -8,10 +8,12 @@ const InputText = (props) => {
         setValue(e.target.value);
     }
     return (
-        // WAS DELETED CLASS class.input in input
-        <input className={classes.input + ' ' + props.className} value={value} onChange={printValue}
-            placeholder={props.placeholder}
-        />
+        <div className={classes.wrap + ' ' + props.className}>
+            <input name={props.name} ref={props.register} onBlur={props.onBlur}
+            className={classes.input + ' ' + props.classInput} 
+            value={value} onChange={printValue} placeholder={props.placeholder}
+            />
+        </div>
     )
 }
 

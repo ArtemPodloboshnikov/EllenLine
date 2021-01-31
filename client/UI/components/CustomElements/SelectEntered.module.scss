@@ -1,0 +1,76 @@
+@import '../../styles/index.scss';
+
+.selectInput{
+
+    display: grid;
+    grid-template-columns: 4fr 1fr;
+    background-color: $primary_color;
+    width: 100%;
+    height: 100%;
+}
+.arrowDown, .arrowTop{
+
+    background: $sub_color;
+    position: relative;
+    color: $sub_color;
+
+    &::after{
+        content: ''; 
+        position: absolute; /* Абсолютное позиционирование */
+        margin-left: 30%; 
+        margin-top: 20%; /* Положение треугольника */
+        border: 1.5vw solid transparent; /* Прозрачные границы */
+        border-top: 4vh solid $sub_color; /* Добавляем треугольник */
+        cursor: pointer;
+    }
+}
+.wrap{
+
+}
+
+.arrowTop{
+    &:after{
+
+        border: 1.5vw solid transparent; 
+        border-bottom: 4vh solid $sub_color;
+        border-top: none;
+    }
+}
+.input::placeholder{
+
+    color: $placeholder_color;
+    text-align: center;
+}
+.input{
+    font-family: 'Mediator Serif Regular';
+    font-size: 1.5em;
+    border-right: 5px solid $sub_color;
+}
+.input, .arrow{
+    width: 100%;
+    height: 100%;
+    background-color: transparent;
+    color: $sub_color;
+    text-align: center;
+}
+.possibleData{
+
+    position: relative;
+    width: 100%;
+    background-color: $sub_color;
+    color: $primary_font_color;
+    font-family: 'Mediator Serif Regular';
+    font-size: 1.5em;
+    background-color: $sub_color;
+    display: grid;
+    grid-auto-flow: row;
+    padding-left: 2%;
+    z-index: 10;
+    & > *{
+
+        cursor: pointer;
+    }
+}
+#id{
+
+}

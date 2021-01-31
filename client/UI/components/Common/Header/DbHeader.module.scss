@@ -1,14 +1,11 @@
-$mainColor: #0062FF;
-$sideColor: #fff;
-$placeholderColor: #FFDD00;
-$textColor: #333333;
-//$AttentionColor: #FF0062;
+@import '../../../styles/index.scss';
+
 
 .header_db{
 
     width: 100%;
     height: 50vh;
-    background-color: $mainColor;
+    background-color: $primary_color;
     justify-items: center;
     display: grid;
     grid-auto-flow: row;
@@ -25,8 +22,8 @@ $textColor: #333333;
 .header_db__parameters > a{
 
     width: 100%;
-    background-color: $sideColor;
-    color: $textColor;
+    background-color: $sub_color;
+    color: $primary_font_color;
     font-family: 'Kazimir';
     font-size: 2.5em;
     display: grid;
@@ -54,7 +51,7 @@ $textColor: #333333;
 }
 .header_db__queries label > a{
 
-    color: $sideColor;
+    color: $sub_color;
     font-family: 'Mediator Serif';
     font-size: 1.6em;
 }
@@ -62,13 +59,13 @@ $textColor: #333333;
 [type="radio"]:not(:checked) + .radio_button::after{
 
     
-    background: $mainColor;
+    background: $primary_color;
 }
 [type="radio"]:checked + .radio_button::before,
 [type="radio"]:not(:checked) + .radio_button::before{
 
-    background: $sideColor;
-    border: 1px solid $sideColor;
+    background: $sub_color;
+    border: 1px solid $sub_color;
 }
 /* .trips p::before, .relax p::before{
 
@@ -106,23 +103,14 @@ $textColor: #333333;
     height: 10vh;
     
 }   
-.header_db__trips a:nth-child(1){
+.header_db__trips{
 
-    clip-path: polygon(10% 0, 100% 0, 100% 100%, 0 100%);
+    @extend %double_choose;
 
 }
-.header_db__trips a:nth-child(2){
+.header_db__relax{
 
-    clip-path: polygon(0 0, 90% 0, 100% 100%, 0 100%);
-}
-.header_db__relax a:nth-child(1){
-
-    clip-path: polygon(0 0, 100% 0, 100% 100%, 10% 100%);
-}
-
-.header_db__relax a:nth-child(2){
-
-    clip-path: polygon(0 0, 100% 0, 90% 100%, 0 100%);
+    @extend %double_choose_reverse;
 }
 .header_db__relax a{
    
@@ -140,6 +128,6 @@ $textColor: #333333;
     justify-items: center;
     cursor: pointer;
     font-family: 'Kazimir';
-    background-color: $sideColor;
-    color: $mainColor;
+    background-color: $sub_color;
+    color: $primary_color;
 }

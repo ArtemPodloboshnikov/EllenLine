@@ -12,7 +12,7 @@ class MyDocument extends Document {
     return (
       <Html>
         <Head>
-          <meta charset="utf-8" />
+          <meta charSet="utf-8" />
           <link rel="icon" href="/images/logo.svg" />
           <meta name="theme-color" content="#000000" />
           <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no"/>
@@ -22,6 +22,7 @@ class MyDocument extends Document {
           />
           <link rel="apple-touch-icon" href="images/logo.svg" />
           <link rel="manifest" href="%PUBLIC_URL%/manifest.json" />
+          <script src="https://kit.fontawesome.com/5116ed660a.js" crossorigin="anonymous"></script>
         </Head>
         <body>
           <Main />

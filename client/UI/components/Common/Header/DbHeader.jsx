@@ -16,13 +16,13 @@ const DbHeader = () => {
     let queries_none = '';
     switch (category)
     {
-        case 'excursions': textColor[0] = '#333333';
+        case 'cruises': textColor[0] = '#333333';
             break;
         case 'tours': textColor[1] = '#333333';
             break;
-        case 'sanatorium': textColor[2] = '#333333';
+        case 'relax': textColor[2] = '#333333';
             break;
-        case 'pension': textColor[4] = '#333333';
+        case 'treatment': textColor[3] = '#333333';
             break;
         case 'countries': textColor[4] = '#333333';
             break;
@@ -43,7 +43,7 @@ const DbHeader = () => {
 
 
     
-   // console.log(document.location.pathname + radioChecked + ' : ' + current_path);
+    console.log(radioChecked);
     const radioChangeQueries = (e) => {
 
         
@@ -74,7 +74,7 @@ const DbHeader = () => {
             <Link href='/admin/db/languages'><a style={{color: textColor[6]}}>Языки</a></Link>
         </div>
         <div className={classes.header_db__trips}>
-            <Link href='/admin/db/excursions'><a style={{color: textColor[0]}}>Экскурсии</a></Link>
+            <Link href='/admin/db/cruises'><a style={{color: textColor[0]}}>Круизы</a></Link>
             <Link href='/admin/db/tours'><a style={{color: textColor[1]}}>Туры</a></Link>
         </div>
         <div className={classes.header_db__queries + ' ' + queries_none}>
@@ -94,8 +94,8 @@ const DbHeader = () => {
                 
         </div>
         <div className={classes.header_db__relax}>
-            <Link href='/admin/db/sanatorium'><a style={{color: textColor[2]}}>Санатории</a></Link>
-            <Link href='/admin/db/pension'><a style={{color: textColor[3]}}>Пансионаты</a></Link>
+            <Link href='/admin/db/relax'><a style={{color: textColor[2]}}>Отдых</a></Link>
+            <Link href='/admin/db/treatment'><a style={{color: textColor[3]}}>Лечение</a></Link>
         </div>
     </div>
     )

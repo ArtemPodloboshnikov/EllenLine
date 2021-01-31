@@ -1,5 +1,5 @@
 import { YMaps, Map, Placemark, Clusterer, GeoObject } from 'react-yandex-maps';
-import classes from './YandexMap.module.css';
+import classes from './YandexMap.module.scss';
 
 const PresentationMap = (props) => {
     let mapState = {};

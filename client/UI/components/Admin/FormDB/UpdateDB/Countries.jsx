@@ -4,7 +4,7 @@ import { useForm } from "react-hook-form";
 import SelectEntered from '../../../CustomElements/SelectEntered';
 import TextArea from '../../../CustomElements/TextArea';
 import Button from '../../../CustomElements/Button';
-import classes from './Countries.module.css';
+import classes from './Countries.module.scss';
 
 const Countries = (props) => {
 
@@ -14,9 +14,9 @@ const Countries = (props) => {
     const [dbData, setDbData] = useState({});
     const [textAreaValue, setTextAreaValue] = useState();
 
-    let countries = {};
+    let countries = {Россия: ''};
     let nameCountryIds = {};
-
+    console.log(dbData)
     if (Object.keys(dbData).length != 0)
     {
         dbData.map((country)=>{
@@ -42,6 +42,7 @@ const Countries = (props) => {
                 return response.json();
               })
               .then((data) => {
+                  console.log(data)
                 setDbData(data);
               });
             

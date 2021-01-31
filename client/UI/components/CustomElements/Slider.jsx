@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import classes from './Slider.module.css';
+import classes from './Slider.module.scss';
 
 const Slider = (props) => {
     //images is massive, full of src like: http://mlp, ./images/image/jpg

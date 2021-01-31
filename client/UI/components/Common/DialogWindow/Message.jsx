@@ -1,22 +1,48 @@
-import classes from './Message.module.css'
+import classes from './Message.module.scss'
 
 const Message = (props) => {
 
     let title = '';
     let text = ''; 
-    switch (props.status)
+
+    switch (props.method)
     {
-        case 404:{
-            title = 'Запрос не отправлен';
-            text = 'Страница отвечающая за отправку запроса — не была найдена';
+        case 'insert':{
+
+            switch (props.status)
+            {
+                case 404:{
+                    title = 'Запрос не отправлен';
+                    text = 'Страница отвечающая за отправку запроса — не была найдена';
+                    break;
+                }
+                case 200:{
+                    title = 'Запрос выполнен';
+                    text = 'Данные успешно внесены в базу данных';
+                    break;
+                }
+            }
+
             break;
         }
-        case 200:{
-            title = 'Запрос выполнен';
-            text = 'Данные успешно внесены в базу данных';
-            break;
+        case 'delete':{
+
+            switch (props.status)
+            {
+                case 404:{
+                    title = 'Запрос не отправлен';
+                    text = 'Страница отвечающая за отправку запроса — не была найдена';
+                    break;
+                }
+                case 200:{
+                    title = 'Запрос выполнен';
+                    text = 'Данные успешно удалены';
+                    break;
+                }
+            }
         }
     }
+    
 
     
     return (

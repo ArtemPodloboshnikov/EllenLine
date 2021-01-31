@@ -1,4 +1,4 @@
-@import '../../index.scss';
+@import '../../styles/index.scss';
 // .relax{
 //     height: auto;
 // }
@@ -25,16 +25,13 @@
 
 .choose{
     grid-area: choose;
-    display: grid;
-    height: auto;
-    grid-template-columns: repeat(2, 1fr);  
-    padding: 0 15px;
+    @include double_choose_block();
 }
 
-.pansionat, .sanatorium{
+.pansionat, .hotels{
     text-align: center;
 }
-.pansionat h1, .sanatorium h1{
+.pansionat h1, .hotels h1{
     @extend %border;
     @extend %button;
     color: black;
@@ -55,12 +52,12 @@
     border-right: 3px solid #009BDF;
     transform: skew(20deg);
 }
-.sanatorium{
+.hotels{
     /* grid-area: san; */
     border-left: none;
     transform: skew(20deg);
 }
-.sanatorium h1{
+.hotels h1{
     border-left: 3px solid #009BDF;
     transform: skew(-20deg);
 }
@@ -71,7 +68,7 @@
 
 @media screen and (max-width: 1024px)
 {
-    .sanatorium h1, .pansionat h1{
+    .hotels h1, .pansionat h1{
         font-size: 1.5em;
     }
 }
@@ -82,10 +79,10 @@
         grid-template-rows: repeat(2, 1fr);
         padding: 0;
     }
-    .sanatorium, .pansionat, .sanatorium h1, .pansionat h1{
+    .hotels, .pansionat, .hotels h1, .pansionat h1{
         transform: none;
     }
-    .sanatorium h1, .pansionat h1{
+    .hotels h1, .pansionat h1{
         font-size: 1em;
     }
 }

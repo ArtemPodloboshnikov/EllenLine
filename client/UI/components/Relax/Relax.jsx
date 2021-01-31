@@ -1,11 +1,8 @@
 import React, {useEffect, useState} from 'react';
 import { NavLink, Route } from 'react-router-dom';
-import List from './List.jsx'; 
-import CountryDescription from '../Common/countryDescription/countryDescription';
 import classes from './Relax.module.css';
 import ChooseResort from './ChooseResort.jsx';
 import Resort from './Resort.jsx';
-import ky from 'ky';
 
 
 

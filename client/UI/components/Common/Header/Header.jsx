@@ -1,9 +1,10 @@
-import classes from './Header.module.css';
+import classes from './Header.module.scss';
 import Link from 'next/link'
 import { useEffect, useState } from 'react'
 import UpToHeader from '../UpToHeader/UpToHeader';
 import SidebarHeader from './SidebarHeader';
 import ReactPlayer from 'react-player'
+import SearchByName from '../Search/SearchByName';
 
 const Header = (props) => {
 
@@ -15,13 +16,31 @@ const Header = (props) => {
         setScroll(window.scrollY);
         // console.log(scroll);
     };
-    const showTree = ()=>{
+    const showTree = (e)=>{
        
-        setTreeActive(classes.tree_active);
+        let id = '';
+        if (e.target.id.split('_')[0] != '')
+        {
+            id = e.target.id.split('_')[0];
+        }
+        else
+        {
+            id = e.target.id;
+        }
+        document.getElementById(id).classList.add(classes.tree_active);
     }
-    const hideTree = ()=>{
+    const hideTree = (e)=>{
 
-        setTreeActive('');
+        let id = '';
+        if (e.target.id.split('_')[0] != '')
+        {
+            id = e.target.id.split('_')[0];
+        }
+        else
+        {
+            id = e.target.id;
+        }
+        document.getElementById(id).classList.remove(classes.tree_active);
     }
 
     useEffect(()=>{
@@ -43,6 +62,9 @@ const Header = (props) => {
                 <input name='search_toggle' type='radio' id={classes.search_close}/>
                 <div className={classes.search}>
                     <label for={classes.search_close} className={classes.search__close}></label>
+                    <SearchByName className={classes.search__block} classNameSelected={classes.search__selected} 
+                        classNameButton={classes.search__button}
+                    />
                 </div>
                 <header className={classes.header}>
                     <ReactPlayer url='videos/videoHeader.mp4' playing={true} loop={true} muted={true} class={classes.header__video} id="bgvideo"/> 
@@ -51,12 +73,27 @@ const Header = (props) => {
                             <Link href='/home'><a className={classes.header__button}>О нас</a></Link>
                             <Link href='/collaboration'><a className={classes.header__button} style={{gridColumn: '2 / 4'}}>Санкт-Петербург</a></Link>
                             <Link href='/home'><a><img src='images/logo.svg'/></a></Link>
-                            <Link href='/tours'><a className={classes.header__button}>Туры</a></Link>
-                            <Link href='/places'><a className={classes.header__button}>Экскурсии</a></Link>
-                            <div><Link href='/relax'><a className={classes.header__button} onMouseOver={showTree} onMouseOut={hideTree}>Отдых</a></Link><div onMouseOver={showTree} onMouseOut={hideTree} id='tree' className={classes.tree + ' ' + treeActive}>
-                                <Link href='/relax/sanatorium'><a className={classes.header__treeItem}>Санатории</a></Link>
-                                <Link href='/relax/pensionats'><a className={classes.header__treeItem}>Пансионаты</a></Link>
-                            </div></div>
+                            <div>
+                                <Link href='/tours'><a id='treeTours_button' className={classes.header__button} onMouseOver={showTree} onMouseOut={hideTree}>Туры</a></Link>
+                                <div onMouseOver={showTree} onMouseOut={hideTree} id='treeTours' className={classes.treeTours}>
+                                    <Link href='/tours/oneday'><a id='treeTours' className={classes.header__treeItem}>Однодневные</a></Link>
+                                    <Link href='/tours/multiday'><a id='treeTours' className={classes.header__treeItem}>Многодневные</a></Link>
+                                </div>
+                            </div>
+                            <div>
+                                <Link href='/relax'><a id='treeRelax_button' className={classes.header__button} onMouseOver={showTree} onMouseOut={hideTree}>Отдых</a></Link>
+                                <div onMouseOver={showTree} onMouseOut={hideTree} id='treeRelax' className={classes.treeRelax}>
+                                    <Link href='/relax/hotels'><a id='treeRelax' className={classes.header__treeItem}>Санатории</a></Link>
+                                    <Link href='/relax/pensionats'><a id='treeRelax' className={classes.header__treeItem}>Пансионаты</a></Link>
+                                </div>
+                            </div>
+                            <div>
+                                <Link href='/places'><a id='treeСruises_button' className={classes.header__button} onMouseOver={showTree} onMouseOut={hideTree}>Круизы</a></Link>
+                                <div onMouseOver={showTree} onMouseOut={hideTree} id='treeСruises' className={classes.treeCruises}>
+                                    <Link href='/cruises/river'><a id='treeСruises' className={classes.header__treeItem}>Речные</a></Link>
+                                    <Link href='/cruises/marine'><a id='treeСruises' className={classes.header__treeItem}>Морские</a></Link>
+                                </div>
+                            </div>
                             <label for={classes.search_active}><img src='images/Header/loupe.svg' /></label>
                         </div>
                         <div className={classes.header__phone}><a href='tel:+79219733344' className={classes.header__button}>+7 (921) 973 33 44</a></div>

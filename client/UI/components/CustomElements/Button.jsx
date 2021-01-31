@@ -1,11 +1,11 @@
-import classes from './Button.module.css';
+import classes from './Button.module.scss';
 
 const Button = (props) => {
 
     let type = 'submit';
     if (props.type == 'button')
     {
-        type = 'button';
+        type = props.type;
     }
     const onClick = () => {
 
@@ -15,16 +15,36 @@ const Button = (props) => {
     return (
         
         <div className={classes.wrap + ' ' + props.className}>
-            <input onClick={() => {
-                
-                if (type == 'button') 
-                {
 
-                    onClick();
+            {(()=>{
+                console.log(props.value)
+                if (props.value !== String)
+                {
+                    return (
+
+                        <button type={type}>
+                            {props.value}
+                        </button>
+                    )
                 }
+                else
+                {
+                    return (
+
+                        <input onClick={() => {
                 
-            }} className={classes.input + ' ' + props.classInput} 
-            value={props.value} type={type}/>
+                            if (type == 'button') 
+                            {
+
+                                onClick();
+                            }
+                            
+                        }} className={classes.input + ' ' + props.classInput} 
+                        value={props.value} type={type}/>
+                    )
+                }
+            })()}
+            
         </div>
         
     )

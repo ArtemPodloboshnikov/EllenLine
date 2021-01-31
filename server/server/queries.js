@@ -2,49 +2,13 @@ const express = require('express');
 const router = express.Router();
 const MySQL = require('mysql');
 const async = require('async');
-const multer  = require("multer");
+const transliterate = require('./functions').transliterate;
+const filesUploader = require('./functions').filesUploader;
+const ConvertDataToString = require('./functions').ConvertDataToString;
+const keysForTables = require('./passwords')
 
 
-function transliterate(word){
-  let a = {"Ё":"YO","Й":"I","Ц":"TS","У":"U","К":"K","Е":"E","Н":"N","Г":"G","Ш":"SH","Щ":"SCH","З":"Z","Х":"H","Ъ":"'","ё":"yo","й":"i","ц":"ts","у":"u","к":"k","е":"e","н":"n","г":"g","ш":"sh","щ":"sch","з":"z","х":"h","ъ":"'","Ф":"F","Ы":"I","В":"V","А":"a","П":"P","Р":"R","О":"O","Л":"L","Д":"D","Ж":"ZH","Э":"E","ф":"f","ы":"i","в":"v","а":"a","п":"p","р":"r","о":"o","л":"l","д":"d","ж":"zh","э":"e","Я":"Ya","Ч":"CH","С":"S","М":"M","И":"I","Т":"T","Ь":"'","Б":"B","Ю":"YU","я":"ya","ч":"ch","с":"s","м":"m","и":"i","т":"t","ь":"'","б":"b","ю":"yu", " ":"_"};
-  return word.split('').map(function (char) { 
-    return a[char] || char; 
-  }).join("");
-}
-
-function filesUploader(path, mimetypes = ["image/png", "image/jpg", "image/jpeg", "image/svg+xml"]){
-    const storageConfig = multer.diskStorage({
-        destination: (req, file, cb) =>{
-            cb(null, path);
-        },
-        filename: (req, file, cb) =>{
-            cb(null, transliterate(file.originalname));
-        }
-    });
-
-    const fileFilter = (req, file, cb) => {
-        
-        let flag = false;
-
-        mimetypes.map(mimetype => {
-
-            if (mimetype === file.mimetype)
-            {
-                flag = true;
-            }
-            
-        })
-
-        cb(null, flag);
-        
-    }
-
-    return multer({storage:storageConfig, fileFilter: fileFilter, limits : {fileSize : 1000000}}).array("photos[]");
-}
-const keysForTables = {'countries': {name: 'nBZiLpGdcwsFngZU', description: 'aSTCsopinbYKCElE'},
-                       'cities': {name: 'yPkAx3jZlnZC'}} 
-
-const HOST = 'localhost';
+const HOST = '92.53.96.146';
 const DB_USER = 'cl98835_el';
 const PASSWORD = 'N3MntYQG';
 const DB_NAME = 'cl98835_el';
@@ -59,7 +23,7 @@ const mysql = MySQL.createPool({
     database: DB_NAME
 });
 
-router.get('/sanatoriums', function(request, reply){
+router.get('/relax', function(request, reply){
 
     mysql.getConnection(function(err, connection) {
         if (err) {
@@ -78,7 +42,7 @@ router.get('/sanatoriums', function(request, reply){
     })
 })
 
-router.post('/sanatoriumsPhotos', filesUploader("images/Sanatorium"),function(request, reply){
+router.post('/relaxPhotos', filesUploader("images/Relax"),function(request, reply){
 
     
 
@@ -95,7 +59,59 @@ router.post('/sanatoriumsPhotos', filesUploader("images/Sanatorium"),function(re
     
 })
 
-router.post('/sanatoriums', function(request, reply){
+router.post('/relax', function(request, reply){
+    
+    let paths = []
+    request.body.photosPath.map((path)=>{
+
+        paths.push(transliterate(path));
+    })
+    request.body.photosPath = paths;
+    console.log(keysForTables.relax.title);
+
+    const dataTitle = [request.body.title, keysForTables.relax.title];
+    const dataAddress = [request.body.address, keysForTables.relax.address];
+    const dataDescription = [request.body.description, keysForTables.relax.description];
+    const dataServices = [JSON.stringify(request.body.services), keysForTables.relax.services];
+    const dataCoordinates = [request.body.coordinates.join(','), keysForTables.relax.coordinates];
+    const dataPhotos = [request.body.photosPath.join(), keysForTables.relax.photos];
+    const dataType = [request.body.type.toLowerCase(), keysForTables.relax.type];
+    const dataTypeOfRoom = [request.body.typeOfRoom, keysForTables.relax.typeOfRoom];
+    mysql.getConnection(function(err, connection) {
+        if (err) {
+            console.log(err);
+            return;
+        }
+        
+        connection.query('INSERT INTO relax_  SET title = AES_ENCRYPT(?), address = AES_ENCRYPT(?), description = AES_ENCRYPT(?), stars = ?, services = AES_ENCRYPT(?), coordinates = AES_ENCRYPT(?), photos = AES_ENCRYPT(?), price = ?, type = AES_ENCRYPT(?), typeOfRoom = AES_ENCRYPT(?), id_city = ?',
+        [dataTitle, dataAddress, dataDescription, request.body.stars, dataServices, dataCoordinates, dataPhotos, request.body.price, dataType, dataTypeOfRoom, request.body.idCity], function (error, results) {
+
+            connection.release();
+            if (error) console.log(error);
+
+            reply.sendStatus(200);
+        });
+    })
+})
+
+router.post('/toursPhotos', filesUploader("images/Tours"),function(request, reply){
+
+    
+
+    let filedata = request.body;
+    if (filedata)
+    {
+
+        console.log('Файлы загружены')
+    }
+    else
+    {
+        console.log('Файлы не загружены')
+    }
+    
+})
+
+router.post('/tours', function(request, reply){
     
     let paths = []
     request.body.photosPath.map((path)=>{
@@ -104,21 +120,123 @@ router.post('/sanatoriums', function(request, reply){
     })
     request.body.photosPath = paths;
     console.log(request.body);
+
+    // const fields = ['title', 'address', 'description', 'stars', 'services', 'coordinates', 'photos', 'price', 'type', 'id_city'];
+    // const dataTitle = [request.body.title, keysForTables.relax.title];
+    // const dataAddress = [request.body.address, keysForTables.relax.address];
+    // const dataDescription = [request.body.description, keysForTables.relax.description];
+    // const dataServices = [JSON.stringify(request.body.services), keysForTables.relax.services];
+    // const dataCoordinates = [request.body.coordinates, keysForTables.relax.coordinates];
+    // const dataPhotos = [request.body.photos, keysForTables.relax.photos];
+    // const dataType = [request.body.type.toLowerCase(), keysForTables.sanatorium.type];
+    
+    // mysql.getConnection(function(err, connection) {
+    //     if (err) {
+    //         console.log(err);
+    //         return;
+    //     }
+        
+    //     connection.query('INSERT INTO relax_ (??) VALUES (AES_ENCRYPT(?), AES_ENCRYPT(?), AES_ENCRYPT(?), AES_ENCRYPT(?), AES_ENCRYPT(?), AES_ENCRYPT(?), AES_ENCRYPT(?), AES_ENCRYPT(?), AES_ENCRYPT(?), AES_ENCRYPT(?))',
+    //     [fields, dataTitle, dataAddress, dataDescription, request.body.stars, dataServices, dataCoordinates, dataPhotos, request.body.price, dataType, request.body.idCity], 
+    //     function (error, results, fl) {
+
+    //         connection.release();
+    //         if (error) console.log(error);
+    //         console.log(fl)
+    //         reply.status(200);
+    //     });
+    // })
+})
+
+router.get('/languages', function(request, reply){
+
     mysql.getConnection(function(err, connection) {
         if (err) {
             console.log(err);
             return;
         }
         
-        // connection.query('INSERT INTO relax (name, address, description, countStar, services, coordinates, photos, type, id_country, id_city) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)',
-        // [data], function (error, results, fields) {
+        connection.query(`SELECT id_language as id, AES_DECRYPT(name, '${keysForTables.languages.name}') as name FROM languages`,
+        function (error, results, fields) {
 
-        //     connection.release();
-        //     if (error) console.log(error);
+            connection.release();
+            if (error) console.log(error);
 
-        //     reply.status(200);
-        // });
+            let new_results = ConvertDataToString(results, [['id'], ['name']]);
+
+            reply.send(new_results);
+        });
     })
+})
+
+router.post('/languages', function(request, reply){
+
+    
+    const dataName = [request.body.name.toLowerCase(), keysForTables.languages.name]
+    
+    mysql.getConnection(function(err, connection) {
+        if (err) {
+            console.log(err);
+            return;
+        }
+        
+        connection.query('INSERT INTO languages SET name = AES_ENCRYPT(?)',
+        [dataName], 
+        function (error, results, fields) {
+
+            connection.release();
+            if (error) console.log(error);
+
+            reply.sendStatus(200);
+        });
+    })
+})
+
+router.delete('/languages', function(request, reply){
+
+    
+    
+    mysql.getConnection(function(err, connection) {
+        if (err) {
+            console.log(err);
+            return;
+        }
+        
+        connection.query('DELETE FROM languages WHERE id_language = ?',
+        [request.body.id], 
+        function (error, results, fields) {
+
+            connection.release();
+            if (error) console.log(error);
+
+            reply.sendStatus(200);
+        });
+    })
+})
+
+router.get('/employees', function(request, reply){
+
+    // mysql.getConnection(function(err, connection) {
+    //     if (err) {
+    //         console.log(err);
+    //         return;
+    //     }
+        
+    //     connection.query(`SELECT id_language as id, AES_DECRYPT(name, '${keysForTables.languages.name}') as name FROM languages`,
+    //     function (error, results, fields) {
+
+    //         connection.release();
+    //         if (error) console.log(error);
+
+    //         let new_results = [];
+
+    //         results.map((language)=>{
+
+    //             new_results.push({id: language.id, name: language.name.toString()});
+    //         });
+    //         reply.send(new_results);
+    //     });
+    // })
 })
 
 router.get('/countries', function(request, reply){
@@ -129,6 +247,7 @@ router.get('/countries', function(request, reply){
     {
         sql = `SELECT id_country as id, AES_DECRYPT(name, '${keysForTables.countries.name}') as name, AES_DECRYPT(description, '${keysForTables.countries.description}') as description FROM countries`;
     }
+    else
     if (request.query.with == 'cities')
     {
         if (request.query.whereCountryName != undefined)
@@ -158,47 +277,21 @@ router.get('/countries', function(request, reply){
             let string_result = [];
             if (request.query.with == 'cities')
             {
-                buffer_results.map(res=>{
-               
-                   
-                    const name_str = res.countryName.toString();
-                    //console.log(res);
-                    if (res.description != undefined)
-                    {
-                        const description = res.description.toString();
-                        string_result.push({idCountry: res.idCountry, countryName: name_str, 
-                            idCity: res.idCity, cityName: res.cityName.toString(), description: description});
 
-                    }
-                    else{
-                        string_result.push({idCountry: res.idCountry, countryName: name_str, 
-                            idCity: res.idCity, cityName: res.cityName.toString()});
-                    }
-                       
-                        
-                    
-                })
+                string_result = ConvertDataToString(buffer_results, [['idCountry'], 
+                ['countryName'], ['idCity'], ['cityName'], ['description']]);
+
+            }
+            else
+            if (request.query.with == 'description')
+            {
+
+                string_result = ConvertDataToString(buffer_results, [['id'], ['name'], ['description']]);
+               
             }
             else
             {
-                buffer_results.map(res=>{
-               
-                    if (res.name != null || res.description != null)
-                    {
-                        const name_str = res.name.toString();
-                        if (res.description != undefined)
-                        {
-                            const description = res.description.toString();
-                            string_result.push({id: res.id, name: name_str, description: description});
-    
-                        }
-                        else{
-                            string_result.push({id: res.id, name: name_str});
-                        }
-                       
-                        
-                    }
-                })
+                string_result = ConvertDataToString(buffer_results, [['id'], ['name']]);
             }
             
             
@@ -285,7 +378,7 @@ router.get('/cities', function(request, reply){
     }
     else
     {
-        sql = `SELECT id_city as id, AES_DECRYPT(name, '${keysForTables.cities.name}') as name FROM cities WHERE id_city=${request.body.id}`
+        sql = `SELECT id_city as id, AES_DECRYPT(name, '${keysForTables.cities.name}') as name FROM cities WHERE id_city=${request.query.id}`
     }
     mysql.getConnection(function(err, connection) {
         if (err) {
@@ -299,18 +392,7 @@ router.get('/cities', function(request, reply){
 
             connection.release();
             if (error) console.log(error);
-            let string_result = [];
-           
-            buffer_results.map(res=>{
-               
-                
-                const name_str = res.name.toString();
-
-                string_result.push({id: res.id, name: name_str});
-                   
-                    
-                
-            })
+            let string_result = ConvertDataToString(buffer_results, [['id'], ['name']]);
             
             reply.send(string_result);
         });
@@ -412,6 +494,64 @@ router.delete('/cities', function(request, reply){
             reply.sendStatus(200);
         });
     })
+})
+
+router.get('/searchAll', function(request, reply){
+
+    if (request.query.title == undefined) reply.sendStatus(400) 
+    const dataRelax = [request.query.title, keysForTables.relax.title];
+    let outputs = [];
+    let decryptedTempResults = [];
+    async.series([
+        function(done)
+        {
+            mysql.query(`SELECT AES_DECRYPT(title, ?) as title, AES_DECRYPT(photos, ?) as photos, stars FROM relax_ WHERE (SELECT AES_DECRYPT(title, ?) FROM relax_) LIKE ?`,
+            [keysForTables.relax.title, keysForTables.relax.photos, keysForTables.relax.title, `%${request.query.title}%`], 
+            function (error, results, fields) {
+
+                if (error) console.log(error);
+                
+                let new_results  = ConvertDataToString(results, [['title'], ['photos'], ['stars']]);
+
+                outputs.push(new_results);
+                done();
+            });
+            
+         },
+        // function(done)
+        // {
+        //     mysql.query(`SELECT AES_DECRYPT(title, '?') as title, AES_DECRYPT(photos, '?') as photos, stars FROM relax_ WHERE title LIKE (SELECT AES_ENCRYPT(?))`,
+        //     [keysForTables.relax.title, keysForTables.relax.photos, dataRelax], 
+        //     function (error, results, fields) {
+
+        //         if (error) console.log(error);
+                
+        //         let new_results = ConvertDataToString(results, [['title'], ['photos'], ['stars']]);
+
+        //         outputs.push(new_results);
+        //         done();
+        //     });
+            
+        // },
+        // function(done)
+        // {
+           
+        //     mysql.query('INSERT INTO countries_bind_cities SET id_city=?, id_country=?',
+        //     [lastCityId, request.body.idCountry], 
+        //     function (error, results, fields) {
+
+        //         if (error) console.log(error);
+
+        //         done();
+        //     });
+            
+        // }
+        
+    ], function(err){
+
+        if (err) console.log(err);
+        reply.send(outputs);
+    })  
 })
 
 module.exports = router;

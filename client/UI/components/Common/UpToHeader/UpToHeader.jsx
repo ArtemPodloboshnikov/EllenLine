@@ -1,4 +1,4 @@
-import classes from './UpToHeader.module.css';
+import classes from './UpToHeader.module.scss';
 
 function UpToHeader(props){
     

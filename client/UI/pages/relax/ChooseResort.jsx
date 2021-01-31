@@ -1,13 +1,13 @@
 import React, { useState } from 'react';                                                                        
 import Link from 'next/link';
-import Search from '../../components/Common/Search/Search.jsx';
+import SearchRelax from '../../components/Common/Search/SearchRelax.jsx';
 import classes from './ChooseResort.module.scss';
 
 const ChooseResort = (props) => {
 
     return(
         <div className={classes.resort + ' ' + props.className}>
-            <Search className={classes.search}/>
+            <SearchRelax className={classes.search}/>
             <div className={classes.choose}>
                 <div className={classes.pansionat}>
                     <Link href={{ pathname: '/relax/[resort]', query: { resort: 'pensionats'}}}>

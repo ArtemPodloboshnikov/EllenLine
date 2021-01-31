@@ -1,5 +1,5 @@
 import React from 'react'
-import classes from './Clients.module.css';
+import classes from './Clients.module.scss';
 import MediaQuery from 'react-responsive';
 
 const Clients = () => {
