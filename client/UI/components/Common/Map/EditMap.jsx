@@ -1,6 +1,6 @@
 import { YMaps, Map, Placemark, Clusterer, GeoObject } from 'react-yandex-maps';
 import {useState, useEffect} from 'react'
-import classes from './YandexMap.module.css';
+import classes from './YandexMap.module.scss';
 
 //const mapState = { center: [59.9073, 30.3276], zoom: 10 };
 //const markState = {points: [{geometry: [59.87026977960634, 30.26204491830366], hintContent: 'Эллинлайн', balloonContent: 'ул. Зайцева, 3, корп. 2, Санкт-Петербург'}]}

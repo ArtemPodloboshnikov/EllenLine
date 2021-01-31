@@ -1,5 +1,5 @@
 import React from 'react'
-import classes from './Advantages.module.css';
+import classes from './Advantages.module.scss';
 
 const Advantages = (props) => {
     // debugger;

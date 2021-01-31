@@ -22,6 +22,7 @@ class MyDocument extends Document {
           />
           <link rel="apple-touch-icon" href="images/logo.svg" />
           <link rel="manifest" href="%PUBLIC_URL%/manifest.json" />
+          <script src="https://kit.fontawesome.com/5116ed660a.js" crossorigin="anonymous"></script>
         </Head>
         <body>
           <Main />

@@ -5,7 +5,6 @@ import Head from 'next/head';
 
 export default function AdminLayout ({children, sector, title = 'Эллинлайн'}){
 
-    // const headers = [<AdminHeader/>, <DbHeader/>];
     console.log(sector);
 
     function ConvertSector(to_sector) {

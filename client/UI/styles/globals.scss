@@ -1,4 +1,4 @@
-@import '../index.scss';
+@import './index.scss';
 
 @font-face{
 
@@ -20,10 +20,7 @@
   font-style: normal;
 }
 
-$mainColor: #0062FF;
-$sideColor: #fff;
-$placeholderColor: #FFDD00;
-$AttentionColor: #FF0062;
+
 
 h1, h2, h3, h4, h5{
   font-weight: normal;
@@ -38,7 +35,7 @@ body {
     sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
-  background-color: $sideColor;
+  background-color: $sub_color;
 }
 [class*="ymaps-2"][class*="-ground-pane"] {
   filter: url("data:image/svg+xml;utf8,<svg xmlns=\'http://www.w3.org/2000/svg\'><filter id=\'grayscale\'><feColorMatrix type=\'matrix\' values=\'0.3333 0.3333 0.3333 0 0 0.3333 0.3333 0.3333 0 0 0.3333 0.3333 0.3333 0 0 0 0 0 1 0\'/></filter></svg>#grayscale");
@@ -151,8 +148,8 @@ input::-webkit-inner-spin-button {
     top: 0;
     width: 18px;
     height: 18px;
-    border: 1px solid $sideColor;
-    background: $sideColor;
+    border: 1px solid $sub_color;
+    background: $sub_color;
     border-radius: 100%;
 }
 [type="radio"]:checked + .radio_button:after,
@@ -186,8 +183,8 @@ input::-webkit-inner-spin-button {
 
   width: 100%;
   height: 25vh;
-  background-color: $mainColor;
-  color: $sideColor;
+  background-color: $primary_color;
+  color: $sub_color;
   align-items: center;
   font-family: 'Kazimir';
   font-size: 3rem;

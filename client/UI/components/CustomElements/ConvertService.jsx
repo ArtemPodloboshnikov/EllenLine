@@ -1,5 +1,5 @@
 import React from 'react';
-import classes from './ConvertService.module.css';
+import classes from './ConvertService.module.scss';
 
 const ConvertService = (props) => {
     let service;

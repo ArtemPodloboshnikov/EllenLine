@@ -1,5 +1,5 @@
 import {useState} from 'react'
-import classes from './TextArea.module.css'
+import classes from './TextArea.module.scss'
 
 const TextArea = (props) => {
 

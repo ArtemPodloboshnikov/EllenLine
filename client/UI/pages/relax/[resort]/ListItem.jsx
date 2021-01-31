@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import Link from 'next/link';
 //import ConvertService from './../CustomElements/ConvertService.jsx';
-import classes from './ListItem.module.css';
+import classes from './ListItem.module.scss';
 
 const ListItem = (props) => {
     const [idItem, setId] = useState(props.idItem);

@@ -37,5 +37,66 @@ function filesUploader(path, mimetypes = ["image/png", "image/jpg", "image/jpeg"
       return multer({storage:storageConfig, fileFilter: fileFilter, limits : {fileSize : 1000000}}).array("photos[]");
   }
 
+/**
+ * Converting data from DB of buffer type to string
+ * 
+ * @param {array} array Array which contain a data from DB
+ * @param {array} args Array which contain a keys from specified in sql query
+ * @return {array} New array with string data, number data don't convert to string
+ * 
+ * Annotation: args = [['title' => 'key from sql query'], ['id' => 'key from sql query', 'id_relax' => 'new name of field']]
+ */
+function ConvertDataToString(array, args)
+{
+    let new_array = [];
+    const isNumber = (val) => {
+
+        if (!isNaN(val))
+            return true;
+        else
+            return false;
+    }
+    array.map((elem)=>{
+        let object = {};
+        args.map((arg)=>{
+
+            if (elem[arg[0]] != undefined)
+            {
+                if (arg[1] != undefined)
+                {
+                    if (isNumber(elem[arg[0]]))
+                    {
+
+                        object[arg[1]] = elem[arg[0]]
+                    }
+                    else
+                    {
+                        object[arg[1]] = elem[arg[0]].toString();
+                    }
+                }
+                else
+                {
+
+                    if (isNumber(elem[arg[0]]))
+                    {
+
+                        object[arg[0]] = elem[arg[0]]
+                    }
+                    else
+                    {
+                        object[arg[0]] = elem[arg[0]].toString();
+                    }
+                }
+            }
+
+        })
+
+        new_array.push(object);
+    })
+
+    return new_array;
+} 
+
 module.exports.transliterate = transliterate;
 module.exports.filesUploader = filesUploader;
+module.exports.ConvertDataToString = ConvertDataToString;

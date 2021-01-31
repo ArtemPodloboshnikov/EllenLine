@@ -1,5 +1,5 @@
 import {useState, useEffect} from 'react'
-import classes from './Tours.module.css'
+import classes from './Tours.module.scss'
 import InputText from '../../../CustomElements/InputText'
 import TextArea from '../../../CustomElements/TextArea'
 import InputNumber from '../../../CustomElements/InputNumber'

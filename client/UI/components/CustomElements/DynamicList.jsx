@@ -1,5 +1,5 @@
 import {useState} from 'react'
-import classes from './DynamicList.module.css'
+import classes from './DynamicList.module.scss'
 
 const CreateInput = (params)=>{
 

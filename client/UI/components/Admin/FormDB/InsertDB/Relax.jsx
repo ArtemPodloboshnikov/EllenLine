@@ -1,5 +1,5 @@
 import {useState, useEffect} from 'react'
-import classes from './Relax.module.css'
+import classes from './Relax.module.scss'
 import InputText from '../../../CustomElements/InputText'
 import TextArea from '../../../CustomElements/TextArea'
 import InputNumber from '../../../CustomElements/InputNumber'
@@ -206,7 +206,10 @@ const Sanatorium = (props) => {
                 classPlaceholder={classes.filesUploader__placeholder} placeholder='Фото отеля/пансионата' />
                 
                 <SelectEntered register={register({required: true})} name='type'
-                className={classes.select} placeholder='Тип' options={['Пансионат', 'Отель']} type='select'/>
+                className={classes.select} placeholder='Тип заведения' options={['Пансионат', 'Отель']} type='select'/>
+
+                <InputText register={register({required: true})} name='typeOfRoom' className={classes.inputText + ' ' + classes.inputText_width50} 
+                classInput={classes.inputText__input} placeholder='Тип номера'/>
 
                 <SelectEntered register={register({required: true})} name='country' value={countryName} onChangeFunction={setCountryName}
                 className={classes.select} placeholder='Страна' options={Object.keys(contries_cities.countries)} />

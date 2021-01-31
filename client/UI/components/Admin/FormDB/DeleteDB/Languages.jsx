@@ -3,7 +3,7 @@ import Message from '../../../Common/DialogWindow/Message';
 import { useForm } from "react-hook-form";
 import SelectEntered from '../../../CustomElements/SelectEntered';
 import Button from '../../../CustomElements/Button';
-import classes from './Languages.module.css';
+import classes from './Languages.module.scss';
 
 const Languages = (props) => {
 

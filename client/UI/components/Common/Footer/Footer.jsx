@@ -1,5 +1,5 @@
 import React from 'react'
-import classes from './Footer.module.css';
+import classes from './Footer.module.scss';
 import Link from 'next/link'
 import PresentationMap from '../Map/PresentationMap'
 

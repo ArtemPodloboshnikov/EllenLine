@@ -1,0 +1,132 @@
+@import '../../../styles/index.scss';
+
+/* a {
+    text-decoration: none;
+    color: white
+}
+
+a:active .list_item{
+    color: black;
+} */
+
+.list_item {
+    position: relative;
+    height: 100%;   
+    width: 100%;
+    overflow: hidden;
+    background-position: center;
+    background-size: cover;
+    box-shadow: 0 0 7px 0px black;
+}
+
+.top, .bottom{
+    height: 20%;
+    position: absolute;
+    left: 0;
+    right: 0;
+    /* padding-top: 5px; */
+    background-color: $primary_color;
+}
+
+.top::after, .bottom::before{
+    z-index: 0;
+    display: block;
+    position: absolute;
+    width: 110%;
+    height: 100%;
+    left: -5%;
+    right: -5%;
+    content: ' ';
+    background-color: $primary_color;
+    transform: rotate(-5deg);
+}
+
+.top{
+    grid-area: top;
+    display: grid;
+    top: 0;
+    justify-content: center;
+    align-items: center;
+}
+
+.title{
+    z-index: 1;
+    display: block;
+    position: absolute;
+    width: 100%;
+    /* top: 5px; */
+    margin: 0 auto;
+    text-align: center;
+}
+
+.top::after{
+    bottom: -20px;
+}
+
+.bottom{
+    bottom: 0;
+    grid-area: bottom;
+    display: grid;
+    padding: 5px;
+    gap: 5px;
+    grid-template-areas: 'add price'
+                         'add services';
+}
+
+.bottom::before{
+    top: -20px;
+}
+
+.bottom p{
+    margin: 0;
+    font-size: 1em;
+}
+
+.bottom i{
+    font-size: 1.35em;
+}
+
+.address, .price, .services{
+    z-index: 1;
+    position: absolute;
+}
+
+.address{
+    grid-area: add;
+    display: grid;
+    height: 100%;
+    grid-template-columns: 1fr 4fr;
+}
+
+.address p{
+    text-align: center;
+}
+
+.address i, .address p, 
+.price i, .price p,
+.services i{
+    justify-self: center;
+    align-self: center;
+}
+
+.price{
+    grid-area: price;
+    display: grid;
+    width: 100%;
+    column-gap: 5px;
+    grid-template-columns: 1fr 3fr;
+}
+
+.price p{
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+}
+
+.services{
+    grid-area: services;
+    display: grid;
+    gap: 5px;
+    width: 100%;
+    height: 100%;
+}

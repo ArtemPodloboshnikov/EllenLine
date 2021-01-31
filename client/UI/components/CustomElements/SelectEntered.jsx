@@ -1,5 +1,5 @@
 import {useState} from 'react'
-import classes from './SelectEntered.module.css';
+import classes from './SelectEntered.module.scss';
 
 const SelectEntered = (props) => {
 
@@ -90,7 +90,8 @@ const SelectEntered = (props) => {
         <div className={classes.wrap + ' ' + props.className}>
             <div className={classes.selectInput}>
                 <input ref={props.register} name={props.name} placeholder={props.placeholder} id={classes.id}
-                className={classes.input + ' ' + props.classInput} onChange={enterText} value={value}/>
+                className={classes.input + ' ' + props.classInput} onChange={enterText} value={value} 
+                onBlur={()=>setPossibleData([])}/>
                 <div><div onClick={allOptions} className={arrowClass}></div></div>
             </div>
             <div className={classes.possibleData}>{possibleData.length ? possibleData: ''}</div>

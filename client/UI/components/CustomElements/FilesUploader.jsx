@@ -1,5 +1,5 @@
 import {useState} from 'react'
-import classes from './FilesUploader.module.css';
+import classes from './FilesUploader.module.scss';
 
 const FilesUploader = (props) => {
 

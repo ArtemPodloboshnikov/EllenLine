@@ -4,7 +4,7 @@ import { useForm } from "react-hook-form";
 import InputText from '../../../CustomElements/InputText';
 import TextArea from '../../../CustomElements/TextArea';
 import Button from '../../../CustomElements/Button';
-import classes from './Languages.module.css';
+import classes from './Languages.module.scss';
 
 const Languages = (props) => {
 

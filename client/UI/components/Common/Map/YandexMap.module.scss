@@ -1,0 +1,15 @@
+@import '../../../styles/index.scss';
+
+.wrap > div, .wrap > div > ymaps, .wrap > div > ymaps > ymaps{
+
+    width: 100% !important;
+    height: 100% !important;
+}
+.wrap *{
+
+    font-family: 'Mediator Serif Regular';
+    color: $primary_color;
+}
+#map{
+    
+}

@@ -1,5 +1,5 @@
 import {useState} from 'react'
-import classes from './AdminHeader.module.css';
+import classes from './AdminHeader.module.scss';
 import { useRouter } from 'next/router';
 import Link from 'next/link';
 

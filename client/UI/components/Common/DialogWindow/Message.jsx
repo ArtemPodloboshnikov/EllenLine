@@ -1,4 +1,4 @@
-import classes from './Message.module.css'
+import classes from './Message.module.scss'
 
 const Message = (props) => {
 

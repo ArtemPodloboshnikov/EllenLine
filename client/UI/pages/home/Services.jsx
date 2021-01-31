@@ -1,5 +1,5 @@
 import React from 'react'
-import classes from './Services.module.css';
+import classes from './Services.module.scss';
 import MediaQuery from 'react-responsive';
 
 const Services = (props) => {
