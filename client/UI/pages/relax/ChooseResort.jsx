@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState } from 'react';                                                                        
 import Link from 'next/link';
 import Search from '../../components/Common/Search/Search.jsx';
 import classes from './ChooseResort.module.scss';
@@ -10,15 +10,15 @@ const ChooseResort = (props) => {
             <Search className={classes.search}/>
             <div className={classes.choose}>
                 <div className={classes.pansionat}>
-                    <Link href='/relax/pensionats'>
-                        <h1>
+                    <Link href={{ pathname: '/relax/[resort]', query: { resort: 'pensionats'}}}>
+                        <h1 type='pensionats'>
                             Пансионаты
                         </h1>
                     </Link>
                 </div>
                 <div className={classes.sanatorium}>
-                    <Link href='/relax/sanatoriums'>
-                        <h1>
+                    <Link href={{ pathname: '/relax/[resort]', query: { resort: 'sanatoriums'}}}>
+                        <h1 type='sanatoriums'>
                             Санатории
                         </h1>
                     </Link>

@@ -31,9 +31,6 @@ export default function App(){
     console.log(data);
 
     return (
-        <ClientLayout title='О нас'>
-            <Home />
-        </ClientLayout>
+        <ClientLayout title='О нас' children={<Home/>}/>
     )
-
 }

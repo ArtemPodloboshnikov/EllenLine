@@ -1,32 +1,52 @@
-import React, {useEffect, useState} from 'react';
-import { useRouter } from 'next/router';
+import React, {Component, useEffect, useState} from 'react';
+import { withRouter } from 'next/router';
 import ClientLayout from '../../../layouts/ClientLayout.jsx';
-//import CountryDescription from '../Common/countryDescription/countryDescription';
 import ChooseResort from '../ChooseResort.jsx';
 import List from './List.jsx';
 import classes from './index.module.scss';
 
+class Resort extends Component {
+    constructor(props)
+    {
+        super(props);
+        this.state = {
+            Component_New: props.component,
+            router: props.router,
+            resort: props.resort
+        }
+        this.state.resort = props.router.query.resort;
+        console.log(this.state.router);
+        console.log(this.state.resort);
+        //this.state.router.events.on('routeChangeComplete', (url, { shallow }) => console.log('route chainge'));
+    }
 
+    async getStaticProps(context) {
+        console.log('Get inital');
+        // context.push(context.asPath)
+        console.log(context);
+        // context.reaload();
+        // return {
+        //     props: {
+        //         resort: context.query.resort
+        //     }
+        // }
+    }
 
-    
-const Resort = (props) => {
-    // const router = useRouter();
-    // const [category, setCategory] = useState(router.query.resort);
-    const [category, setCategory] = useState(props.resort);
+    RenderComponent() {
+        let Compo = this.state.Component_New;
+        if(Compo)
+            return <Compo {...this.props}/>;
+        else
+            return;
+    }
 
-    return (
-        <ClientLayout title='Отдых'>
-            <ChooseResort />
-            <List category={category}/>
-        </ClientLayout>
-    )
+    render() {
+        return (
+            <ClientLayout>
+                <List resort={this.state.resort}/>
+            </ClientLayout>
+        )
+    }
 }
 
-Resort.getInitalProps = ({ query }) => {
-    console.log('resort done');
-    return {
-        resort: query.resort
-    }
-} ;
-
-export default Resort;
+export default withRouter(Resort);
