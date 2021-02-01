@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import Slider from './../CustomElements/Slider.jsx';
 import classes from './InfoSection.module.scss';
+import Button from '../CustomElements/Button';
 
 const InfoSection = (props) => {
     const [title, setTitle] = useState(props.title);
@@ -45,8 +46,8 @@ const InfoSection = (props) => {
     }
 
     return (
-        <>
-            {ReturnMainTitle()}
+        <div className={classes.wrap}>
+            <h1>{ReturnMainTitle()}</h1>
             <div className={classes.enter}>
                 <Slider className={classes.slider} images={images} index={index}/>
                 <div className={classes.info}>
@@ -57,7 +58,7 @@ const InfoSection = (props) => {
                         <h2>от {price}</h2>
                         <span>за человека</span>
                     </div>
-                    <button>Забронировать</button>
+                    <Button value='Забронировать' className={classes.booking_btn} />
                 </div>
                 <div className={classes.wallet}>
                     <i class="fa fa-credit-card" aria-hidden="true"></i>
@@ -77,7 +78,7 @@ const InfoSection = (props) => {
                 </div>
                 <i class="fa fa-arrow-down" onClick={(e) => ExpandDescription(e)} aria-hidden="true"></i>
             </div>
-        </>
+        </div>
     )
 }
 

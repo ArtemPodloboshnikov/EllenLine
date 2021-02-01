@@ -5,6 +5,7 @@ import UpToHeader from '../UpToHeader/UpToHeader';
 import SidebarHeader from './SidebarHeader';
 import ReactPlayer from 'react-player'
 import SearchByName from '../Search/SearchByName';
+import Image from 'next/image';
 
 const Header = (props) => {
 
@@ -67,12 +68,12 @@ const Header = (props) => {
                     />
                 </div>
                 <header className={classes.header}>
-                    <ReactPlayer url='videos/videoHeader.mp4' playing={true} loop={true} muted={true} class={classes.header__video} id="bgvideo"/> 
+                    <ReactPlayer url='/videos/videoHeader.mp4' playing={true} loop={true} muted={true} class={classes.header__video} id="bgvideo"/> 
                     <div className={classes.header__content}>
                         <div className={classes.header__buttons}>
                             <Link href='/home'><a className={classes.header__button}>О нас</a></Link>
                             <Link href='/collaboration'><a className={classes.header__button} style={{gridColumn: '2 / 4'}}>Санкт-Петербург</a></Link>
-                            <Link href='/home'><a><img src='images/logo.svg'/></a></Link>
+                            <Link href='/home'><a><Image width={150} height={150} src='/images/logo.svg'/></a></Link>
                             <div>
                                 <Link href='/tours'><a id='treeTours_button' className={classes.header__button} onMouseOver={showTree} onMouseOut={hideTree}>Туры</a></Link>
                                 <div onMouseOver={showTree} onMouseOut={hideTree} id='treeTours' className={classes.treeTours}>
@@ -94,14 +95,14 @@ const Header = (props) => {
                                     <Link href='/cruises/marine'><a id='treeСruises' className={classes.header__treeItem}>Морские</a></Link>
                                 </div>
                             </div>
-                            <label for={classes.search_active}><img src='images/Header/loupe.svg' /></label>
+                            <label for={classes.search_active}><Image src='/images/Header/loupe.svg' width={50} height={50}/></label>
                         </div>
                         <div className={classes.header__phone}><a href='tel:+79219733344' className={classes.header__button}>+7 (921) 973 33 44</a></div>
                         <div className={classes.header__links}>
-                            <a href='https://vk.com/ellinline' className={classes.header__button}><img src='images/vk.svg'/></a>
-                            <a href='https://www.facebook.com/ООО-Эллинлайн-112305267240823/' className={classes.header__button}><img src='images/facebook.svg'/></a>
-                            <a href='https://www.instagram.com/ellinlinespb/' className={classes.header__button}><img src='images/instagram.svg'/></a>
-                            <a href='/home' className={classes.header__button}><img src='images/youtube.svg'/></a>
+                            <a href='https://vk.com/ellinline' className={classes.header__button}><Image src='/images/vk.svg' width={20} height={20}/></a>
+                            <a href='https://www.facebook.com/ООО-Эллинлайн-112305267240823/' className={classes.header__button}><Image src='/images/facebook.svg' width={20} height={20}/></a>
+                            <a href='https://www.instagram.com/ellinlinespb/' className={classes.header__button}><Image src='/images/instagram.svg' width={20} height={20}/></a>
+                            <a href='/home' className={classes.header__button}><Image src='/images/youtube.svg' width={20} height={20}/></a>
                         </div>
                     </div>
                 </header>

@@ -70,7 +70,7 @@
 }
 .info__block img{
 
-    width: 25%;
+    //width: 25%;
     object-fit: contain;
     /* ZIMIN */
     margin: 0 auto;
@@ -82,6 +82,11 @@
     justify-items: start;
     align-items: center;
     color: $sub_color;
+
+    & > div
+    {
+        justify-self: center;
+    }
 }
 /* iPads: вертикальная ориентация */
 @media only screen and (min-device-width : 768px) and (max-device-width : 1024px) and (orientation : portrait) {

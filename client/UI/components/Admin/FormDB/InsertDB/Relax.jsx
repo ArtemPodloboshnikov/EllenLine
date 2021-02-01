@@ -10,6 +10,7 @@ import Message from '../../../Common/DialogWindow/Message';
 import FilesUploader from '../../../CustomElements/FilesUploader'
 import EditMap from '../../../Common/Map/EditMap';
 import SelectEntered from '../../../CustomElements/SelectEntered'
+import SelectOption from '../../../CustomElements/SelectOption';
 
 const Sanatorium = (props) => {
    
@@ -26,6 +27,7 @@ const Sanatorium = (props) => {
 
         let new_data = new FormData();
         let commonServices = [];
+
         for (let i = 0; ; i++)
         {
             
@@ -80,6 +82,7 @@ const Sanatorium = (props) => {
         data.idCity = contries_cities.cities[data.city];
         delete data.city;
         data.price = Number.parseInt(data.price);
+     
         data.stars = Number.parseInt(data.stars);
         setFormData({photos: new_data, json: data})
     }
@@ -221,8 +224,8 @@ const Sanatorium = (props) => {
                 classInput={classes.inputText__input} placeholder='Адрес' onBlur={onBlurAddress}/>
 
                 <EditMap name='coordinates' cityName={cityName} className={classes.map} zoom={zoom}/>
-
-                <div className={classes.form__services} style={{gridTemplateRows: `repeat(${servicesRows}, 1fr)`, height: `${servicesRows * 10}vh`}}>
+                {/* <SelectOption type='dynamic' /> */}
+                <div className={classes.form__services} >
                     <DynamicList name='inStock' register={register({required: true})} className={classes.dynamicList} 
                     classInput={classes.dynamicList__input} placeholder='В наличии' rows={servicesRows} setRows={setServicesRows}/>
                     <DynamicList name='commonServices' register={register({required: true})} className={classes.dynamicList} 

@@ -1,7 +1,9 @@
 import React, { useEffect, useState } from 'react';
-import SelectOption from './SelectOption.jsx';
-import InputText from './InputText.jsx';
-import InputDate from './InputDate.jsx';
+import SelectOption from '../../CustomElements/SelectOption.jsx';
+import InputText from '../../CustomElements/InputText.jsx';
+import InputDate from '../../CustomElements/InputDate.jsx';
+import PromoCode from '../../CustomElements/PromoCode';
+import SelectEntered from '../../CustomElements/SelectEntered';
 import classes from './FormBooking.module.scss';
 
 const FormBooking = (props) => {
@@ -11,20 +13,23 @@ const FormBooking = (props) => {
     return(
         <div className={classes.booking + ' ' + props.className}>
             <div className={classes.info_going}>
-                <InputDate title='Дата приъезда'
+                <div className={classes.currency}>
+
+                </div>
+                <InputDate title='Дата приъезда' className={classes.date1}
                            date={date_arrival}/>
-                <InputDate title='Дата отъезда'
+                <InputDate title='Дата отъезда' className={classes.date2}
                            date={date_leave}/>
-                <SelectOption className={classes.parents}
-                              values={[ '1 взрослый', '2 взрослый' ]} 
+                <SelectEntered className={classes.parents}
+                              options={[ '1 взрослый', '2 взрослый' ]} 
                               placeholder='Взрослые'/>
+
                 <SelectOption className={classes.childs}
                               type='dynamic' 
                               placeholder='Ребёнок'/>
-                <div className={classes.code}>
-                    <InputText placeholder='Промокод'/>
-                    <button>Применить</button>
-                </div>
+              
+                <PromoCode className={classes.code}/>
+               
                 <div className={classes.price}>
                     <span>Итого</span>
                     <h1>3200 руб.</h1>

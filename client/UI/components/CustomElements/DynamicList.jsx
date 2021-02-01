@@ -2,7 +2,7 @@ import {useState} from 'react'
 import classes from './DynamicList.module.scss'
 
 const CreateInput = (params)=>{
-
+    
     return (
         <div className={classes.wrap}>
             <div id={params.id} onClick={params.minusOnClick} className={classes.controls}>-</div>
@@ -33,7 +33,9 @@ const DynamicList = (props) => {
             <>
                 <CreateInput register={props.register} name={props.name} 
                 classInput={props.classInput} id={i} value={value} onChange={printValue} 
-                placeholder={props.placeholder} plusOnClick={()=>{
+                placeholder={props.placeholder} 
+                
+                plusOnClick={()=>{
                     
                     setCountMemberArray(countMemberArray + 1);
                     setValue([...value, '']);

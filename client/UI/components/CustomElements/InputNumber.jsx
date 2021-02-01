@@ -54,6 +54,7 @@ const InputNumber = (props) => {
                placeholder={props.placeholder} 
                value={value} 
                name={props.name}
+               ref={props.register}
                min={props.min} max={props.max} onChange={(e) => CheckValue(e)}/>
              <div onClick={plus} className={classes.plus}>+</div>
              <div onClick={minus} className={classes.minus}>-</div>

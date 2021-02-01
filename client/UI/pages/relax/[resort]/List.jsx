@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import { useState } from 'react';
 import ListItem from './ListItem.jsx';
 import classes from './List.module.scss';
 
@@ -9,13 +9,13 @@ import classes from './List.module.scss';
 
 
 const List = (props) => {
-    const[category, setCategory] = useState(props.category);
-    const[items, setItems] = useState(() => 
+    // const[category, setCategory] = useState(props.category);
+    const items = (() => 
     {
         //В случаи если элементы не были прописанны изначально, идет запрос к бд
         if(!props.items)
         {
-            debugger;
+            
             if(category == 'pensionats')
             {
                 //return items = Запрос к бд возврщающий санатории
@@ -39,9 +39,9 @@ const List = (props) => {
                     }
                 ];
             }
-            else if(category == 'sanatoriums')
+            else if(props.category == 'hotels')
             {
-                //return items = Запрос к бд возврщающий пансионаты
+               
                 return [
                     {
                         idItem: 2,
@@ -63,7 +63,7 @@ const List = (props) => {
             }
         }
         return props.items;
-    }); 
+    })(); 
 
     //Parametr`s item: 
     //{
@@ -83,7 +83,7 @@ const List = (props) => {
             for(let i = 0; i < items.length; i++)
             {
                 let element = items[i];
-                elements.push(<ListItem category={category}
+                elements.push(<ListItem category={props.category}
                                         idItem={element.idItem}
                                         title={element.title}
                                         imgSrc={element.imgSrc}

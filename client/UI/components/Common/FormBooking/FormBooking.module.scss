@@ -1,0 +1,77 @@
+@import '../../../styles/index.scss';
+
+.booking 
+{
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    border: 5px solid $primary_color; 
+   
+
+    h1
+    {
+        margin: 0;
+        font-size: 1.25em;
+    }
+    
+    .info_going 
+    {
+        display: grid;
+        margin: 0 20px;
+        column-gap: 15px;
+        row-gap: 25px;
+        grid-template-columns: 1fr 5fr 5fr 1fr;
+        grid-template-areas: 
+        '. . . currency'
+        '. date1 date2 .'
+        '. parents childs .'
+        '. code price .'
+        '. . . .';
+        grid-template-rows: repeat(4, fit-content(1fr));   
+        
+
+        .date1
+        {
+            grid-area: date1;
+        }
+        .date2
+        {
+            grid-area: date2;
+        }
+        .parents, .childs
+        {
+            @extend %grid_center;
+            width: 100%;
+            background-color: $primary_color;
+            color: $sub_color;
+        }
+        .parents
+        {
+            grid-area: parents;
+        }
+        .childs{
+
+            grid-area: childs;
+        }
+        .code
+        {
+            width: 100%;
+            grid-area: code;
+            
+        }
+        .price
+        {
+            grid-area: price;
+            @extend %font;
+            color: $primary_color;
+        }
+    }
+
+    .info_person 
+    {
+        display: grid;
+        border-left: 5px solid $primary_color;
+        height: 100%;
+        align-self: stretch;
+        grid-template-rows: repeat(5, 1fr);
+    }
+}

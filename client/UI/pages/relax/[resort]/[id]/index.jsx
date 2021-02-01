@@ -1,17 +1,35 @@
-import React, { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { useRouter } from 'next/router';
-// import FormBooking from '../../../../components/CustomElements/fom'
-import FormBooking from '../../../../components/CustomElements/FormBooking.jsx';
+import PresentationMap from '../../../../components/Common/Map/PresentationMap';
+import FormBooking from '../../../../components/Common/FormBooking/FormBooking.jsx';
 import InfoSection from '../../../../components/CustomElements/InfoSection.jsx';
 import ClientLayout from '../../../../layouts/ClientLayout.jsx';
 import classes from './index.module.scss';
 
-const Resort = (props) => {
+const getRelax = ({data}) => {
     // По идее здесь должен идти запрос к бд, а не передача через пропсы
     // Но это временно для проверки пока бд не прикручена
-
+   
+    const [dbData, setDbData] = useState(data);
     const router = useRouter();
-    const [id, setId] = useState(router.query.id);
+    const {id} = router.query;
+    let images = ['https://geekster.ru/wp-content/uploads/2017/09/warhammer-40k.jpg'];
+    let coordinates = [3434, 4343];
+    console.log(data);
+    if (dbData !== undefined)
+    {
+        images = [];
+        let temp_images = dbData.imgSrc.split(',');
+        temp_images.map(image => {
+
+            images.push('/images/RelaxDynamic/' + image)
+        })
+
+        coordinates[0] = parseFloat(dbData.coordinates.split(',')[0]);
+        coordinates[1] = parseFloat(dbData.coordinates.split(',')[1]);
+        coordinates = [{coordinates: coordinates}]
+        console.log(coordinates);
+    }
     // Нужно заменить на конст
     // const[images, setImages] = useState(props.images);
     // const[title, setTitle] = useState(props.title);
@@ -19,13 +37,48 @@ const Resort = (props) => {
     // const[services, setServices] = useState(props.services);
     // const[text, setText] = useState(props.text);
     // const[address, setAddress] = useState(props.address);
-    let[images, setImages] = useState(props.images);
-    let[title, setTitle] = useState(props.title);
-    let[price, setPrice] = useState(props.price);
-    let[services, setServices] = useState(props.services);
-    let[text, setText] = useState(props.text);
-    let[address, setAddress] = useState(props.address);
-    //
+
+    useEffect(() =>{
+
+        async function get()
+        {
+            let json = [];
+            let type = '';
+            
+            
+            const res = await fetch(`http://localhost:4000/api/relax?id=${id}`)
+            .then(response =>{
+
+                return response.json()
+            })
+            .then(info => {
+                
+                setDbData(info[0]);
+                
+            })
+        }
+        if (!data)
+        {
+            get()
+        }
+
+    }, [])
+
+    if (!dbData)
+    {
+        return (
+
+            <h1>Loading...</h1>
+        )
+    }
+    // let[images, setImages] = useState(props.images);
+    // let[title, setTitle] = useState(props.title);
+    // let[price, setPrice] = useState(props.price);
+    // let[services, setServices] = useState(props.services);
+    // let[text, setText] = useState(props.text);
+    // let[address, setAddress] = useState(props.address);
+    
+  
 
     //#region Convert Object
     const convert = 
@@ -62,27 +115,22 @@ const Resort = (props) => {
     };
     //#endregion
 
-    function GetResort() {
+
         // Дальше по этому айди запрос к бд который возврщает пансионат/санаторий
-        console.log(id);
-        images = 
-        [ 
-            'https://geekster.ru/wp-content/uploads/2017/09/warhammer-40k.jpg', 
-            'https://s1.1zoom.ru/big3/72/419476-Kycb.jpg',
-            'https://altwall.net/img/deathgroup/03_1024.jpg'
-        ];
-        title = 'Mr ya Resort & SPA 5*';
-        price = '20 000 руб.';
-        services = 
+   
+        // let images = 
+        // [ 
+        //     'https://geekster.ru/wp-content/uploads/2017/09/warhammer-40k.jpg', 
+        //     'https://s1.1zoom.ru/big3/72/419476-Kycb.jpg',
+        //     'https://altwall.net/img/deathgroup/03_1024.jpg'
+        // ];
+        let services = 
         {
             'available': [ 'restaurant', 'wifi' ],
             'common': [ 'bar' ],
             'rooms': [ 'wifi' ]
         };
-        address = 'с. Оползневое, улица Генерала Острякова, 9';
-        text = 'Идейные соображения высшего порядка, а также укрепление и развитие структуры играет важную роль в формировании существенных финансовых и административных условий. Разнообразный и богатый опыт консультация с широким активом обеспечивает широкому кругу. Идейные соображения высшего порядка, а также дальнейшее развитие различных форм деятельности позволяет оценить значение новых предложений. Равным образом постоянный количественный рост и сфера нашей активности играет важную роль в формировании системы обучения кадров, соответствует насущным потребностям. Товарищи! сложившаяся структура организации представляет собой интересный эксперимент проверки направлений прогрессивного развития. С другой стороны постоянное информационно-пропагандистское обеспечение нашей деятельности обеспечивает широкому кругу (специалистов) участие в формировании позиций, занимаемых участниками в отношении поставленных задач. Значимость этих проблем настолько очевидна, что дальнейшее развитие различных форм деятельности обеспечивает широкому кругу (специалистов) участие в формировании новых предложений.';
-        console.log(id + ' ID resort');
-    }
+    
 
     function ConvertServices(service) {
         let massiv = services[service];
@@ -96,50 +144,65 @@ const Resort = (props) => {
 
     }
 
-    GetResort();
+
 
     return (
-        <ClientLayout title={title}>
+        <ClientLayout title={dbData.title}>
             <div className={classes.resort}>
                 {/*  */}
-                <InfoSection title="DALER MADE THIS" 
+                <InfoSection title={dbData.title} 
                             price={20000} 
-                            text="text"
+                            text={dbData.description}
                             images={images}/>
                 {/*  */}
                 <div className={classes.services}>
                     <div className={classes.available}>
-                        <h1>В наличии</h1>
+                        <h2>В наличии</h2>
                         <div className={classes.service}>
                             {ConvertServices('available')}
                         </div>
                     </div>
                     <div className={classes.common}>
-                        <h1>Общие услуги</h1>
+                        <h2>Общие услуги</h2>
                         <div className={classes.service}>
                             {ConvertServices('common')}
                         </div>
                     </div>
                     <div className={classes.rooms}>
-                        <h1>Услуги в номерах</h1>
+                        <h2>Услуги в номерах</h2>
                         <div className={classes.service}>
                             {ConvertServices('rooms')}
                         </div>
                     </div>
                     <div className={classes.address}>
                         <i class="fa fa-map-marker" aria-hidden="true"></i>
-                        <h1>{address}</h1>
+                        <h3>{dbData.address}</h3>
                     </div>
                 </div>
 
-                <div className={classes.map}>
-                    
-                </div>
-
+                <PresentationMap className={classes.map}  points={coordinates}/>
+               
                 <FormBooking className={classes.form}/>
             </div>
         </ClientLayout>
     )
 }
 
-export default Resort;
+export default getRelax;
+
+getRelax.getInitialProps = async ({req, query}) => {
+
+    if (!req)
+    {
+        return {data: null}
+    }
+    let json = [];
+    
+    const res = await fetch(`http://localhost:4000/api/relax?id=${query.id}`)
+    json = await res.json();
+
+
+    console.log('On server: ' + JSON.stringify(json))
+    return {data: json[0]}
+    
+}

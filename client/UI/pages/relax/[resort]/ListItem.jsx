@@ -1,16 +1,16 @@
 import React, { useState } from 'react';
 import Link from 'next/link';
-//import ConvertService from './../CustomElements/ConvertService.jsx';
 import classes from './ListItem.module.scss';
 
 const ListItem = (props) => {
-    const [idItem, setId] = useState(props.idItem);
-    const [imgSrc, setImage] = useState(props.imgSrc);
-    const [title, setTitle] = useState(props.title);
-    const [address, setAddress] = useState(props.address);
-    const [price, setPrice] = useState(props.price);
-    const [services, setServices] = useState(props.services);
-    const [category, setCategory] = useState(props.category);
+    const idItem = props.idItem;
+    const imgSrc = props.imgSrc.split(',');
+    const title = props.title;
+    const address = props.address;
+    const price = props.price;
+    const services = JSON.parse(props.services);
+    const category = props.category;
+    const [photoIndex, setPhotoIndex] = useState(0);
     
     function ConvertServices(){
         let elements = [];
@@ -44,12 +44,26 @@ const ListItem = (props) => {
         }
         return elements;
     }
+    console.log();
 
+    const onHover = () => {
+        
+        setTimeout(()=>{
 
+            if (imgSrc.length > photoIndex + 1)
+                setPhotoIndex(photoIndex + 1);
+            else
+                setPhotoIndex(0);
+
+            onHover();
+        }, 3000)
+        
+       
+    }
     return (
-        <Link href={{ pathname: '/relax/[resort]', }} as={'/relax/' + category + '/' + idItem}>
-            <div className={classes.list_item + ' ' + classes.className}
-            style={{backgroundImage: `url(${imgSrc})`}}>
+        <Link href={{ pathname: '/relax/[resort]/[id]', }} as={'/relax/' + category + '/' + idItem}>
+            <div className={classes.list_item + ' ' + props.className} onMouseOut={onHover}
+            style={{transition: 'background 2.5s ease', background: `url('/images/RelaxDynamic/${imgSrc[photoIndex]}')`}}>
                 <div className={classes.top}>
                     <h1 className={classes.title}>
                         {title}

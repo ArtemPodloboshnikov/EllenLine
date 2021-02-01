@@ -13,8 +13,12 @@
     }
     input
     {
-        @extend %border;
+        border: 5px solid $primary_color;
         color: $sub_color;
         background-color: $primary_color;
+        &::-webkit-calendar-picker-indicator
+        {
+            filter: invert(100%);
+        }
     }
 }

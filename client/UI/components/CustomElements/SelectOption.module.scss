@@ -7,6 +7,23 @@
         height: 100%;
         font-size: 1.75em;
         padding: 1px;
+        background-color: $primary_color;
+    }
+    i::before
+    {
+        background-color: $sub_color;
+    }
+    .leftButton, .rightButton
+    {
+        @extend %as_button;
+    }
+    .leftButton
+    {
+        border-right: 5px solid $primary_color;
+    }
+    .rightButton
+    {
+        border-left: 5px solid $primary_color;
     }
     select, option
     {

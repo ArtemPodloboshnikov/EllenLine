@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import { useState } from 'react';
 import classes from './InputDate.module.scss';
 
 const InputDate = (props) => {

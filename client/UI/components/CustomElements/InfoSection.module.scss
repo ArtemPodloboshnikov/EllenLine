@@ -1,4 +1,12 @@
 @import '../../styles/index.scss';
+
+.wrap
+{
+    & > h1
+    {
+        font-family: 'Kazimir';
+    }
+}
 .enter{
     display: grid;
 
@@ -9,6 +17,7 @@
     grid-template-rows: 4fr 1fr; 
     row-gap: 10px;
     column-gap: 10px;
+    @extend %font;
 }
 
 .slider{
@@ -25,7 +34,34 @@
     grid-template-rows: repeat(3, 1fr);
     padding-top: 25px;
 }
+.info 
+{
+    & > h1
+    {
 
+        font-family: 'Kazimir';
+    }
+    & > div
+    {
+        & > h2 
+        {
+            @extend %font;
+            font-size: 1.3em;
+        }
+        & > span 
+        {
+            font-size: 0.8em;
+        };
+    }
+
+    .booking_btn
+    {
+        width: 50%;
+        justify-self: center;
+        height: 60%;
+    }
+    
+}
 .info h1, .info h2, .info button{
     justify-self: center;
     align-self: center;
@@ -81,6 +117,8 @@
 
 .description{
     padding-bottom: 20px;
+    margin-top: 5%;
+    @extend %font;
 }
 
 .description > div{
