@@ -225,7 +225,7 @@ const Sanatorium = (props) => {
 
                 <EditMap name='coordinates' cityName={cityName} className={classes.map} zoom={zoom}/>
                 {/* <SelectOption type='dynamic' /> */}
-                <div className={classes.form__services} >
+                <div className={classes.form__services} style={{gridTemplateRows: `repeat(${servicesRows}, 1fr`, height: `${servicesRows * 10}vh`}}>
                     <DynamicList name='inStock' register={register({required: true})} className={classes.dynamicList} 
                     classInput={classes.dynamicList__input} placeholder='В наличии' rows={servicesRows} setRows={setServicesRows}/>
                     <DynamicList name='commonServices' register={register({required: true})} className={classes.dynamicList} 

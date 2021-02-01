@@ -15,9 +15,10 @@ const getRelax = ({data}) => {
     const {id} = router.query;
     let images = ['https://geekster.ru/wp-content/uploads/2017/09/warhammer-40k.jpg'];
     let coordinates = [3434, 4343];
-    console.log(data);
-    if (dbData !== undefined)
+    console.log(dbData + ' ' + (dbData!== null));
+    if (dbData !== undefined && dbData !== null)
     {
+        console.log('dbData!!!')
         images = [];
         let temp_images = dbData.imgSrc.split(',');
         temp_images.map(image => {
@@ -42,11 +43,10 @@ const getRelax = ({data}) => {
 
         async function get()
         {
-            let json = [];
-            let type = '';
+          
             
             
-            const res = await fetch(`http://localhost:4000/api/relax?id=${id}`)
+            await fetch(`http://localhost:4000/api/relax?id=${id}`)
             .then(response =>{
 
                 return response.json()
@@ -64,13 +64,13 @@ const getRelax = ({data}) => {
 
     }, [])
 
-    if (!dbData)
-    {
-        return (
+    // if (!dbData)
+    // {
+    //     return (
 
-            <h1>Loading...</h1>
-        )
-    }
+    //         <Preloader/>
+    //     )
+    // }
     // let[images, setImages] = useState(props.images);
     // let[title, setTitle] = useState(props.title);
     // let[price, setPrice] = useState(props.price);
@@ -144,15 +144,15 @@ const getRelax = ({data}) => {
 
     }
 
+    const WrapForPreloader = ({data}) =>{
 
+        return (
 
-    return (
-        <ClientLayout title={dbData.title}>
             <div className={classes.resort}>
                 {/*  */}
-                <InfoSection title={dbData.title} 
+                <InfoSection title={data.title} 
                             price={20000} 
-                            text={dbData.description}
+                            text={data.description}
                             images={images}/>
                 {/*  */}
                 <div className={classes.services}>
@@ -176,7 +176,7 @@ const getRelax = ({data}) => {
                     </div>
                     <div className={classes.address}>
                         <i class="fa fa-map-marker" aria-hidden="true"></i>
-                        <h3>{dbData.address}</h3>
+                        <h3>{data.address}</h3>
                     </div>
                 </div>
 
@@ -184,6 +184,12 @@ const getRelax = ({data}) => {
                
                 <FormBooking className={classes.form}/>
             </div>
+        )
+    }
+
+    return (
+        <ClientLayout title={!dbData ? 'Отдых' : dbData.title} preloader={!dbData}>
+            <WrapForPreloader data={dbData}/>
         </ClientLayout>
     )
 }
@@ -197,7 +203,7 @@ getRelax.getInitialProps = async ({req, query}) => {
         return {data: null}
     }
     let json = [];
-    
+    console.log(query.id)
     const res = await fetch(`http://localhost:4000/api/relax?id=${query.id}`)
     json = await res.json();
 

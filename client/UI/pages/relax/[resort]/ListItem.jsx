@@ -48,21 +48,21 @@ const ListItem = (props) => {
 
     const onHover = () => {
         
-        setTimeout(()=>{
+       
 
             if (imgSrc.length > photoIndex + 1)
                 setPhotoIndex(photoIndex + 1);
             else
                 setPhotoIndex(0);
 
-            onHover();
-        }, 3000)
+         
+        
         
        
     }
     return (
         <Link href={{ pathname: '/relax/[resort]/[id]', }} as={'/relax/' + category + '/' + idItem}>
-            <div className={classes.list_item + ' ' + props.className} onMouseOut={onHover}
+            <div className={classes.list_item + ' ' + props.className} onMouseOver={onHover}
             style={{transition: 'background 2.5s ease', background: `url('/images/RelaxDynamic/${imgSrc[photoIndex]}')`}}>
                 <div className={classes.top}>
                     <h1 className={classes.title}>

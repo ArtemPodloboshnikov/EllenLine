@@ -24,9 +24,9 @@ const mysql = MySQL.createPool({
 });
 
 router.get('/relax', function(request, reply){
-
+    debugger
     let sql = '';
-
+    console.log('ID: ' + request.query.id + ' TYPE: ' + request.query.type)
     if (request.query.id != undefined)
     {
 

@@ -6,14 +6,12 @@ import List from './List.jsx';
 import classes from './index.module.scss';
 import {useRouter} from 'next/router';
 
-
     
 export default function Resort ({data}){
     
     const [dbData, setDbData] = useState(data);
     const router = useRouter();
     const {resort} = router.query;
-    const [prevQuery, setPrevQuery] = useState(resort);
 
     useEffect(() => {
 
@@ -48,15 +46,15 @@ export default function Resort ({data}){
         }
     }, [resort])
     
-    if (!dbData)
-    {
-        return <h1>Loading...</h1> 
-    }
+    // if (!dbData)
+    // {
+    //     return <Preloader/> 
+    // }
     
     //const [category, setCategory] = useState(props.resort);
 
     return (
-        <ClientLayout title='Отдых'>
+        <ClientLayout title='Отдых' preloader={!dbData}>
             <ChooseResort />
             <List category={resort} items={dbData}/>
         </ClientLayout>

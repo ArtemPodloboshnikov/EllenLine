@@ -1,20 +1,45 @@
 import Head from 'next/head';
-import { BrowserRouter } from 'react-router-dom';
 import Header from '../components/Common/Header/Header';
 import Footer from '../components/Common/Footer/Footer';
+import Preloader from '../components/Common/Preloader/Preloader';
+import {useState} from 'react'; 
 
-export default function ClientLayout ({children, title = 'Эллинлайн'}){
+export default function ClientLayout ({children, title = 'Эллинлайн', preloader=false}){
 
+    let preloaderAction;
+    const [firstPreload, setFirstPreload] = useState(preloader);
+    if (preloader)
+    {
+        preloaderAction = 'start';
+    }
+    else
+    if (firstPreload == false)
+    {
+        preloaderAction = 'none';
+    }
+    else
+    {
+        preloaderAction = 'stop';
+    }
+
+    console.log('preloader: ' + preloader)
     return(
         <>
             <Head>
                 <title>{title}</title>
             </Head>
-            <Header/>
             <main class="main">
-                    {children}
-                {/* <BrowserRouter>
-                </BrowserRouter> */}
+                <Preloader action={preloaderAction}/>
+                <Header/>
+                    {(()=>{
+                        
+                        if (preloaderAction == 'stop' || preloaderAction =='none')
+                        {
+                            return children;
+                        }
+                    
+                    })()}
+              
                 <Footer/>
             </main>
         </>
