@@ -47,7 +47,7 @@ const ListItem = (props) => {
 
 
     return (
-        <Link href={{ pathname: '/relax/[resort]/[id]', query: { resort: category, id: idItem}}}>
+        <Link href={{ pathname: '/relax/[resort]/[id]', query: { resort: category, id: idItem } }}>
             <div className={classes.list_item + ' ' + classes.className}
             style={{backgroundImage: `url(${imgSrc})`}}>
                 <div className={classes.top}>

@@ -14,7 +14,7 @@ const PresentationMap = (props) => {
         mapState = {center: props.cityCoordinates, zoom: 10};
     }
   
-    console.log(props.cityCoordinates);
+    //console.log(props.cityCoordinates);
 
     const markState = {points: props.points,  modules: ['geoObject.addon.balloon', 'geoObject.addon.hint']}
 

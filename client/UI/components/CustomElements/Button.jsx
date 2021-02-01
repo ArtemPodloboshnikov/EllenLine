@@ -17,7 +17,7 @@ const Button = (props) => {
         <div className={classes.wrap + ' ' + props.className}>
 
             {(()=>{
-                console.log(props.value)
+                //console.log(props.value)
                 if (props.value !== String)
                 {
                     return (

@@ -10,15 +10,12 @@ export default class ClientLayout extends Component {
         super(props);
         this.state = {
             children: props.children,
-            setInitialProps: props.setInitialProps,
             title: props.title
         }
     }
 
     static async getInitialProps({ query }) {
         console.log(query);
-        console.log('In client layout initial');
-        this.state.setInitialProps();
     }
 
     render() {
