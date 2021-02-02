@@ -1,11 +1,9 @@
 import React, { useState } from 'react';
+//
 import ListItem from './ListItem.jsx';
+//
 import classes from './List.module.scss';
 
-/*
-    {parking: true, playground: true, restaurant: true, pebblesBeach: true, sandyBeach: true, sportsGround: true, trainer: true, pool: true, poolUnderRoof: true, park: true, sauna: true, SPA: true, receptionWithAnimals: true, musculoskeletalSystem: true, gynecologicalDiseases: true, urologicalDiseases: true, cardiovascularSystem: true, respiratoryOrgans: true, nervousSystem: true, digestiveSystem: true, metabolicDiseases: true, childrenUnder3: true, singleOccupancy: true, familiesOf4: true}
-    [59.87026708231266, 30.26207174039379]
-*/
 const List = (props) => {
     const resort = props.resort;
     const items = props.items;  
@@ -19,9 +17,9 @@ const List = (props) => {
             {
                 let element = items[i];
                 elements.push(<ListItem category={resort}
-                                        idItem={element.idItem}
+                                        id={element.id}
                                         title={element.title}
-                                        imgSrc={typeof element.imgSrc === 'object' ? element.imgSrc[0]: element.imgSrc}
+                                        image={typeof element.images === 'object' ? element.images[0]: element.images}
                                         address={element.address}
                                         price={element.price}
                                         services={element.services}/>);

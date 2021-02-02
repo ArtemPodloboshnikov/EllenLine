@@ -14,9 +14,6 @@ export default class ClientLayout extends Component {
         }
     }
 
-    static async getInitialProps({ query }) {
-        console.log(query);
-    }
 
     render() {
         return(
@@ -26,7 +23,7 @@ export default class ClientLayout extends Component {
                 </Head>
                 <Header/>
                 <main class="main">
-                        {this.state.children}
+                    {this.state.children}
                     <Footer/>
                 </main>
             </>

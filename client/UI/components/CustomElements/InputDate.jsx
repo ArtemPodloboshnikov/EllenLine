@@ -25,9 +25,10 @@ const InputDate = (props) => {
     }
     
     return (
-        <div className={classes.date + ' ' + props.className}>
+        <div className={classes.date}>
             <label>{props.title}</label>
-            <input type="date" 
+            <input className={props.className}
+                   type="date" 
                    value={date} 
                    min={min}
                    max={max}

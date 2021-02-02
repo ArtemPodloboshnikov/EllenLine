@@ -4,8 +4,8 @@ import Link from 'next/link';
 import classes from './ListItem.module.scss';
 
 const ListItem = (props) => {
-    const [idItem, setId] = useState(props.idItem);
-    const [imgSrc, setImage] = useState(props.imgSrc);
+    const [id, setId] = useState(props.id);
+    const [image, setImage] = useState(props.image);
     const [title, setTitle] = useState(props.title);
     const [address, setAddress] = useState(props.address);
     const [price, setPrice] = useState(props.price);
@@ -47,9 +47,9 @@ const ListItem = (props) => {
 
 
     return (
-        <Link href={{ pathname: '/relax/[resort]/[id]', query: { resort: category, id: idItem } }}>
+        <Link href={{ pathname: '/relax/[resort]/[id]', query: { resort: category, id: id } }}>
             <div className={classes.list_item + ' ' + classes.className}
-            style={{backgroundImage: `url(${imgSrc})`}}>
+            style={{backgroundImage: `url(${image})`}}>
                 <div className={classes.top}>
                     <h1 className={classes.title}>
                         {title}

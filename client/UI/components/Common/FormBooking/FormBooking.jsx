@@ -1,8 +1,12 @@
 import React, { useEffect, useState } from 'react';
-import SelectOption from './SelectOption.jsx';
-import InputText from './InputText.jsx';
-import InputDate from './InputDate.jsx';
+//
+import SelectOption from '../../CustomElements/SelectOption.jsx';
+import InputText from '../../CustomElements/InputText.jsx';
+import InputDate from '../../CustomElements/InputDate.jsx';
+//
 import classes from './FormBooking.module.scss';
+import InputMask from '../../CustomElements/InputMask.jsx';
+import Button from '../../CustomElements/Button.jsx';
 
 const FormBooking = (props) => {
     const [date_arrival, setDateArrival] = useState();
@@ -11,9 +15,11 @@ const FormBooking = (props) => {
     return(
         <div className={classes.booking + ' ' + props.className}>
             <div className={classes.info_going}>
-                <InputDate title='Дата приъезда'
+                <InputDate className={classes.date}
+                           title='Дата приъезда'
                            date={date_arrival}/>
-                <InputDate title='Дата отъезда'
+                <InputDate className={classes.date}
+                           title='Дата отъезда'
                            date={date_leave}/>
                 <SelectOption className={classes.parents}
                               values={[ '1 взрослый', '2 взрослый' ]} 
@@ -23,7 +29,7 @@ const FormBooking = (props) => {
                               placeholder='Ребёнок'/>
                 <div className={classes.code}>
                     <InputText placeholder='Промокод'/>
-                    <button>Применить</button>
+                    <Button value='Применить'/>
                 </div>
                 <div className={classes.price}>
                     <span>Итого</span>
@@ -31,10 +37,18 @@ const FormBooking = (props) => {
                 </div>
             </div>
             <div className={classes.info_person}>
-                
+                <InputText className={classes.fio} placeholder='Имя и фамилия'/>
+                <InputText className={classes.e_mail} placeholder='E-mail'/>
+                <InputText className={classes.telephone} placeholder='Телефон'/>
+                <Button className={classes.button} value='Забронировать'/>
+                <p>
+                    Здесь какой-то очень важный <span>текст</span>
+                </p>
+                {/* <InputMask placeholder='+7 (___) - __ - __'/> */}
             </div>
         </div>
     )
 }
+
 
 export default FormBooking;

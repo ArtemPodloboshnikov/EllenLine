@@ -1,5 +1,7 @@
 import React, { useState } from 'react';
-import Slider from './../CustomElements/Slider.jsx';
+//
+import Slider from '../../CustomElements/Slider.jsx';
+//
 import classes from './InfoSection.module.scss';
 
 const InfoSection = (props) => {

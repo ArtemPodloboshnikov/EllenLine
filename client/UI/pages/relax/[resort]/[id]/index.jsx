@@ -1,8 +1,8 @@
 import React, { useState } from 'react';
 import { useRouter } from 'next/router';
 //
-import FormBooking from '../../../../components/CustomElements/FormBooking.jsx';
-import InfoSection from '../../../../components/CustomElements/InfoSection.jsx';
+import FormBooking from '../../../../components/Common/FormBooking/FormBooking.jsx';
+import InfoSection from '../../../../components/Common/InfoSection/InfoSection.jsx';
 import ClientLayout from '../../../../layouts/ClientLayout.jsx';
 //
 import Global from '../../../global.js';
@@ -12,7 +12,7 @@ const Resort = (props) => {
     // По идее здесь должен идти запрос к бд, а не передача через пропсы
     // Но это временно для проверки пока бд не прикручена
     const router = useRouter();
-    const id = props.idItem;
+    const id = props.id;
     const images = props.images;
     const title = props.title;
     const price = props.price;
@@ -118,7 +118,7 @@ export async function getStaticPaths() {
     const paths = [];
     Object.keys(resorts).forEach((resort) => {
         //Получение только ID`s
-        const id_s = resorts[resort].map((element) => { return element.idItem } );
+        const id_s = resorts[resort].map((element) => { return element.id } );
         id_s.forEach((this_Id) => {
             paths.push({ params: { resort: resort, id: this_Id.toString() } });
         }); 
@@ -133,16 +133,14 @@ export async function getStaticPaths() {
 }
 
 export async function getStaticProps(router) {
-    console.log('Function Props');
     const resort = router.params.resort;
     const id = router.params.id;
     const res = await fetch(Global.url + '/api/relax/' + resort + '/' + id);
     const item = await res.json();
-    console.log(item);
     return {
         props: {
-            id: item.idItem,
-            images: item.imgSrc,
+            id: item.id,
+            images: item.images,
             title: item.title,
             price: item.price,
             services: item.services,

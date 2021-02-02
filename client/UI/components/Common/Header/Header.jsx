@@ -83,12 +83,12 @@ const Header = (props) => {
                             <div>
                                 <Link href='/relax'><a id='treeRelax_button' className={classes.header__button} onMouseOver={showTree} onMouseOut={hideTree}>Отдых</a></Link>
                                 <div onMouseOver={showTree} onMouseOut={hideTree} id='treeRelax' className={classes.treeRelax}>
-                                    <Link href='/relax/hotels'><a id='treeRelax' className={classes.header__treeItem}>Санатории</a></Link>
+                                    <Link href='/relax/sanatoriums'><a id='treeRelax' className={classes.header__treeItem}>Санатории</a></Link>
                                     <Link href='/relax/pensionats'><a id='treeRelax' className={classes.header__treeItem}>Пансионаты</a></Link>
                                 </div>
                             </div>
                             <div>
-                                <Link href='/places'><a id='treeСruises_button' className={classes.header__button} onMouseOver={showTree} onMouseOut={hideTree}>Круизы</a></Link>
+                                <Link href='/cruises'><a id='treeСruises_button' className={classes.header__button} onMouseOver={showTree} onMouseOut={hideTree}>Круизы</a></Link>
                                 <div onMouseOver={showTree} onMouseOut={hideTree} id='treeСruises' className={classes.treeCruises}>
                                     <Link href='/cruises/river'><a id='treeСruises' className={classes.header__treeItem}>Речные</a></Link>
                                     <Link href='/cruises/marine'><a id='treeСruises' className={classes.header__treeItem}>Морские</a></Link>

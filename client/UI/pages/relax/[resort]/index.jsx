@@ -2,28 +2,23 @@ import React, {Component, useEffect, useState} from 'react';
 import dynamic from 'next/dynamic';
 //Jsx
 import ClientLayout from '../../../layouts/ClientLayout.jsx';
-import ChooseResort from '../ChooseResort.jsx';
 //Js, scss
 import Global from '../../global.js';
 import classes from './index.module.scss';
 
 const convert = { 'pensionats': 'Пансионаты', 'sanatoriums': 'Санатории'};
-const List = dynamic(() => import('./List.jsx'), { ssr: false });
+const List = dynamic(() => import('../../../components/Common/List/List.jsx'), 
+{ 
+    // ssr: false | для отключения server sider rendering
+    // loader: место для прелоадера
+});
 
 const Resort = (props) => {
     const resort = props.resort;
     const items = props.items;
-    console.log(process.cwd());
-    // console.log('START');
-    // console.log(props.items);
-    // console.log(resort);
-    // console.log(router);
-    // console.log(process.env);
-    // console.log('END');
 
     return (
         <ClientLayout title={convert[resort]}>
-            {/* <ChooseResort /> */}
             <List {...props}/>
         </ClientLayout>
     )

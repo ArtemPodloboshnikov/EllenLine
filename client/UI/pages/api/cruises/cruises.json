@@ -1,0 +1,27 @@
+{
+    "river": 
+    [
+        {
+            "id": 10,
+            "title": "Autopsy",
+            "images": null,
+            "text": "Something text",
+            "address": "Народная 46",
+            "price": "OVER 9000!!!",
+            "info":
+            {
+
+            },
+            ""
+        },
+        {
+        }
+    ],
+    "marine":
+    [
+        {
+        },
+        {
+        }
+    ]
+}

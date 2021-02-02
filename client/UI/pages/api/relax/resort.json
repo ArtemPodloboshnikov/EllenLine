@@ -2,9 +2,9 @@
     "pensionats": 
     [
         {
-            "idItem": 0,
+            "id": 0,
             "title": "Death", 
-            "imgSrc": 
+            "images": 
             [
                 "https://avatars.yandex.net/get-music-content/97284/a2020179.a.298667-2/m1000x1000?webp=false",
                 "https://avatars.yandex.net/get-music-content/38044/bacf2020.a.1850697-1/m1000x1000?webp=false",
@@ -16,9 +16,9 @@
             "services": [ "food", "bath" ]
         },
         {
-            "idItem": 4,
+            "id": 4,
             "title": "Юг", 
-            "imgSrc": "https://i.pinimg.com/736x/14/1f/25/141f256cf0a13745138a88c10c8df7fd.jpg",
+            "images": "https://i.pinimg.com/736x/14/1f/25/141f256cf0a13745138a88c10c8df7fd.jpg",
             "text": "пегас-сорвиголова, контролирующая погоду в Понивилле. Питомец: черепаха Тэнк. Воплошение Элемента гармонии: верность",
             "address": "Английская 3",
             "price": "10 000 руб.",
@@ -28,9 +28,9 @@
     "sanatoriums":
     [
         {
-            "idItem": 1,
+            "id": 1,
             "title": "Suffocation", 
-            "imgSrc": 
+            "images": 
             [
                 "https://lastfm.freetls.fastly.net/i/u/ar0/40f9f2766f881178233c6cafe9d077cc.jpg",
                 "https://avatars.yandex.net/get-music-content/32236/d4faf422.a.1005571-1/m1000x1000?webp=false",
@@ -42,9 +42,9 @@
             "services": [ "bath" ]
         },
         {
-            "idItem": 3,
+            "id": 3,
             "title": "Запад", 
-            "imgSrc": "https://i.pinimg.com/736x/a5/e3/0c/a5e30c45346dc50127eeb1b3587c77c9--rainbow-dash-my-little-pony.jpg",
+            "images": "https://i.pinimg.com/736x/a5/e3/0c/a5e30c45346dc50127eeb1b3587c77c9--rainbow-dash-my-little-pony.jpg",
             "text": "пони-пегас, являющаяся одной из главных героинь сериала Дружба — это чудо. Она пони жёлтого цвета, с гривой светло-розового цвета. Её знак отличия — три розовые бабочки. Живет в маленьком доме возле Вечнозелёного леса и заботится о животных. Её питомцем является кролик Энджел. Была придумана Лорен Фауст, и как Пинки Пай озвучена актрисой Андреей Либман. Флаттершай воплощает элемент доброты.",
             "address": "Российский проспект 18",
             "price": "25 000 руб.",

@@ -1,4 +1,4 @@
-import React, {Component, useEffect, useState} from 'react';
+import React from 'react';
 import dynamic from 'next/dynamic';
 //
 import ClientLayout from '../../layouts/ClientLayout.jsx';
@@ -10,13 +10,13 @@ const ChooseResort = dynamic(() => import('../../components/Common/ChooseResort/
     // loader: место для прелоадера
 });
 
-const Relax = (props) => {
+const Cruises = (props) => {
 
     return (
-        <ClientLayout title='Отдых'>
-            <ChooseResort path='relax' left='pensionats' right='sanatoriums'/>
+        <ClientLayout title='Круизы'>
+            <ChooseResort path='cruises' left='river' right='marine'/>
         </ClientLayout>
     )
 }
 
-export default Relax;
+export default Cruises;
