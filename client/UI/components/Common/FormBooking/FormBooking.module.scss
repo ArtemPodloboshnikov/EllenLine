@@ -23,9 +23,6 @@
         row-gap: 25px;
         grid-template-columns: repeat(2, 1fr);
         grid-template-rows: repeat(3, fit-content(1fr));   
-        // input
-        // {
-        // }
 
         .parents, .childs, .date
         {
@@ -58,6 +55,7 @@
 
     .info_person 
     {
+        @extend %grid_center;
         display: grid;
         margin-left: 10px;
         margin-right: 20px;

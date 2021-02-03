@@ -15,7 +15,7 @@ const List = dynamic(() => import('../../../components/Common/List/List.jsx'),
 
 //Этот resort как и в другой папке можно выделить в отдельный компонент
 //Но я оставил все как есть на случай изменений
-const Resort = (props) => {
+const Resorts = (props) => {
     const resort = props.resort;
     const items = props.items;
 
@@ -52,4 +52,4 @@ export async function getStaticProps(router) {
     };
 }
 
-export default Resort;
+export default Resorts;

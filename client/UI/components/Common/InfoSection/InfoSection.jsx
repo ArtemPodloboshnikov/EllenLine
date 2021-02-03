@@ -52,11 +52,11 @@ const InfoSection = (props) => {
             <div className={classes.enter}>
                 <Slider className={classes.slider} images={images} index={index}/>
                 <div className={classes.info}>
-                    {/* <h1>{title}</h1> */}
-                    {ReturnSubTitle()}
+                    <h1>{title}</h1>
+                    {/* {ReturnSubTitle()} */}
                     {/* STARS */}
                     <div>
-                        <h2>от {price}</h2>
+                        <h2>от {price} руб.</h2>
                         <span>за человека</span>
                     </div>
                     <button>Забронировать</button>
@@ -73,7 +73,7 @@ const InfoSection = (props) => {
                 <div>
                     <div className={classes.back} style={{display: expand ? 'none' : 'block'}}/>
                     <h1>Описание</h1>
-                    <p style={{height: expand ? 'auto' : '100px'}}>
+                    <p style={{height: expand ? 'auto' : '10px'}}>
                         {text}
                     </p>
                 </div>

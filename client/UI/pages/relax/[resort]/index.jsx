@@ -13,7 +13,7 @@ const List = dynamic(() => import('../../../components/Common/List/List.jsx'),
     // loader: место для прелоадера
 });
 
-const Resort = (props) => {
+const Resorts = (props) => {
     const resort = props.resort;
     const items = props.items;
 
@@ -59,4 +59,4 @@ export async function getStaticProps(router) {
     };
 }
 
-export default Resort;
+export default Resorts;

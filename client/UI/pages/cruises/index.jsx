@@ -11,7 +11,7 @@ const ChooseResort = dynamic(() => import('../../components/Common/ChooseResort/
 });
 
 const Cruises = (props) => {
-
+    
     return (
         <ClientLayout title='Круизы'>
             <ChooseResort path='cruises' left='river' right='marine'/>

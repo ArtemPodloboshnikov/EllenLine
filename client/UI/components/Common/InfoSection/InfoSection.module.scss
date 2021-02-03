@@ -15,109 +15,109 @@
     grid-area: slider;
 }
 
-.info, .wallet, .info button{
-    border: 3px solid $primary_color;
-}
-
-.info{
+.info
+{
+    @extend %border;
     grid-area: info;
     display: grid;
     grid-template-rows: repeat(3, 1fr);
     padding-top: 25px;
+
+    h1, h2, button
+    {
+        @extend %grid_center;
+        text-align: center;
+        margin: 0;
+    }
+
+    span, button 
+    {
+        display: block;
+        width: fit-content;
+        margin: 0 auto;
+        margin-bottom: 25px;
+    }
+
+    button
+    {
+        @extend %border;
+        @extend %button;
+        height: fit-content;
+        padding: 10px 20px;
+        font-size: 1em;
+    }
 }
 
-.info h1, .info h2, .info button{
-    justify-self: center;
-    align-self: center;
-    text-align: center;
-    margin: 0;
-}
-
-.info span, .info button{
-    display: block;
-    width: fit-content;
-    margin: 0 auto;
-    margin-bottom: 25px;
-}
-
-.info button{
-    @extend %button;
-    display: block;
-    height: fit-content;
-    padding: 10px 20px;
-    margin-bottom: 20px;
-    font-size: 1em;
-}
-
-// .info button:hover{
-//     cursor: pointer;
-// }
-
-// .info button:active{
-//     background-color: #009BDF;
-//     color: white;
-// }
-
-.wallet{
+.wallet
+{
+    @extend %border;
     grid-area: wallet;
     display: grid;
     grid-template-columns: 1fr 5fr;
+
+    p, i
+    {
+        @extend %grid_center;
+    }
+
+    p
+    {
+        text-align: center;
+        font-size: 1.5em;
+
+    }
+
+    i
+    {
+        font-size: calc(2em + 1vw);
+
+    }
 } 
 
-.wallet p, .wallet i{
-    justify-self: center;
-    align-self: center;
-}
-
-.wallet p{
-    /* margin: 0 auto; */
-    text-align: center;
-    font-size: 1.5em;
-}
-
-.wallet i{
-    font-size: calc(2em + 1vw);
-}
-
-.description{
-    padding-bottom: 20px;
-}
-
-.description > div{
+.description > div
+{
     position: relative;
 }
 
-.description .back{
-    position: absolute;
-    top: 0;
-    left: 0;
-    right: 0;
-    bottom: -1px;
-    background: linear-gradient(0deg, white, transparent);
-}
+.description 
+{
+    padding-bottom: 20px;
 
-.description p{
-    height: 100px;
-    overflow: hidden;
-}
+    .back
+    {
+        position: absolute;
+        top: 0;
+        left: 0;
+        right: 0;
+        bottom: -1px;
+        background: linear-gradient(0deg, white, transparent);
+    }
 
-.description i{
-    float: right;
-    font-size: 2em;
-    transition: transform .25s linear;
-}
+    p
+    {
+        height: 15px;
+        overflow: hidden;
+    }
 
-.description i:hover{
-    cursor: pointer;
-    transform: scale(1.5, 1.5);
-}
-
-.description i.active{
-    transform: rotate(180deg);
-}
-
-.description i.active:hover{
-    transform: scale(1.5, 1.5) rotate(180deg);
+    i
+    {
+        float: right;
+        font-size: 2em;
+        transition: transform .25s linear;
+        &:hover
+        {
+            cursor: pointer;
+            transform: scale(1.5, 1.5);
+        }
+        &.active
+        {
+            transform: rotate(180deg);
+        }
+        &.active:hover 
+        {
+            transform: scale(1.5, 1.5) rotate(180deg);
+        }
+    }
 }
 
 @media screen and (max-width: 1024px)

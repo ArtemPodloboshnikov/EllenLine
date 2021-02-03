@@ -1,0 +1,100 @@
+@import '../../../styles/index.scss';
+
+.services
+{
+    display: grid;
+    padding-left: 10px;
+    padding-bottom: 20px;
+    grid-template-columns: repeat(3, 1fr);
+    background-color: Silver;
+
+    i 
+    {
+        @extend %grid_center;
+    }
+    
+    .service
+    {
+        display: grid;
+        grid-template-columns: fit-content(50px) 1fr;
+        grid-auto-rows: 1fr;
+        row-gap: 10px;
+    
+        i, p, span
+        {
+            font-size: 1.5em;
+        }
+
+        i
+        {
+            padding: 0 5px;
+            grid-column: 1;
+        }
+    
+        p
+        {
+            margin: 0;
+            grid-column: 2;
+        }
+
+        //For cruises page
+        &.cruises
+        {
+            grid-template-columns: 1fr 1fr;
+
+            span
+            {
+                grid-column: 1;
+            }
+            
+            p
+            {
+                grid-column: 2;
+            }
+        }
+    }
+    
+    .address
+    {
+        grid-column-start: 1;
+        grid-column-end: 4;
+        display: grid;
+        grid-template-columns: fit-content(50px) 1fr;
+        column-gap: 10px;
+        margin-top: 50px;
+
+        i
+        {
+            padding: 0 5px;
+            font-size: 3em;
+        }
+
+        h1
+        {
+            justify-self: left;
+            align-self: center;
+            margin: 0;  
+        }
+    }
+}
+
+
+
+@media screen and (max-width: 1024px)
+{
+    //MAKE ADAPTION
+}
+@media screen and (max-width: 768px)
+{
+    .services
+    {
+        grid-template-columns: 1fr;
+        grid-auto-rows: fit-content(1fr);
+
+        .address
+        {
+            grid-column-start: unset;
+            grid-column-end: unset;
+        }
+    }
+}

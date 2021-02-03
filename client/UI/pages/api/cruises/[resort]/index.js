@@ -5,6 +5,5 @@ export default (req, res, err) => {
     if(err)
         return console.log(err);
     let type = req.query.resort;
-    console.log(resorts[type]);
-    res.status(200).json(resorts[type]);
+    res.status(200).json(cruises[type]);
 }

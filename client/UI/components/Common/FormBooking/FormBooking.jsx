@@ -44,7 +44,6 @@ const FormBooking = (props) => {
                 <p>
                     Здесь какой-то очень важный <span>текст</span>
                 </p>
-                {/* <InputMask placeholder='+7 (___) - __ - __'/> */}
             </div>
         </div>
     )

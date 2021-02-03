@@ -6,8 +6,7 @@ import classes from './List.module.scss';
 
 const List = (props) => {
     const resort = props.resort;
-    const items = props.items;  
-
+    const items = props.items;
     
     function InsertItems() {
         const elements = [];

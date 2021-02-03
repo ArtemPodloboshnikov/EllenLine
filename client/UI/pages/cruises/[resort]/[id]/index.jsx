@@ -10,6 +10,8 @@ import Global from '../../../global.js';
 import classes from './index.module.scss';
 
 const Resort = (props) => {
+    // По идее здесь должен идти запрос к бд, а не передача через пропсы
+    // Но это временно для проверки пока бд не прикручена
     const id = props.id;
     const images = props.images;
     const title = props.title;
@@ -17,6 +19,7 @@ const Resort = (props) => {
     const services = props.services;
     const text= props.text;
     const address = props.address;
+    const info = props.info;
 
     return (
         <ClientLayout title={title}>
@@ -26,11 +29,12 @@ const Resort = (props) => {
                 price={price} 
                 text={text}
                 images={images}/>
-
-                <Providers 
+                
+                <Providers
                 services={services} 
-                address={address}
-                type='relax'/>
+                address={address} 
+                type='cruise' 
+                info={info}/>
 
                 <FormBooking 
                 className={classes.form}/>
@@ -40,7 +44,7 @@ const Resort = (props) => {
 }
 
 export async function getStaticPaths() {
-    const res = await fetch(Global.url + '/api/relax');
+    const res = await fetch(Global.url + '/api/cruises');
     const resorts = await res.json();
     const paths = [];
     Object.keys(resorts).forEach((resort) => {
@@ -61,7 +65,7 @@ export async function getStaticPaths() {
 export async function getStaticProps(router) {
     const resort = router.params.resort;
     const id = router.params.id;
-    const res = await fetch(Global.url + '/api/relax/' + resort + '/' + id);
+    const res = await fetch(Global.url + '/api/cruises/' + resort + '/' + id);
     const item = await res.json();
     return {
         props: {
@@ -71,7 +75,9 @@ export async function getStaticProps(router) {
             price: item.price,
             services: item.services,
             text: item.text,
-            address: item.address
+            address: item.address,
+            //cruises информация о пароме (или теплоходе)
+            info: item.info
         }
     };
 }
