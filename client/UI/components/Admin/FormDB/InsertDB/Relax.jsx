@@ -82,7 +82,7 @@ const Sanatorium = (props) => {
         data.idCity = contries_cities.cities[data.city];
         delete data.city;
         data.price = Number.parseInt(data.price);
-     
+        data.discount = Number.parseInt(data.discount);
         data.stars = Number.parseInt(data.stars);
         setFormData({photos: new_data, json: data})
     }
@@ -189,6 +189,7 @@ const Sanatorium = (props) => {
             setZoom(18);
         }
     }
+    
     return (
 
         <>
@@ -215,7 +216,7 @@ const Sanatorium = (props) => {
                 classInput={classes.inputText__input} placeholder='Тип номера'/>
 
                 <SelectEntered register={register({required: true})} name='country' value={countryName} onChangeFunction={setCountryName}
-                className={classes.select} placeholder='Страна' options={Object.keys(contries_cities.countries)} />
+                className={classes.select} placeholder='Страна' options={Object.keys(contries_cities.countries)}/>
 
                 <SelectEntered register={register({required: true})} name='city' onChangeFunction={setCityName}
                 className={classes.select} placeholder='Город' options={Object.keys(contries_cities.cities)} />
@@ -234,8 +235,11 @@ const Sanatorium = (props) => {
                     classInput={classes.dynamicList__input} placeholder='Услуги в номерах' rows={servicesRows} setRows={setServicesRows}/>
                 </div>
 
-                <InputText register={register({required: true})} name='price' className={classes.inputText} 
-                classInput={classes.inputText__input} placeholder='Цена'/>
+                <InputNumber register={register({required: true})} name='price' 
+                className={classes.inputNumber} placeholder='Цена' min='1'/>
+
+                <InputNumber register={register({required: true})} name='discount' 
+                className={classes.inputNumber} placeholder='Скидка' min='0' max='100' value='0'/>
 
                 <Button className={classes.button} classInput={classes.button__text} value='Внести' />
             </form>

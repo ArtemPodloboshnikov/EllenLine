@@ -26,7 +26,7 @@ const mysql = MySQL.createPool({
 router.get('/relax', function(request, reply){
     debugger
     let sql = '';
-    console.log('ID: ' + request.query.id + ' TYPE: ' + request.query.type)
+    // console.log('ID: ' + request.query.id + ' TYPE: ' + request.query.type)
     if (request.query.id != undefined)
     {
 
@@ -37,6 +37,11 @@ router.get('/relax', function(request, reply){
     {
 
         sql = `SELECT AES_DECRYPT(relax_.title, '${keysForTables.relax.title}') as title, AES_DECRYPT(relax_.services, '${keysForTables.relax.services}') as services, AES_DECRYPT(relax_.photos, '${keysForTables.relax.photos}') as photos, AES_DECRYPT(relax_.address, '${keysForTables.relax.address}') as address, AES_DECRYPT(relax_.type, '${keysForTables.relax.type}') as type, AES_DECRYPT(relax_.typeOfRoom, '${keysForTables.relax.typeOfRoom}') as typeOfRoom, relax_.price, relax_.id_relax as id, relax_.id_city as id_city, countries.id_country as id_country FROM relax_ INNER JOIN cities ON cities.id_city = relax_.id_city INNER JOIN countries_bind_cities ON countries_bind_cities.id_city = cities.id_city INNER JOIN countries ON countries.id_country = countries_bind_cities.id_country WHERE relax_.type = AES_ENCRYPT('${request.query.type}', '${keysForTables.relax.type}')`;
+    }
+    else
+    {
+
+        sql = `SELECT AES_DECRYPT(relax_.title, '${keysForTables.relax.title}') as title, AES_DECRYPT(relax_.services, '${keysForTables.relax.services}') as services, AES_DECRYPT(relax_.photos, '${keysForTables.relax.photos}') as photos, AES_DECRYPT(relax_.address, '${keysForTables.relax.address}') as address, AES_DECRYPT(relax_.type, '${keysForTables.relax.type}') as type, AES_DECRYPT(relax_.coordinates, '${keysForTables.relax.coordinates}') as coordinates, AES_DECRYPT(relax_.description, '${keysForTables.relax.description}') as description,  AES_DECRYPT(relax_.typeOfRoom, '${keysForTables.relax.typeOfRoom}') as typeOfRoom, relax_.price, relax_.id_relax as id, relax_.id_city as id_city, countries.id_country as id_country, AES_DECRYPT(countries.name, '${keysForTables.countries.name}') as county_name, AES_DECRYPT(cities.name, '${keysForTables.cities.name}') as city_name, relax_.stars as stars FROM relax_ INNER JOIN cities ON cities.id_city = relax_.id_city INNER JOIN countries_bind_cities ON countries_bind_cities.id_city = cities.id_city INNER JOIN countries ON countries.id_country = countries_bind_cities.id_country`;
     }
     
     mysql.getConnection(function(err, connection) {
@@ -49,7 +54,9 @@ router.get('/relax', function(request, reply){
 
             connection.release();
             if (error) console.log(error);
-            let new_results = ConvertDataToString(results, [['title'], ['services'], ['address'], ['price'], ['type'], ['id', 'idItem'], ['photos', 'imgSrc'], ['description'], ['id_city'], ['coordinates'], ['typeOfRoom'], ['id_country']]);
+            let new_results = ConvertDataToString(results, [['title'], ['services'], ['address'], ['price'], ['type'], ['id', 'idItem'], 
+            ['photos', 'imgSrc'], ['description'], ['id_city'], ['coordinates'], 
+            ['typeOfRoom'], ['id_country'], ['county_name'], ['city_name'], ['stars']]);
             reply.send(new_results);
         });
     })

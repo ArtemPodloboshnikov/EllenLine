@@ -1,5 +1,6 @@
 import {useState} from 'react'
 import classes from './SelectEntered.module.scss';
+import Image from 'next/image';
 
 const SelectEntered = (props) => {
 
@@ -9,6 +10,7 @@ const SelectEntered = (props) => {
 
     const onClickOption = (e) => {
 
+        
         setArrowClass(classes.arrowDown);
         setPossibleData([]);
         setValue(e.target.innerHTML);
@@ -16,6 +18,7 @@ const SelectEntered = (props) => {
         {
             props.onChangeFunction(e.target.innerHTML);
         }
+        document.getElementsByName(props.name)[0].focus();
     }
     let data = []; 
     props.options.map((option) => {data.push(<label onClick={onClickOption} for={classes.id}>{option}</label>)});
@@ -42,13 +45,17 @@ const SelectEntered = (props) => {
     
     const allOptions = () => {
         
-        
+        if (props.disabled == true)
+        {
+            return;
+        }
         if (!equalsArray(possibleData, data))
         {
             setArrowClass(classes.arrowTop);
-            setPossibleData(data);
+            setPossibleData(data); 
         }
-        else{
+        else
+        {
 
             setArrowClass(classes.arrowDown);
             setPossibleData([]);
@@ -68,31 +75,42 @@ const SelectEntered = (props) => {
         } 
         let possible = [];
 
-        data.map((city)=>{
+        data.map((elem)=>{
 
-            const isFits = city.props.children.indexOf(text);
+            const isFits = elem.props.children.indexOf(text);
             if (isFits >= 0) 
             {
-                possible.push(city);
+                possible.push(elem);
             }
         })
         if (text == '')
         {
             possible = [];
         }
-       
+
+        if (props.value == text)
+        {
+            text = '';
+        }
+        else
+        {
+
+            text = (text == '') ? undefined : text;
+        }
+        console.log(possible)
         setArrowClass(classes.arrowDown);
         setPossibleData(possible);
         setValue(text);
        
     }
+
     return (
         <div className={classes.wrap + ' ' + props.className}>
             <div className={classes.selectInput}>
-                <input ref={props.register} name={props.name} placeholder={props.placeholder} id={classes.id}
-                className={classes.input + ' ' + props.classInput} onChange={enterText} value={value} 
-                onBlur={()=>setPossibleData([])}/>
-                <div><div onClick={allOptions} className={arrowClass}></div></div>
+                <input ref={props.register} name={props.name} placeholder={props.placeholder} id={classes.id} disabled={props.disabled}
+                className={classes.input + ' ' + props.classInput} onChange={enterText} value={value == '' ? props.value : value} onBlur={props.onBlur}
+                />
+                <div><Image src='/images/triangle.svg' onClick={allOptions} className={arrowClass} width={props.arrowWidth || 50} height={props.arrowHeight || 50}/></div>
             </div>
             <div className={classes.possibleData}>{possibleData.length ? possibleData: ''}</div>
         </div>

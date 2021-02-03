@@ -63,7 +63,7 @@ const ListItem = (props) => {
     return (
         <Link href={{ pathname: '/relax/[resort]/[id]', }} as={'/relax/' + category + '/' + idItem}>
             <div className={classes.list_item + ' ' + props.className} onMouseOver={onHover}
-            style={{transition: 'background 2.5s ease', background: `url('/images/RelaxDynamic/${imgSrc[photoIndex]}')`}}>
+            style={{transition: 'background 2.5s ease', backgroundImage: `url('/images/RelaxDynamic/${imgSrc[photoIndex]}')`}}>
                 <div className={classes.top}>
                     <h1 className={classes.title}>
                         {title}

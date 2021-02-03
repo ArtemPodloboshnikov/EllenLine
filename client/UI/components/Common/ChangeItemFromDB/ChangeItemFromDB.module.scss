@@ -1,0 +1,32 @@
+@import '../../../styles/index.scss';
+
+
+.wrap
+{
+    position: fixed;
+    display: grid;
+    grid-template-columns: 1fr 4fr;
+    width: 20vw;
+    height: 7vh;
+    z-index: 10;
+    
+    & .select
+    {
+        border-left: 5px solid #fff;
+    }
+    & > div:first-child
+    {
+        clip-path: polygon(0 20%, 100% 0, 100% 100%, 0 80%);
+        display: grid;
+        background-color: $primary_color;
+    }
+    .icon
+    {
+        color: $sub_color;
+        justify-self: center;
+        align-self: center;
+        
+      
+
+    }
+}
