@@ -108,4 +108,12 @@ $side_color: #F7F7F7;
             background-color: $primary_font_color;
         }
     }
+    a:first-child:hover ~ a:last-child
+    {
+        background-color: $primary_color !important;
+    }
+    a:last-child:hover + a:first-child
+    {
+        background-color: $primary_color !important;
+    }
 }

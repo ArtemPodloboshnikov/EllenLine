@@ -27,7 +27,8 @@
 
     justify-self: center;
     margin: 5%;
-    color: $sub_color;
+    color: $primary_color;
+    @extend %font;
     font-size: 20px;
     height: 25vh;
 }

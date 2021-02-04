@@ -27,11 +27,13 @@ const PriceCompare = (props) => {
         <input className={classes.input + ' ' + props.classInput}  
                type="number"
                placeholder={props.placeholder} 
+               name={props.name}
                value={value} 
+               onBlur={props.onBlur}
                min={props.min} max={props.max} onChange={(e) => CheckValue(e)}/>
-             <div className={this_classes.more}>{'>'}</div>
-             <div className={this_classes.equally}>=</div>
-             <div className={this_classes.less}>{'<'}</div>
+             <input type='button' className={this_classes.more} onClick={props.onClick} value={'>'}/>
+             <input type='button' className={this_classes.equally} onClick={props.onClick} value={'='}/>
+             <input type='button' className={this_classes.less} onClick={props.onClick} value={'<'}/>
         </div> 
     )
 }

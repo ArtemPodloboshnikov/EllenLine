@@ -33,6 +33,7 @@ const InputNumber = (props) => {
             new_value = props.min;
 
         setValue(new_value);
+        document.getElementsByName(props.name)[0].focus();
     }
     const minus = ()=>{
 
@@ -44,6 +45,7 @@ const InputNumber = (props) => {
         if (props.max <= new_value)
             new_value = props.max;
         setValue(new_value);
+        document.getElementsByName(props.name)[0].focus();
     }
 
     return (
@@ -55,6 +57,7 @@ const InputNumber = (props) => {
                value={value} 
                name={props.name}
                ref={props.register}
+               onBlur={props.onBlur}
                min={props.min} max={props.max} onChange={(e) => CheckValue(e)}/>
              <div onClick={plus} className={classes.plus}>+</div>
              <div onClick={minus} className={classes.minus}>-</div>

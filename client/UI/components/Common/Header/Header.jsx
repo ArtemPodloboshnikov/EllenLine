@@ -71,9 +71,9 @@ const Header = (props) => {
                     <ReactPlayer url='/videos/videoHeader.mp4' playing={true} loop={true} muted={true} class={classes.header__video} id="bgvideo"/> 
                     <div className={classes.header__content}>
                         <div className={classes.header__buttons}>
-                            <Link href='/home'><a className={classes.header__button}>О нас</a></Link>
+                            <Link href='/'><a className={classes.header__button}>О нас</a></Link>
                             <Link href='/collaboration'><a className={classes.header__button} style={{gridColumn: '2 / 4'}}>Санкт-Петербург</a></Link>
-                            <Link href='/home'><a><Image width={150} height={150} src='/images/logo.svg'/></a></Link>
+                            <Link href='/'><a><Image width={150} height={150} src='/images/logo.svg'/></a></Link>
                             <div>
                                 <Link href='/tours'><a id='treeTours_button' className={classes.header__button} onMouseOver={showTree} onMouseOut={hideTree}>Туры</a></Link>
                                 <div onMouseOver={showTree} onMouseOut={hideTree} id='treeTours' className={classes.treeTours}>

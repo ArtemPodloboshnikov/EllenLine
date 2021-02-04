@@ -9,7 +9,7 @@ import classes from './List.module.scss';
 
 
 const List = (props) => {
-    // const[category, setCategory] = useState(props.category);
+    
     const items = (() => 
     {
         //В случаи если элементы не были прописанны изначально, идет запрос к бд
@@ -65,24 +65,99 @@ const List = (props) => {
         return props.items;
     })(); 
 
-    //Parametr`s item: 
-    //{
-    // category
-    // idItem
-    // title
-    // imgSrc
-    // address
-    // price
-    // services : []
-    //}
 
+    const checkSearch = (data, conditions) =>{
+
+        let array = [];
+        console.log(conditions)
+        data.map((elem)=>{
+            
+            let flag = false;
+            for(let i = 0; i < conditions.length; i++)
+            {
+                if (elem[conditions[i].key] != undefined && conditions[i].value != '')
+                {
+                    let value = conditions[i].value;
+                    if (!isNaN(conditions[i].value))
+                    {
+                        value = parseInt(conditions[i].value);
+                    }
+                   // console.log(conditions[i])
+                    if (conditions[i].sign != undefined)
+                    {
+                        switch(conditions[i].sign)
+                        {
+                            case '>':{
+                                if (elem[conditions[i].key] > conditions[i].value)
+                                {
+                                    flag = true;
+                                }
+                                else
+                                {
+                                    flag = false;
+                                    
+                                }
+                                break;
+                            }
+                            case '=':{
+                                if (elem[conditions[i].key] == conditions[i].value)
+                                {
+                                    flag = true;
+                                   
+                                }
+                                else
+                                {
+                                    flag = false;
+                                  
+                                }
+                                break;
+                            }
+                            case '<':{
+                                if (elem[conditions[i].key] < conditions[i].value)
+                                {
+                                    flag = true;
+                                }
+                                else
+                                {
+                                    flag = false;
+                                    
+                                }
+                                break;
+                            }
+                        }
+                    }
+                    else
+                    if (elem[conditions[i].key] == value)
+                    {
+                        flag = true;
+                    }
+                    // else
+                    // {
+                    //     flag = false;
+                    //     break;
+                    // }
+                    
+                    if (!flag) break;
+                }
+            }
+
+            if (flag) array.push(elem)
+            
+        })
+
+        console.log(array)
+        return array;
+        
+        
+    }
     function InsertItems() {
         const elements = [];
         if(items && items.length != 0)
         {
-            for(let i = 0; i < items.length; i++)
-            {
-                let element = items[i];
+            const data = checkSearch(items, props.conditions)
+            data.map((d) =>{
+                
+                let element = d;
                 elements.push(<ListItem category={props.category}
                                         idItem={element.idItem}
                                         title={element.title}
@@ -90,7 +165,7 @@ const List = (props) => {
                                         address={element.address}
                                         price={element.price}
                                         services={element.services}/>);
-            }
+            })
         }
         return elements;
     }

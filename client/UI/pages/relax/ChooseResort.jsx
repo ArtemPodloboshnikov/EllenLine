@@ -1,25 +1,34 @@
-import React, { useState } from 'react';
 import Link from 'next/link';
-import SearchRelax from '../../components/Common/Search/SearchRelax.jsx';
 import classes from './ChooseResort.module.scss';
 
 const ChooseResort = (props) => {
+    let leftTextStyle = {};
+    let rightTextStyle = {};
 
+    if (props.category == props.keyLeft)
+    {
+        leftTextStyle = {backgroundColor: '#333333', color: '#fff'}
+    }
+    else
+    if (props.category == props.keyRight)
+    {
+        rightTextStyle = {backgroundColor: '#333333', color: '#fff'}
+    }
     return(
         <div className={classes.resort + ' ' + props.className}>
-            <SearchRelax className={classes.search}/>
+            
             <div className={classes.choose}>
                 
                 <Link href='/relax/pensionats'>
-                    <a>
-                        Пансионаты
+                    <a style={leftTextStyle}>
+                        {props.leftText}
                     </a>
                 </Link>
               
               
                 <Link href='/relax/hotels'>
-                    <a>
-                        Отели
+                    <a style={rightTextStyle}>
+                        {props.rightText}
                     </a>
                 </Link>
              

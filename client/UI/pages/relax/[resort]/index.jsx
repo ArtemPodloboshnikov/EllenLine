@@ -1,6 +1,6 @@
 import {useEffect, useState} from 'react';
 import ClientLayout from '../../../layouts/ClientLayout.jsx';
-//import CountryDescription from '../Common/countryDescription/countryDescription';
+import SearchRelax from '../../../components/Common/Search/SearchRelax';
 import ChooseResort from '../ChooseResort.jsx';
 import List from './List.jsx';
 import classes from './index.module.scss';
@@ -8,11 +8,48 @@ import {useRouter} from 'next/router';
 
     
 export default function Resort ({data}){
-    
+   // debugger
     const [dbData, setDbData] = useState(data);
+    const [searchStars, setSearchStars] = useState({key: '', value: ''});
+    const [searchCountry, setSearchCountry] = useState({key: '', value: ''});
+    const [searchCity, setSearchCity] = useState({key: '', value: ''});
+    const [searchPrice, setSearchPrice] = useState({key: '', value: '', sign: ''});
+    const [searchName, setSearchName] = useState({key: '', value: ''});
+    const [conditions, setConditions] = useState([searchStars, searchCountry, searchCity, searchPrice, searchName]);
     const router = useRouter();
     const {resort} = router.query;
+    let cities = [];
+    let countries = [];
 
+    if (dbData !== null)
+    {
+        if (Object.keys(dbData).length != 0)
+        {
+            dbData.map((item)=>{
+
+                cities.push(item.city_name)
+            })
+
+            dbData.map((item)=>{
+
+                countries.push(item.county_name)
+            })
+
+            cities = cities.filter((item, index) => {
+                return cities.indexOf(item) === index
+            })
+
+            countries = countries.filter((item, index) => {
+                return countries.indexOf(item) === index
+            })
+        }
+    }
+    console.log(searchStars)
+    useEffect(() => {
+
+        setConditions([searchStars, searchCountry, searchCity, searchPrice, searchName]);
+
+    }, [searchStars, searchCountry, searchCity, searchPrice, searchName])
     useEffect(() => {
 
         async function get()
@@ -55,8 +92,11 @@ export default function Resort ({data}){
 
     return (
         <ClientLayout title='Отдых' preloader={!dbData}>
-            <ChooseResort />
-            <List category={resort} items={dbData}/>
+            <SearchRelax className={classes.search} setSearchStars={setSearchStars} setSearchCountry={setSearchCountry}
+            setSearchCity={setSearchCity} setSearchPrice={setSearchPrice} setSearchName={setSearchName}
+            cities={cities} countries={countries}/>
+            <ChooseResort leftText='Пансионаты' rightText='Отели' keyLeft='pensionats' keyRight='hotels' category={resort}/>
+            <List category={resort} items={dbData} conditions={conditions} />
         </ClientLayout>
     )
 }

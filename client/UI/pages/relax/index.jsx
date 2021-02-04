@@ -11,7 +11,7 @@ const Relax = () => {
     
     return (
         <ClientLayout title='Отдых'>
-            <ChooseResort />
+            <ChooseResort leftText='Пансионаты' rightText='Отели'/>
         </ClientLayout>
     )
 }

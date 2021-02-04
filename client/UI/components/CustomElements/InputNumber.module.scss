@@ -1,7 +1,7 @@
 @import '../../styles/index.scss';
 
 .inputNumber{
-
+    align-items: center;
     display: grid;
     grid-template-columns: 2fr 1fr;
     grid-template-areas: 
@@ -31,8 +31,7 @@
 }
 .plus, .minus{
 
-    cursor: pointer;
-    user-select: none;
+    @extend %as_button;
     background-color: transparent;
 }
 .plus{
