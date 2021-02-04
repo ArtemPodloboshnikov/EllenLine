@@ -2,17 +2,28 @@ import {useState} from 'react'
 import classes from './TextArea.module.scss'
 
 const TextArea = (props) => {
-
-    let [value, setValue] = useState(props.value);
-    if (props.value !== undefined)
-    {
-        value = props.value;
-        setValue = props.setValue;
-    }
+    
+    const [value, setValue] = useState(props.value);
+    // const [flag, setFlag] = useState(true)
+    // if (props.value != '' && props.value !== undefined && flag)
+    // {
+       
+    //     setValue(props.value);
+    //     setFlag(false);
+    // }
 
     const printValue = (e) =>{
 
-        setValue(e.target.value);
+        if (props.value == e.target.value)
+        {
+            setValue('')
+        }
+        else
+        {
+
+            setValue(e.target.value == '' ? undefined : e.target.value);
+        }
+       
     }
     return (
         <div className={classes.wrap + ' ' + props.className}>
@@ -22,7 +33,7 @@ const TextArea = (props) => {
             <div className={classes.separate}></div>
             <div className={classes.text}>
                 <textarea name={props.name} ref={props.register} className={props.classTextArea} 
-                value={value} onChange={printValue} placeholder={props.placeholder}/>
+                value={value == '' ? props.value : value} onChange={printValue} placeholder={props.placeholder} onBlur={props.onBlur}/>
             </div>
         </div>
     )

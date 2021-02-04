@@ -41,12 +41,12 @@ function filesUploader(path, mimetypes = ["image/png", "image/jpg", "image/jpeg"
  * Converting data from DB of buffer type to string
  * 
  * @param {array} array Array which contain a data from DB
- * @param {array} args Array which contain a keys from specified in sql query
+ * @param {array} keys Array which contain a keys from specified in sql query
  * @return {array} New array with string data, number data don't convert to string
  * 
  * Annotation: args = [['title' => 'key from sql query'], ['id' => 'key from sql query', 'id_relax' => 'new name of field']]
  */
-function ConvertDataToString(array, args)
+function ConvertDataToString(array, keys)
 {
     let new_array = [];
     const isNumber = (val) => {
@@ -58,33 +58,35 @@ function ConvertDataToString(array, args)
     }
     array.map((elem)=>{
         let object = {};
-        args.map((arg)=>{
+        keys.map((key)=>{
 
-            if (elem[arg[0]] != undefined)
+            if (elem[key[0]] != undefined)
             {
-                if (arg[1] != undefined)
+                if (key[1] != undefined)
                 {
-                    if (isNumber(elem[arg[0]]))
+                    if (isNumber(elem[key[0]]))
                     {
 
-                        object[arg[1]] = elem[arg[0]]
+                        object[key[1]] = elem[key[0]]
                     }
                     else
                     {
-                        object[arg[1]] = elem[arg[0]].toString();
+                        object[key[1]] = elem[key[0]].toString();
+
                     }
                 }
                 else
                 {
 
-                    if (isNumber(elem[arg[0]]))
+                    if (isNumber(elem[key[0]]))
                     {
 
-                        object[arg[0]] = elem[arg[0]]
+                        object[key[0]] = elem[key[0]]
                     }
                     else
                     {
-                        object[arg[0]] = elem[arg[0]].toString();
+                        object[key[0]] = elem[key[0]].toString();
+
                     }
                 }
             }

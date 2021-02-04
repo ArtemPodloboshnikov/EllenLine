@@ -1,4 +1,5 @@
 import classes from './UpToHeader.module.scss';
+import Image from 'next/image';
 
 function UpToHeader(props){
     
@@ -20,7 +21,7 @@ function UpToHeader(props){
 
     return (
         <div onClick={handleUpButton} className={classes.wrap}>
-            <img src='images/UpToHeader/topArrow.svg' />
+            <Image src='/images/UpToHeader/topArrow.svg' width={70} height={70}/>
         </div>
     )
 }

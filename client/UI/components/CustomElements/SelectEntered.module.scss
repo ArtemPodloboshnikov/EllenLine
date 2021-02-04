@@ -7,34 +7,46 @@
     background-color: $primary_color;
     width: 100%;
     height: 100%;
+
+    & > div
+    {
+        justify-items: center;
+        align-items: center;
+        display: grid;
+    }
 }
 .arrowDown, .arrowTop{
 
-    background: $sub_color;
-    position: relative;
-    color: $sub_color;
+    
+    
+    user-select: none;
+    // background: $sub_color;
+    // position: relative;
+    // color: $sub_color;
 
-    &::after{
-        content: ''; 
-        position: absolute; /* Абсолютное позиционирование */
-        margin-left: 30%; 
-        margin-top: 20%; /* Положение треугольника */
-        border: 1.5vw solid transparent; /* Прозрачные границы */
-        border-top: 4vh solid $sub_color; /* Добавляем треугольник */
-        cursor: pointer;
-    }
+    // &::after{
+    //     content: ''; 
+    //     position: absolute; /* Абсолютное позиционирование */
+    //     margin-left: 30%; 
+    //     margin-top: 20%; /* Положение треугольника */
+    //     border: 1.5vw solid transparent; /* Прозрачные границы */
+    //     border-top: 4vh solid $sub_color; /* Добавляем треугольник */
+    //     cursor: pointer;
+    // }
 }
 .wrap{
 
 }
 
 .arrowTop{
-    &:after{
 
-        border: 1.5vw solid transparent; 
-        border-bottom: 4vh solid $sub_color;
-        border-top: none;
-    }
+    transform: scale(1, -1);
+    // &:after{
+
+    //     border: 1.5vw solid transparent; 
+    //     border-bottom: 4vh solid $sub_color;
+    //     border-top: none;
+    // }
 }
 .input::placeholder{
 
@@ -45,8 +57,6 @@
     font-family: 'Mediator Serif Regular';
     font-size: 1.5em;
     border-right: 5px solid $sub_color;
-}
-.input, .arrow{
     width: 100%;
     height: 100%;
     background-color: transparent;
@@ -72,5 +82,5 @@
     }
 }
 #id{
-
+    background-color: transparent;
 }

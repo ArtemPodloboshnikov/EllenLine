@@ -6,7 +6,8 @@
     padding: 15px 0;
     row-gap: 25px;
     grid-template-columns: repeat(2, 1fr);
-    box-shadow: 0 0 5px 5px black;
+    border: 5px solid $primary_color; 
+   
 
     h1
     {
@@ -28,6 +29,7 @@
         {
             width: 100%;
         }
+        
         .parents, .childs
         {
             @extend %grid_center;

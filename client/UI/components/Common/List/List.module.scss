@@ -50,7 +50,8 @@
 /* ZIMIN`S CLASSES */
 .list{
     display: grid;
-    grid-template-columns: repeat(4, 1fr);
+    grid-template-columns: repeat(auto-fit, minmax(300px, 400px));
+    justify-content: center;
     grid-auto-rows: 250px;
     gap: 10px;
     padding: 0 15px;

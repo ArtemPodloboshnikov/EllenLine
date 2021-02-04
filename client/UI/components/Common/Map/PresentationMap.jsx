@@ -14,7 +14,7 @@ const PresentationMap = (props) => {
         mapState = {center: props.cityCoordinates, zoom: 10};
     }
   
-    //console.log(props.cityCoordinates);
+    console.log(mapState);
 
     const markState = {points: props.points,  modules: ['geoObject.addon.balloon', 'geoObject.addon.hint']}
 
@@ -33,11 +33,11 @@ const PresentationMap = (props) => {
                 {markState.points.length ? markState.points.map((point) => (
                     <GeoObject 
                         geometry={{type: "Point", coordinates: point.coordinates}} 
-                        properties={{hintContent: point.hintContent, balloonContentBody: point.balloonContentBody}} 
+                        properties={{hintContent: (point.hintContent || ''), balloonContentBody: (point.balloonContentBody || '')}} 
                         modules={[...markState.modules]} 
                         options={{
                             iconLayout: 'default#image',
-                            iconImageHref: 'images/marker.svg',
+                            iconImageHref: '/images/marker.svg',
                             iconImageSize: [60, 52],
                             iconImageOffset: [-30, -56]
                         }}

@@ -10,6 +10,7 @@ import Message from '../../../Common/DialogWindow/Message';
 import FilesUploader from '../../../CustomElements/FilesUploader'
 import EditMap from '../../../Common/Map/EditMap';
 import SelectEntered from '../../../CustomElements/SelectEntered'
+import SelectOption from '../../../CustomElements/SelectOption';
 
 const Sanatorium = (props) => {
    
@@ -26,6 +27,7 @@ const Sanatorium = (props) => {
 
         let new_data = new FormData();
         let commonServices = [];
+
         for (let i = 0; ; i++)
         {
             
@@ -80,6 +82,7 @@ const Sanatorium = (props) => {
         data.idCity = contries_cities.cities[data.city];
         delete data.city;
         data.price = Number.parseInt(data.price);
+        data.discount = Number.parseInt(data.discount);
         data.stars = Number.parseInt(data.stars);
         setFormData({photos: new_data, json: data})
     }
@@ -186,6 +189,7 @@ const Sanatorium = (props) => {
             setZoom(18);
         }
     }
+    
     return (
 
         <>
@@ -212,7 +216,7 @@ const Sanatorium = (props) => {
                 classInput={classes.inputText__input} placeholder='Тип номера'/>
 
                 <SelectEntered register={register({required: true})} name='country' value={countryName} onChangeFunction={setCountryName}
-                className={classes.select} placeholder='Страна' options={Object.keys(contries_cities.countries)} />
+                className={classes.select} placeholder='Страна' options={Object.keys(contries_cities.countries)}/>
 
                 <SelectEntered register={register({required: true})} name='city' onChangeFunction={setCityName}
                 className={classes.select} placeholder='Город' options={Object.keys(contries_cities.cities)} />
@@ -221,8 +225,8 @@ const Sanatorium = (props) => {
                 classInput={classes.inputText__input} placeholder='Адрес' onBlur={onBlurAddress}/>
 
                 <EditMap name='coordinates' cityName={cityName} className={classes.map} zoom={zoom}/>
-
-                <div className={classes.form__services} style={{gridTemplateRows: `repeat(${servicesRows}, 1fr)`, height: `${servicesRows * 10}vh`}}>
+                {/* <SelectOption type='dynamic' /> */}
+                <div className={classes.form__services} style={{gridTemplateRows: `repeat(${servicesRows}, 1fr`, height: `${servicesRows * 10}vh`}}>
                     <DynamicList name='inStock' register={register({required: true})} className={classes.dynamicList} 
                     classInput={classes.dynamicList__input} placeholder='В наличии' rows={servicesRows} setRows={setServicesRows}/>
                     <DynamicList name='commonServices' register={register({required: true})} className={classes.dynamicList} 
@@ -231,8 +235,11 @@ const Sanatorium = (props) => {
                     classInput={classes.dynamicList__input} placeholder='Услуги в номерах' rows={servicesRows} setRows={setServicesRows}/>
                 </div>
 
-                <InputText register={register({required: true})} name='price' className={classes.inputText} 
-                classInput={classes.inputText__input} placeholder='Цена'/>
+                <InputNumber register={register({required: true})} name='price' 
+                className={classes.inputNumber} placeholder='Цена' min='1'/>
+
+                <InputNumber register={register({required: true})} name='discount' 
+                className={classes.inputNumber} placeholder='Скидка' min='0' max='100' value='0'/>
 
                 <Button className={classes.button} classInput={classes.button__text} value='Внести' />
             </form>

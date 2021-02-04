@@ -3,19 +3,18 @@ import classes from './SelectOption.module.scss';
 
 const SelectOption = (props) => {
     const [values, setValues] = useState(props.values);
-    const [placeholder, setPlaceholder] = useState(props.placeholder);
     //
     let buttons = [];
     if(props.type === 'dynamic')
         buttons = 
         [
-            <i class="fa fa-minus-square" onClick={(e) => DeleteSelectOption(e)} aria-hidden="true"></i>,
-            <i class="fa fa-plus-square" onClick={(e) => AddSelectOption(e)} aria-hidden="true"></i>
+            <i className={"fa fa-minus-square " + classes.leftButton} onClick={(e) => DeleteSelectOption(e)} aria-hidden="true"></i>,
+            <i className={"fa fa-plus-square " + classes.rightButton} onClick={(e) => AddSelectOption(e)} aria-hidden="true"></i>
         ];
     let element =
     <div className={props.type === 'dynamic' ? classes.dynamic_option : ''}>
         {buttons[0]}
-        <select className={props.className}>
+        <select className={props.classSelect}>
             {InsertValues()}
         </select>
         {buttons[1]}
@@ -26,7 +25,7 @@ const SelectOption = (props) => {
     function InsertValues() {
         const elements = [];
         if(props.placeholder)
-            elements.push(<option selected hidden>{placeholder}</option>);
+            elements.push(<option selected hidden>{props.placeholder}</option>);
         if(values && values.length != 0)
         {
             for(let i = 0; i < values.length; i++)
@@ -56,7 +55,7 @@ const SelectOption = (props) => {
     }
 
     return (
-        <div className={classes.select_option + ' ' + props.selection}>
+        <div className={classes.select_option + ' ' + props.className}>
             {InsertSelections()}
         </div>
     )

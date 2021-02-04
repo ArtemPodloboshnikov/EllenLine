@@ -5,6 +5,7 @@ import ClientLayout from '../../../layouts/ClientLayout.jsx';
 //Js, scss
 import Global from '../../global.js';
 import classes from './index.module.scss';
+import {useRouter} from 'next/router';
 
 const convert = { 'pensionats': 'Пансионаты', 'sanatoriums': 'Санатории'};
 const List = dynamic(() => import('../../../components/Common/List/List.jsx'), 

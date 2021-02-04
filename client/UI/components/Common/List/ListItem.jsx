@@ -1,6 +1,5 @@
 import React, { useState } from 'react';
 import Link from 'next/link';
-//import ConvertService from './../CustomElements/ConvertService.jsx';
 import classes from './ListItem.module.scss';
 
 const ListItem = (props) => {
@@ -44,8 +43,22 @@ const ListItem = (props) => {
         }
         return elements;
     }
+    console.log();
 
+    const onHover = () => {
+        
+       
 
+            if (imgSrc.length > photoIndex + 1)
+                setPhotoIndex(photoIndex + 1);
+            else
+                setPhotoIndex(0);
+
+         
+        
+        
+       
+    }
     return (
         <Link href={{ pathname: '/relax/[resort]/[id]', query: { resort: category, id: id } }}>
             <div className={classes.list_item + ' ' + classes.className}

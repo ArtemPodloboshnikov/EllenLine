@@ -1,33 +1,49 @@
+import React, {useState} from 'react'; 
 import Head from 'next/head';
-import { BrowserRouter } from 'react-router-dom';
+//
 import Header from '../components/Common/Header/Header';
 import Footer from '../components/Common/Footer/Footer';
-import { Component } from 'react';
+import Preloader from '../components/Common/Preloader/Preloader';
 
-export default class ClientLayout extends Component {
-    constructor(props)
+export default function ClientLayout ({children, title = 'Эллинлайн', preloader=false}){
+
+    let preloaderAction;
+    const [firstPreload, setFirstPreload] = useState(preloader);
+    if (preloader)
     {
-        super(props);
-        this.state = {
-            children: props.children,
-            title: props.title
-        }
+        preloaderAction = 'start';
+    }
+    else
+    if (firstPreload == false)
+    {
+        preloaderAction = 'none';
+    }
+    else
+    {
+        preloaderAction = 'stop';
     }
 
-
-    render() {
-        return(
-            <>
-                <Head>
-                    <title>{this.state.title}</title>
-                </Head>
+    console.log('preloader: ' + preloader)
+    return(
+        <>
+            <Head>
+                <title>{title}</title>
+            </Head>
+            <main class="main">
+                <Preloader action={preloaderAction}/>
                 <Header/>
-                <main class="main">
-                    {this.state.children}
-                    <Footer/>
-                </main>
-            </>
-        )
-    }
+                    {(()=>{
+                        
+                        if (preloaderAction == 'stop' || preloaderAction =='none')
+                        {
+                            return children;
+                        }
+                    
+                    })()}
+              
+                <Footer/>
+            </main>
+        </>
+    )
 
 }

@@ -98,6 +98,7 @@
 #search_active{
 
     display: none;
+    
 }
 #search_active:checked ~ .search{
 
@@ -206,11 +207,11 @@
     grid-template-rows: repeat(9, 10%);
     grid-template-areas: 
     '. buttons buttons buttons buttons buttons buttons buttons buttons'
-    'links . . . . . . . .'
+    '. . . . . . . . .'
     'links . . . . . . . .'
     'links . . . . . . . phone'
     'links . . . . . . . .'
-    '. . . . . . . . .'
+    'links . . . . . . . .'
     '. . . . . . . . .';
     z-index: 3;
     position: absolute;
@@ -218,6 +219,7 @@
     width: 100%;
     height: 100%;
 
+ 
 }
 /* Настольные компьютеры и ноутбуки */
 @media only screen and (max-width : 1025px) {

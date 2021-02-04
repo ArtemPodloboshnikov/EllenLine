@@ -3,10 +3,12 @@ import React, { useEffect, useState } from 'react';
 import SelectOption from '../../CustomElements/SelectOption.jsx';
 import InputText from '../../CustomElements/InputText.jsx';
 import InputDate from '../../CustomElements/InputDate.jsx';
-//
+import PromoCode from '../../CustomElements/PromoCode';
+import SelectEntered from '../../CustomElements/SelectEntered';
 import classes from './FormBooking.module.scss';
 import InputMask from '../../CustomElements/InputMask.jsx';
 import Button from '../../CustomElements/Button.jsx';
+//
 
 const FormBooking = (props) => {
     const [date_arrival, setDateArrival] = useState();
@@ -21,16 +23,16 @@ const FormBooking = (props) => {
                 <InputDate className={classes.date}
                            title='Дата отъезда'
                            date={date_leave}/>
-                <SelectOption className={classes.parents}
-                              values={[ '1 взрослый', '2 взрослый' ]} 
+                <SelectEntered className={classes.parents}
+                              options={[ '1 взрослый', '2 взрослый' ]} 
                               placeholder='Взрослые'/>
+
                 <SelectOption className={classes.childs}
                               type='dynamic' 
                               placeholder='Ребёнок'/>
-                <div className={classes.code}>
-                    <InputText placeholder='Промокод'/>
-                    <Button value='Применить'/>
-                </div>
+              
+                <PromoCode className={classes.code}/>
+               
                 <div className={classes.price}>
                     <span>Итого</span>
                     <h1>3200 руб.</h1>

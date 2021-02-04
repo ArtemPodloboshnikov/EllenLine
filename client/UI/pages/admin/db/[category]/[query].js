@@ -1,7 +1,8 @@
 import { useRouter } from 'next/router';
 import AdminLayout from '../../../../layouts/AdminLayout';
-import Relax from '../../../../components/Admin/FormDB/InsertDB/Relax';
 import classes from '../../../../styles/Admin/FormDB/FormDB.module.scss';
+import {default as RelaxInsert} from '../../../../components/Admin/FormDB/InsertDB/Relax';
+import {default as RelaxUpdate} from '../../../../components/Admin/FormDB/UpdateDB/Relax';
 import {default as CountriesInsert} from '../../../../components/Admin/FormDB/InsertDB/Countries';
 import {default as CountriesUpdate} from '../../../../components/Admin/FormDB/UpdateDB/Countries';
 import {default as CountriesDelete} from '../../../../components/Admin/FormDB/DeleteDB/Countries';
@@ -28,9 +29,9 @@ export default function QueryDB(){
 
                        switch (query){
                             
-                            case 'insert':  return <Relax className={classes.form}/>
+                            case 'insert':  return <RelaxInsert className={classes.form}/>
 
-                            case 'update': return;
+                            case 'update': return <RelaxUpdate className={classes.form}/>
 
                             case 'delete': return;
                        }
