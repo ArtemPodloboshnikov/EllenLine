@@ -17,6 +17,8 @@ const Resort = (props) => {
     const services = props.services;
     const text= props.text;
     const address = props.address;
+    //
+    const type = 'relax';
 
     return (
         <ClientLayout title={title}>
@@ -25,15 +27,18 @@ const Resort = (props) => {
                 title={title} 
                 price={price} 
                 text={text}
-                images={images}/>
+                images={images}
+                type={type}/>
 
                 <Providers 
                 services={services} 
                 address={address}
-                type='relax'/>
+                type={type}/>
 
                 <FormBooking 
-                className={classes.form}/>
+                className={classes.form}
+                price={price}
+                type={type}/>
             </div>
         </ClientLayout>
     )

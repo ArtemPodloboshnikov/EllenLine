@@ -21,7 +21,7 @@ const Resorts = (props) => {
 
     return (
         <ClientLayout title={convert[resort]}>
-            <List {...props}/>
+            <List {...props} path = 'cruises'/>
         </ClientLayout>
     )
 } 

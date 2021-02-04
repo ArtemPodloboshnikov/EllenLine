@@ -1,18 +1,15 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { useRouter } from 'next/router';
 //
 import FormBooking from '../../../../components/Common/FormBooking/FormBooking.jsx';
 import InfoSection from '../../../../components/Common/InfoSection/InfoSection.jsx';
 import Providers from '../../../../components/Common/Providers/Providers.jsx';
 import ClientLayout from '../../../../layouts/ClientLayout.jsx';
-import Timetable from '../../../../components/Common/Timetable/Timetable.jsx';
 //
 import Global from '../../../global.js';
 import classes from './index.module.scss';
 
 const Resort = (props) => {
-    // По идее здесь должен идти запрос к бд, а не передача через пропсы
-    // Но это временно для проверки пока бд не прикручена
     const id = props.id;
     const images = props.images;
     const title = props.title;
@@ -20,11 +17,8 @@ const Resort = (props) => {
     const services = props.services;
     const text= props.text;
     const address = props.address;
-    const info = props.info;
-    const timetable = props.timetable;
-    const duration = props.duration;
     //
-    const type = 'cruises';
+    const type = 'tours';
 
     return (
         <ClientLayout title={title}>
@@ -34,29 +28,23 @@ const Resort = (props) => {
                 price={price} 
                 text={text}
                 images={images}
-                type={type}
-                duration={duration}/>
-                
-                <Providers
-                services={services} 
-                address={address} 
-                type={type} 
-                info={info}/>
+                type={type}/>
 
-                <Timetable
-                timetable={timetable}/>
+                <Providers 
+                services={services} 
+                address={address}
+                type={type}/>
 
                 <FormBooking 
                 className={classes.form}
-                price={price}
-                type={type}/>
+                price={price}/>
             </div>
         </ClientLayout>
     )
 }
 
 export async function getStaticPaths() {
-    const res = await fetch(Global.url + '/api/cruises');
+    const res = await fetch(Global.url + '/api/tours');
     const resorts = await res.json();
     const paths = [];
     Object.keys(resorts).forEach((resort) => {
@@ -77,7 +65,7 @@ export async function getStaticPaths() {
 export async function getStaticProps(router) {
     const resort = router.params.resort;
     const id = router.params.id;
-    const res = await fetch(Global.url + '/api/cruises/' + resort + '/' + id);
+    const res = await fetch(Global.url + '/api/tours/' + resort + '/' + id);
     const item = await res.json();
     return {
         props: {
@@ -87,13 +75,7 @@ export async function getStaticProps(router) {
             price: item.price,
             services: item.services,
             text: item.text,
-            address: item.address,
-            //Информация о пароме (или теплоходе)
-            info: item.info,
-            //Расписание 
-            timetable: item.timetable,
-            //Продолжительность тура в днях
-            duration: item.duration
+            address: item.address
         }
     };
 }

@@ -10,52 +10,57 @@ const InfoSection = (props) => {
     const [price, setPrice] = useState(props.price);
     const [text, setText] = useState(props.text);
     const [images, setImages] = useState(props.images);
-    ///
+    const [start, setStars] = useState(props.start);
+    //
     const [expand, setExpand] = useState(false);
     const [index, setIndex] = useState(props.index ? props.index : 0);
-    //If exists, then this tour not relax or something else
-    const [duration, setDuration] = useState(props.duration ? props.duration : undefined);
+    //
+    const type = props.type;
+    // 
+    const duration = props.duration;
 
 
     function ExpandDescription(e) {
-        // console.log();
         let arrow = e.currentTarget;
         if(arrow.classList.contains(classes.active))
-        {
             arrow.classList.remove(classes.active);
             //shrink
-        }
         else
-        {
             arrow.classList.add(classes.active);
             //expand
-        }
         setExpand(!expand);
     }
 
-    function ReturnMainTitle() {
-        return <h1>{title}</h1>;
-    }
-
-    function ReturnSubTitle() {
-        if(!duration)
-            return <h1>{title}</h1>;
-        else
-            return  <div>
-                        <h1>{duration} Дней</h1>
-                        <span>продолжительность</span>
-                    </div>;
+    function GenerateInfo() {
+        switch(type)
+        {
+            case 'tours':
+            case 'cruises':
+                return <div className={classes.duration}>
+                    <h1>{duration} Дней</h1>
+                    <span>продолжительность</span>
+                </div>
+            case 'relax':
+                return <div className={classes.stars}>
+                    <i class="fa fa-star" aria-hidden="true"></i>
+                    <i class="fa fa-star" aria-hidden="true"></i>
+                    <i class="fa fa-star" aria-hidden="true"></i>
+                    <i class="fa fa-star" aria-hidden="true"></i>
+                    <i class="fa fa-star" aria-hidden="true"></i>
+                </div>;
+            default:
+                console.log(type + ' type don`t support');
+                return;
+        }
     }
 
     return (
         <div className={classes.wrap}>
-            <h1>{ReturnMainTitle()}</h1>
+            <h1>{title}</h1>
             <div className={classes.enter}>
                 <Slider className={classes.slider} images={images} index={index}/>
                 <div className={classes.info}>
-                    <h1>{title}</h1>
-                    {/* {ReturnSubTitle()} */}
-                    {/* STARS */}
+                    {GenerateInfo()}
                     <div>
                         <h2>от {price} руб.</h2>
                         <span>за человека</span>

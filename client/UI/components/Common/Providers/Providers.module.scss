@@ -3,10 +3,15 @@
 .services
 {
     display: grid;
-    padding-left: 10px;
-    padding-bottom: 20px;
+    padding: 20px 10px;
     grid-template-columns: repeat(3, 1fr);
-    background-color: Silver;
+    background-color: $side_color;
+
+    h1
+    {
+        margin: 0;
+        // border-bottom: 1px solid black;
+    }
 
     i 
     {
@@ -17,8 +22,9 @@
     {
         display: grid;
         grid-template-columns: fit-content(50px) 1fr;
-        grid-auto-rows: 1fr;
+        grid-auto-rows: auto;
         row-gap: 10px;
+        column-gap: 5px;
     
         i, p, span
         {
@@ -50,6 +56,8 @@
             p
             {
                 grid-column: 2;
+                align-self: flex-end;
+                // border-bottom: 1px solid black;
             }
         }
     }
@@ -83,9 +91,6 @@
 @media screen and (max-width: 1024px)
 {
     //MAKE ADAPTION
-}
-@media screen and (max-width: 768px)
-{
     .services
     {
         grid-template-columns: 1fr;
@@ -97,4 +102,7 @@
             grid-column-end: unset;
         }
     }
+}
+@media screen and (max-width: 768px)
+{
 }

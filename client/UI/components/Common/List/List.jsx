@@ -7,6 +7,7 @@ import classes from './List.module.scss';
 const List = (props) => {
     const resort = props.resort;
     const items = props.items;
+    const path = props.path;
     
     function InsertItems() {
         const elements = [];
@@ -16,6 +17,7 @@ const List = (props) => {
             {
                 let element = items[i];
                 elements.push(<ListItem category={resort}
+                                        path={path}
                                         id={element.id}
                                         title={element.title}
                                         image={typeof element.images === 'object' ? element.images[0]: element.images}

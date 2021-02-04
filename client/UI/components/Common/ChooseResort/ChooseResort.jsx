@@ -33,10 +33,10 @@ const ChooseResort = (props) => {
         <div className={classes.resort + ' ' + props.className}>
             <SearchRelax className={classes.search}/>
             <div className={classes.choose}>
-                <div className={classes.pansionat}>
+                <div className={classes.left}>
                     {ToLink(props.left)}
                 </div>
-                <div className={classes.sanatorium}>
+                <div className={classes.right}>
                     {ToLink(props.right)}
                 </div>
             </div>

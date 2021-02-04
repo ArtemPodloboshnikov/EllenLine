@@ -29,9 +29,9 @@ export default function ClientLayout ({children, title = 'Эллинлайн', p
             <Head>
                 <title>{title}</title>
             </Head>
+            <Header/>
             <main class="main">
                 <Preloader action={preloaderAction}/>
-                <Header/>
                     {(()=>{
                         
                         if (preloaderAction == 'stop' || preloaderAction =='none')
@@ -40,7 +40,6 @@ export default function ClientLayout ({children, title = 'Эллинлайн', p
                         }
                     
                     })()}
-              
                 <Footer/>
             </main>
         </>

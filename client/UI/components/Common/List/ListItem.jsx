@@ -10,6 +10,8 @@ const ListItem = (props) => {
     const [price, setPrice] = useState(props.price);
     const [services, setServices] = useState(props.services);
     const [category, setCategory] = useState(props.category);
+    //
+    const path = props.path;
     
     function ConvertServices(){
         let elements = [];
@@ -45,22 +47,15 @@ const ListItem = (props) => {
     }
     console.log();
 
-    const onHover = () => {
-        
-       
-
+    function onHover () {
             if (imgSrc.length > photoIndex + 1)
                 setPhotoIndex(photoIndex + 1);
             else
-                setPhotoIndex(0);
-
-         
-        
-        
-       
+                setPhotoIndex(0);       
     }
+
     return (
-        <Link href={{ pathname: '/relax/[resort]/[id]', query: { resort: category, id: id } }}>
+        <Link href={`/${path}/${category}/${id}`}>
             <div className={classes.list_item + ' ' + classes.className}
             style={{backgroundImage: `url(${image})`}}>
                 <div className={classes.top}>

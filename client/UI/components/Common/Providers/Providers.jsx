@@ -79,7 +79,7 @@ const Services = (props) => {
                     content: ConvertServices('rooms')
                 });
                 break;
-            case 'cruise':
+            case 'cruises':
                 sections.first = GenerateSection(
                 {
                     title: 'О лайнере',
@@ -95,6 +95,8 @@ const Services = (props) => {
                     title: 'В каютах',
                     content: ConvertServices('cabin')   
                 })
+                break;
+            case 'tours':
                 break;
             default:
                 console.log(type + ' this type of providers don`t support');

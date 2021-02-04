@@ -1,5 +1,6 @@
 @import '../../../styles/index.scss';
-.enter{
+.enter
+{
     display: grid;
 
     height: 500px;
@@ -9,95 +10,122 @@
     grid-template-rows: 4fr 1fr; 
     row-gap: 10px;
     column-gap: 10px;
-}
-
-.slider{
-    grid-area: slider;
-}
-
-.info
-{
-    @extend %border;
-    grid-area: info;
-    display: grid;
-    grid-template-rows: repeat(3, 1fr);
-    padding-top: 25px;
     
-    & > h1
+    .slider
     {
-
-        font-family: 'Kazimir';
-    }
-    & > div
-    {
-        & > h2 
-        {
-            @extend %font;
-            font-size: 1.3em;
-        }
-        & > span 
-        {
-            font-size: 0.8em;
-        };
+        grid-area: slider;
+        align-self: center;
+        // height: fit-content;
     }
 
-    .booking_btn
-    {
-        width: 50%;
-        justify-self: center;
-        height: 60%;
-    }
-
-    h1, h2, button
-    {
-        @extend %grid_center;
-        text-align: center;
-        margin: 0;
-    }
-
-    span, button 
-    {
-        display: block;
-        width: fit-content;
-        margin: 0 auto;
-        margin-bottom: 25px;
-    }
-
-    button
+    .info
     {
         @extend %border;
-        @extend %button;
-        height: fit-content;
-        padding: 10px 20px;
-        font-size: 1em;
+        grid-area: info;
+        display: grid;
+        grid-template-rows: repeat(3, auto);
+        padding: 25px;
+        row-gap: 15px;
+        
+        h1
+        {
+    
+            font-family: 'Kazimir';
+            font-size: 2.5em;
+        }
+        & > div
+        {
+            height: fit-content;
+            align-self: center;
+
+            h2 
+            {
+                @extend %font;
+                font-size: 2em;
+            }
+            span 
+            {
+                margin: 0 auto;
+                font-size: 1em;
+            }
+        }
+    
+        .booking_btn
+        {
+            justify-self: center;
+            height: fit-content;
+            padding: 5px 15px;
+        }
+    
+        h1, h2, button
+        {
+            @extend %grid_center;
+            text-align: center;
+            margin: 0;
+        }
+    
+        span, button 
+        {
+            display: block;
+            width: fit-content;
+            margin: 0 auto;
+            margin-bottom: 25px;
+        }
+    
+        button
+        {
+            @extend %border;
+            @extend %button;
+            height: fit-content;
+            padding: 10px 20px;
+            font-size: 1em;
+        }
+
+        //optional
+        .duration
+        {
+
+        }
+
+        .stars
+        {
+            display: grid;
+            grid-template-columns: repeat(5, auto);
+            column-gap: 15px;
+            margin: 0 auto;
+            i
+            {
+                font-size: 3em;
+            }
+        }
     }
+    
+    .wallet
+    {
+        @extend %border;
+        grid-area: wallet;
+        display: grid;
+        grid-template-columns: 1fr 5fr;
+    
+        p, i
+        {
+            @extend %grid_center;
+        }
+    
+        p
+        {
+            text-align: center;
+            font-size: 1.5em;
+    
+        }
+    
+        i
+        {
+            font-size: calc(2em + 1vw);
+    
+        }
+    } 
 }
-
-.wallet
-{
-    @extend %border;
-    grid-area: wallet;
-    display: grid;
-    grid-template-columns: 1fr 5fr;
-
-    p, i
-    {
-        @extend %grid_center;
-    }
-
-    p
-    {
-        text-align: center;
-        font-size: 1.5em;
-
-    }
-
-    i
-    {
-        font-size: calc(2em + 1vw);
-
-    }
-} 
 
 .description > div
 {
@@ -149,8 +177,9 @@
 
 @media screen and (max-width: 1024px)
 {
-    .enter{
-        height: 750px;
+    .enter
+    {
+        height: 1000px;
         grid-template-areas: 'slider'
                              'info'
                              'wallet';
