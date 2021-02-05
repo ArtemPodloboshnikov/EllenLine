@@ -5,19 +5,11 @@ import SearchRelax from '../Search/SearchRelax.jsx';
 //
 import classes from './ChooseResort.module.scss';
 
-//Возможно стоит поместить этот массив в БД, а может нет :/
-const convert = 
-{ 
-    // /relax/
-    'pensionats': 'Пансионаты', 
-    'sanatoriums': 'Санатории',
-    // /cruises
-    'river': 'Речные',
-    'marine': 'Морские'
-};
 
 const ChooseResort = (props) => {
     const OnClick = props.onClick;
+    const path = props.path;
+    const convert = props.convert;
     
     function ToLink(type)
     {
@@ -25,8 +17,7 @@ const ChooseResort = (props) => {
         if(OnClick)
             return content;
         else
-            return <Link href={`/${props.path}/${type}`}>{content}</Link>;
-        //{ pathname: '/relax/[resort]', query: { resort: type }}
+            return <Link href={`/resorts/${path}/${type}`}>{content}</Link>;
     }
 
     return(
@@ -34,10 +25,10 @@ const ChooseResort = (props) => {
             <SearchRelax className={classes.search}/>
             <div className={classes.choose}>
                 <div className={classes.left}>
-                    {ToLink(props.left)}
+                    {ToLink(Object.keys(convert)[1])}
                 </div>
                 <div className={classes.right}>
-                    {ToLink(props.right)}
+                    {ToLink(Object.keys(convert)[2])}
                 </div>
             </div>
         </div>

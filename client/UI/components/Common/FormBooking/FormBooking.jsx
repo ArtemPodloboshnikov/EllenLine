@@ -84,7 +84,7 @@ const FormBooking = (props) => {
 
     return(
         <div className={classes.booking + ' ' + props.className}>
-            {/* SEPARATOR */}
+             {/* SEPARATOR */}
             {GenerateInfoGoing()}
             {/* SEPARATOR */}
             <div className={classes.info_person}>
@@ -99,6 +99,5 @@ const FormBooking = (props) => {
         </div>
     )
 }
-
 
 export default FormBooking;

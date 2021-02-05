@@ -45,7 +45,6 @@ const ListItem = (props) => {
         }
         return elements;
     }
-    console.log();
 
     function onHover () {
             if (imgSrc.length > photoIndex + 1)
@@ -55,7 +54,7 @@ const ListItem = (props) => {
     }
 
     return (
-        <Link href={`/${path}/${category}/${id}`}>
+        <Link href={`/resorts/${path}/${category}/${id}`}>
             <div className={classes.list_item + ' ' + classes.className}
             style={{backgroundImage: `url(${image})`}}>
                 <div className={classes.top}>
@@ -66,15 +65,11 @@ const ListItem = (props) => {
                 <div className={classes.bottom}>
                     <div className={classes.address}>
                         <i class="fa fa-map-marker" aria-hidden="true"></i>
-                        <p>
-                            {address}
-                        </p>
+                        <p>{address}</p>
                     </div>
                     <div className={classes.price}>
                         <i class="fa fa-money" aria-hidden="true"></i>
-                        <p>
-                            {price}
-                        </p>
+                        <p>{price} руб.</p>
                     </div>
                     <div className={classes.services}>
                         {ConvertServices()}

@@ -3,7 +3,6 @@ import classes from './Timetable.module.scss';
 
 const Timetable = (props) => {
     const timetable = props.timetable;
-    console.log(timetable);
 
     function ConvertDay(massive) {
         const elements = [];

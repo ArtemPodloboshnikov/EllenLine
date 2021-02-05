@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import { useState } from 'react';
 import classes from './SelectOption.module.scss';
 
 const SelectOption = (props) => {

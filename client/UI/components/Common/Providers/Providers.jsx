@@ -1,9 +1,11 @@
 import React from 'react';
 //
+import PresentationMap from '../Map/PresentationMap';
+//
 import classes from './Providers.module.scss';
 
 //В основном для пансионатов с санаториями
-const Services = (props) => {
+const Providers = (props) => {
     //#region Обязательные параметр
     const services = props.services;
     const address = props.address;
@@ -11,8 +13,10 @@ const Services = (props) => {
     const type = props.type;
     //#endregion
 
-    //Переменные передающиейся с круизом
+    //tours, cruises
     const info = props.info;
+    //tours
+    const points = props.points;
 
     function GenerateSections() {
     
@@ -59,7 +63,40 @@ const Services = (props) => {
         }
         //#endregion
 
-        let sections = { first: undefined, second: undefined, thrid: undefined };
+        //#region For tours
+        function ConvertTourInfo() {
+            return <>
+                <i class="fa fa-map-o" aria-hidden="true"></i>
+                <div className={classes.map}>
+                    <PresentationMap 
+                    className={classes.ymap}
+                    points={[{coordinates: points, 
+                        hintContent: '', 
+                        balloonContentBody: ''}]}/>
+                </div>
+                <i class="fa fa-language" aria-hidden="true"></i>
+                <div className={classes.languages}>
+                    <p>{info.languages.join(', ')}</p>
+                </div>
+                <i class="fa fa-globe" aria-hidden="true"></i>
+                <div className={classes.countries}>
+                    <p>{info.countries.join(', ')}</p>
+                </div>
+                <i class="fa fa-road" aria-hidden="true"></i>
+                <div className={classes.routes}>
+                    <p>{info.routes.map((element) => 'Автобусные туры ' + element).join(', ')}</p>
+                </div>
+            </>
+        }
+        //#endregion
+
+        let sections = 
+        { 
+            first: undefined, 
+            second: undefined, 
+            thrid: undefined,
+            className: undefined
+        };
         switch(type)
         {
             case 'relax':
@@ -94,15 +131,31 @@ const Services = (props) => {
                 {
                     title: 'В каютах',
                     content: ConvertServices('cabin')   
-                })
+                });
                 break;
             case 'tours':
+                sections.className = classes.tours;
+                sections.first = GenerateSection(
+                {
+                    title: 'Общая информация',
+                    content: ConvertTourInfo()
+                });
+                sections.second = GenerateSection(
+                {
+                    title: 'Оплаченные услуги',
+                    content: ConvertServices('included')
+                });
+                sections.third = GenerateSection(
+                {
+                    title: 'Платные услуги',
+                    content: ConvertServices('payable')
+                });
                 break;
             default:
                 console.log(type + ' this type of providers don`t support');
                 return 'ERROR TYPE: ' + type + ' NOT SUPPORTED';
         };  
-        return <>
+        return <div className={classes.sections + ' ' + sections.className}>
             <div className={classes.section_first}>
                 {sections.first}
             </div>
@@ -112,7 +165,7 @@ const Services = (props) => {
             <div className={classes.section_third}>
                 {sections.third}
             </div>
-        </>
+        </div>
     }
 
     return (
@@ -127,4 +180,4 @@ const Services = (props) => {
     )
 }
 
-export default Services;
+export default Providers;

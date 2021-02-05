@@ -3,11 +3,10 @@
 {
     display: grid;
 
-    height: 500px;
     grid-template-areas: 'slider info'
                          'slider wallet';
     grid-template-columns: 1.25fr 1fr;
-    grid-template-rows: 4fr 1fr; 
+    grid-template-rows: auto; 
     row-gap: 10px;
     column-gap: 10px;
     
@@ -15,7 +14,7 @@
     {
         grid-area: slider;
         align-self: center;
-        // height: fit-content;
+        height: 500px;
     }
 
     .info
@@ -45,6 +44,7 @@
             }
             span 
             {
+                white-space: nowrap;
                 margin: 0 auto;
                 font-size: 1em;
             }
@@ -90,7 +90,8 @@
         .stars
         {
             display: grid;
-            grid-template-columns: repeat(5, auto);
+            grid-template-rows: 1fr;
+            grid-auto-columns: auto;
             column-gap: 15px;
             margin: 0 auto;
             i
@@ -162,7 +163,6 @@
         &:hover
         {
             cursor: pointer;
-            transform: scale(1.5, 1.5);
         }
         &.active
         {
@@ -170,7 +170,7 @@
         }
         &.active:hover 
         {
-            transform: scale(1.5, 1.5) rotate(180deg);
+            transform: rotate(180deg);
         }
     }
 }
@@ -179,11 +179,24 @@
 {
     .enter
     {
-        height: 1000px;
         grid-template-areas: 'slider'
                              'info'
                              'wallet';
         grid-template-columns: 1fr;
-        grid-template-rows: 4fr 1fr 1fr; 
+
+        .slider
+        {
+            height: 450px;
+        }
+    }
+}
+@media screen and (max-width: 425px)
+{
+    .enter
+    {
+        .slider
+        {
+            height: 300px;
+        }
     }
 }

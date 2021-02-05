@@ -14,9 +14,11 @@ const InfoSection = (props) => {
     //
     const [expand, setExpand] = useState(false);
     const [index, setIndex] = useState(props.index ? props.index : 0);
-    //
+    //type
     const type = props.type;
-    // 
+    //relax
+    const stars = props.stars;
+    //tours, cruises
     const duration = props.duration;
 
 
@@ -32,21 +34,27 @@ const InfoSection = (props) => {
     }
 
     function GenerateInfo() {
+
+        function GenerateStars() {
+            const elements = [];
+            for(let i = 0; i < stars; i++)
+            {
+                elements.push(<i class="fa fa-star" style={{ gridRow: 1 }} aria-hidden="true"></i>);
+            }
+            return elements;
+        }
+
         switch(type)
         {
             case 'tours':
-            case 'cruises':
+            case 'cruises'://duration == timetable.lenght
                 return <div className={classes.duration}>
                     <h1>{duration} Дней</h1>
                     <span>продолжительность</span>
                 </div>
             case 'relax':
                 return <div className={classes.stars}>
-                    <i class="fa fa-star" aria-hidden="true"></i>
-                    <i class="fa fa-star" aria-hidden="true"></i>
-                    <i class="fa fa-star" aria-hidden="true"></i>
-                    <i class="fa fa-star" aria-hidden="true"></i>
-                    <i class="fa fa-star" aria-hidden="true"></i>
+                    {GenerateStars()}
                 </div>;
             default:
                 console.log(type + ' type don`t support');

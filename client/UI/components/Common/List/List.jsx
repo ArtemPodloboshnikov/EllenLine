@@ -30,8 +30,7 @@ const List = (props) => {
     }
 
     return (
-        <div className={classes.list}
-            style={{gridAutoRows: (props.rowHeight ? props.rowHeight : '500px') }}>
+        <div className={classes.list}>
             {InsertItems()}           
         </div>
     )
