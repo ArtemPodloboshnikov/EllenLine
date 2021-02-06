@@ -6,7 +6,8 @@ const InputNumber = (props) => {
     const [value, setValue] = useState(props.value);
 
     function CheckValue(e) {
-        let new_value = parseInt(e.target.value);
+       
+        let new_value = parseInt(e.target.value) + e.target.adjust;
         
         if (props.value == new_value)
         {
@@ -17,6 +18,8 @@ const InputNumber = (props) => {
 
             setValue(new_value === NaN ? undefined : new_value);
         }
+        
+        console.log(new_value);
         if(new_value < props.min)
         {
             setValue(props.min);
@@ -32,30 +35,13 @@ const InputNumber = (props) => {
         }
     }
 
-    const plus = ()=>{
-
-        let new_value;
-        if (isNaN(value)) new_value = props.min;
-        else new_value = Number.parseInt(value) + 1;
-        console.log(value)
-        if (props.max <= new_value)
-            new_value = props.max;
-        if (props.min >= new_value)
-            new_value = props.min;
-
-        setValue(new_value);
+    function Plus() {
+        CheckValue({ target: { value: value, adjust: 1 } });
         document.getElementsByName(props.name)[0].focus();
     }
-    const minus = ()=>{
-
-        let new_value;
-        if (isNaN(value)) new_value = props.min;
-        else new_value = Number.parseInt(value) - 1;
-        if (props.min >= new_value)
-             new_value = props.min;
-        if (props.max <= new_value)
-            new_value = props.max;
-        setValue(new_value);
+    
+    function Minus() {
+        CheckValue({ target: { value: value, adjust: -1 } });
         document.getElementsByName(props.name)[0].focus();
     }
 
@@ -70,10 +56,10 @@ const InputNumber = (props) => {
                ref={props.register}
                onBlur={props.onBlur}
                min={props.min} max={props.max} onChange={(e) => CheckValue(e)}/>
-             <div onClick={plus} className={classes.plus}>+</div>
-             <div onClick={minus} className={classes.minus}>-</div>
+             <div onClick={Plus} className={classes.plus}>+</div>
+             <div onClick={Minus} className={classes.minus}>-</div>
         </div> 
     )
 }
 
-export default InputNumber
+export default InputNumber;

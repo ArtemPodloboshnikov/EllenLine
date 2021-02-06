@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import classes from './InputDate.module.scss';
 
 const InputDate = (props) => {
@@ -20,18 +20,17 @@ const InputDate = (props) => {
     const [min, setMin] = useState(props.min);
     const [max, setMax] = useState(props.max);
 
-    function ChangeValue(e) {
-        console.log(e);
-    }
+    useEffect(() => {
+        document.getElementById('date').value = date;
+    });
     
     return (
         <div className={classes.date + ' ' + props.className}>
             <label>{props.title}</label>
-            <input type="date" 
-                   value={date} 
+            <input type="date"
+                   id="date" 
                    min={min}
-                   max={max}
-                   onChange={(e) => ChangeValue(e)}/>
+                   max={max}/>
         </div>
     )
 }

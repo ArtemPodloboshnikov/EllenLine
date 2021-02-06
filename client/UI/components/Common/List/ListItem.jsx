@@ -3,14 +3,15 @@ import Link from 'next/link';
 import classes from './ListItem.module.scss';
 
 const ListItem = (props) => {
-    const idItem = props.idItem;
-    const imgSrc = props.imgSrc.split(',');
-    const title = props.title;
-    const address = props.address;
-    const price = props.price;
-    const services = JSON.parse(props.services);
-    const category = props.category;
-    const [photoIndex, setPhotoIndex] = useState(0);
+    const [id, setId] = useState(props.id);
+    const [image, setImage] = useState(props.image);
+    const [title, setTitle] = useState(props.title);
+    const [address, setAddress] = useState(props.address);
+    const [price, setPrice] = useState(props.price);
+    const [services, setServices] = useState(props.services);
+    const [category, setCategory] = useState(props.category);
+    //
+    const path = props.path;
     
     function ConvertServices(){
         let elements = [];
@@ -44,26 +45,18 @@ const ListItem = (props) => {
         }
         return elements;
     }
-    console.log();
 
-    const onHover = () => {
-        
-       
-
+    function onHover () {
             if (imgSrc.length > photoIndex + 1)
                 setPhotoIndex(photoIndex + 1);
             else
-                setPhotoIndex(0);
-
-         
-        
-        
-       
+                setPhotoIndex(0);       
     }
+
     return (
-        <Link href={{ pathname: '/relax/[resort]/[id]', }} as={'/relax/' + category + '/' + idItem}>
-            <div className={classes.list_item + ' ' + props.className} onMouseOver={onHover}
-            style={{transition: 'background 2.5s ease', backgroundImage: `url('/images/RelaxDynamic/${imgSrc[photoIndex]}')`}}>
+        <Link href={`/resorts/${path}/${category}/${id}`}>
+            <div className={classes.list_item + ' ' + classes.className}
+            style={{backgroundImage: `url(${image})`}}>
                 <div className={classes.top}>
                     <h1 className={classes.title}>
                         {title}
@@ -72,15 +65,11 @@ const ListItem = (props) => {
                 <div className={classes.bottom}>
                     <div className={classes.address}>
                         <i class="fa fa-map-marker" aria-hidden="true"></i>
-                        <p>
-                            {address}
-                        </p>
+                        <p>{address}</p>
                     </div>
                     <div className={classes.price}>
                         <i class="fa fa-money" aria-hidden="true"></i>
-                        <p>
-                            {price}
-                        </p>
+                        <p>{price} руб.</p>
                     </div>
                     <div className={classes.services}>
                         {ConvertServices()}

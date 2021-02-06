@@ -1,61 +1,76 @@
 import React, { useState } from 'react';
-import Slider from './../CustomElements/Slider.jsx';
+//
+import Slider from '../../CustomElements/Slider.jsx';
+import Button from '../../CustomElements/Button.jsx';
+//
 import classes from './InfoSection.module.scss';
-import Button from '../CustomElements/Button';
 
 const InfoSection = (props) => {
     const [title, setTitle] = useState(props.title);
     const [price, setPrice] = useState(props.price);
     const [text, setText] = useState(props.text);
     const [images, setImages] = useState(props.images);
-    ///
+    const [start, setStars] = useState(props.start);
+    //
     const [expand, setExpand] = useState(false);
     const [index, setIndex] = useState(props.index ? props.index : 0);
-    //If exists, then this tour not relax or something else
-    const [duration, setDuration] = useState(props.duration ? props.duration : undefined);
+    //type
+    const type = props.type;
+    //relax
+    const stars = props.stars;
+    //tours, cruises
+    const duration = props.duration;
 
 
     function ExpandDescription(e) {
-        // console.log();
         let arrow = e.currentTarget;
         if(arrow.classList.contains(classes.active))
-        {
             arrow.classList.remove(classes.active);
             //shrink
-        }
         else
-        {
             arrow.classList.add(classes.active);
             //expand
-        }
         setExpand(!expand);
     }
 
-    function ReturnMainTitle() {
-        return <h1>{title}</h1>;
-    }
+    function GenerateInfo() {
 
-    function ReturnSubTitle() {
-        if(!duration)
-            return <h1>{title}</h1>;
-        else
-            return  <div>
-                        <h1>{duration} Дней</h1>
-                        <span>продолжительность</span>
-                    </div>;
+        function GenerateStars() {
+            const elements = [];
+            for(let i = 0; i < stars; i++)
+            {
+                elements.push(<i class="fa fa-star" style={{ gridRow: 1 }} aria-hidden="true"></i>);
+            }
+            return elements;
+        }
+
+        switch(type)
+        {
+            case 'tours':
+            case 'cruises'://duration == timetable.lenght
+                return <div className={classes.duration}>
+                    <h1>{duration} Дней</h1>
+                    <span>продолжительность</span>
+                </div>
+            case 'relax':
+                return <div className={classes.stars}>
+                    {GenerateStars()}
+                </div>;
+            default:
+                console.log(type + ' type don`t support');
+                return;
+        }
     }
 
     return (
         <div className={classes.wrap}>
-            <h1>{ReturnMainTitle()}</h1>
+            <h1>{title}</h1>
             <div className={classes.enter}>
                 <Slider className={classes.slider} images={images} index={index}/>
                 <div className={classes.info}>
-                    {/* <h1>{title}</h1> */}
-                    {ReturnSubTitle()}
-                    {/* STARS */}
+                    {GenerateInfo()}
                     <div>
-                        <h2>от {price}</h2>
+                        <h2>от {price} руб.</h2>
                         <span>за человека</span>
                     </div>
                     <Button value='Забронировать' className={classes.booking_btn} />
@@ -72,7 +87,7 @@ const InfoSection = (props) => {
                 <div>
                     <div className={classes.back} style={{display: expand ? 'none' : 'block'}}/>
                     <h1>Описание</h1>
-                    <p style={{height: expand ? 'auto' : '100px'}}>
+                    <p style={{height: expand ? 'auto' : '10px'}}>
                         {text}
                     </p>
                 </div>

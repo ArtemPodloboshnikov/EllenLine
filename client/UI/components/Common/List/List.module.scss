@@ -52,30 +52,28 @@
     display: grid;
     grid-template-columns: repeat(auto-fit, minmax(300px, 400px));
     justify-content: center;
-    grid-auto-rows: 250px;
+    grid-auto-rows: 550px;
     gap: 10px;
-    /* grid-template-areas: 'item_1 item_2 item_3 item_4'; */
+    padding: 15px 10px;
 }
 
-@media screen and (max-width: 1024px)
-{
-    .list{
-        grid-template-columns: repeat(3, 1fr);
+// @media screen and (max-width: 1024px)
+// {
+//     .list{
+//         grid-template-columns: repeat(3, 1fr);
 
-    }
-}
-@media screen and (max-width: 768px)
-{
-    .list{
-        grid-template-columns: repeat(2, 1fr);
-    }
-}
-@media screen and (max-width: 425px)
-{
-    .list{
-        grid-template-columns: 1fr;
-    }
-}
-
-
+//     }
+// }
+// @media screen and (max-width: 768px)
+// {
+//     .list{
+//         grid-template-columns: repeat(2, 1fr);
+//     }
+// }
+// @media screen and (max-width: 425px)
+// {
+//     .list{
+//         grid-template-columns: 1fr;
+//     }
+// }
 

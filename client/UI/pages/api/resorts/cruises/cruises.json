@@ -1,0 +1,122 @@
+{
+    "river": 
+    [
+        {
+            "id": 10,
+            "title": "Autopsy",
+            "images": 
+            [
+                "https://avatars.yandex.net/get-music-content/28589/ac334c01.a.3374204-1/m1000x1000?webp=false",
+                "https://cdn1.ozone.ru/multimedia/1016977745.jpg"
+            ],
+            "text": "Something text",
+            "address": "Народная 46",
+            "price": 70000,
+            "points": [59.87026708231266, 30.26207174039379],
+            "info":
+            {
+                "year": 1987,
+                "capacity": 284,
+                "deck": 4,
+                "length": "129 m.",
+                "width": "16,7 m.",
+                "draft": "2,9 m.",
+                "maxSpeed": "25,5 км/ч",
+                "runCount": 302
+            },
+            "services": 
+            {
+                "available":
+                [ 
+                    {
+                        "icon": "child",
+                        "text": "Игры для детей"
+                    }
+                ],
+                "cabin":
+                [
+                    {
+                        "icon": "wifi",
+                        "text": "Wi-fi"
+                    },
+                    {
+                        "icon": "beer",
+                        "text": "Мини-бар"
+                    }
+                ]
+            }, 
+            "timetable":
+            [
+                [
+                    ["06:00 - 07:00", "Здесь начинается наша экспедциция"],
+                    ["19:00 - 20:00", "А тут она заканчивается"]
+                ],
+                [
+                    ["06:00 - 07:00", "Здесь начинается наша экспедциция на второй день"],
+                    ["19:00 - 20:00", "А тут она заканчивается на второй день"]
+                ]
+            ],
+            "duration": 10
+        }
+    ],
+    "marine":
+    [
+        {
+            "id": 25,
+            "title": "Fluttershy",
+            "images": 
+            [
+                "https://yt3.ggpht.com/a/AATXAJxhyf3Z9740zJA_77BSsX125Co71vwpvEoroQ=s900-c-k-c0xffffffff-no-rj-mo",
+                "https://i.pinimg.com/736x/cb/7a/15/cb7a15234c60c42e859e1e2575dbe503.jpg"
+            ],
+            "text": "Something about fluttershy",
+            "address": "ул. Генерала Острякова, 9",
+            "price": 100000,
+            "points": [59.87026708231266, 30.26207174039379],
+            "info":
+            {
+                "year": 2007,
+                "capacity": 268,
+                "deck": 3,
+                "length": "113 m.",
+                "width": "12,7 m.",
+                "draft": "5,9 m.",
+                "maxSpeed": "30,5 км/ч",
+                "runCount": 150
+            },
+            "services": 
+            {
+                "available":
+                [ 
+                    {
+                        "icon": "child",
+                        "text": "Игры для детей"
+                    }
+                ],
+                "cabin":
+                [
+                    {
+                        "icon": "wifi",
+                        "text": "Wi-fi"
+                    },
+                    {
+                        "icon": "beer",
+                        "text": "Мини-бар"
+                    }
+                ]
+            }, 
+            "timetable":
+            [
+                [
+                    ["06:00 - 07:00", "Tea party"],
+                    ["19:00 - 20:00", "Pet animals"]
+                ],
+                [
+                    ["06:00 - 07:00", "Tea party with discord"],
+                    ["19:00 - 20:00", "Pet animals with discord"]
+                ]
+            ],
+            "duration": 8
+        }
+    ]
+}

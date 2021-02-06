@@ -18,6 +18,11 @@ a:active .list_item{
     background-size: cover;
     background-repeat: no-repeat;
     box-shadow: 0 0 7px 0px $sub_color;
+
+    &:hover
+    {
+        cursor: pointer;
+    }
 }
 
 .top, .bottom{

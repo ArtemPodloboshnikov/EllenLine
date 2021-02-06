@@ -60,6 +60,7 @@ code {
 .main{
 
   display: grid;
+  //padding: 15px 10px 10px;
   min-width: 100%;
   min-height: 100%;
 }
@@ -88,8 +89,8 @@ code {
 
   .main{
 
-      margin-left: 20%;
-      min-width: 20%;
+      margin-left: 15%;
+      min-width: 85%;
   }
 }
 /* Смартфоны: горизонтальная ориентация */
@@ -97,15 +98,15 @@ code {
 
   .main{
 
-      margin-left: 20%;
-      min-width: 80%;
+      margin-left: 15%;
+      min-width: 85%;
   }
 }
 /* ZIMIN */
 @media screen and (max-width: 1024px){
   .main{
-      margin-left: 20%;
-      min-width: 80%;
+      margin-left: 15%;
+      min-width: 85%;
   }
 }
 

@@ -9,8 +9,6 @@ const SelectEntered = (props) => {
     const [possibleData, setPossibleData] = useState([]);
 
     const onClickOption = (e) => {
-
-        
         setArrowClass(classes.arrowDown);
         setPossibleData([]);
         setValue(e.target.innerHTML);

@@ -75,24 +75,24 @@ const Header = (props) => {
                             <Link href='/collaboration'><a className={classes.header__button} style={{gridColumn: '2 / 4'}}>Санкт-Петербург</a></Link>
                             <Link href='/'><a><Image width={150} height={150} src='/images/logo.svg'/></a></Link>
                             <div>
-                                <Link href='/tours'><a id='treeTours_button' className={classes.header__button} onMouseOver={showTree} onMouseOut={hideTree}>Туры</a></Link>
+                                <Link href='/resorts/tours'><a id='treeTours_button' className={classes.header__button} onMouseOver={showTree} onMouseOut={hideTree}>Туры</a></Link>
                                 <div onMouseOver={showTree} onMouseOut={hideTree} id='treeTours' className={classes.treeTours}>
-                                    <Link href='/tours/oneday'><a id='treeTours' className={classes.header__treeItem}>Однодневные</a></Link>
-                                    <Link href='/tours/multiday'><a id='treeTours' className={classes.header__treeItem}>Многодневные</a></Link>
+                                    <Link href='/resorts/tours/oneday'><a id='treeTours' className={classes.header__treeItem}>Однодневные</a></Link>
+                                    <Link href='/resorts/tours/multiday'><a id='treeTours' className={classes.header__treeItem}>Многодневные</a></Link>
                                 </div>
                             </div>
                             <div>
-                                <Link href='/relax'><a id='treeRelax_button' className={classes.header__button} onMouseOver={showTree} onMouseOut={hideTree}>Отдых</a></Link>
+                                <Link href='/resorts/relax'><a id='treeRelax_button' className={classes.header__button} onMouseOver={showTree} onMouseOut={hideTree}>Отдых</a></Link>
                                 <div onMouseOver={showTree} onMouseOut={hideTree} id='treeRelax' className={classes.treeRelax}>
-                                    <Link href='/relax/hotels'><a id='treeRelax' className={classes.header__treeItem}>Санатории</a></Link>
-                                    <Link href='/relax/pensionats'><a id='treeRelax' className={classes.header__treeItem}>Пансионаты</a></Link>
+                                    <Link href='/resorts/relax/sanatoriums'><a id='treeRelax' className={classes.header__treeItem}>Санатории</a></Link>
+                                    <Link href='/resorts/relax/pensionats'><a id='treeRelax' className={classes.header__treeItem}>Пансионаты</a></Link>
                                 </div>
                             </div>
                             <div>
-                                <Link href='/places'><a id='treeСruises_button' className={classes.header__button} onMouseOver={showTree} onMouseOut={hideTree}>Круизы</a></Link>
+                                <Link href='/resorts/cruises'><a id='treeСruises_button' className={classes.header__button} onMouseOver={showTree} onMouseOut={hideTree}>Круизы</a></Link>
                                 <div onMouseOver={showTree} onMouseOut={hideTree} id='treeСruises' className={classes.treeCruises}>
-                                    <Link href='/cruises/river'><a id='treeСruises' className={classes.header__treeItem}>Речные</a></Link>
-                                    <Link href='/cruises/marine'><a id='treeСruises' className={classes.header__treeItem}>Морские</a></Link>
+                                    <Link href='/resorts/cruises/river'><a id='treeСruises' className={classes.header__treeItem}>Речные</a></Link>
+                                    <Link href='/resorts/cruises/marine'><a id='treeСruises' className={classes.header__treeItem}>Морские</a></Link>
                                 </div>
                             </div>
                             <label for={classes.search_active}><Image src='/images/Header/loupe.svg' width={50} height={50}/></label>

@@ -1,8 +1,9 @@
+import React, {useState} from 'react'; 
 import Head from 'next/head';
+//
 import Header from '../components/Common/Header/Header';
 import Footer from '../components/Common/Footer/Footer';
 import Preloader from '../components/Common/Preloader/Preloader';
-import {useState} from 'react'; 
 
 export default function ClientLayout ({children, title = 'Эллинлайн', preloader=false}){
 
@@ -28,9 +29,9 @@ export default function ClientLayout ({children, title = 'Эллинлайн', p
             <Head>
                 <title>{title}</title>
             </Head>
+            <Header/>
             <main class="main">
                 <Preloader action={preloaderAction}/>
-                <Header/>
                     {(()=>{
                         
                         if (preloaderAction == 'stop' || preloaderAction =='none')
@@ -39,7 +40,6 @@ export default function ClientLayout ({children, title = 'Эллинлайн', p
                         }
                     
                     })()}
-              
                 <Footer/>
             </main>
         </>
