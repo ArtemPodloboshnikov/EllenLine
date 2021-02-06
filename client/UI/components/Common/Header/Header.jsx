@@ -3,7 +3,7 @@ import Link from 'next/link'
 import { useEffect, useState } from 'react'
 import UpToHeader from '../UpToHeader/UpToHeader';
 import SidebarHeader from './SidebarHeader';
-import ReactPlayer from 'react-player'
+import ReactPlayer from 'react-player';
 import SearchByName from '../Search/SearchByName';
 import Image from 'next/image';
 

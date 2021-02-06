@@ -1,12 +1,30 @@
-.code{
-    margin-top: 3%;
-    display: grid;
-    justify-items: center;
-    align-items: center;
-    justify-content: center;
-    align-content: center;
-}
-.code > img{
+@import '../../styles/index.scss';
+@import './index.module.scss';
 
-    width: 50%;
+.section
+{
+    display: grid;
+    grid-template-columns: 1fr;
+    grid-auto-rows: auto;
+    row-gap: 30px;
+
+    .title
+    {
+        @extend %title;
+    }
+
+    .code
+    {
+        display: grid;
+        justify-items: center;
+        align-items: center;
+        justify-content: center;
+        align-content: center;
+
+        img
+        {
+    
+            width: 50%;
+        }
+    }
 }

@@ -11,8 +11,37 @@
         color: $primary_color;
     }
 
+    .map
+    {
+        margin: 15px 0 0 0;
+        height: 500px;
+    }
+
     .form
     {
         margin-top: 25px;
+    }
+}
+
+@media screen and (max-width: 1024px)
+{
+    .resort
+    {
+
+        .map
+        {
+            height: 400px;
+        }
+    }
+}
+@media screen and (max-width: 768px)
+{
+    .resort
+    {
+
+        .map
+        {
+            height: 325px;
+        }
     }
 }

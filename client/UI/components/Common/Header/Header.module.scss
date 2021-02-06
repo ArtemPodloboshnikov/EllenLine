@@ -3,7 +3,7 @@
 .header{
 
     width: 100%;
-    height: 90vh;
+    height: 76vh;
     background-color: red;
     position: relative;
     max-height: 90vh;
@@ -33,6 +33,7 @@
     z-index: 1;
     pointer-events: none;
     object-fit: cover;
+
 }
 .header__button, .header__treeItem{
 
@@ -233,10 +234,9 @@
     .header{
 
         width: 100%;
-        height: 97vh;
+        height: 500px;
         background-color: red;
         position: relative;
-        max-height: 90vh;
         overflow: hidden;
         clip-path: polygon(0% 0%, 200% 0%, 30% 100%, 0% 70%);
     }
@@ -256,10 +256,9 @@
     .header{
 
         width: 100%;
-        height: 50vh;
+        height: 76vh;
         background-color: red;
         position: relative;
-        max-height: 50vh;
         overflow: hidden;
         clip-path: polygon(0% 0%, 200% 0%, 30% 100%, 0% 70%);
     }
@@ -280,7 +279,7 @@
     .header{
 
         width: 100%;
-        height: 68vh;
+        height: 76vh;
         background-color: red;
         position: relative;
         max-height: 68vh;
@@ -297,11 +296,6 @@
 /* iPads: вертикальная ориентация */
 @media only screen and (min-device-width : 768px) and (max-device-width : 1024px) and (orientation : portrait) {
 
-    
-    .header{
-
-        height: 68vh;
-    }
 }
 /* iPads: горизонтальная ориентация */
 @media only screen and (min-device-width : 768px) and (max-device-width : 1024px) and (orientation : landscape) {

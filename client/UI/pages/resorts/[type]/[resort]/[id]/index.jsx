@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';
 //
 import FormBooking from '../../../../../components/Common/FormBooking/FormBooking.jsx';
 import InfoSection from '../../../../../components/Common/InfoSection/InfoSection.jsx';
+import PresentationMap from '../../../../../components/Common/Map/PresentationMap.jsx';
 import Providers from '../../../../../components/Common/Providers/Providers.jsx';
 import Timetable from '../../../../../components/Common/Timetable/Timetable.jsx';
 import ClientLayout from '../../../../../layouts/ClientLayout.jsx';
@@ -28,7 +29,34 @@ const Resort = (props) => {
     const duration = props.duration;
 
     function GenerateTimetable() {
-        return timetable ? <Timetable timetable={timetable}/> : '';
+        switch(type) 
+        {
+            case 'tours':
+            case 'cruises':
+                return <Timetable 
+                timetable={timetable}/>;
+            case 'relax':
+                return;
+            default:
+                return console.log(type + ' don`t support');
+        }
+    }
+
+    function GenerateMap() {
+        switch(type)
+        {
+            case 'relax':
+            case 'cruises':
+                return <PresentationMap 
+                className={classes.map}
+                points={[{coordinates: points, 
+                    hintContent: '', 
+                    balloonContentBody: ''}]}/>
+            case 'tours':
+                return;
+            default:
+                return console.log(type + ' don`t support');
+        }
     }
 
     return (
@@ -53,6 +81,8 @@ const Resort = (props) => {
                 points={points}/>
 
                 {GenerateTimetable()}
+
+                {GenerateMap()}
 
                 <FormBooking 
                 className={classes.form}
