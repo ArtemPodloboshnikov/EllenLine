@@ -147,6 +147,8 @@ const Sanatorium = (props) => {
             setAddress(dataHotels[institution].address);
             setPhotos(dataHotels[institution].photos);
             setTempPhotos(dataHotels[institution].photos)
+            setPrice(dataHotels[institution].price);
+            setDiscount(dataHotels[institution].discount)
         }
 
     }, [institution])
@@ -237,15 +239,7 @@ const Sanatorium = (props) => {
         }
 
     }, [formData])
-    console.log(dbData)
-    const onBlurAddress = (e)=>{
-
-        if (e.target.value != '')
-        {
-            setCityName(e.target.value);
-            setZoom(18);
-        }
-    }
+   // console.log(dbData.dataHotels[1].price)
 
     const onBlurCheckbox = (value, keyObject, keyString) =>{
 
@@ -259,12 +253,23 @@ const Sanatorium = (props) => {
             document.getElementById(keyString).checked = false;
         }
     }
+
+    const onBlurAddress = (e)=>{
+
+        if (e.target.value != '')
+        {
+            setCityName(e.target.value);
+            setZoom(18);
+            onBlurCheckbox(e.target.value, address, 'address')
+        }
+    }
+
     return (
 
         <>
             <Message setFunction={setMessage} style={message.style} status={message.status} body={message.body} method='insert'/>
             <ChangeItemFromDB type='relax' options={Object.keys(dataHotels)} onChangeFunction={setInstitution}
-            idsChecked={['title', 'description', 'type']}
+            idsChecked={['title', 'description', 'type', 'typeOfRoom', 'country', 'city', 'address']}
             />
             <form className={props.className + ' ' + classes.form} onSubmit={handleSubmit(handleOnSubmit)}>
                 <div className={classes.block}>
@@ -293,8 +298,19 @@ const Sanatorium = (props) => {
                         document.getElementsByName('description')[0].register = register({required: true})
                     }}/>
                 </div>
-                <InputNumber register={register({required: true})} name='stars' 
-                className={classes.inputNumber} placeholder='★' min='1' max='5' value={stars || (!dbData.dataHotels ? '' : dbData.dataHotels[0].stars)}/>
+                <div className={classes.block}>
+                    <InputNumber register={register({required: true})} name='stars' 
+                    className={classes.inputNumber} placeholder='★' min='1' max='5' value={stars || (!dbData.dataHotels ? '' : dbData.dataHotels[0].stars)} onBlur={(e)=>{
+
+                        onBlurCheckbox(e.target.value, stars, 'stars')
+                    }}
+                    />
+                    <input type='checkbox' id='stars' disabled={true} onChange={()=>{
+
+                        document.getElementsByName('stars')[0].register = register({required: true})
+                    }}
+                    />
+                </div>
 
                 <ImagesObserver prefix='/images/RelaxDynamic/' pathImages={photos || (!dbData.dataHotels ? ['/images/logo.svg'] : dbData.dataHotels[0].photos)} tempPhotos={tempPhotos} setTempPhotos={setTempPhotos}/>
 
@@ -346,7 +362,7 @@ const Sanatorium = (props) => {
                     <SelectEntered register={register({required: true})} name='city' onChangeFunction={setCityName}
                     className={classes.select} placeholder='Город' options={Object.keys(contries_cities.cities)} value={city || (!dbData.dataHotels ? '' : dbData.dataHotels[0].city_name)} onBlur={(e)=>{
 
-                    onBlurCheckbox(e.target.value, city, 'city')
+                        onBlurCheckbox(e.target.value, city, 'city')
                     }}
                     />
                     <input type='checkbox' id='city' disabled={true} onChange={()=>{
@@ -359,7 +375,11 @@ const Sanatorium = (props) => {
                 <div className={classes.block}>
                     <InputText register={register({required: true})} name='address' className={classes.inputText} value={address || (!dbData.dataHotels ? '' : dbData.dataHotels[0].address)}
                     classInput={classes.inputText__input} placeholder='Адрес' onBlur={onBlurAddress}/>
+                    <input type='checkbox' id='address' disabled={true} onChange={()=>{
 
+                        document.getElementsByName('address')[0].register = register({required: true})
+                    }}
+                    />
                 </div>
 
                 <EditMap name='coordinates' cityName={cityName} className={classes.map} zoom={zoom}/>
@@ -372,14 +392,37 @@ const Sanatorium = (props) => {
                     <DynamicList name='servicesRoom' register={register({required: true})} className={classes.dynamicList} 
                     classInput={classes.dynamicList__input} placeholder='Услуги в номерах' rows={servicesRows} setRows={setServicesRows}/>
                 </div>
+                
+                <div className={classes.block}>
+                    <InputNumber register={register({required: true})} name='price' 
+                    className={classes.inputNumber} placeholder='Цена' min='1' value={price || (!dbData.dataHotels ? '' : dbData.dataHotels[0].price)} onBlur={(e)=>{
 
-                <InputNumber register={register({required: true})} name='price' 
-                className={classes.inputNumber} placeholder='Цена' min='1'/>
+                        onBlurCheckbox(e.target.value, price, 'price')
+                    }}
+                    />
 
-                <InputNumber register={register({required: true})} name='discount' 
-                className={classes.inputNumber} placeholder='Скидка' min='0' max='100' value='0'/>
+                    <input type='checkbox' id='price' disabled={true} onChange={()=>{
 
+                        document.getElementsByName('price')[0].register = register({required: true})
+                    }}
+                    />
+                </div>
+                <div className={classes.block}>{console.log(dbData.dataHotels)}
+                    <InputNumber register={register({required: true})} name='discount' 
+                    className={classes.inputNumber} placeholder='Скидка' min='0' max='100' value={discount || (!dbData.dataHotels ? '' : dbData.dataHotels[0].discount)} onBlur={(e)=>{
+
+                        onBlurCheckbox(e.target.value, discount, 'discount')
+                    }}
+                    />
+                    <input type='checkbox' id='discount' disabled={true} onChange={()=>{
+
+                        document.getElementsByName('discount')[0].register = register({required: true})
+                    }}
+                    />
+                </div>
+                
                 <Button className={classes.button} classInput={classes.button__text} value='Обновить' />
+                    
             </form>
             
         </>

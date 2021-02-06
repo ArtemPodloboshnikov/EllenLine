@@ -106,11 +106,11 @@ const SelectEntered = (props) => {
 
     return (
         <div className={classes.wrap + ' ' + props.className}>
-            <div className={classes.selectInput}>
+            <div className={classes.selectInput + ' ' + ((props.disabled)? classes.selectInput_disabled : '')}>
                 <input ref={props.register} name={props.name} placeholder={props.placeholder} id={classes.id} disabled={props.disabled}
                 className={classes.input + ' ' + props.classInput} onChange={enterText} value={value == '' ? props.value : value} onBlur={props.onBlur}
                 />
-                <div><Image src='/images/triangle.svg' onClick={allOptions} className={arrowClass} width={props.arrowWidth || 50} height={props.arrowHeight || 50}/></div>
+                <div><Image src={(props.disabled) ? '/images/triangle_disabled.svg': '/images/triangle.svg'} onClick={allOptions} className={arrowClass} width={props.arrowWidth || 50} height={props.arrowHeight || 50}/></div>
             </div>
             <div className={classes.possibleData}>{possibleData.length ? possibleData: ''}</div>
         </div>

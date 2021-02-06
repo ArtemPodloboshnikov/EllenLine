@@ -1,17 +1,28 @@
-import React, {useEffect, useState} from 'react'
+import {useState} from 'react'
 import classes from './InputNumber.module.scss'
 
 const InputNumber = (props) => {
 
-    const [value, setValue] = useState(props.value ? props.value : NaN);
+    const [value, setValue] = useState(props.value);
 
     function CheckValue(e) {
         let new_value = parseInt(e.target.value);
+        
+        if (props.value == new_value)
+        {
+            setValue('')
+        }
+        else
+        {
+
+            setValue(new_value === NaN ? undefined : new_value);
+        }
         if(new_value < props.min)
         {
             setValue(props.min);
         }
-        else if(new_value > props.max)
+        else 
+        if(new_value > props.max)
         {
             setValue(props.max);    
         }
@@ -54,7 +65,7 @@ const InputNumber = (props) => {
         <input className={classes.input + ' ' + props.classInput}  
                type="number"
                placeholder={props.placeholder} 
-               value={value} 
+               value={value == '' ? props.value : value} 
                name={props.name}
                ref={props.register}
                onBlur={props.onBlur}

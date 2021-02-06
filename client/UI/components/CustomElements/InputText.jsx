@@ -4,31 +4,6 @@ import classes from './InputText.module.scss'
 const InputText = (props) => {
     
     const [value, setValue] = useState(props.value);
-    // const [flag, setFlag] = useState();
-    // let pastData = props.value;
-    // if (flag)
-    // {
-    //     setValue('');
-    //     setFlag(false)
-    // }
-    // useEffect(()=>{
-
-    //     if (props.value != '')
-    //     {
-    //         setValue(props.pastData);
-    //         pastData = '';
-    //         console.log('pastData: ' + pastData)
-    //     }       
-    // },[])
-    
-   // const [flag, setFlag] = useState(true);
- 
-    // if (props.value != '' && props.value !== undefined && props.flag)
-    // {
-       
-    //     setValue(props.value);
-    //     props.setFlag(false);     
-    // }
     
     const printValue = (e) =>{
 
