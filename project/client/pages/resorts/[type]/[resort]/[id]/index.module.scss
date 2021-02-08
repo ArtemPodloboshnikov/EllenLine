@@ -1,0 +1,19 @@
+@import '../../../../../styles/index.scss';
+.resort
+{
+    display: grid;
+    grid-template-columns: 1fr;
+    grid-auto-rows: auto;
+    padding-left: 5%;
+    padding-right: 5%;
+
+    i
+    {
+        color: $primary_color;
+    }
+
+    .form
+    {
+        margin-top: 25px;
+    }
+}

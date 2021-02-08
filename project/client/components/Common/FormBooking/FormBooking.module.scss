@@ -1,0 +1,154 @@
+@import '../../../styles/index.scss';
+
+.booking 
+{
+    display: grid;
+    padding: 15px 0;
+    row-gap: 25px;
+    grid-template-columns: 1.3fr 1fr;
+    border: 5px solid $primary_color; 
+   
+
+    h1
+    {
+        margin: 0;
+        font-size: 1.25em;
+    }
+    
+    .info_going 
+    {
+        display: grid;
+        margin-top: -2.3%;
+        min-height: 109% !important;
+        margin-left: 20px;
+        margin-right: 10px;
+        column-gap: 15px;
+        row-gap: 25px;
+        grid-template-columns: repeat(2, 1fr);
+        grid-template-rows: repeat(3, auto);   
+        padding-right: 5%;
+        border-right: 5px solid $primary_color;
+        .parents, .childs, .date
+        {
+            width: 100%;
+            
+        }
+        .childs__select, .date__input, .code, .parents
+        {
+            height: 8vh;
+        }
+        .parents, .childs
+        {
+            align-self: flex-start;
+            background-color: $primary_color;
+            color: $sub_color;
+        }
+
+        .date
+        {
+            align-self: flex-end;
+        }
+
+        .time
+        {
+            align-self: flex-end;
+        }
+        
+        .tickets
+        {
+            grid-column-start: 1;
+            grid-column-end: 3;
+        }
+
+        .code
+        {
+            display: grid;
+            // grid-template-rows: repeat(2, 1fr);
+            align-self: center;
+            row-gap: 1.5px;
+            input 
+            {
+                width: 100%;
+            }
+        }
+
+        .price
+        {
+            font-size: 1.5em;
+            align-self: center;
+        }
+    }
+
+    .info_person 
+    {
+        @extend %grid_center;
+        display: grid;
+        // margin-left: 10px;
+        // margin-right: 20px;
+        row-gap: 20px;
+        grid-template-rows: repeat(5, min-content(1fr));
+        
+        .fio, .e_mail, .telephone, .button
+        {
+            height: min-content;
+            padding: 5px;
+            height: 8vh;
+        }
+
+        p
+        {
+            padding: 5px 10px;
+            background-color: $side_color;
+            span 
+            {
+                color: $attention_color;
+            }
+        }
+    }
+}
+
+@media screen and (max-width: 1024px)
+{
+    .booking
+    {
+        grid-template-columns: 1fr;
+
+        .info_going, .info_person
+        {
+            margin: 0;
+            padding: 0 15px;
+        }
+
+        .info_going
+        {
+
+            .price.tours
+            {
+                grid-column-start: 1;
+                grid-column-end: 3;
+            }
+        }
+
+        .info_person
+        {
+            width: 100%;
+        }
+    }
+}   
+@media screen and (max-width: 600px)
+{
+    .booking
+    {
+
+        .info_going
+        {
+            grid-template-rows: repeat(4, auto);
+
+            .parents, .childs, .code, .price
+            {
+                grid-column-start: 1;
+                grid-column-end: 3;
+            }
+        }
+    }   
+}

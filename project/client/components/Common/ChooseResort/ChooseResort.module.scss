@@ -1,0 +1,50 @@
+@import '../../../styles/index.scss';
+// .relax{
+//     height: auto;
+// }
+
+
+.resort{
+    display: grid;
+    height: auto;
+    padding-top: 20px;
+    padding-left: 15px;
+    padding-right: 25px;
+    /* width: min-content; */
+    /* padding: 0 15px; */
+    grid-template-rows: 1fr; 
+    grid-template-areas: 
+                         'choose'
+                         'rest';
+    gap: 35px;
+}
+.choose{
+    grid-area: choose;
+    @include double_choose_block();
+}
+
+.rest{
+    grid-area: rest;
+}
+
+
+@media screen and (max-width: 1024px)
+{
+    .hotels h1, .pansionat h1{
+        font-size: 1.5em;
+    }
+}
+@media screen and (max-width: 425px)
+{
+    .choose{
+        grid-template-columns: none;
+        grid-template-rows: repeat(2, 1fr);
+        padding: 0;
+    }
+    .hotels, .pansionat, .hotels h1, .pansionat h1{
+        transform: none;
+    }
+    .hotels h1, .pansionat h1{
+        font-size: 1em;
+    }
+}
