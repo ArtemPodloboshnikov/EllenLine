@@ -9,7 +9,7 @@ import classes from './Cities.module.scss';
 const Cities = (props) => {
 
     const {register, handleSubmit, errors} = useForm();
-    const [message, setMessage] = useState({style: {display: 'none'}, status: '', body: ''});
+    const [message, setMessage] = useState({style: {display: 'none'}, status: '', method: ''});
     const [formData, setFormData] = useState({}); 
     const [dbData, setDbData] = useState({});
 
@@ -63,7 +63,7 @@ const Cities = (props) => {
             
 
            
-            setMessage({style: {display: 'grid'}, status: json.status, body: json.statusText});
+            setMessage({style: {display: 'grid'}, status: json.status, method: 'insert'});
             
             
             
@@ -78,7 +78,7 @@ const Cities = (props) => {
     //console.log(dbData);
     return (
         <>
-            <Message setFunction={setMessage} style={message.style} status={message.status} body={message.body}/>
+            <Message setFunction={setMessage} style={message.style} status={message.status} method={message.method}/>
             <form className={props.className + ' ' + classes.form} onSubmit={handleSubmit(handleOnSubmit)}>
                 
                 <SelectEntered register={register({required: true})} name='country' className={classes.select} 

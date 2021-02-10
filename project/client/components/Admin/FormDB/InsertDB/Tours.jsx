@@ -22,7 +22,7 @@ const Sanatorium = (props) => {
     const [cityName, setCityName] = useState('Санкт-Петербург');
     const [zoom, setZoom] = useState();
     const [servicesRows, setServicesRows] = useState(0);
-   
+   const [servicesMember, setServicesMember] = useState([1, 1]);
 
     const handleOnSubmit = (data)=>{
 
@@ -96,19 +96,25 @@ const Sanatorium = (props) => {
         })
         dbData.languages.map(data=>{
 
-            contries_cities_languages.countries[data.name] = data.id;
+            contries_cities_languages.languages[data.name] = data.id;
         })
        
     }
-
+    console.log(contries_cities_languages)
     useEffect(()=>{
 
 
         async function get()
         {
             let result = {};
+            let arrayCountryNames = (countryName !== undefined)? countryName.split(', ') : ['Россия'];
+            let conditions = '';
+            console.log(arrayCountryNames)
+            arrayCountryNames.map(name =>{
 
-            await fetch('http://localhost:4000/api/countries?with=cities&whereCountryName=' + countryName)
+                conditions += '&whereCountryName[]=' + name
+            })
+            await fetch('http://localhost:4000/api/countries?with=cities' + conditions)
               .then((response) => {
                 return response.json();
               })
@@ -218,13 +224,13 @@ const Sanatorium = (props) => {
                 <SelectEntered register={register({required: true})} name='type'
                 className={classes.select} placeholder='Тип' options={['Однодневный', 'Многодневный']} type='select'/>
 
-                <SelectEntered register={register({required: true})} name='country'
+                <SelectEntered register={register({required: true})} name='country' type='multiply'
                 className={classes.select} placeholder='Язык' options={Object.keys(contries_cities_languages.languages)} />
 
-                <SelectEntered register={register({required: true})} name='country' value={countryName} onChangeFunction={setCountryName}
-                className={classes.select} placeholder='Страна' options={Object.keys(contries_cities_languages.countries)} />
+                <SelectEntered register={register({required: true})} name='country' value={countryName} onChangeFunction={(obj)=>setCountryName(obj.value)}
+                className={classes.select} placeholder='Страна' options={Object.keys(contries_cities_languages.countries)} type='multiply'/>
 
-                <SelectEntered register={register({required: true})} name='city' onChangeFunction={setCityName}
+                <SelectEntered register={register({required: true})} name='city' type='multiply'
                 className={classes.select} placeholder='Город' options={Object.keys(contries_cities_languages.cities)} />
 
                 <InputText register={register({required: true})} name='address' className={classes.inputText} 
@@ -234,12 +240,29 @@ const Sanatorium = (props) => {
     
                 <div className={classes.form__services} style={{gridTemplateRows: `repeat(${servicesRows}, 1fr)`, height: `${servicesRows * 10}vh`}}>
                     <DynamicList name='freeServices' register={register({required: true})} className={classes.dynamicList} 
+                    servicesMember={servicesMember} setServicesMember={setServicesMember} index={0}
                     classInput={classes.dynamicList__input} placeholder='Оплаченные услуги' rows={servicesRows} setRows={setServicesRows}/>
                     <DynamicList name='paidServices' register={register({required: true})} className={classes.dynamicList} 
+                    servicesMember={servicesMember} setServicesMember={setServicesMember} index={1}
                     classInput={classes.dynamicList__input} placeholder='Платные услуги' rows={servicesRows} setRows={setServicesRows}/>
                 </div>
 
                 <Program className={classes.program} heightVH={40} nameTextArea='program_text'/>
+                
+                <InputNumber register={register({required: true})} name='price' 
+                className={classes.inputNumber} placeholder='Цена' min='1'/>
+
+                <InputNumber register={register({required: true})} name='pricePerChield' 
+                className={classes.inputNumber} placeholder='Цена для детей' min='0'/>
+
+                <InputNumber register={register({required: true})} name='pricePerTeenager' 
+                className={classes.inputNumber} placeholder='Цена для подростков' min='0'/>
+
+                <InputNumber register={register({required: true})} name='pricePerPet' 
+                className={classes.inputNumber} placeholder='Цена для питомцев' min='0'/>
+
+                <InputNumber register={register({required: true})} name='discount' 
+                className={classes.inputNumber} placeholder='Скидка' min='0' max='100' value='0'/>
 
                 <Button className={classes.button} classInput={classes.button__text} value='Внести' />
             </form>

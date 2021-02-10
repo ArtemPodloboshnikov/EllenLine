@@ -40,11 +40,10 @@ const Resort = ({data}) => {
         async function get()
         {
             
-            console.log('router.query' + router.query)
             const res = await fetch(`${Global.urlServer}/api/${type}?id=${router.query.id}`)
             let item = await res.json();
             item = item[0];
-
+            
             setDbData({
             
                     //relax, tours, cruises
@@ -52,12 +51,13 @@ const Resort = ({data}) => {
                     images: item.images,
                     title: item.title,
                     price: item.price,
-                    services: item.services,
+                    services: JSON.parse(item.services),
                     text: item.description,
                     address: item.address,
-                    points: item.coordinates,
+                    points: item.coordinates.split(','),
                     //relax
                     stars: item.stars || null,
+                    pricePerChild: item.pricePerChild || null,
                     //tours, cruises
                     info: item.info || null,
                     timetable: item.timetable || null,
@@ -100,7 +100,9 @@ const Resort = ({data}) => {
                 <FormBooking 
                 className={classes.form}
                 price={data.price}
-                type={type}/>
+                pricePerChild={data.pricePerChild}
+                type={type}
+                />
             </div>
         )
 
@@ -135,12 +137,13 @@ Resort.getInitialProps = async ({req, query}) => {
             images: item.images,
             title: item.title,
             price: item.price,
-            services: item.services,
+            services: JSON.parse(item.services),
             text: item.description,
             address: item.address,
-            points: item.coordinates,
+            points: item.coordinates.split(','),
             //relax
             stars: item.stars || null,
+            pricePerChild: item.pricePerChild || null,
             //tours, cruises
             info: item.info || null,
             timetable: item.timetable || null,

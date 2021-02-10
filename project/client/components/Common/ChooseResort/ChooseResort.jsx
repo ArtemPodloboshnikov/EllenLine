@@ -13,24 +13,26 @@ const ChooseResort = (props) => {
     let leftTextStyle = {};
     let rightTextStyle = {};
 
-    if (resort == props.keyLeft)
+    if (resort != undefined)
     {
-        leftTextStyle = {backgroundColor: '#333333', color: '#fff'}
-    }
-    else
-    if (resort == props.keyRight)
-    {
-        rightTextStyle = {backgroundColor: '#333333', color: '#fff'}
-    }
-    
-    function ToLink(type)
-    {
-        let content = <h1 onClick={OnClick} type={type}>{convert[type]}</h1>;
-        if(OnClick)
-            return content;
+        if (resort == props.keyLeft)
+        {
+            leftTextStyle = {backgroundColor: '#333333', color: '#fff'}
+        }
         else
-            return <Link href={`/resorts/${path}/${type}`}>{content}</Link>;
+        if (resort == props.keyRight)
+        {
+            rightTextStyle = {backgroundColor: '#333333', color: '#fff'}
+        }
     }
+    // function ToLink(type)
+    // {
+    //     let content = <h1 onClick={OnClick} type={type}>{convert[type]}</h1>;
+    //     if(OnClick)
+    //         return content;
+    //     else
+    //         return <Link href={`/resorts/${path}/${type}`}>{content}</Link>;
+    // }
 
     return(
         <div className={classes.resort + ' ' + props.className}>

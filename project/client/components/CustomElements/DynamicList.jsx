@@ -27,7 +27,7 @@ const DynamicList = (props) => {
     const [countMemberArray, setCountMemberArray] = useState(1);
     const inputs = [];
 
-    for(let i = 0; i < countMemberArray; i++){
+    for(let i = 0; i < props.servicesMember[props.index]; i++){
 
         inputs.push(
             <>
@@ -37,27 +37,42 @@ const DynamicList = (props) => {
                 
                 plusOnClick={()=>{
                     
-                    setCountMemberArray(countMemberArray + 1);
+                    let temp_member = [...props.servicesMember];
+                    temp_member[props.index]++; 
+                    props.setServicesMember(temp_member);
                     setValue([...value, '']);
-                    if (props.rows < countMemberArray)
+                    if (props.rows < temp_member[props.index])
                     {
                         props.setRows(props.rows + 1)
                     }
                 }}
                 minusOnClick={(e)=>{
-                    if (countMemberArray==1)
+                    if (props.servicesMember[props.index] == 1)
                     {
                         return;
                     }
                     else 
                     {
+                        let temp_member = [...props.servicesMember];
+                        temp_member[props.index]--; 
+                        let max_row = 0;
+                        console.log(temp_member)
+                       
+                        temp_member.map((member)=>{
+                            if (max_row < member)
+                            {
+                                max_row = member;
+                            }
 
-                        setCountMemberArray(countMemberArray - 1);
+                        })
+                        console.log(max_row)
+
+                        props.setServicesMember(temp_member);
+                        props.setRows(max_row);
+                        console.log(props.servicesMember);
                         let new_array = [...value];
-                        //console.log(e.target.id);
                         new_array.splice(e.target.id, 1);
-                        let name = document.getElementsByName(props.name + e.target.id);
-                        name.value = '';
+                        document.getElementsByName(props.name + e.target.id).value = '';
                         setValue(new_array);
                     }
                 }}

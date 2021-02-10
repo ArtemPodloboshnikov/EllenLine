@@ -16,6 +16,10 @@ $disabled_color_title: #628CD0;
   @return $mainColor;
 
 }
+%shadow
+{
+    box-shadow: 0px 0px 3px $primary_font_color, -0px -0px 3px $primary_font_color;
+}
 %font
 {
     font-family: 'Mediator Serif';

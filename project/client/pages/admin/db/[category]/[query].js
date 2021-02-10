@@ -1,6 +1,6 @@
 import { useRouter } from 'next/router';
 import AdminLayout from '../../../../layouts/AdminLayout';
-import classes from '../../../../styles/Admin/FormDB/FormDB.module.scss';
+import classes from './FormDB.module.scss';
 import {default as RelaxInsert} from '../../../../components/Admin/FormDB/InsertDB/Relax';
 import {default as RelaxUpdate} from '../../../../components/Admin/FormDB/UpdateDB/Relax';
 import {default as CountriesInsert} from '../../../../components/Admin/FormDB/InsertDB/Countries';

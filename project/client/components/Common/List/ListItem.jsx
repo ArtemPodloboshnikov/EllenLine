@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import Link from 'next/link';
+import iconsMaker from '../../../functions/IconsMaker';
 import classes from './ListItem.module.scss';
 
 const ListItem = (props) => {
@@ -8,7 +9,7 @@ const ListItem = (props) => {
     const title = props.title;
     const address = props.address;
     const price = props.price;
-    const services = props.services;
+    const services = JSON.parse(props.services);
     const category = props.category;
     const [photoIndex, setPhotoIndex] = useState(0);
     const path = props.path;
@@ -17,30 +18,44 @@ const ListItem = (props) => {
         let elements = [];
         if(services && services.length != 0)
         {
-            let offset = 0;
-            for(let i = 0; i < services.length; i++)
+            console.log(services)
+            for (let key in services)
             {
-                let service = services[i];
-                let column_offset = {gridColumn: `${i + 1}`};
-
-                //This is just example, services will be another
-                switch(service)
+                let countColumn = 0;
+                for(let i = 0; i < services[key].length; i++)
                 {
-                    case 'food':
-                        service = <i class="fa fa-cutlery" aria-hidden="true"
-                                     style={column_offset}></i>;
-                        break;
-                    case 'bath':
-                        service = <i class="fa fa-bath" aria-hidden="true"
-                                     style={column_offset}></i>;
-                        break;
-                    default:
-                        //console.log(service + ' service don`t support');
-                        offset++;
-                        continue;
+                    let service = services[key][i];
+                    
+                    console.log(service)
+                    //This is just example, services will be another
+                    // switch(service)
+                    // {
+                    //     case 'food':
+                    //         service = <i class="fa fa-cutlery" aria-hidden="true"
+                    //                      style={column_offset}></i>;
+                    //         break;
+                    //     case 'bath':
+                    //         service = <i class="fa fa-bath" aria-hidden="true"
+                    //                      style={column_offset}></i>;
+                    //         break;
+                    //     default:
+                    //         //console.log(service + ' service don`t support');
+                    //         offset++;
+                    //         continue;
+                    // }
+                    //elements.push(<ConvertServic service={service} style={column_offset}/>);
+                    let icon = iconsMaker(service, true);
+                    if (icon)
+                    {
+                        let column_offset = {gridColumn: `${++countColumn}`};
+                        elements.push(
+                            <div id='hint' data-text={icon.word} style={column_offset}>
+                                <i class={`fa fa-${icon.icon}`} aria-hidden="true"></i>
+                            </div>
+                        );
+                        
+                    }
                 }
-                // elements.push(<ConvertServic service={services[i]} style={{gridColumn: `${i + 1}`}}/>);
-                elements.push(service);
             }
         }
         return elements;
@@ -52,7 +67,7 @@ const ListItem = (props) => {
             else
                 setPhotoIndex(0);       
     }
-    console.log(id)
+   
     return (
         <Link href={`/resorts/${path}/${category}/${id}`}>
             <div className={classes.list_item + ' ' + classes.className} onMouseEnter={onHover}

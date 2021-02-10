@@ -7,21 +7,43 @@ const SelectEntered = (props) => {
     const [value, setValue] = useState(props.value);
     const [arrowClass, setArrowClass] = useState(classes.arrowDown);
     const [possibleData, setPossibleData] = useState([]);
-
+    const arrowSize = props.arrowSize || [50, 50];
+    const index = props.index;
+    
     const onClickOption = (e) => {
+           
+        let current_value = e.target.innerHTML;
         setArrowClass(classes.arrowDown);
         setPossibleData([]);
-        setValue(e.target.innerHTML);
+        if (current_value == 'Ничего')
+            current_value = undefined;
+        if (props.type == 'multiply')
+        {
+            let arrayValues = document.getElementsByName(props.name)[0].value.split(', ');
+            arrayValues[arrayValues.length - 1] = current_value; 
+            current_value = arrayValues.join(', ');
+            setValue(current_value);
+        }
+        else
+        {
+            
+            setValue(current_value);
+        }
+        console.log(props.onChangeFunction)
         if (props.onChangeFunction !== undefined)
         {
-            props.onChangeFunction(e.target.innerHTML);
+            props.onChangeFunction({value: current_value, index: index});
         }
-        document.getElementsByName(props.name)[0].focus();
+        
+        if (props.type != 'select')
+            document.getElementsByName(props.name)[0].focus();
     }
     let data = []; 
+    if (props.type == 'select')
+        data.push(<label onClick={onClickOption} className={classes.option_empty}>Ничего</label>);
     if (props.options != undefined)
     {
-        props.options.map((option) => {data.push(<label onClick={onClickOption} for={classes.id}>{option}</label>)});
+        props.options.map((option) => {data.push(<label onClick={onClickOption}>{option}</label>)});
 
     }
 
@@ -68,15 +90,13 @@ const SelectEntered = (props) => {
     const enterText = (e) => {
         
         let text = e.target.value;
-
-        if (props.type == 'select'){
-
-            text = '';
-            setValue(text);
-            return;
-        } 
+        let temp_text = [];
         let possible = [];
-
+        if (props.type == 'multiply')
+        {
+            temp_text = text = text.split(', ')
+            text = temp_text[temp_text.length - 1]
+        }
         data.map((elem)=>{
 
             const isFits = elem.props.children.indexOf(text);
@@ -99,20 +119,21 @@ const SelectEntered = (props) => {
 
             text = (text == '') ? undefined : text;
         }
-        console.log(possible)
+        console.log(temp_text)
         setArrowClass(classes.arrowDown);
         setPossibleData(possible);
-        setValue(text);
+        setValue((temp_text.length == 0)? text: (()=>{temp_text[temp_text.length - 1] = text; temp_text.join(', ');})());
        
     }
 
+    console.log(value)
     return (
         <div className={classes.wrap + ' ' + props.className}>
             <div className={classes.selectInput + ' ' + ((props.disabled)? classes.selectInput_disabled : '')}>
-                <input ref={props.register} name={props.name} placeholder={props.placeholder} id={classes.id} disabled={props.disabled}
+                <input ref={props.register} name={props.name} placeholder={props.placeholder} disabled={props.disabled} disabled={props.type == 'select' ? true : false}
                 className={classes.input + ' ' + props.classInput} onChange={enterText} value={value == '' ? props.value : value} onBlur={props.onBlur}
                 />
-                <div><Image src={(props.disabled) ? '/images/triangle_disabled.svg': '/images/triangle.svg'} onClick={allOptions} className={arrowClass} width={props.arrowWidth || 50} height={props.arrowHeight || 50}/></div>
+                <div><Image src={(props.disabled) ? '/images/triangle_disabled.svg': '/images/triangle.svg'} onClick={allOptions} className={arrowClass} width={arrowSize[0]} height={arrowSize[1]}/></div>
             </div>
             <div className={classes.possibleData}>{possibleData.length ? possibleData: ''}</div>
         </div>

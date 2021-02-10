@@ -9,7 +9,7 @@ import classes from './Languages.module.scss';
 const Languages = (props) => {
 
     const {register, handleSubmit, errors} = useForm();
-    const [message, setMessage] = useState({style: {display: 'none'}, status: '', body: ''});
+    const [message, setMessage] = useState({style: {display: 'none'}, status: '', method: ''});
     const [formData, setFormData] = useState({}); 
 
     const handleOnSubmit = (data)=>{
@@ -31,7 +31,7 @@ const Languages = (props) => {
             
 
            
-            setMessage({style: {display: 'grid'}, status: json.status, body: json.statusText});
+            setMessage({style: {display: 'grid'}, status: json.status, method: 'insert'});
             
             
             
@@ -46,7 +46,7 @@ const Languages = (props) => {
 
     return (
         <>
-            <Message setFunction={setMessage} style={message.style} status={message.status} body={message.body}/>
+            <Message setFunction={setMessage} style={message.style} status={message.status} method={message.method}/>
             <form className={props.className + ' ' + classes.form} onSubmit={handleSubmit(handleOnSubmit)}>
                 <InputText register={register({required: true})} name='name' className={classes.inputText} 
                 placeholder='Название языка'/>

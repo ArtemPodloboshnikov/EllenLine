@@ -10,7 +10,7 @@ import Global from '../../../global.js';
 import classes from './index.module.scss';
 
 const Resorts = ({data}) => {
-    
+   
     const router = useRouter();
     const resort = router.query.resort;
     const type = router.query.type;
@@ -30,7 +30,7 @@ const Resorts = ({data}) => {
     let cities = [];
     let countries = [];
     console.log('resort: ' + resort)
-    if (dbData !== null || dbData !== undefined)
+    if (dbData !== null && dbData !== undefined)
     {
         if (Object.keys(dbData).length != 0)
         {
@@ -65,17 +65,17 @@ const Resorts = ({data}) => {
         async function get()
         {
             
-            let type = '';
+            let category = '';
             if (resort == 'hotels')
             {
-                type = 'отель'
+                category = 'отель'
             }
             else 
             if (resort == 'pensionats')
             {
-                type = 'пансионат'
+                category = 'пансионат'
             }
-            const res = await fetch(encodeURI(`http://localhost:4000/api/relax?type=${type}`))
+            const res = await fetch(encodeURI(`${Global.urlServer}/api/${type}?type=${category}`))
             const json = await res.json();
                 
             setDbData(json);

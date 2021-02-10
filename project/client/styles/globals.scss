@@ -19,8 +19,26 @@
   font-weight: 400;
   font-style: normal;
 }
+#hint
+{
+  position: relative;
+  display: inline-block;
+}
 
-
+#hint:hover:after 
+{
+  content: attr(data-text);
+  @extend %shadow;
+  position: absolute;
+  left: 0;
+  bottom: 0;
+  background: $side_color;
+  color: $primary_color;
+  text-align: center;
+  @extend %font;
+  font-size: 1em;
+  width: auto;
+}
 
 h1, h2, h3, h4, h5{
   font-weight: normal;

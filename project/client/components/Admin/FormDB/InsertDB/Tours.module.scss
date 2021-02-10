@@ -1,18 +1,20 @@
 .form{
 
-    height: 390vh !important;
+    height: fit-content;
  
 }
 .inputText{
     justify-self: center;
     width: 70%;
     height: 10vh;
+    margin-top: 5%;
 }
 .textarea{
 
     justify-self: center;
     width: 70%;
     height: 62vh;
+    margin-top: 5%;
 }
 .textarea__text{
     font-size: 1em !important;
@@ -26,6 +28,7 @@
     width: 30%;
     height: 10vh;
     justify-self: center;
+    margin-top: 5%;
 }
 .dynamicList{
 
@@ -44,13 +47,14 @@
     margin: 0 auto;
     grid-column-gap: 3%;
     margin-left: 4.3%;
-    /* background-color: red; */
+    margin-top: 5%;
 }
 .filesUploader{
 
     width: 80%;
     height: 30vh;
     justify-self: center;
+    margin-top: 5%;
 }
 .filesUploader__text, .filesUploader__placeholder{
 
@@ -61,22 +65,25 @@
     width: 30%;
     height: 10vh;
     justify-self: center;
+    margin-top: 5%;
 }
 .map{
 
     justify-self: center;
     width: 80%;
     height: 45vh;
+    margin-top: 5%;
 }
 .select{
 
     justify-self: center;
     width: 50%;
     height: 10vh;
+    margin-top: 5%;
 }
 .program{
 
-    margin-top: 5%;
+    margin-top: 10%;
     width: 80%;
     height: 40vh;
     justify-self: center;

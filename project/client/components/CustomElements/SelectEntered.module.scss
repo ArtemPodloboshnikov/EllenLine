@@ -50,7 +50,10 @@
 .wrap{
 
 }
-
+.option_empty
+{
+    color: $attention_color;
+}
 .arrowTop{
 
     transform: scale(1, -1);

@@ -60,7 +60,7 @@ a:active .list_item{
     display: block;
     position: absolute;
     width: 100%;
-    /* top: 5px; */
+    font-family: 'Kazimir';
     margin: 0 auto;
     text-align: center;
     color: $placeholder_color;
@@ -85,6 +85,7 @@ a:active .list_item{
 }
 
 .bottom p{
+    @extend %font;
     margin: 0;
     font-size: 1em;
 }

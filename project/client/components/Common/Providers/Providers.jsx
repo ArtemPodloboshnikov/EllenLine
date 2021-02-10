@@ -3,11 +3,13 @@ import React from 'react';
 import PresentationMap from '../Map/PresentationMap';
 //
 import classes from './Providers.module.scss';
+//
+import iconsMaker from '../../../functions/IconsMaker';
 
 //В основном для пансионатов с санаториями
 const Providers = (props) => {
     //#region Обязательные параметр
-    const services = JSON.parse(props.services);
+    const services = props.services;
     const address = props.address;
     //Переменная определяющая тип постороенния секции сервисов
     const type = props.type;
@@ -16,46 +18,9 @@ const Providers = (props) => {
     //tours, cruises
     const info = props.info;
     //tours
-    const points = props.points.split(',');
+    const points = props.points;
    
-    const icons = {restaurant: {text: ['ресторан'], icon: 'cutlery'}, 
-                    bar: {text: ['бар'], icon: 'beer'}, 
-                    wifi: {text: ['wi-fi', 'wifi'], icon: 'wifi'}};
-
-    const iconsMaker = (text) => {
-
-        let result = '';
-        text = text.split(' ');
-        for (let index in text)
-        {
-            let word = text[index];
-            // let lower_word = word.toLowerCase();
-           
-            for (let key in icons)
-            {
-                
-                for (let i = 0; i < icons[key].text.length; i++)
-                {
-                    const keyWord = icons[key].text[i];
-                    const pattern = new RegExp(`^${keyWord}$`, 'gi') 
-
-                    if (pattern.test(word))
-                    {
-                        console.log('icons[key].icon: ' + icons[key].icon)
-                        return icons[key].icon;
-                        
-                    }
-                        
-                }
-
-                
-            }
-
-            
-        }
-
-        return result;
-    }
+    
     function GenerateSections() {
     
         //#region For all type

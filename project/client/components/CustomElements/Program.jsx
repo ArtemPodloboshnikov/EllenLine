@@ -1,51 +1,55 @@
 import classes from './Program.module.scss';
 import {useState} from 'react';
 
-const Day = (params) => {
 
-    const [rows, setRows] = useState(1);
-    let times = [];
-    const plusOnTimeClick = (e) => {
-
-
-    }
-
-    const minusOnTimeClick = (e) => {
-
-
-    }
-    for (let i = 0; i < rows; i++)
-    {
-        times.push(
-  
-            <div className={classes.time_wrap}>
-                <div className={classes.controls + ' ' + classes.controls_new} onClick={plusOnTimeClick}>+</div>
-                <input className={classes.time} placeholder='11:22' pattern='\d{2}:\d{2}' required={true}/>
-                <textarea ref={params.register} id={params.id} className={classes.description + ' ' + params.classTextArea} 
-                value={params.value[params.id]} onChange={params.onChange} name={params.nameTextArea} 
-                placeholder={params.placeholder} name={params.nameTextArea}/>
-                <div className={classes.controls + ' ' + classes.controls_new} onClick={minusOnTimeClick}>-</div>
-            </div>
-      
-        )
-    }
-    return (
-
-        <div className={classes.wrap} style={{gridTemplateRows: `repeat(${rows}, 1fr)`, height: `${rows * params.heightVH}vh`}}>
-            <input className={classes.day} value={params.days}/>
-            {times}
-            <div id={params.id} className={classes.controls + ' ' + classes.plusDay} onClick={params.plusOnDayClick}>+</div>
-            <div id={params.id} className={classes.controls + ' ' + classes.minusDay} onClick={params.minusOnDayClick}>-</div>
-        </div>
-        
-    )
-}
 
 const Program = (props) => {
 
     const [days, setDays] = useState([1]);
     const [value, setValue] = useState([[]]);
     const [rows, setRows] = useState(1);
+    const [rowsTime, setRowsTime] = useState(1);
+
+    const Day = (params) => {
+
+        let times = [];
+        const plusOnTimeClick = (e) => {
+    
+            setRowsTime(rowsTime + 1)
+        }
+    
+        const minusOnTimeClick = (e) => {
+            if (rowsTime > 1)
+            setRowsTime(rowsTime - 1)
+        }
+        for (let i = 0; i < rowsTime; i = i + 1)
+        {
+            times.push(
+      
+                <div className={classes.time_wrap}>
+                    <div className={classes.controls + ' ' + classes.controls_new} onClick={minusOnTimeClick}>-</div>
+                    <input className={classes.time_input} placeholder='11:22' pattern={/\d{2}:\d{2}/} required={true}/>
+                    <textarea ref={params.register} id={params.id} className={classes.description + ' ' + params.classTextArea} 
+                    value={params.value[params.id]} onChange={params.onChange} name={params.nameTextArea} 
+                    placeholder={params.placeholder} name={params.nameTextArea}/>
+                    <div className={classes.controls + ' ' + classes.controls_new} onClick={plusOnTimeClick}>+</div>
+                </div>
+          
+            )
+        }
+        return (
+    
+            <div className={classes.wrap}>
+                <input className={classes.day} value={params.days} disabled={true}/>
+                <div className={classes.time} style={{gridTemplateRows: `repeat(${rowsTime}, 1fr)`}}>
+                    {times}
+                </div>
+                <div id={params.id} className={classes.controls + ' ' + classes.minusDay} onClick={params.minusOnDayClick}>-</div>
+                <div id={params.id} className={classes.controls + ' ' + classes.plusDay} onClick={params.plusOnDayClick}>+</div>
+            </div>
+            
+        )
+    }
 
     let programs = [];
 
@@ -69,17 +73,17 @@ const Program = (props) => {
                 register={props.register} nameTextArea={props.name} 
                 classTextArea={props.classTextArea} id={i} value={value} onChange={printValue} 
                 placeholder={props.placeholder} 
-                
+                heightVH={props.heightVH / 2}
                 plusOnDayClick={()=>{
                     
                     let new_days = [...days];
                     new_days.push(days.length + 1);
                     setDays(new_days);
                     setValue([...value, '']);
-                    if (rows < days[days.length - 1])
-                    {
-                        setRows(rows + 1)
-                    }
+                    setRows(rows + 1)
+                    // if (rows < days[days.length - 1])
+                    // {
+                    // }
                 }}
                 minusOnDayClick={(e)=>{
                     if (days==1)
@@ -91,6 +95,7 @@ const Program = (props) => {
                         let new_days = [...days];
                         new_days.pop();
                         setDays(new_days);
+                        setRows(rows - 1)
                         let new_array = [...value];
                         //console.log(e.target.id);
                         new_array.splice(e.target.id, 1);
@@ -103,7 +108,7 @@ const Program = (props) => {
         />);
     }
     return (
-        <div className={props.className + ' ' + classes.program} style={{gridTemplateRows: `repeat(${rows + 1}, 1fr)`, height: `${rows * props.heightVH}vh`}}>
+        <div className={props.className + ' ' + classes.program} style={{gridTemplateRows: `repeat(${rows}, 1fr)`, height: `${(rows * props.heightVH) + (props.heightVH * rowsTime)}vh`}}>
          {programs}   
         </div>
     )

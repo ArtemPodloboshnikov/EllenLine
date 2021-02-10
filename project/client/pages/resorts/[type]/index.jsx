@@ -1,5 +1,6 @@
 import React, {Component, useEffect, useState} from 'react';
 import dynamic from 'next/dynamic';
+import {useRouter} from 'next/router';
 //
 import ClientLayout from '../../../layouts/ClientLayout.jsx';
 //
@@ -11,8 +12,9 @@ const ChooseResort = dynamic(() => import('../../../components/Common/ChooseReso
     // loader: место для прелоадера
 });
 
-const Relax = (props) => {
-    const type = props.type;
+const Relax = () => {
+    const router = useRouter();
+    const type = router.query.type;
     const convert = Global.GetConvert(type);
 
 
@@ -23,29 +25,6 @@ const Relax = (props) => {
             convert={convert}/>
         </ClientLayout>
     )
-}
-
-//Здесь я заранее задам пути т.к. их всего три: (вот они слева направо)
-//cruises, relax, tours
-export async function getStaticPaths() {
-    const res = await fetch(Global.url + '/api/resorts');
-    const resorts = await res.json();
-    const paths = resorts.map((element) => {
-        return { params: { type: element } };
-    });
-    return {
-        paths: paths,
-        fallback: true
-    }
-}
-
-export async function getStaticProps(router) {
-    const type = router.params.type;
-    return {
-        props: {
-            type: type
-        }
-    }
 }
 
 export default Relax;

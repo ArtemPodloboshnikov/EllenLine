@@ -1,17 +1,15 @@
-$mainColor: #0062FF;
-$sideColor: #333333;
-$sideColor2: #fff;
+@import '../../styles/index.scss';
 
 .wrap{
 
-    border: 5px solid $mainColor;
+    border: 5px solid $primary_color;
     width: 100%;
-    height: 100%;
+    min-height: 100% !important;
     display: grid;
     grid-template-areas: 
     'day day'
     'time time'
-    'plus minus';
+    'minus plus';
 }
 .plusDay{
 
@@ -25,7 +23,7 @@ $sideColor2: #fff;
 
     font-family: 'Mediator Serif Regular';
     font-size: 1.5em;
-    color: $mainColor;
+    color: $primary_color;
 }
 .program{
 
@@ -43,21 +41,28 @@ $sideColor2: #fff;
 }
 .time{
 
-    
+    display: grid;
+    width: 100%;
+    height: 100%;
+    grid-area: time;
 }
-.time::placeholder{
-
-    color: $sideColor;
+.time_input
+{
+    text-align: center;
+    &::placeholder{
+    
+        color: $primary_font_color;
+        text-align: center;
+    }
 }
 .day{
     grid-area: day;
-    border-bottom: 5px solid $mainColor;
 }
 .description{
     
     width: 100%;
-    border-left: 5px solid $mainColor;
-    border-right: 5px solid $mainColor;
+    border-left: 5px solid $primary_color;
+    border-right: 5px solid $primary_color;
     resize: none;
 }
 .time_wrap{
@@ -66,21 +71,21 @@ $sideColor2: #fff;
     grid-template-columns: 1fr 2fr 4fr 1fr;
     width: 100%;
     height: 100%;
-    grid-area: time;
+    border-top: 5px solid $primary_color;
     border-bottom: 5px solid $mainColor;
 }
 .time_wrap > *{
 
     font-family: 'Mediator Serif Regular';
     font-size: 1.5em;
-    color: $mainColor;
+    color: $primary_color;
 
 }
 .controls{
 
     display: grid;
     align-items: center;
-    color: #0062FF;
+    color: $primary_color;
     background-color: transparent;
     text-align: center;
     width: 100% !important;
@@ -92,7 +97,7 @@ $sideColor2: #fff;
 }
 .controls_new{
 
-    background-color: $mainColor;
-    color: $sideColor2;
+    background-color: $primary_color;
+    color: $sub_color;
     
 }

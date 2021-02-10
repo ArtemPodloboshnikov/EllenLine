@@ -1,4 +1,5 @@
-import React, { useEffect, useState } from 'react';
+import { useEffect, useState } from 'react';
+import additionalPrices from '../../../functions/AdditionalPrices';
 //
 import SelectOption from '../../CustomElements/SelectOption.jsx';
 import InputText from '../../CustomElements/InputText.jsx';
@@ -14,9 +15,56 @@ import classes from './FormBooking.module.scss';
 const FormBooking = (props) => {
     const [date_arrival, setDateArrival] = useState(props.date_arrival);
     const [date_leave, setDateLeave] = useState(props.date_leave);
-    const price = props.price;
+    const arrowSize = [30, 30];
+    const [valueDynamicSelect, setValueDynamicSelect] = useState([false]);
+    const default_price = props.price;
+    const [price, setPrice] = useState(default_price);
+    const pricePerChild = props.pricePerChild;
+    const pricePerTeenager = props.pricePerTeenager;
+    const pricePerPet = props.pricePerPet;  
+    const someoneAndPrice = additionalPrices({who: 'Ребёнок', price: pricePerChild}, 
+                                             {who: 'Подросток', price: pricePerTeenager}, 
+                                             {who: 'Питомец', price: pricePerPet});
+   
+    let someoneElse = [];
+    someoneAndPrice.map(someone =>{
+
+        someoneElse.push(someone.who);
+    })
+    
     //
     const type = props.type;
+    console.log(someoneAndPrice)
+    console.log(valueDynamicSelect)
+    if (valueDynamicSelect[0])
+    {
+        
+        let temp_price = 0;
+
+        for (let i = 1; i < valueDynamicSelect.length; i++)
+        {
+
+            for (let someone of someoneAndPrice)
+            {
+                console.log('someone: ' + someone.who + ' value: ' + valueDynamicSelect[i])
+                if (valueDynamicSelect[i] == someone.who)
+                {
+                    temp_price += someone.price;
+                    break;
+                }
+                else
+                if(valueDynamicSelect[i] == '')
+                {
+                    break;
+                }
+            }
+        }
+
+        setPrice(default_price + temp_price)
+        let temp_valueDynamicSelect = [...valueDynamicSelect];
+        temp_valueDynamicSelect[0] = false;
+        setValueDynamicSelect(temp_valueDynamicSelect)
+    }
 
     function GenerateInfoGoing() {
         let sections = 
@@ -39,11 +87,17 @@ const FormBooking = (props) => {
                 sections.room_or_tickets = <>
                     <SelectEntered className={classes.parents} type='select'
                                 options={[ '1 взрослый', '2 взрослый' ]} 
-                                placeholder='Взрослые' arrowWidth={30} arrowHeight={30}/>
+                                placeholder='Взрослые' arrowSize={arrowSize}/>
                     <SelectOption className={classes.childs} classSelect={classes.childs__select}
-                                type='dynamic' 
-                                values={[ 'Волк одиночка', 'Ребёнок', 'Питомец' ]}
-                                placeholder='Волк одиночка'/>
+                                onChangeFunction={(object) => {
+                                    
+                                    let temp_valueDynamicSelect = [...valueDynamicSelect];
+                                    temp_valueDynamicSelect[0] = true;
+                                    temp_valueDynamicSelect[object.index + 1] = object.value;
+                                    setValueDynamicSelect(temp_valueDynamicSelect)
+                                }}
+                                options={someoneElse}
+                                placeholder='Кто-то ещё' arrowSize={arrowSize}/>
                 </>;
                 break;
             case 'tours':
@@ -53,7 +107,9 @@ const FormBooking = (props) => {
                 <SelectOption
                 className={classes.time}
                 title='Выберите время'
-                values={[ '10:00', '12:50', '18:00' ]}/>
+                options={[ '10:00', '12:50', '18:00' ]}
+                placeholder='Кто-то ещё'
+                />
                 //
                 sections.room_or_tickets = 
                 <InputNumber className={classes.tickets}

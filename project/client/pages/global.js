@@ -23,6 +23,12 @@ export default class Global {
                     'oneday': 'Однодневные',
                     'multiday': 'Многодневные'
                 };
+            case "treatment":
+                return {
+                    'name': 'Лечение',
+                    'clinics': 'Клиники',
+                    'sanatoriums': 'Санатории',
+                }
             default:
                 console.log(type + " don`t support")
                 return 'ERROR';

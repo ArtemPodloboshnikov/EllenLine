@@ -22,7 +22,7 @@
         }
     }
 
-    label
+    .label
     {
         display: block;
         margin-bottom: 5px;
@@ -45,10 +45,37 @@
         background-color: $side_color;
     }
 }
+.leftButton, .rightButton
+{
+    width: 100%;
+    height: 100%;
+    position: relative;
+    
+    @extend %as_button;
 
+}
+.leftButton
+{
+    border-left: 5px solid $primary_color;
+    border-right: 5px solid $sub_color;
+    & > div > img
+    {
+        margin-right: 10% !important;
+    }
+} 
+.rightButton
+{
+    border-right: 5px solid $primary_color;
+    border-left: 5px solid $sub_color;
+
+    & > div > img
+    {
+        margin-left: 8% !important;
+    }
+}
 .dynamic_option 
 {
     display: grid;
-    grid-template-columns: auto 1fr auto;
+    grid-template-columns: 0.5fr 2fr 0.5fr;
     column-gap: 1px;
 }

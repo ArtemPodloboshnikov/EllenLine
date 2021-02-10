@@ -122,7 +122,36 @@ function sqlQueryUpdate(table, values)
     return sql;
 } 
 
+function multiplyConditions(sql, conditions, column, password)
+{
+    const isNumber = (value) =>{
+
+        if (!isNaN(value))
+        {
+            value = parseInt(value);
+        }
+        else
+        {
+            value = `AES_ENCRYPT('${value}', '${password}')`;
+        }
+
+        return value;
+    }
+   
+    let new_conditions = ` WHERE ${column} IN (${isNumber(conditions[0])}`;
+    for (let i = 1; i < conditions.length; i++)
+    {
+
+        new_conditions += ', ' + isNumber(conditions[i])
+    }
+
+    new_conditions += ')'
+
+    return sql + new_conditions;
+}
+
 module.exports.transliterate = transliterate;
 module.exports.filesUploader = filesUploader;
 module.exports.ConvertDataToString = ConvertDataToString;
 module.exports.sqlQueryUpdate = sqlQueryUpdate;
+module.exports.multiplyConditions = multiplyConditions;
