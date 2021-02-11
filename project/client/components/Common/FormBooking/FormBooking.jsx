@@ -9,6 +9,7 @@ import SelectEntered from '../../CustomElements/SelectEntered';
 import InputMask from '../../CustomElements/InputMask.jsx';
 import Button from '../../CustomElements/Button.jsx';
 import InputNumber from '../../CustomElements/InputNumber.jsx';
+import Link from 'next/link';
 //
 import classes from './FormBooking.module.scss';
 
@@ -149,7 +150,7 @@ const FormBooking = (props) => {
                 <InputText className={classes.telephone} placeholder='Телефон'/>
                 <Button className={classes.button} value='Забронировать'/>
                 <p>
-                    Здесь какой-то очень важный <span>текст</span>
+                    Нажимая кнопку "Забронировать", вы принимаете <Link href='/terms/[category]' as='/terms/payment'><a>наши условия</a></Link>
                 </p>
             </div>
         </div>

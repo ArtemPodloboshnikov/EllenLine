@@ -164,7 +164,7 @@ const Sanatorium = (props) => {
 
             if (response.status === 404)
             {
-                setMessage({style: {display: 'grid'}, status: json.status, body: json.statusText});
+                setMessage({style: {display: 'grid'}, status: json.status, method: 'insert'});
                 console.log(message);
             }
             
@@ -184,7 +184,7 @@ const Sanatorium = (props) => {
             
             if (response.status === 404)
             {
-                setMessage({style: {display: 'grid'}, status: json.status, body: json.statusText});
+                setMessage({style: {display: 'grid'}, status: json.status, method: json.statusText});
                 console.log(message);
             }
         }
@@ -208,7 +208,7 @@ const Sanatorium = (props) => {
     return (
 
         <>
-            <Message setFunction={setMessage} style={message.style} status={message.status} body={message.body} />
+            <Message setFunction={setMessage} style={message.style} status={message.status} method={message.method} />
             <form className={props.className + ' ' + classes.form} onSubmit={handleSubmit(handleOnSubmit)}>
                 <InputText register={register({required: true})} name='title' className={classes.inputText} 
                 classInput={classes.inputText__input} placeholder='Название'/>
@@ -240,10 +240,10 @@ const Sanatorium = (props) => {
     
                 <div className={classes.form__services} style={{gridTemplateRows: `repeat(${servicesRows}, 1fr)`, height: `${servicesRows * 10}vh`}}>
                     <DynamicList name='freeServices' register={register({required: true})} className={classes.dynamicList} 
-                    servicesMember={servicesMember} setServicesMember={setServicesMember} index={0}
+                    members={servicesMember} setMembers={setServicesMember} index={0}
                     classInput={classes.dynamicList__input} placeholder='Оплаченные услуги' rows={servicesRows} setRows={setServicesRows}/>
                     <DynamicList name='paidServices' register={register({required: true})} className={classes.dynamicList} 
-                    servicesMember={servicesMember} setServicesMember={setServicesMember} index={1}
+                    members={servicesMember} setMembers={setServicesMember} index={1}
                     classInput={classes.dynamicList__input} placeholder='Платные услуги' rows={servicesRows} setRows={setServicesRows}/>
                 </div>
 

@@ -1,0 +1,23 @@
+@import '../../styles/index.scss';
+
+.terms
+{
+    display: grid;
+    justify-items: center;
+    margin: 0 auto;
+    width: 100%;
+    height: fit-content;
+    background-color: transparent;
+    
+    
+}
+.content_text, .content_card
+{
+    display: grid;
+    width: 90%;
+    height: fit-content;
+    margin: 0 auto;
+    color: $primary_font_color;
+
+    
+}

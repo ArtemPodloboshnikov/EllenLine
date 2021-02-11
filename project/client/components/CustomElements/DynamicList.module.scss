@@ -12,14 +12,27 @@
     display: grid;
     grid-auto-flow: row;
     grid-row-gap: 20%;
+
+}
+.wrap_label
+{
+    height: fit-content;
+}
+.wrap_label > label
+{
+    @extend %font;
+    color: $primary_font_color;
+    height: 5vh;
+    margin-bottom: 3%;
 }
 .input{
 
-    font-family: 'Mediator Serif Regular';
+    @extend %font;
     border-right: 5px solid $primary_color;
     border-left: 5px solid $primary_color;
     color: $primary_color !important;
     width: 100%;
+    resize: none;
 }
 .input::placeholder{
 
@@ -28,10 +41,11 @@
 }
 .controls{
 
-    
+    display: grid;
     color: $primary_color;
     background-color: transparent;
-    text-align: center;
+    justify-items: center;
+    align-items: center;
     width: 100%;
     cursor: pointer;
     user-select: none;

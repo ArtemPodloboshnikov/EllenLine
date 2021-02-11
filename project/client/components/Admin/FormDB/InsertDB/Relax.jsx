@@ -148,7 +148,7 @@ const Sanatorium = (props) => {
             console.log(response);
 
           
-            setMessage({style: {display: 'grid'}, status: response.status, body: response.statusText});
+            setMessage({style: {display: 'grid'}, status: response.status, method: 'insert'});
             console.log(message);
             
             
@@ -193,7 +193,7 @@ const Sanatorium = (props) => {
     return (
 
         <>
-            <Message setFunction={setMessage} style={message.style} status={message.status} body={message.body} method='insert'/>
+            <Message setFunction={setMessage} style={message.style} status={message.status} method='insert'/>
             <form className={props.className + ' ' + classes.form} onSubmit={handleSubmit(handleOnSubmit)}>
                 <InputText register={register({required: true})} name='title' className={classes.inputText} 
                 classInput={classes.inputText__input} placeholder='Название'/>
