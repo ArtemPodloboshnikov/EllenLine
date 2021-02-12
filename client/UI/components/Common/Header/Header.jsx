@@ -1,8 +1,9 @@
 import classes from './Header.module.scss';
 import Link from 'next/link'
-import { useEffect, useState } from 'react'
+import { useEffect, useState } from 'react';
 import UpToHeader from '../UpToHeader/UpToHeader';
 import SidebarHeader from './SidebarHeader';
+import AsideHeader from './AsideHeader.jsx';
 import ReactPlayer from 'react-player';
 import SearchByName from '../Search/SearchByName';
 import Image from 'next/image';
@@ -51,14 +52,14 @@ const Header = (props) => {
 
     }, []);
     return (
-        <div style={(()=>{
+        <>
+            <div style={(()=>{
 
-            // if (Object.key(props.employee).length != 0)
-            //     return {display: 'none'}
-            
+                // if (Object.key(props.employee).length != 0)
+                //     return {display: 'none'}
+                
 
-        })()}>
-            
+            })()}>
                 <input name='search_toggle' type='radio' id={classes.search_active}/>
                 <input name='search_toggle' type='radio' id={classes.search_close}/>
                 <div className={classes.search}>
@@ -107,7 +108,7 @@ const Header = (props) => {
                     </div>
                 </header>
                 
-                <SidebarHeader/>
+                {/* <SidebarHeader/> */}
                 {(()=>{
 
                     if (scroll > 500){
@@ -116,9 +117,9 @@ const Header = (props) => {
                     }
 
                 })()}
-                                
-         
-        </div>
+            </div>
+            <AsideHeader/>
+        </>
     )
 }
 
