@@ -52,14 +52,8 @@ const Header = (props) => {
 
     }, []);
     return (
-        <>
-            <div style={(()=>{
-
-                // if (Object.key(props.employee).length != 0)
-                //     return {display: 'none'}
-                
-
-            })()}>
+        <div className={props.className}>
+            <div>
                 <input name='search_toggle' type='radio' id={classes.search_active}/>
                 <input name='search_toggle' type='radio' id={classes.search_close}/>
                 <div className={classes.search}>
@@ -118,8 +112,7 @@ const Header = (props) => {
 
                 })()}
             </div>
-            <AsideHeader/>
-        </>
+        </div>
     )
 }
 

@@ -17,60 +17,62 @@ const AsideHeader = (props) => {
     }
 
     return(
-        <aside className={classes.aside + ' ' + expand}>
-            <i class="fa fa-arrow-right" onClick={onClickExpandMenu} aria-hidden="true"></i>
-            <img src='/images/logo.svg'/>
-            <div className={classes.menu}>
-                <Link href='/home'>
-                    <p className={classes.option}>О нас</p>
-                </Link>
-                <div className={classes.root}>
-                    <i class="fa fa-arrow-down" onClick={onClickExpandSubmenu} aria-hidden="true"></i>
-                    <Link href='/resorts/tours'>
-                        <p>Туры</p>
+        <div className={classes.back + ' ' + props.className}>
+            <aside className={classes.aside + ' ' + expand}>
+                <img src='/images/logo.svg'/>
+                <div className={classes.menu}>
+                    <Link href='/home'>
+                        <p className={classes.option}>О нас</p>
                     </Link>
-                    <div className={classes.submenu}>
-                        <Link href='/resorts/tours/oneday'>
-                            <p>Однодневные</p>
+                    <div className={classes.root}>
+                        <i class="fa fa-arrow-down" onClick={onClickExpandSubmenu} aria-hidden="true"></i>
+                        <Link href='/resorts/tours'>
+                            <p>Туры</p>
                         </Link>
-                        <Link href='/resorts/tours/multiday'>
-                            <p>Многодневные</p>
-                        </Link>
+                        <div className={classes.submenu}>
+                            <Link href='/resorts/tours/oneday'>
+                                <p>Однодневные</p>
+                            </Link>
+                            <Link href='/resorts/tours/multiday'>
+                                <p>Многодневные</p>
+                            </Link>
+                        </div>
                     </div>
-                </div>
-                <div className={classes.root}>
-                    <i class="fa fa-arrow-down" onClick={onClickExpandSubmenu} aria-hidden="true"></i>
-                    <Link href='/resorts/relax'>
-                        <p>Отдых</p>
+                    <div className={classes.root}>
+                        <i class="fa fa-arrow-down" onClick={onClickExpandSubmenu} aria-hidden="true"></i>
+                        <Link href='/resorts/relax'>
+                            <p>Отдых</p>
+                        </Link>
+                        <div className={classes.submenu}>
+                            <Link href='/resorts/relax/sanatoriums'>
+                                <p>Санатории</p>
+                            </Link>
+                            <Link href='/resorts/relax/pensionats'>
+                                <p>Пансионаты</p>
+                            </Link>
+                        </div>
+                    </div>
+                    <div className={classes.root}>
+                        <i class="fa fa-arrow-down" onClick={onClickExpandSubmenu} aria-hidden="true"></i>
+                        <Link href='/resorts/cruises'>
+                                <p>Круизы</p>
+                        </Link>
+                        <div className={classes.submenu}>
+                            <Link href='/resorts/cruises/river'>
+                                <p>Речные</p>
+                            </Link>
+                            <Link href='/resorts/cruises/marine'>
+                                <p>Морские</p>
+                            </Link>
+                        </div>
+                    </div>
+                    <Link href='/spb'>
+                        <p className={classes.option}>Санкт-Петербург</p>
                     </Link>
-                    <div className={classes.submenu}>
-                        <Link href='/resorts/relax/sanatoriums'>
-                            <p>Санатории</p>
-                        </Link>
-                        <Link href='/resorts/relax/pensionats'>
-                            <p>Пансионаты</p>
-                        </Link>
-                    </div>
                 </div>
-                <div className={classes.root}>
-                    <i class="fa fa-arrow-down" onClick={onClickExpandSubmenu} aria-hidden="true"></i>
-                    <Link href='/resorts/cruises'>
-                            <p>Круизы</p>
-                    </Link>
-                    <div className={classes.submenu}>
-                        <Link href='/resorts/cruises/river'>
-                            <p>Речные</p>
-                        </Link>
-                        <Link href='/resorts/cruises/marine'>
-                            <p>Морские</p>
-                        </Link>
-                    </div>
-                </div>
-                <Link href='/spb'>
-                    <p className={classes.option}>Санкт-Петербург</p>
-                </Link>
-            </div>
-        </aside>
+                <i class="fa fa-arrow-right" onClick={onClickExpandMenu} aria-hidden="true"></i>
+            </aside>
+        </div>
     )
 }
 

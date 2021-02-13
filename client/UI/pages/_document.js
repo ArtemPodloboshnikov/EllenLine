@@ -22,7 +22,11 @@ class MyDocument extends Document {
           />
           <link rel="apple-touch-icon" href="images/logo.svg" />
           <link rel="manifest" href="%PUBLIC_URL%/manifest.json" />
+          {/*  */}
           <script src="https://kit.fontawesome.com/5116ed660a.js" crossorigin="anonymous"></script>
+          {/*  */}
+          <link rel="stylesheet" href="https://cdn.nemo.travel/search-form/v2.5.22/flights.search.widget.min.css" />
+          <script src="https://cdn.nemo.travel/search-form/v2.5.22/flights.search.widget.min.js"></script>
         </Head>
         <body>
           <Main />

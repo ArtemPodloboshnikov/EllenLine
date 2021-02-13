@@ -1,5 +1,5 @@
 export default class Global {
-    static url = 'http://192.168.1.36:3000';
+    static url = 'http://192.168.1.35:3000';
 
     //Возможно стоит поместить этот массив в БД, а может нет :/
     static GetConvert(type) {
