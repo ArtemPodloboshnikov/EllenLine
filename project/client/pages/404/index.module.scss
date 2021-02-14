@@ -1,0 +1,26 @@
+@import '../../styles/index.scss';
+
+.error
+{
+    display: grid;
+    background-color: $primary_color;
+    justify-items: center;
+    align-items: center;
+    width: 100%;
+    height: 100vh;
+
+    & > div
+    {
+       text-align: center;
+    }
+    & > div > h1, & > div > h2 
+    {
+        @extend %font;
+        font-size: 3em;
+        color: $sub_color;
+    }
+    & > div > h1
+    {
+        font-size: 5em;
+    }
+}

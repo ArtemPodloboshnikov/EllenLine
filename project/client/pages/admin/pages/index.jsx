@@ -157,7 +157,7 @@ const index = () => {
                 },
                 body: JSON.stringify(formData)
             })
-            
+            setUpdate(false);
             setMessage({style: {display: 'grid'}, status: response.status, method: 'update'});
         }
         async function preview()
@@ -175,10 +175,18 @@ const index = () => {
             setPreviewData(json)
         }
         console.log(formData)
-        if (preview) preview()
+        if (preview)
+        {
+            preview()
+            
+        }
 
-        if (update) update()
-        
+        if (update)
+        {
+            update()
+            
+        } 
+         
 
     }, [preview, update, formData])
 

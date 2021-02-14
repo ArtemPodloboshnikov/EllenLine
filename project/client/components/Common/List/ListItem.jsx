@@ -71,7 +71,7 @@ const ListItem = (props) => {
     return (
         <Link href={`/resorts/${path}/${category}/${id}`}>
             <div className={classes.list_item + ' ' + classes.className} onMouseEnter={onHover}
-            style={{transition: 'background-image 3s easy', backgroundImage: `url(/images/${path.toUpperCase()[0] + path.split('').splice(1).join('')}Dynamic/${images[photoIndex]})`}}>
+            style={{transition: 'background-image 3s easy', backgroundImage: `url(/images/${path.toUpperCase()[0] + path.split('').splice(1).join('')}/${images[photoIndex]})`}}>
                 <div className={classes.top}>
                     <h1 className={classes.title}>
                         {title}

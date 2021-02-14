@@ -51,6 +51,35 @@ em
     color: $attention_color;
     font-style: normal;
 }
+code
+{
+  background-color: #F8F8F8;
+  border: 0.5px solid #C0C0C0;
+  padding: 0.5%;
+}
+hr
+{
+  background-color: $primary_font_color;
+  width: 100%;
+  height: 5px;
+  border: 0;
+}
+li {
+  list-style-type: none; /* Убираем маркеры у списка */
+}
+ li:before {
+  content: "▣ "; /* Добавляем в качестве маркера символ */
+  color: $primary_color;
+}
+blockquote
+{
+  background-color: $side_color;
+  border-left: 10px solid $attention_color;
+  width: fit-content;
+  padding: 2%;
+  @extend %font;
+  color: $primary_font_color;
+}
 body {
   margin: 0;
   font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',

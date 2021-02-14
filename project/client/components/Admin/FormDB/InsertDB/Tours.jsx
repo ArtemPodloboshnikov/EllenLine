@@ -12,17 +12,17 @@ import EditMap from '../../../Common/Map/EditMap';
 import SelectEntered from '../../../CustomElements/SelectEntered'
 import Program from '../../../CustomElements/Program'
 
-const Sanatorium = (props) => {
+const Tours = (props) => {
    
     const {register, handleSubmit, errors} = useForm()
     const [formData, setFormData] = useState({}); 
     const [dbData, setDbData] = useState({});
-    const [message, setMessage] = useState({style: {display: 'none'}, status: '', body: ''});
+    const [message, setMessage] = useState({style: {display: 'none'}, status: '', method: 'insert'});
     const [countryName, setCountryName] = useState('Россия');
     const [cityName, setCityName] = useState('Санкт-Петербург');
     const [zoom, setZoom] = useState();
     const [servicesRows, setServicesRows] = useState(0);
-   const [servicesMember, setServicesMember] = useState([1, 1]);
+    const [servicesMember, setServicesMember] = useState([1, 1]);
 
     const handleOnSubmit = (data)=>{
 
@@ -270,4 +270,4 @@ const Sanatorium = (props) => {
     )
 }
 
-export default Sanatorium
+export default Tours

@@ -2,11 +2,11 @@ import {useState} from 'react'
 import classes from './DynamicList.module.scss'
 
 const CreateInput = (params)=>{
-    
+    console.log(params)
     return (
         <div className={classes.wrap}>
             <div id={params.id} onClick={params.minusOnClick} className={classes.controls}>-</div>
-            {params.type == 'textarea'? 
+            {params.type == 'textarea' ?   
                 <textarea name={params.name + params.id}  ref={params.register} id={params.id} 
                 className={classes.input + ' ' + params.classInput} value={params.value[params.id]} 
                 placeholder={params.placeholder} onChange={params.onChange} />
@@ -23,7 +23,7 @@ const CreateInput = (params)=>{
 
 const DynamicList = (props) => {
    console.log(props.value)
-    const [value, setValue] = useState(props.value);
+    const [value, setValue] = useState(props.value || ['']);
     const printValue = (e) => {
 
         let new_value = [...value];
@@ -31,7 +31,7 @@ const DynamicList = (props) => {
         setValue(new_value);
     }
 
-    let [countMemberArray, setCountMemberArray] = useState((props.value.length != 0) ? [props.value.length] : [1]);
+    let [countMemberArray, setCountMemberArray] = useState((props.value !== undefined) ? [props.value.length] : [1]);
     const index = props.index || 0;
     if (props.members !== undefined && props.setMembers !== undefined)
     {
@@ -107,7 +107,7 @@ const DynamicList = (props) => {
     //console.log(value)
     return (
         <div className={classes.wrap_label + ' ' + props.classWrap}>
-            <label>{props.placeholder !== undefined ? props.placeholder : ''}</label>
+            <label>{(props.title !== undefined)? props.title : (props.placeholder !== undefined ? props.placeholder : '')}</label>
             <div className={classes.inputs + ' ' + props.className}>
                 {inputs}
             </div>

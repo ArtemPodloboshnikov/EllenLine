@@ -12,6 +12,7 @@
         margin-bottom: 5px;
         white-space: nowrap;
         color: $primary_color;
+        @extend %font;
     }
     input
     {

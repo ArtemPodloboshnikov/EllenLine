@@ -12,6 +12,7 @@ import {default as CitiesDelete} from '../../../../components/Admin/FormDB/Delet
 import {default as LanguagesInsert} from '../../../../components/Admin/FormDB/InsertDB/Languages';
 import {default as LanguagesDelete} from '../../../../components/Admin/FormDB/DeleteDB/Languages';
 import {default as ToursInsert} from '../../../../components/Admin/FormDB/InsertDB/Tours';
+import {default as TreatmentInsert} from '../../../../components/Admin/FormDB/InsertDB/Treatment';
 
 export default function QueryDB(){
 
@@ -40,7 +41,7 @@ export default function QueryDB(){
 
                         switch (query){
                             
-                            case 'insert':  return <Relax className={classes.form}/>
+                            case 'insert':  return <TreatmentInsert className={classes.form}/>
 
                             case 'update': return;
 

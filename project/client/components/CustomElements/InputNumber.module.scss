@@ -1,5 +1,14 @@
 @import '../../styles/index.scss';
 
+.wrap
+{
+    display: grid;
+    & > label
+    {
+        @extend %font;
+        color: $primary_font_color;
+    }
+}
 .inputNumber{
     align-items: center;
     display: grid;

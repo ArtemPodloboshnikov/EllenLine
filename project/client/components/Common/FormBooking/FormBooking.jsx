@@ -9,6 +9,7 @@ import SelectEntered from '../../CustomElements/SelectEntered';
 import InputMask from '../../CustomElements/InputMask.jsx';
 import Button from '../../CustomElements/Button.jsx';
 import InputNumber from '../../CustomElements/InputNumber.jsx';
+// import TranslatorPage from '../../CustomElements/TranslatorPage';
 import Link from 'next/link';
 //
 import classes from './FormBooking.module.scss';
@@ -17,9 +18,11 @@ const FormBooking = (props) => {
     const [date_arrival, setDateArrival] = useState(props.date_arrival);
     const [date_leave, setDateLeave] = useState(props.date_leave);
     const arrowSize = [30, 30];
+    const [currency, setCurrency] = useState('RUB');
+    const [currencyData, setCurrencyData] = useState({value: 1, name: 'Рублей'});
     const [valueDynamicSelect, setValueDynamicSelect] = useState([false]);
-    const default_price = props.price;
-    const [price, setPrice] = useState(default_price);
+    const origin_price = props.price;
+    const [price, setPrice] = useState(origin_price);
     const pricePerChild = props.pricePerChild;
     const pricePerTeenager = props.pricePerTeenager;
     const pricePerPet = props.pricePerPet;  
@@ -50,7 +53,7 @@ const FormBooking = (props) => {
                 console.log('someone: ' + someone.who + ' value: ' + valueDynamicSelect[i])
                 if (valueDynamicSelect[i] == someone.who)
                 {
-                    temp_price += someone.price;
+                    temp_price += someone.price * currencyData.value;
                     break;
                 }
                 else
@@ -61,11 +64,34 @@ const FormBooking = (props) => {
             }
         }
 
-        setPrice(default_price + temp_price)
+        setPrice(origin_price * currencyData.value + temp_price)
         let temp_valueDynamicSelect = [...valueDynamicSelect];
         temp_valueDynamicSelect[0] = false;
         setValueDynamicSelect(temp_valueDynamicSelect)
     }
+
+    useEffect(()=>{
+
+        async function getCurrency()
+        {
+            const res = await fetch(`https://www.cbr-xml-daily.ru/daily_json.js`);
+            const json = await res.json();
+            setPrice(Math.ceil(json.Valute[currency].Value) * origin_price);
+            setCurrencyData({value: Math.ceil(json.Valute[currency].Value), name: json.Valute[currency].Name})
+        }
+
+        if (currency != 'RUB')
+        {
+
+            getCurrency()
+        }
+        else
+        {
+            setPrice(origin_price);
+            setCurrencyData({value: 1, name: 'Рублей'})
+        }
+
+    }, [currency])
 
     function GenerateInfoGoing() {
         let sections = 
@@ -85,7 +111,8 @@ const FormBooking = (props) => {
                         title='Дата отъезда'
                         date={date_leave}/>;
                 //LATE CHAINGE TO SELECT ENTERED
-                sections.room_or_tickets = <>
+                sections.room_or_tickets = 
+                <>
                     <SelectEntered className={classes.parents} type='select'
                                 options={[ '1 взрослый', '2 взрослый' ]} 
                                 placeholder='Взрослые' arrowSize={arrowSize}/>
@@ -124,6 +151,21 @@ const FormBooking = (props) => {
         }
 
         return <div className={classes.info_going}>
+            <div></div>
+            <SelectEntered className={classes.currency} name='currency' 
+            value={currency} arrowSize={arrowSize} onChangeFunction={obj => {setCurrency(obj.value)}}
+            options={['RUB', 'AUD', 'AZN', 
+                      'GBP', 'AMD', 'BYN', 
+                      'BGN', 'BRL', 'HUF', 
+                      'HKD', 'DKK', 'USD', 
+                      'EUR', 'INR', 'KZT', 
+                      'CAD', 'KGS', 'CNY', 
+                      'MDL', 'NOK', 'PLN', 
+                      'RON', 'XDR', 'SGD', 
+                      'TJS', 'TRY', 'TMT', 
+                      'UZS', 'UAH', 'CZK', 
+                      'SEK', 'CHF', 'ZAR', 
+                      'KRW', 'JPY']}/>
             <InputDate className={classes.date} classInput={classes.date__input}
                     title={sections.title_date}
                     date={date_arrival}/>
@@ -134,26 +176,28 @@ const FormBooking = (props) => {
             <PromoCode className={classes.code}/>
             <div className={classes.price + ' ' + sections.price_behavior}>
                 <span>Итого</span>
-                <h1>{price} руб.</h1>
+                <h1>{price + ' ' + currencyData.name}</h1>
             </div>
         </div>;
     }
 
     return(
+        
         <div className={classes.booking + ' ' + props.className}>
              {/* SEPARATOR */}
             {GenerateInfoGoing()}
             {/* SEPARATOR */}
             <div className={classes.info_person}>
-                <InputText className={classes.fio} placeholder='Имя и фамилия'/>
+            <InputText className={classes.fio} placeholder='Имя и фамилия'/>
                 <InputText className={classes.e_mail} placeholder='E-mail'/>
                 <InputText className={classes.telephone} placeholder='Телефон'/>
                 <Button className={classes.button} value='Забронировать'/>
-                <p>
+                <small>
                     Нажимая кнопку "Забронировать", вы принимаете <Link href='/terms/[category]' as='/terms/payment'><a>наши условия</a></Link>
-                </p>
+                </small>
             </div>
         </div>
+        
     )
 }
 

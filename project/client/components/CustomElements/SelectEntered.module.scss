@@ -79,10 +79,16 @@
     color: $sub_color;
     text-align: center;
 }
+.possibleData_none
+{
+    display: none;
+}
 .possibleData{
 
     position: relative;
     width: 100%;
+    height: 20vh;
+    overflow-y: auto;
     background-color: $sub_color;
     color: $primary_font_color;
     font-family: 'Mediator Serif Regular';
@@ -90,11 +96,13 @@
     background-color: $sub_color;
     display: grid;
     grid-auto-flow: row;
+    grid-template-rows: repeat(auto-fit, minmax(3.35vh, 4vh)) !important;
     padding-left: 2%;
     z-index: 10;
     & > *{
 
         cursor: pointer;
+        height: fit-content;
     }
 }
 #id{

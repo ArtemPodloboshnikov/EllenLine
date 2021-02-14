@@ -11,13 +11,98 @@
     
     
 }
-.content_text, .content_card
+.content_text, .content_cards, .content_lists
 {
     display: grid;
     width: 90%;
     height: fit-content;
     margin: 0 auto;
-    color: $primary_font_color;
+    color: $primary_font_color; 
 
+    & > *
+    {
+        @extend %font;
+        margin: 3%;
+    }
+    & h1
+    {
+        font-size: 3em;
+    }
+    & h2
+    {
+        font-size: 2.5em;
+    }
+    & h3
+    {
+        font-size: 2em;
+    }
+    & h4
+    {
+        font-size: 1.5em;
+    }
+    & h5
+    {
+        font-size: 1em;
+    }
+    & h6
+    {
+        font-size: 0.5em;
+    }
+    & hr
+    {
+        margin: 0;
+    }
+}
+.content_cards, .content_lists
+{
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    margin-top: 5%;
+    grid-column-gap: 3%;
+    & > .content_card
+    {
+        border: 5px solid $primary_color;
+        padding: 3%;
+    }
+}
+.content_list
+{
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    grid-template-rows: 10vh auto;
+    background-color: $side_color;
+    border: 5px solid $primary_color;
+    grid-gap: 0;
+
+    & > div:first-child
+    {
+        grid-column: 1 / 2;
+        background-color: $primary_color;
+        display: grid;
+        justify-items: center;
+        align-items: center;
+        color: $sub_color;
+        font-size: 1.5em;
+    }
+    & > div:last-child
+    {
+        grid-column: 1 / 4;
+        margin: 3%;
+    }
+}
+.content_text
+{
+    // border: 5px solid $primary_font_color;
+    margin-top: 5%;
+    background-color: $side_color;
+    
+
+    & > blockquote *
+    {
+        // margin: 3%;
+    }
+    & > blockquote > ol
+    {
+       margin: 0%; 
+    }
     
 }

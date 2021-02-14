@@ -1,0 +1,103 @@
+.form{
+
+    height: fit-content;
+ 
+}
+.inputText{
+    justify-self: center;
+    width: 70%;
+    height: 10vh;
+    margin-top: 5%;
+}
+.textarea{
+
+    justify-self: center;
+    width: 70%;
+    height: 62vh;
+    margin-top: 5%;
+}
+.textarea__text{
+    font-size: 1em !important;
+}
+.textarea_top10
+{
+    margin-top: 15%;
+}
+.button__text, .inputText__input, .dynamicList__input, .textarea__title{
+
+    font-size: 1.5em;
+}
+.inputNumber_wrap{
+
+    justify-self: center;
+    margin-top: 5%;
+    width: 35%;
+    justify-items: center;
+}
+.inputNumber{
+
+    width: 100%;
+    height: 10vh;
+  
+}
+.dynamicList{
+
+    width: 105%;
+    height: 5vh;
+    justify-self: start;
+    
+}
+.form__services_wrap
+{
+    height: 10vh;
+    width: 90%;
+}
+.form__services{
+
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    justify-content: center;
+    margin: 0 auto;
+    grid-column-gap: 3%;
+    margin-left: 4.3%;
+    margin-top: 5%;
+}
+.filesUploader{
+
+    width: 80%;
+    height: 30vh;
+    justify-self: center;
+    margin-top: 5%;
+}
+.filesUploader__text, .filesUploader__placeholder{
+
+    font-size: 1.5em;
+}
+.button{
+  
+    width: 30%;
+    height: 10vh;
+    justify-self: center;
+    margin-top: 5%;
+}
+.map{
+
+    justify-self: center;
+    width: 80%;
+    height: 45vh;
+    margin-top: 5%;
+}
+.select{
+
+    justify-self: center;
+    width: 50%;
+    height: 10vh;
+    margin-top: 5%;
+}
+.program{
+
+    margin-top: 10%;
+    width: 80%;
+    height: 40vh;
+    justify-self: center;
+}

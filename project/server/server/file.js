@@ -1,7 +1,7 @@
 const fs = require("fs");
 const path = require('path');
 const filesUploader = require('./functions').filesUploader;
-const markdown = require('markdown').markdown;
+const parseMarkdownToHTML = require('./functions').parseMarkdownToHTML;
 const express = require('express');
 const router = express.Router();
 
@@ -28,12 +28,7 @@ router.get('/pages', (request, response)=>{
                 
                 if (isMarkdown)
                 {
-                    for (let value of Object.values(data))
-                    {
-                     
-                        value.content = markdown.toHTML(value.content);
-                        
-                    }
+                    parseMarkdownToHTML(data)
                     
                 }
                 
@@ -61,12 +56,7 @@ router.post('/pages', (request, response)=>{
     if (Object.keys(data) != 0)
     {
         
-        for (let value of Object.values(data))
-        {
-            console.log(value)
-            value.content = markdown.toHTML(value.content);
-            
-        }
+        parseMarkdownToHTML(data)
     
         response.send(data);
     }
@@ -89,7 +79,7 @@ router.put('/pages', (request, response)=>{
     }
 })
 
-router.post('/relaxPhotos', filesUploader(path.join('../../client/', 'public/', 'images/', 'RelaxDynamic/')),function(request, reply){
+router.post('/relaxPhotos', filesUploader(path.join('../../client/', 'public/', 'images/', 'Relax/')),function(request, reply){
 
     
 
@@ -111,7 +101,7 @@ router.delete('/relaxPhotos', function(request, reply){
     let flag = false;
     request.body.map((name)=>{
         
-        fs.unlink(path.join('../../client/', 'public/', 'images/', 'RelaxDynamic/', name), function(err){
+        fs.unlink(path.join('../../client/', 'public/', 'images/', 'Relax/', name), function(err){
             if (err) {
                 console.log(err);
             } else 
@@ -128,6 +118,23 @@ router.delete('/relaxPhotos', function(request, reply){
 })
 
 router.post('/toursPhotos', filesUploader("images/Tours"),function(request, reply){
+
+    
+
+    let filedata = request.body;
+    if (filedata)
+    {
+
+        console.log('Файлы загружены')
+    }
+    else
+    {
+        console.log('Файлы не загружены')
+    }
+    
+})
+
+router.post('/treatmentPhotos', filesUploader(path.join('../../client/', 'public/', 'images/', 'Treatment/')),function(request, reply){
 
     
 

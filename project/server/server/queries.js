@@ -24,6 +24,80 @@ const mysql = MySQL.createPool({
     database: DB_NAME
 });
 
+router.get('/treatment', function(request, reply){
+    debugger
+    let sql = '';
+    // console.log('ID: ' + request.query.id + ' TYPE: ' + request.query.type)
+    if (request.query.id != undefined)
+    {
+
+        sql = `SELECT AES_DECRYPT(treatments.title, '${keysForTables.treatment.title}') as title, AES_DECRYPT(treatments.services, '${keysForTables.treatment.services}') as services, AES_DECRYPT(treatments.photos, '${keysForTables.treatment.photos}') as photos, AES_DECRYPT(treatments.address, '${keysForTables.treatment.address}') as address, AES_DECRYPT(treatments.type, '${keysForTables.treatment.type}') as type, AES_DECRYPT(treatments.coordinates, '${keysForTables.treatment.coordinates}') as coordinates, AES_DECRYPT(treatments.description, '${keysForTables.treatment.description}') as description,  AES_DECRYPT(treatments.typeOfRoom, '${keysForTables.treatment.typeOfRoom}') as typeOfRoom, treatments.price, AES_DECRYPT(treatments.program, '${keysForTables.treatment.program}') as program, treatments.id_city as id_city, treatments.id_treatment as id, countries.id_country as id_country, treatments.pricePerChild as pricePerChild, treatments.pricePerTeenager as pricePerTeenager, treatments.pricePerPet as pricePerPet FROM treatments INNER JOIN cities ON cities.id_city = treatments.id_city INNER JOIN countries_bind_cities ON countries_bind_cities.id_city = cities.id_city INNER JOIN countries ON countries.id_country = countries_bind_cities.id_country WHERE treatments.id_treatment = ${request.query.id}`;
+    }
+    else
+    if (request.query.type != undefined)
+    {
+
+        sql = `SELECT AES_DECRYPT(treatments.title, '${keysForTables.treatment.title}') as title, AES_DECRYPT(treatments.services, '${keysForTables.treatment.services}') as services, AES_DECRYPT(treatments.photos, '${keysForTables.treatment.photos}') as photos, AES_DECRYPT(treatments.address, '${keysForTables.treatment.address}') as address, AES_DECRYPT(treatments.type, '${keysForTables.treatment.type}') as type, AES_DECRYPT(treatments.typeOfRoom, '${keysForTables.treatment.typeOfRoom}') as typeOfRoom, relax_.price, treatments.id_treatment as id, treatments.id_city as id_city, countries.id_country as id_country, AES_DECRYPT(countries.name, '${keysForTables.countries.name}') as county_name, AES_DECRYPT(cities.name, '${keysForTables.cities.name}') as city_name FROM treatments INNER JOIN cities ON cities.id_city = treatments.id_city INNER JOIN countries_bind_cities ON countries_bind_cities.id_city = cities.id_city INNER JOIN countries ON countries.id_country = countries_bind_cities.id_country WHERE treatments.type = AES_ENCRYPT('${request.query.type}', '${keysForTables.treatment.type}')`;
+    }
+    else
+    {
+
+        sql = `SELECT AES_DECRYPT(treatments.title, '${keysForTables.treatment.title}') as title, AES_DECRYPT(treatments.services, '${keysForTables.treatment.services}') as services, AES_DECRYPT(treatments.photos, '${keysForTables.treatment.photos}') as photos, AES_DECRYPT(treatments.address, '${keysForTables.treatment.address}') as address, AES_DECRYPT(treatments.type, '${keysForTables.treatment.type}') as type, AES_DECRYPT(treatments.coordinates, '${keysForTables.treatment.coordinates}') as coordinates, AES_DECRYPT(treatments.description, '${keysForTables.treatment.description}') as description,  AES_DECRYPT(treatments.typeOfRoom, '${keysForTables.treatment.typeOfRoom}') as typeOfRoom, treatments.price, treatments.id_treatment as id, treatments.id_city as id_city, countries.id_country as id_country, AES_DECRYPT(countries.name, '${keysForTables.countries.name}') as county_name, AES_DECRYPT(cities.name, '${keysForTables.cities.name}') as city_name, AES_DECRYPT(treatments.program, '${keysForTables.treatment.program}') as program, treatments.discount as discount FROM treatments INNER JOIN cities ON cities.id_city = treatments.id_city INNER JOIN countries_bind_cities ON countries_bind_cities.id_city = cities.id_city INNER JOIN countries ON countries.id_country = countries_bind_cities.id_country`;
+    }
+    
+    mysql.getConnection(function(err, connection) {
+        if (err) {
+            console.log(err);
+            return;
+        }
+        
+        connection.query(sql, function (error, results, fields) {
+
+            connection.release();
+            if (error) console.log(error);
+            let new_results = ConvertDataToString(results, [['title'], ['services'], ['address'], ['price'], ['type'], ['id'], 
+            ['photos', 'images'], ['description'], ['id_city'], ['coordinates'], ['discount'],
+            ['typeOfRoom'], ['id_country'], ['county_name'], ['city_name'], ['program'], ['pricePerChild'], ['pricePerTeenager'], ['pricePerPet']]);
+            reply.send(new_results);
+        });
+    })
+})
+
+router.post('/treatment', function(request, reply){
+    
+    let paths = []
+    request.body.photosPath.map((path)=>{
+
+        paths.push(transliterate(path));
+    })
+    request.body.photosPath = paths;
+
+    const dataTitle = [request.body.title, keysForTables.treatment.title];
+    const dataAddress = [request.body.address, keysForTables.treatment.address];
+    const dataDescription = [request.body.description, keysForTables.treatment.description];
+    const dataServices = [JSON.stringify(request.body.services), keysForTables.treatment.services];
+    const dataProgram = [request.body.program, keysForTables.treatment.program];
+    const dataCoordinates = [request.body.coordinates.join(','), keysForTables.treatment.coordinates];
+    const dataPhotos = [request.body.photosPath.join(), keysForTables.treatment.photos];
+    const dataType = [request.body.type.toLowerCase(), keysForTables.treatment.type];
+    const dataTypeOfRoom = [request.body.typeOfRoom, keysForTables.treatment.typeOfRoom];
+    mysql.getConnection(function(err, connection) {
+        if (err) {
+            console.log(err);
+            return;
+        }
+        
+        connection.query('INSERT INTO relax_  SET title = AES_ENCRYPT(?), address = AES_ENCRYPT(?), description = AES_ENCRYPT(?), services = AES_ENCRYPT(?), program = AES_ENCRYPT(?), coordinates = AES_ENCRYPT(?), photos = AES_ENCRYPT(?), price = ?, type = AES_ENCRYPT(?), typeOfRoom = AES_ENCRYPT(?), id_city = ?',
+        [dataTitle, dataAddress, dataDescription, dataServices, dataProgram, dataCoordinates, dataPhotos, request.body.price, dataType, dataTypeOfRoom, request.body.idCity], function (error, results) {
+
+            connection.release();
+            if (error) console.log(error);
+
+            reply.sendStatus(200);
+        });
+    })
+})
+
 router.get('/relax', function(request, reply){
     debugger
     let sql = '';
@@ -57,7 +131,7 @@ router.get('/relax', function(request, reply){
             if (error) console.log(error);
             let new_results = ConvertDataToString(results, [['title'], ['services'], ['address'], ['price'], ['type'], ['id'], 
             ['photos', 'images'], ['description'], ['id_city'], ['coordinates'], ['discount'],
-            ['typeOfRoom'], ['id_country'], ['county_name'], ['city_name'], ['stars'], ['pricePerChild']]);
+            ['typeOfRoom'], ['id_country'], ['county_name'], ['city_name'], ['stars'], ['pricePerChild'], ['pricePerTeenager'], ['pricePerPet']]);
             reply.send(new_results);
         });
     })

@@ -12,7 +12,7 @@ import EditMap from '../../../Common/Map/EditMap';
 import SelectEntered from '../../../CustomElements/SelectEntered'
 import SelectOption from '../../../CustomElements/SelectOption';
 
-const Sanatorium = (props) => {
+const Relax = (props) => {
    
     const {register, handleSubmit, errors} = useForm()
     const [formData, setFormData] = useState({}); 
@@ -247,4 +247,4 @@ const Sanatorium = (props) => {
     )
 }
 
-export default Sanatorium
+export default Relax

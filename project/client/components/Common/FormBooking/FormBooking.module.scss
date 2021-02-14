@@ -3,12 +3,11 @@
 .booking 
 {
     display: grid;
-    padding: 15px 0;
-    row-gap: 25px;
+   // padding: 15px 0;
+    // row-gap: 25px;
     grid-template-columns: 1.3fr 1fr;
     border: 5px solid $primary_color; 
-   
-
+    
     h1
     {
         margin: 0;
@@ -18,22 +17,23 @@
     .info_going 
     {
         display: grid;
-        margin-top: -2.3%;
-        min-height: 109% !important;
-        margin-left: 20px;
-        margin-right: 10px;
+        margin-top: -0.3%;
+        // margin-left: 20px;
+        // margin-right: 10px;
         column-gap: 15px;
         row-gap: 25px;
         grid-template-columns: repeat(2, 1fr);
         grid-template-rows: repeat(3, auto);   
         padding-right: 5%;
         border-right: 5px solid $primary_color;
+        padding: 5%;
+
         .parents, .childs, .date
         {
             width: 100%;
             
         }
-        .childs__select, .date__input, .code, .parents
+        .childs__select, .date__input, .code, .parents, .currency
         {
             height: 8vh;
         }
@@ -74,7 +74,7 @@
 
         .price
         {
-            font-size: 1.5em;
+            @extend %font; 
             align-self: center;
         }
     }
@@ -87,19 +87,25 @@
         // margin-right: 20px;
         row-gap: 20px;
         grid-template-rows: repeat(5, min-content(1fr));
-        
+        padding: 5%;
         .fio, .e_mail, .telephone, .button
         {
             height: min-content;
             padding: 5px;
             height: 8vh;
+            width: 60%;
+            justify-self: center;
         }
 
-        p
+        & > small
         {
+            width: 60%;
+            justify-self: center;
             padding: 5px 10px;
             background-color: $side_color;
-            a 
+            @extend %font;
+            font-size: 0.8em;
+            & > a 
             {
                 color: $attention_color;
             }
@@ -122,7 +128,7 @@
         .info_going
         {
 
-            .price.tours
+            .price, .tours
             {
                 grid-column-start: 1;
                 grid-column-end: 3;

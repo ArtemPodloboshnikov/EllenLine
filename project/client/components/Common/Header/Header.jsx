@@ -109,7 +109,7 @@ const Header = (props) => {
                             <a href='https://vk.com/ellinline' className={classes.header__button}><Image src='/images/vk.svg' width={20} height={20}/></a>
                             <a href='https://www.facebook.com/ООО-Эллинлайн-112305267240823/' className={classes.header__button}><Image src='/images/facebook.svg' width={20} height={20}/></a>
                             <a href='https://www.instagram.com/ellinlinespb/' className={classes.header__button}><Image src='/images/instagram.svg' width={20} height={20}/></a>
-                            <a href='/home' className={classes.header__button}><Image src='/images/youtube.svg' width={20} height={20}/></a>
+                            <a href='/' className={classes.header__button}><Image src='/images/youtube.svg' width={20} height={20}/></a>
                         </div>
                     </div>
                 </header>

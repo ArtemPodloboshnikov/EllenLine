@@ -49,19 +49,22 @@ const InputNumber = (props) => {
     }
 
     return (
-        // UNCOMMENT IF NEEDED RESTORE, ALSO WAS DELETED CLASS classe.input IN input
-        <div className={classes.inputNumber + ' ' + props.className}>
-        <input className={classes.input + ' ' + props.classInput}  
-               type="number"
-               placeholder={props.placeholder} 
-               value={value == '' ? props.value : value} 
-               name={props.name}
-               ref={props.register}
-               onBlur={props.onBlur}
-               min={props.min} max={props.max} onChange={(e) => CheckValue(e)}/>
-             <div onClick={Plus} className={classes.plus}>+</div>
-             <div onClick={Minus} className={classes.minus}>-</div>
-        </div> 
+        <div className={classes.wrap + ' ' + props.classWrap}>
+            <label>{(props.title !== undefined)? props.title : (props.placeholder !== undefined ? props.placeholder : '')}</label>
+            <div className={classes.inputNumber + ' ' + props.className}>
+                <input className={classes.input + ' ' + props.classInput}  
+                    type="number"
+                    placeholder={props.placeholder} 
+                    value={value == '' ? props.value : value} 
+                    name={props.name}
+                    ref={props.register}
+                    onBlur={props.onBlur}
+                    min={props.min} max={props.max} onChange={(e) => CheckValue(e)}/>
+                    <div onClick={Plus} className={classes.plus}>+</div>
+                    <div onClick={Minus} className={classes.minus}>-</div>
+            </div> 
+
+        </div>
     )
 }
 

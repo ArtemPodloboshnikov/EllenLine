@@ -15,7 +15,7 @@ const Slider = (props) => {
             for(let i = 0;i < images.length; i++)
             {
                 elements.push(<Image className={classes.item + (i == index ? ' ' + classes.active : '')} 
-                src={'/images/' + type.toUpperCase()[0] + type.split('').splice(1).join('') + 'Dynamic/' + images[i]} layout="fill"/>)
+                src={'/images/' + type.toUpperCase()[0] + type.split('').splice(1).join('') + '/' + images[i]} layout="fill"/>)
             }
         }
         return elements;
