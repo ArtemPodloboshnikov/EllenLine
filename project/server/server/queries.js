@@ -25,7 +25,7 @@ const mysql = MySQL.createPool({
 });
 
 router.get('/treatment', function(request, reply){
-    debugger
+
     let sql = '';
     // console.log('ID: ' + request.query.id + ' TYPE: ' + request.query.type)
     if (request.query.id != undefined)
@@ -98,8 +98,106 @@ router.post('/treatment', function(request, reply){
     })
 })
 
+
+router.get('/promocode', function(request, reply){
+
+    let sql = '';
+
+    if (request.query.id != undefined)
+    {
+        sql = `SELECT AES_DECRYPT(name, '${keysForTables.promocode.name}') as name, id_code as id, discount FROM promocode WHERE id_code = ${request.query.id}`;
+    }
+    else
+    {
+        sql = `SELECT AES_DECRYPT(name, '${keysForTables.promocode.name}') as name, id_code as id, discount FROM promocode`;
+    }
+    mysql.getConnection(function(err, connection) {
+        if (err) {
+            console.log(err);
+            return;
+        }
+        
+        connection.query(sql, 
+        function (error, results, fields) {
+
+            connection.release();
+            if (error) console.log(error);
+            let new_results = ConvertDataToString(results, [['name'], ['id'], ['discount']]);
+            reply.send(new_results);
+        });
+    })
+})
+
+router.post('/promocode', function(request, reply){
+    
+
+    const dataName = [request.body.name, keysForTables.promocode.name];
+    
+    mysql.getConnection(function(err, connection) {
+        if (err) {
+            console.log(err);
+            return;
+        }
+        
+        connection.query('INSERT INTO promocode SET name = AES_ENCRYPT(?), discount = ?',
+        [dataName, request.body.discount], 
+        function (error, results) {
+
+            connection.release();
+            if (error) console.log(error);
+
+            reply.sendStatus(200);
+        });
+    })
+})
+
+router.put('/promocode', function(request, reply){
+
+    let sql = sqlQueryUpdate('promocode', 
+                             [['name', request.body.name, keysForTables.promocode.name],
+                              ['discount', request.body.discount]])
+    sql = multiplyConditions(sql, [{value: request.body.id, password: ''}], 'id_code', 'IN')
+    console.log(sql)
+    mysql.getConnection(function(err, connection) {
+        if (err) {
+            console.log(err);
+            return;
+        }
+        
+        connection.query(sql,
+        function (error, results) {
+
+            connection.release();
+            if (error) console.log(error);
+
+            reply.sendStatus(200);
+        });
+    })
+})
+
+router.delete('/promocode', function(request, reply){
+
+
+    mysql.getConnection(function(err, connection) {
+        if (err) {
+            console.log(err);
+            return;
+        }
+        
+        connection.query('DELETE FROM promocode WHERE id_code = ?',
+        [request.body.id],
+        function (error, results) {
+
+            connection.release();
+            if (error) console.log(error);
+
+            reply.sendStatus(200);
+        });
+    })
+})
+
 router.get('/relax', function(request, reply){
-    debugger
+
     let sql = '';
     // console.log('ID: ' + request.query.id + ' TYPE: ' + request.query.type)
     if (request.query.id != undefined)
@@ -112,6 +210,11 @@ router.get('/relax', function(request, reply){
     {
 
         sql = `SELECT AES_DECRYPT(relax_.title, '${keysForTables.relax.title}') as title, AES_DECRYPT(relax_.services, '${keysForTables.relax.services}') as services, AES_DECRYPT(relax_.photos, '${keysForTables.relax.photos}') as photos, AES_DECRYPT(relax_.address, '${keysForTables.relax.address}') as address, AES_DECRYPT(relax_.type, '${keysForTables.relax.type}') as type, AES_DECRYPT(relax_.typeOfRoom, '${keysForTables.relax.typeOfRoom}') as typeOfRoom, relax_.price, relax_.id_relax as id, relax_.id_city as id_city, countries.id_country as id_country, AES_DECRYPT(countries.name, '${keysForTables.countries.name}') as county_name, AES_DECRYPT(cities.name, '${keysForTables.cities.name}') as city_name, relax_.stars as stars FROM relax_ INNER JOIN cities ON cities.id_city = relax_.id_city INNER JOIN countries_bind_cities ON countries_bind_cities.id_city = cities.id_city INNER JOIN countries ON countries.id_country = countries_bind_cities.id_country WHERE relax_.type = AES_ENCRYPT('${request.query.type}', '${keysForTables.relax.type}')`;
+    }
+    else
+    if (request.query.only != undefined)
+    {
+        sql = `SELECT id_relax as id, AES_DECRYPT(title, '${keysForTables.relax.title}') as title, AES_DECRYPT(typeOfRoom, '${keysForTables.relax.typeOfRoom}') as typeOfRoom FROM relax_`
     }
     else
     {
@@ -351,7 +454,7 @@ router.get('/countries', function(request, reply){
         {
             console.log(request.query.whereCountryName)
             sql = multiplyConditions(`SELECT AES_DECRYPT(cities.name, '${keysForTables.cities.name}') as cityName, AES_DECRYPT(countries.name, '${keysForTables.countries.name}') as countryName, countries.id_country as idCountry, cities.id_city as idCity
-            FROM countries INNER JOIN countries_bind_cities as bind ON bind.id_country = countries.id_country INNER JOIN cities ON cities.id_city = bind.id_city`, request.query.whereCountryName,'countries.name', keysForTables.countries.name);
+            FROM countries INNER JOIN countries_bind_cities as bind ON bind.id_country = countries.id_country INNER JOIN cities ON cities.id_city = bind.id_city`, [{value: request.query.whereCountryName, password: keysForTables.countries.name}], 'countries.name', 'IN');
         }
         
     }

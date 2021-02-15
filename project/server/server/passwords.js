@@ -8,6 +8,7 @@ const keysForTables = { countries: {name: 'nBZiLpGdcwsFngZU', description: 'aSTC
                         treatment: {title: '?ibgg$LUH6hP', address: 'HTHM7%E$iM#5', 
                         description: '%Dyygn&YlfKH', services: 'UG6VMNL9D8xs', 
                         photos: 'HxE9Zv3$94b!', type: '#%eR#R&nv#UU', program: 'rSkS2Js%iv96',
-                        typeOfRoom: 'J0lVoFFfCKd7', coordinates: '@Of68#h?tB8a'}} 
+                        typeOfRoom: 'J0lVoFFfCKd7', coordinates: '@Of68#h?tB8a'},
+                        promocode: {name: '}#oJI\6:-?Bu'}} 
 
 module.exports = keysForTables;

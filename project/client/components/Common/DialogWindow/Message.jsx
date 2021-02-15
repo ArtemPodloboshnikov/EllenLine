@@ -35,8 +35,8 @@ const Message = (props) => {
                     break;
                 }
                 case 200:{
-                    title = 'Данные обновлены';
-                    text = '';
+                    title = 'Запрос выполнен';
+                    text = 'Данные обновлены';
                     break;
                 }
                 case 500:{
@@ -64,6 +64,8 @@ const Message = (props) => {
                     break;
                 }
             }
+
+            break;
         }
         case 'deletedFile':{
 
@@ -75,11 +77,12 @@ const Message = (props) => {
                     break;
                 }
                 case 200:{
-                    title = 'Файлы успешно удалены';
-                    text = '';
+                    title = 'Запрос выполнен';
+                    text = 'Файлы успешно удалены';
                     break;
                 }
             }
+            break;
         }
     }
     

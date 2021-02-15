@@ -1,6 +1,7 @@
 import AdminHeader from '../components/Common/Header/AdminHeader';
 import DbHeader from '../components/Common/Header/DbHeader';
 import EmployeesHeader from '../components/Common/Header/EmployeesHeader';
+import PromocodeHeader from '../components/Common/Header/PromocodeHeader';
 import Head from 'next/head';
 
 export default function AdminLayout ({children, sector, title = 'Эллинлайн'}){
@@ -15,6 +16,8 @@ export default function AdminLayout ({children, sector, title = 'Эллинла�
             case 'db': return <DbHeader/>;
 
             case 'employees': return <EmployeesHeader/>;
+
+            case 'promocode': return <PromocodeHeader/>; 
         }
     }
 

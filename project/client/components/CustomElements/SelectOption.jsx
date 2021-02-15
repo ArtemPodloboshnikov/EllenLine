@@ -16,7 +16,7 @@ const SelectOption = (props) => {
         function Select(params) {
             return (
                 <div className={classes.dynamic_option}>
-                    <div className={classes.leftButton} onClick={DeleteSelectOption} aria-hidden="true"><Image layout='fill' src='/images/minus.svg'/></div>
+                    <div className={classes.leftButton} onClick={DeleteSelectOption} aria-hidden="true"><Image id={params.index} layout='fill' src='/images/minus.svg'/></div>
                     {/* <select className={props.classSelect}>
                         {element}
                     </select> */}
@@ -67,9 +67,13 @@ const SelectOption = (props) => {
         return elements;
     }
 
-    function DeleteSelectOption() {
+    function DeleteSelectOption(e) {
         if(selections > 1)
+        {
             setSelections(selections - 1);
+            console.log(e.target)
+            props.minusFunction(parseInt(e.target.id))
+        }
     }
 
     function AddSelectOption() {

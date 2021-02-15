@@ -102,7 +102,7 @@ function ConvertDataToString(array, keys)
 
 function sqlQueryUpdate(table, values)
 {
-    let sql = 'UPDATE FROM ' + table + ' SET ';
+    let sql = 'UPDATE ' + table + ' SET ';
     values.map((value)=>{
 
         if (value[1] !== undefined)
@@ -110,12 +110,12 @@ function sqlQueryUpdate(table, values)
 
             if (value[2] !== undefined)
             {
-                sql += value[0] + ` = AES_ENCRYPT('${value[1]}, '${value[2]}')`;    
+                sql += value[0] + ` = AES_ENCRYPT('${value[1]}', '${value[2]}'), `;    
             }
             else
             {
                 
-                sql += value[0] + ` = '${value[1]}'`;
+                sql += value[0] + ` = ${value[1]}`;
             }
         }
     })
@@ -123,9 +123,9 @@ function sqlQueryUpdate(table, values)
     return sql;
 } 
 
-function multiplyConditions(sql, conditions, column, password)
+function multiplyConditions(sql, conditions, column, view)
 {
-    const isNumber = (value) =>{
+    const isNumber = (value, password) =>{
 
         if (!isNaN(value))
         {
@@ -138,15 +138,32 @@ function multiplyConditions(sql, conditions, column, password)
 
         return value;
     }
-   
-    let new_conditions = ` WHERE ${column} IN (${isNumber(conditions[0])}`;
-    for (let i = 1; i < conditions.length; i++)
+    
+    let new_conditions = '';
+
+    if (view == 'IN')
     {
-
-        new_conditions += ', ' + isNumber(conditions[i])
+        new_conditions = ` WHERE ${column} IN (${isNumber(conditions[0].value, conditions[0].password)}`;
+        for (let i = 1; i < conditions.length; i++)
+        {
+    
+            new_conditions += ', ' + isNumber(conditions[i].value, conditions[i].password)
+        }
+    
+        new_conditions += ')'
+        
     }
-
-    new_conditions += ')'
+    else 
+    if (view == '=')
+    {
+        new_conditions = ` WHERE ${column[0]} = ${isNumber(conditions[0].value, conditions[0].password)}`;
+        for (let i = 1; i < conditions.length; i++)
+        {
+    
+            new_conditions += `, ${column[i]} = ` + isNumber(conditions[i].value, conditions[i].password)
+        }
+    
+    }
 
     return sql + new_conditions;
 }

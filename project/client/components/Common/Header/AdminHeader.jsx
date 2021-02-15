@@ -40,6 +40,11 @@ const AdminHeader = (props) => {
         <Link href='/admin/orders'>
            <a>Заказы</a>
         </Link>
+        <div></div>
+        <Link href='/admin/promocode'>
+           <a>Промокоды</a>
+        </Link>
+        <div></div>
         <Link href='/admin/pages'>
            <a>Страницы</a>
         </Link>
@@ -47,7 +52,7 @@ const AdminHeader = (props) => {
            <a>Сотрудники</a>
         </Link>
         <Link href='/admin/accountant'>
-           <a>Панель бухгалтера</a>
+           <a>Финансы</a>
         </Link>
     </div>
     );

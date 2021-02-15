@@ -8,46 +8,51 @@ const InputNumber = (props) => {
     function CheckValue(e) {
        
         let new_value = parseInt(e.target.value);
-        if (new_value === NaN) new_value = props.min;
+      
+       // if (isNaN(new_value)) new_value = props.min;
         if (e.target.adjust != undefined) new_value += e.target.adjust;
-        
+        console.log(value)
 
-        if (props.value == new_value)
+        if (props.value !== undefined)
         {
-            setValue('')
-        }
-        else
-        {
+            if (props.value == new_value)
+            {
+                setValue('');
+            }
+            else
+            {
+    
+                setValue((isNaN(new_value) || new_value == props.min)? undefined : new_value);
+            }
 
-            setValue(new_value === NaN ? undefined : new_value);
         }
-        
         console.log(new_value);
-        if(new_value < props.min)
+        if (new_value < props.min)
         {
             setValue(props.min);
         }
         else 
-        if(new_value > props.max)
+        if (new_value > props.max)
         {
             setValue(props.max);    
         }
         else 
         {
+            
             setValue(new_value);
         }
     }
 
     function Plus() {
-        CheckValue({ target: { value: value, adjust: 1 } });
+        CheckValue({ target: { value: (isNaN(value)? props.min : value), adjust: 1 } });
         document.getElementsByName(props.name)[0].focus();
     }
     
     function Minus() {
-        CheckValue({ target: { value: value, adjust: -1 } });
+        CheckValue({ target: { value: (isNaN(value)? props.min : value), adjust: -1 } });
         document.getElementsByName(props.name)[0].focus();
     }
-
+    console.log(value);
     return (
         <div className={classes.wrap + ' ' + props.classWrap}>
             <label>{(props.title !== undefined)? props.title : (props.placeholder !== undefined ? props.placeholder : '')}</label>
@@ -55,7 +60,7 @@ const InputNumber = (props) => {
                 <input className={classes.input + ' ' + props.classInput}  
                     type="number"
                     placeholder={props.placeholder} 
-                    value={value == '' ? props.value : value} 
+                    value={isNaN(value) ? props.value : value} 
                     name={props.name}
                     ref={props.register}
                     onBlur={props.onBlur}

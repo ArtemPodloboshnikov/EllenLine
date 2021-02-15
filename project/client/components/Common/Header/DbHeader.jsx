@@ -81,7 +81,6 @@ const DbHeader = () => {
                 <div>
                     <input type='radio' name='query' id='insert' onChange={radioChangeQueries}/>
                     <label className='radio_button' for='insert'><a>Внести</a></label>
-
                 </div>
                 <div>
                     <input type='radio' name='query' id='update' onChange={radioChangeQueries}/>
@@ -91,7 +90,6 @@ const DbHeader = () => {
                     <input type='radio' name='query' id='delete' onChange={radioChangeQueries}/>
                     <label className='radio_button' for='delete'><a>Удалить</a></label>
                 </div>
-                
         </div>
         <div className={classes.header_db__relax}>
             <Link href='/admin/db/relax'><a style={{color: textColor[2]}}>Отдых</a></Link>

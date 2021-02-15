@@ -1,5 +1,6 @@
 import { useEffect, useState } from 'react';
 import additionalPrices from '../../../functions/AdditionalPrices';
+import { sha256 } from 'js-sha256';
 //
 import SelectOption from '../../CustomElements/SelectOption.jsx';
 import InputText from '../../CustomElements/InputText.jsx';
@@ -17,12 +18,16 @@ import classes from './FormBooking.module.scss';
 const FormBooking = (props) => {
     const [date_arrival, setDateArrival] = useState(props.date_arrival);
     const [date_leave, setDateLeave] = useState(props.date_leave);
+    const title = props.title;
+    const url_callback = props.url_callback;
     const arrowSize = [30, 30];
     const [currency, setCurrency] = useState('RUB');
     const [currencyData, setCurrencyData] = useState({value: 1, name: 'Рублей'});
     const [valueDynamicSelect, setValueDynamicSelect] = useState([false]);
     const origin_price = props.price;
+    const [defaultPrice, setDefaultPrice] = useState(props.price);
     const [price, setPrice] = useState(origin_price);
+    const [countParent, setCountParent] = useState(1);
     const pricePerChild = props.pricePerChild;
     const pricePerTeenager = props.pricePerTeenager;
     const pricePerPet = props.pricePerPet;  
@@ -64,7 +69,7 @@ const FormBooking = (props) => {
             }
         }
 
-        setPrice(origin_price * currencyData.value + temp_price)
+        setPrice(defaultPrice + temp_price)
         let temp_valueDynamicSelect = [...valueDynamicSelect];
         temp_valueDynamicSelect[0] = false;
         setValueDynamicSelect(temp_valueDynamicSelect)
@@ -76,7 +81,8 @@ const FormBooking = (props) => {
         {
             const res = await fetch(`https://www.cbr-xml-daily.ru/daily_json.js`);
             const json = await res.json();
-            setPrice(Math.ceil(json.Valute[currency].Value) * origin_price);
+            setPrice(Math.ceil(json.Valute[currency].Value) * origin_price * countParent);
+            setDefaultPrice(Math.ceil(json.Valute[currency].Value) * origin_price * countParent);
             setCurrencyData({value: Math.ceil(json.Valute[currency].Value), name: json.Valute[currency].Name})
         }
 
@@ -87,7 +93,8 @@ const FormBooking = (props) => {
         }
         else
         {
-            setPrice(origin_price);
+            setPrice(origin_price * countParent);
+            setDefaultPrice(origin_price * countParent);
             setCurrencyData({value: 1, name: 'Рублей'})
         }
 
@@ -114,9 +121,29 @@ const FormBooking = (props) => {
                 sections.room_or_tickets = 
                 <>
                     <SelectEntered className={classes.parents} type='select'
-                                options={[ '1 взрослый', '2 взрослый' ]} 
+                                options={[ '1 взрослый', '2 взрослый' ]} onChangeFunction={(object) => {
+                                    
+                                  
+                                    let countPeople = object.value.split(' ')[0];
+                                    setDefaultPrice(parseInt(countPeople) * origin_price * currencyData.value);
+                                    setCountParent(parseInt(countPeople));
+
+                                    let temp_valueDynamicSelect = [...valueDynamicSelect];
+                                    temp_valueDynamicSelect[0] = true;
+                                    setValueDynamicSelect(temp_valueDynamicSelect)
+                                   
+                                }}
                                 placeholder='Взрослые' arrowSize={arrowSize}/>
                     <SelectOption className={classes.childs} classSelect={classes.childs__select}
+                                minusFunction={(index) => {
+
+                                    let temp_valueDynamicSelect = [...valueDynamicSelect];
+                                    temp_valueDynamicSelect[0] = true;
+                                    temp_valueDynamicSelect[index + 1] = '';
+                                    setValueDynamicSelect(temp_valueDynamicSelect)
+                                }}
+                                valueDynamicSelect={valueDynamicSelect}
+                                setValueDynamicSelect={setValueDynamicSelect}
                                 onChangeFunction={(object) => {
                                     
                                     let temp_valueDynamicSelect = [...valueDynamicSelect];
@@ -177,6 +204,7 @@ const FormBooking = (props) => {
             <div className={classes.price + ' ' + sections.price_behavior}>
                 <span>Итого</span>
                 <h1>{price + ' ' + currencyData.name}</h1>
+                
             </div>
         </div>;
     }
@@ -187,15 +215,19 @@ const FormBooking = (props) => {
              {/* SEPARATOR */}
             {GenerateInfoGoing()}
             {/* SEPARATOR */}
-            <div className={classes.info_person}>
+            <form method='POST' action='https://demo.paykeeper.ru/create/' accept-charset="utf-8" className={classes.info_person}>
             <InputText className={classes.fio} placeholder='Имя и фамилия'/>
-                <InputText className={classes.e_mail} placeholder='E-mail'/>
-                <InputText className={classes.telephone} placeholder='Телефон'/>
+                <InputText className={classes.e_mail} name='client_email' placeholder='E-mail'/>
+                <InputText className={classes.telephone} name='client_phone' placeholder='Телефон'/>
                 <Button className={classes.button} value='Забронировать'/>
                 <small>
                     Нажимая кнопку "Забронировать", вы принимаете <Link href='/terms/[category]' as='/terms/payment'><a>наши условия</a></Link>
                 </small>
-            </div>
+                <input type='hidden' name='sum' value={price}/>
+                <input type='hidden' name='service_name' value={title}/>
+                <input type='hidden' name='user_result_callback' value={url_callback}/>
+                {/* <input type='hidden' name='sign' value={}/> */}
+            </form>
         </div>
         
     )

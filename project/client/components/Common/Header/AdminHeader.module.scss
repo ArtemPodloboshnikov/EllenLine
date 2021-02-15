@@ -7,14 +7,14 @@
     background-color: $primary_color;
     display: grid;
     grid-template-columns: repeat(3, 1fr);
-    grid-template-rows: repeat(2, 1fr);
+    grid-template-rows: repeat(3, 1fr);
     justify-items: center;
     align-items: center;
-}
-.header_admin > a{
-
-    color: $sub_color;
-    font-family: 'Mediator Serif';
-    font-size: 1.6em;
-    cursor: pointer;
+    & > a{
+    
+        color: $sub_color;
+        font-family: 'Mediator Serif';
+        font-size: 1.6em;
+        cursor: pointer;
+    }
 }

@@ -15,6 +15,8 @@ const Resort = ({data}) => {
     const [dbData, setDbData] = useState(data);
     const router = useRouter();
     const type = router.query.type;
+    const resort = router.query.resort;
+    const id = router.query.id;
     //relax, tours, cruises
     // const id = props.id;
     // const images = props.images;
@@ -40,7 +42,7 @@ const Resort = ({data}) => {
         async function get()
         {
             
-            const res = await fetch(`${Global.urlServer}/api/${type}?id=${router.query.id}`)
+            const res = await fetch(`${Global.urlServer}/api/${type}?id=${id}`)
             let item = await res.json();
             item = item[0];
             
@@ -58,6 +60,7 @@ const Resort = ({data}) => {
                     //relax
                     stars: item.stars || null,
                     pricePerChild: item.pricePerChild || null,
+                    typeOfRoom: item.typeOfRoom || null,
                     //tours, cruises
                     info: item.info || null,
                     timetable: item.timetable || null,
@@ -78,7 +81,7 @@ const Resort = ({data}) => {
         return (
             <div className={classes.resort}>
                 <InfoSection 
-                title={data.title} 
+                title={data.title + ': ' + data.typeOfRoom} 
                 price={data.price} 
                 text={data.text}
                 images={data.images}
@@ -98,10 +101,12 @@ const Resort = ({data}) => {
                 {GenerateTimetable()}
 
                 <FormBooking 
+                title={data.title + ': ' + data.typeOfRoom}
                 className={classes.form}
                 price={data.price}
                 pricePerChild={data.pricePerChild}
                 type={type}
+                url_callback={Global.url + '/resorts/' + type + '/' + resort + '/' + id}
                 />
             </div>
         )
@@ -144,6 +149,7 @@ Resort.getInitialProps = async ({req, query}) => {
             //relax
             stars: item.stars || null,
             pricePerChild: item.pricePerChild || null,
+            typeOfRoom: item.typeOfRoom || null,
             //tours, cruises
             info: item.info || null,
             timetable: item.timetable || null,
