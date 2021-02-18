@@ -32,7 +32,7 @@ const Search = (props) => {
 
             }}/>
 
-            <InputNumber className={classes.stars} placeholder="★" min="1" max="5" name='stars' onBlur={(e)=>{
+            <InputNumber label='none' classWrap={classes.stars} className={classes.stars_input} placeholder="★" min="1" max="5" name='stars' onBlur={(e)=>{
 
                 props.setSearchStars({key: 'stars', value: e.target.value})
 

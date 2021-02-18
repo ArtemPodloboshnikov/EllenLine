@@ -11,9 +11,9 @@ const PromoCode = (props) => {
     }
     return (
         <div className={classes.wrap + ' ' + props.className}>
-            <input className={classes.input + ' ' + props.classInput} 
-            onChange={printValue} value={value} placeholder='Промокод'/>
-            <div className={classes.ok}>OK</div>
+            <input className={classes.input + ' ' + props.classInput} name={props.name}
+            onChange={printValue} value={value} placeholder='Промокод' ref={props.register}/>
+            <input className={classes.ok} value='OK' type='submit'/>
         </div>
     )
 }

@@ -45,7 +45,7 @@ function filesUploader(path, mimetypes = ["image/png", "image/jpg", "image/jpeg"
  * @param {array} keys Array which contain a keys from specified in sql query
  * @return {array} New array with string data, number data don't convert to string
  * 
- * Annotation: args = [['title' => 'key from sql query'], ['id' => 'key from sql query', 'id_relax' => 'new name of field']]
+ * Annotation: args = [['title' => 'key from sql query'], ['id' => 'key from sql query', 'id_relax' => 'new name of field', true => 'converting value as string']]
  */
 function ConvertDataToString(array, keys)
 {
@@ -67,8 +67,15 @@ function ConvertDataToString(array, keys)
                 {
                     if (isNumber(elem[key[0]]))
                     {
-
-                        object[key[1]] = elem[key[0]]
+                        if (key[2] != undefined)
+                        {
+                            object[key[1]] = elem[key[0]].toString();
+                        }
+                        else
+                        {
+                            
+                            object[key[1]] = elem[key[0]]
+                        }
                     }
                     else
                     {
@@ -160,7 +167,7 @@ function multiplyConditions(sql, conditions, column, view)
         for (let i = 1; i < conditions.length; i++)
         {
     
-            new_conditions += `, ${column[i]} = ` + isNumber(conditions[i].value, conditions[i].password)
+            new_conditions += ` AND ${column[i]} = ` + isNumber(conditions[i].value, conditions[i].password)
         }
     
     }

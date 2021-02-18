@@ -11,6 +11,7 @@ const InputNumber = (props) => {
       
        // if (isNaN(new_value)) new_value = props.min;
         if (e.target.adjust != undefined) new_value += e.target.adjust;
+        
         console.log(value)
 
         if (props.value !== undefined)
@@ -55,7 +56,15 @@ const InputNumber = (props) => {
     console.log(value);
     return (
         <div className={classes.wrap + ' ' + props.classWrap}>
-            <label>{(props.title !== undefined)? props.title : (props.placeholder !== undefined ? props.placeholder : '')}</label>
+            {(()=>{
+
+                if (props.label != 'none')
+                {
+
+                    <label>{(props.title !== undefined)? props.title : (props.placeholder !== undefined ? props.placeholder : '')}</label>
+                }
+
+            })()}
             <div className={classes.inputNumber + ' ' + props.className}>
                 <input className={classes.input + ' ' + props.classInput}  
                     type="number"

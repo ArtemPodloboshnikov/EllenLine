@@ -6,7 +6,7 @@ import InputNumber from '../../../CustomElements/InputNumber'
 import DynamicList from '../../../CustomElements/DynamicList'
 import Button from '../../../CustomElements/Button'
 import { useForm } from "react-hook-form";
-import Message from '../../../Common/DialogWindow/Message';
+import Message from '../../../Common/DialogWindow/MessageDB';
 import FilesUploader from '../../../CustomElements/FilesUploader'
 import EditMap from '../../../Common/Map/EditMap';
 import SelectEntered from '../../../CustomElements/SelectEntered'

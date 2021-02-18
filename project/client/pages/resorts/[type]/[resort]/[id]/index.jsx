@@ -57,6 +57,8 @@ const Resort = ({data}) => {
                     text: item.description,
                     address: item.address,
                     points: item.coordinates.split(','),
+                    discount: item.discount,
+                    countServices: item.count,
                     //relax
                     stars: item.stars || null,
                     pricePerChild: item.pricePerChild || null,
@@ -99,13 +101,16 @@ const Resort = ({data}) => {
                 points={data.points}/>
 
                 {GenerateTimetable()}
-
+            
                 <FormBooking 
                 title={data.title + ': ' + data.typeOfRoom}
                 className={classes.form}
                 price={data.price}
                 pricePerChild={data.pricePerChild}
+                id={data.id}
+                discount={data.discount}
                 type={type}
+                countServices={data.countServices}
                 url_callback={Global.url + '/resorts/' + type + '/' + resort + '/' + id}
                 />
             </div>
@@ -113,7 +118,7 @@ const Resort = ({data}) => {
 
     }
     return (
-        <ClientLayout title={dbData !== null ? dbData.title : 'Эллинлайн'} preloader={!dbData}>
+        <ClientLayout title={dbData !== null ? dbData.title : 'Эллинлайн'} description={dbData !== null ? dbData.text : ''} keywords={dbData !== null ? `${dbData.title}, ${type}` : ''} preloader={!dbData}>
             <WrapForPreloader data={dbData} type={type}/>
         </ClientLayout>
     )
@@ -146,6 +151,8 @@ Resort.getInitialProps = async ({req, query}) => {
             text: item.description,
             address: item.address,
             points: item.coordinates.split(','),
+            discount: item.discount,
+            countServices: item.count,
             //relax
             stars: item.stars || null,
             pricePerChild: item.pricePerChild || null,

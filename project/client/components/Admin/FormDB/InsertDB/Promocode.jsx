@@ -7,7 +7,7 @@ import InputText from '../../../CustomElements/InputText';
 import Button from '../../../CustomElements/Button';
 import InputNumber from '../../../CustomElements/InputNumber';
 import SelectEntered from '../../../CustomElements/SelectEntered';
-import Message from '../../../Common/DialogWindow/Message';
+import Message from '../../../Common/DialogWindow/MessageDB';
 
 const Promocode = () => {
 
@@ -27,11 +27,12 @@ const Promocode = () => {
     }
     const handleOnSubmit = (data) =>{
         data.discount = parseInt(data.discount); 
-        const titles = data.titles.split(', ');
-        titles.map((title)=>{
+        // const titles = data.titles.split(', ');
+        // data.ids = [];
+        // titles.map((title)=>{
 
-            data.ids.push(relax[title])
-        })
+        //     data.ids.push(relax[title])
+        // })
         setFormData(data)
     }
 
@@ -79,8 +80,8 @@ const Promocode = () => {
                 placeholder='Название промокода' className={classes.input} />
                 <InputNumber name='discount' placeholder='Скидка' min={0} max={100} 
                 className={classes.number} classWrap={classes.numberWrap} register={register({required: true})}/>
-                <SelectEntered options={Object.keys(relax)} 
-                type='multiply' name='titles' className={classes.select} />
+                {/* <SelectEntered options={Object.keys(relax)} 
+                type='multiply' name='titles' className={classes.select} /> */}
                 <Button value='Внести' className={classes.button} />
             </form>
         </>

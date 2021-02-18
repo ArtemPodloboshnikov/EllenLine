@@ -5,7 +5,7 @@ import classes from './Promocode.module.scss';
 //
 import SelectEntered from '../../../CustomElements/SelectEntered';
 import Button from '../../../CustomElements/Button';
-import Message from '../../../Common/DialogWindow/Message';
+import Message from '../../../Common/DialogWindow/MessageDB';
 
 const Promocode = () => {
 

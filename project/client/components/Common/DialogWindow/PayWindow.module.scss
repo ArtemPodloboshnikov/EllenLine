@@ -1,0 +1,24 @@
+@import '../../../styles//index.scss';
+
+.button
+{
+    justify-self: center;
+    width: 75%;
+    height: 10vh;
+    border: 5px solid $sub_color;
+    margin-top: 3%;
+
+    & *
+    {
+        color: $sub_color;
+    }
+    &:hover
+    {
+        background-color: $sub_color;
+        color: $primary_color;
+    }
+    &:hover > input
+    {
+        color: $primary_color;
+    }
+}

@@ -15,12 +15,16 @@ const InputText = (props) => {
         {
 
             setValue(e.target.value == '' ? undefined : e.target.value);
+            if (props.onChange !== undefined)
+            {
+                props.onChange(e.target.value == '' ? undefined : e.target.value)
+            }
         }
     }
     return (
         <div className={classes.wrap + ' ' + props.className}>
             <input key={props.name} name={props.name} ref={props.register} onBlur={props.onBlur}
-            className={classes.input + ' ' + props.classInput} 
+            className={classes.input + ' ' + props.classInput}
             value={value == '' ? props.value : value} onChange={printValue} placeholder={props.placeholder}
             />
         </div>

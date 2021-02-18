@@ -7,7 +7,7 @@ import SelectEntered from '../../../CustomElements/SelectEntered';
 import InputText from '../../../CustomElements/InputText';
 import Button from '../../../CustomElements/Button';
 import InputNumber from '../../../CustomElements/InputNumber';
-import Message from '../../../Common/DialogWindow/Message';
+import Message from '../../../Common/DialogWindow/MessageDB';
 
 const Promocode = () => {
 

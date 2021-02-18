@@ -2,11 +2,8 @@ import classes from './Button.module.scss';
 
 const Button = (props) => {
 
-    let type = 'submit';
-    if (props.type == 'button')
-    {
-        type = props.type;
-    }
+    let type = props.type || 'submit';
+
     return (
         
         <div className={classes.wrap + ' ' + props.className}>
@@ -34,7 +31,7 @@ const Button = (props) => {
                                 props.onClick();
                             }
                             
-                        }} className={classes.input + ' ' + props.classInput} 
+                        }} className={classes.input + ' ' + props.classInput} disabled={props.disabled? true: false}
                         value={props.value} type={type} name={props.name} ref={props.register}/>
                     )
                 }

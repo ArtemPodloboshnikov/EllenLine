@@ -89,7 +89,7 @@ const Resorts = ({data}) => {
     }, [resort])
 
     return (
-        <ClientLayout title={Global.GetConvert(type)[resort]} preloader={!dbData}>
+        <ClientLayout title={Global.GetConvert(type)[resort]} description={dbData !== null ? Global.GetConvert(type)['discription'] : ''} keywords={dbData !== null ? `${Global.GetConvert(type)[resort]}, ${type}` : ''} preloader={!dbData}>
             <SearchRelax className={classes.search} setSearchStars={setSearchStars} setSearchCountry={setSearchCountry}
             setSearchCity={setSearchCity} setSearchPrice={setSearchPrice} setSearchName={setSearchName}
             cities={cities} countries={countries}/>

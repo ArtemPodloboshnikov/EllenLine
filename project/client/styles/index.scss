@@ -88,6 +88,18 @@ $disabled_color_title: #628CD0;
     }
 }
 
+%none_action
+{
+    pointer-events: none;
+    user-select: none;
+}
+
+@mixin blur ($bgColor: (255, 255, 255, 0.5), $blur: 5px)
+{
+    backdrop-filter: blur($blur);
+    background-color: rgba(nth($bgColor, 1), nth($bgColor, 2), nth($bgColor, 3), nth($bgColor, 4)); 
+    z-index: 40;
+}
 @mixin double_choose_block ($width: 80%, $height: 10vh, $font-size: 2.5em, $font: 'Kazimir')
 {
     display: grid;

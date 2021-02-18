@@ -1,8 +1,7 @@
 import {useState, useEffect} from 'react'
-import Message from '../../../Common/DialogWindow/Message';
+import Message from '../../../Common/DialogWindow/MessageDB';
 import { useForm } from "react-hook-form";
 import InputText from '../../../CustomElements/InputText';
-import TextArea from '../../../CustomElements/TextArea';
 import Button from '../../../CustomElements/Button';
 import classes from './Languages.module.scss';
 

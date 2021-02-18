@@ -17,20 +17,26 @@ const InputDate = (props) => {
         }
         else return props.date;
     });
-    const [min, setMin] = useState(props.min);
-    const [max, setMax] = useState(props.max);
 
-    useEffect(() => {
-        document.getElementById('date').value = date;
-    });
+    const printValue = (e) =>{
+
+        setDate(e.target.value);
+        if (props.onChange !== undefined)
+        {
+            props.onChange(e.target.value);
+        }
+    }
     
     return (
         <div className={classes.date + ' ' + props.className}>
             <label>{props.title}</label>
             <input type="date"
+                   name={props.name}
                    id="date" 
-                   min={min}
-                   max={max}
+                   min={props.min}
+                   max={props.max}
+                   value={date}
+                   onChange={printValue}
                    className={props.classInput}
                    />
         </div>

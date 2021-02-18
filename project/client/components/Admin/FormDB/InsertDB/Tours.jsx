@@ -1,12 +1,15 @@
 import {useState, useEffect} from 'react'
+import { useForm } from "react-hook-form";
+import Global from '../../../../pages/global';
+//
 import classes from './Tours.module.scss'
+//
 import InputText from '../../../CustomElements/InputText'
 import TextArea from '../../../CustomElements/TextArea'
 import InputNumber from '../../../CustomElements/InputNumber'
 import DynamicList from '../../../CustomElements/DynamicList'
 import Button from '../../../CustomElements/Button'
-import { useForm } from "react-hook-form";
-import Message from '../../../Common/DialogWindow/Message';
+import Message from '../../../Common/DialogWindow/MessageDB';
 import FilesUploader from '../../../CustomElements/FilesUploader'
 import EditMap from '../../../Common/Map/EditMap';
 import SelectEntered from '../../../CustomElements/SelectEntered'
@@ -114,14 +117,14 @@ const Tours = (props) => {
 
                 conditions += '&whereCountryName[]=' + name
             })
-            await fetch('http://localhost:4000/api/countries?with=cities' + conditions)
+            await fetch(Global.urlServer + '/api/countries?with=cities' + conditions)
               .then((response) => {
                 return response.json();
               })
               .then((data) => {
                 result = {countryWithCities: data};
               });
-            await fetch('http://localhost:4000/api/countries')
+            await fetch(Global.urlServer + '/api/countries')
               .then((response) => {
                 return response.json();
               })
@@ -129,7 +132,7 @@ const Tours = (props) => {
                 result = {...result, countries: data};
               });
             
-            await fetch('http://localhost:4000/api/languages')
+            await fetch(Global.urlServer + '/api/languages')
               .then((response) => {
                 return response.json();
               })
@@ -153,7 +156,7 @@ const Tours = (props) => {
             // request.open("POST", "http://localhost:4000/api/sanatoriums")
             // request.withCredentials = true
             // request.send(formData)
-            let response =  await fetch('http://localhost:4000/api/tours', {
+            let response =  await fetch(Global.urlServer + '/api/tours', {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json;charset=utf-8'
@@ -174,7 +177,7 @@ const Tours = (props) => {
         async function uploadPhotos(data)
         {
 
-            let response =  await fetch('http://localhost:4000/api/toursPhotos', {
+            let response =  await fetch(Global.urlServer + '/api/toursPhotos', {
                 mode: 'no-cors',
                 method: 'POST',
                 body: data

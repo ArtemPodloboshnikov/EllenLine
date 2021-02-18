@@ -80,6 +80,33 @@ blockquote
   @extend %font;
   color: $primary_font_color;
 }
+table
+{
+  border: 5px solid $primary_color;
+  @extend %font;
+  font-size: 1.3em;
+  border-spacing: 0px;
+  border-collapse: collapse;
+  & th
+  {
+    color: $attention_color;
+    font-weight: normal;
+  }
+  & td
+  {
+    border: 0px;
+    text-align: center;
+  }
+  & tr:nth-child(1)
+  {
+    
+    border-bottom: 5px solid $primary_color;
+  }
+  & tr:nth-child(even)
+  {
+    background-color: $side_color;
+  }
+}
 body {
   margin: 0;
   font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',

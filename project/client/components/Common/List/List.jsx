@@ -38,9 +38,11 @@ const checkSearch = (data, conditions) =>{
                 if (elem[conditions[i].key] != undefined && conditions[i].value != '')
                 {
                     let value = conditions[i].value;
-                    if (!isNaN(conditions[i].value))
+                    const pattern = new RegExp(`^${value}`, 'gi');
+                    console.log(`pattern: ${pattern} elem[conditions[i].key]: ${elem[conditions[i].key]}`)
+                    if (!isNaN(value))
                     {
-                        value = parseInt(conditions[i].value);
+                        value = parseInt(value);
                     }
                 // console.log(conditions[i])
                     if (conditions[i].sign != undefined)
@@ -48,7 +50,7 @@ const checkSearch = (data, conditions) =>{
                         switch(conditions[i].sign)
                         {
                             case '>':{
-                                if (elem[conditions[i].key] > conditions[i].value)
+                                if (elem[conditions[i].key] > value)
                                 {
                                     flag = true;
                                 }
@@ -60,7 +62,7 @@ const checkSearch = (data, conditions) =>{
                                 break;
                             }
                             case '=':{
-                                if (elem[conditions[i].key] == conditions[i].value)
+                                if (elem[conditions[i].key] == value)
                                 {
                                     flag = true;
                                 
@@ -73,7 +75,7 @@ const checkSearch = (data, conditions) =>{
                                 break;
                             }
                             case '<':{
-                                if (elem[conditions[i].key] < conditions[i].value)
+                                if (elem[conditions[i].key] < value)
                                 {
                                     flag = true;
                                 }
@@ -87,7 +89,7 @@ const checkSearch = (data, conditions) =>{
                         }
                     }
                     else
-                    if (elem[conditions[i].key] == value)
+                    if (pattern.test(elem[conditions[i].key]))
                     {
                         flag = true;
                     }

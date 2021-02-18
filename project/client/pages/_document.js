@@ -16,12 +16,8 @@ class MyDocument extends Document {
           <link rel="icon" href="/images/logo.svg" />
           <meta name="theme-color" content="#000000" />
           <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no"/>
-          <meta
-            name="description"
-            content="Web site created using create-react-app"
-          />
-          <link rel="apple-touch-icon" href="images/logo.svg" />
-          <link rel="manifest" href="%PUBLIC_URL%/manifest.json" />
+          <link rel="apple-touch-icon" href="/images/logo.svg" />
+          <link rel="manifest" href="/manifest.json" />
           <script src="https://kit.fontawesome.com/5116ed660a.js" crossorigin="anonymous"></script>
         </Head>
         <body>

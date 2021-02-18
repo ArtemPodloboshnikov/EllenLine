@@ -29,7 +29,7 @@ const SelectEntered = (props) => {
             
             setValue(current_value);
         }
-        console.log(props.onChangeFunction)
+        
         if (props.onChangeFunction !== undefined)
         {
             props.onChangeFunction({value: current_value, index: index});

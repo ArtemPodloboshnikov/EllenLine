@@ -1,0 +1,13 @@
+@import '../../../styles/index.scss';
+
+.table
+{
+    width: 80%;
+    margin: 0 auto;
+    margin-top: 3%;
+
+    & td:nth-child(7), & td:nth-child(8) 
+    {
+        width: 10%;
+    }
+}

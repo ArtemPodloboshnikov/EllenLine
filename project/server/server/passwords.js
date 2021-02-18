@@ -9,6 +9,8 @@ const keysForTables = { countries: {name: 'nBZiLpGdcwsFngZU', description: 'aSTC
                         description: '%Dyygn&YlfKH', services: 'UG6VMNL9D8xs', 
                         photos: 'HxE9Zv3$94b!', type: '#%eR#R&nv#UU', program: 'rSkS2Js%iv96',
                         typeOfRoom: 'J0lVoFFfCKd7', coordinates: '@Of68#h?tB8a'},
-                        promocode: {name: '}#oJI\6:-?Bu'}} 
+                        promocode: {name: '}#oJI\6:-?Bu'},
+                        orders: {title: '7|<nbImVb*yT', client_name: 'nDV=huJu4:mZ',
+                        phone: '0OC>CZsR:\}C', email: 'PV.spODDe4UO', clients: '5$=AJajtA=Nz'}} 
 
 module.exports = keysForTables;
