@@ -84,6 +84,40 @@ const Message = (props) => {
             }
             break;
         }
+        case 'vacancy':{
+
+            switch (props.status)
+            {
+                case 404:{
+                    title = 'Запрос не отправлен';
+                    text = 'Страница отвечающая за отправку запроса — не была найдена';
+                    break;
+                }
+                case 200:{
+                    title = 'Вакансия принята';
+                    text = 'Мы свяжемся с вами в скором времени. Ожидайте!';
+                    break;
+                }
+            }
+            break;
+        }
+        case 'candidate':{
+
+            switch (props.status)
+            {
+                case 404:{
+                    title = 'Запрос не отправлен';
+                    text = 'Страница отвечающая за отправку запроса — не была найдена';
+                    break;
+                }
+                case 200:{
+                    title = 'Сотрудник нанят';
+                    text = 'Не забудьте связаться с ним!';
+                    break;
+                }
+            }
+            break;
+        }
     }
     
 

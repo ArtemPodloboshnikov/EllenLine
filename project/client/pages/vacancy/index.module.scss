@@ -1,0 +1,26 @@
+@import '../../styles/index.scss';
+
+.inputText, .button
+{
+    width: 50%;
+    height: 10vh;
+}
+.inputText_top, .button
+{
+    margin-top: 5%;
+}
+.textarea
+{
+    width: 70%;
+    height: 120vh;
+    margin-top: 5%;
+    font-size: 1em;
+}
+.textarea_text
+{
+    font-size: 1.2em;
+}
+.inputText, .textarea, .button
+{
+    justify-self: center;
+}

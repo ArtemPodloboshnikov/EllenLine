@@ -49,7 +49,7 @@
     justify-items: center;
     align-items: center;
 }
-.header_db__queries label > a{
+.header_db__queries label{
 
     color: $sub_color;
     font-family: 'Mediator Serif';
@@ -130,4 +130,33 @@
     font-family: 'Kazimir';
     background-color: $sub_color;
     color: $primary_color;
+}
+
+.header_promocode
+{
+    width: 100%;
+    height: 50vh;
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    justify-items: center;
+    align-items: center;
+    background-color: $primary_color;
+}
+
+.header_employees{
+
+    width: 100%;
+    height: 50vh;
+    background-color: $primary_color;
+    justify-items: center;
+    align-items: center;
+    display: grid;
+    grid-auto-flow: row;
+    padding-top: 3%;
+    grid-template-columns: repeat(3, 1fr);
+}
+.header_employees > a{
+
+    font-size: 2em;
+    font-family: 'Mediator Serif Regular';
 }

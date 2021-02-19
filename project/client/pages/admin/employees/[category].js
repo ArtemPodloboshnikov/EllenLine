@@ -1,7 +1,7 @@
 import { useRouter } from 'next/router';
 import AdminLayout from '../../../layouts/AdminLayout';
-import List from '../../../components/Admin/Employees/List';
-import classes from '../../../styles/Admin/FormDB/FormDB.module.scss';
+import Candidates from '../../../components/Admin/Employees/Candidates';
+// import classes from '../../../styles/Admin/FormDB/FormDB.module.scss';
 
 export default function Employees(){
     const router = useRouter();
@@ -14,11 +14,11 @@ export default function Employees(){
             
             switch (category)
             {
-                case 'list': console.log(category); return <List className={classes.form}/>;
+                case 'list': return <Candidates/>;
 
                 case 'roles': return <p>ddd</p>;
 
-                case 'salary': return; 
+                case 'candidates': return <Candidates/>;
 
             }
 

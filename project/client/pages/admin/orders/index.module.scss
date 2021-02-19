@@ -6,8 +6,8 @@
     margin: 0 auto;
     margin-top: 3%;
 
-    & td:nth-child(7), & td:nth-child(8) 
+    & td:nth-child(8), & th:nth-child(8), & td:nth-child(9), & th:nth-child(9) 
     {
-        width: 10%;
+        width: 25% !important;
     }
 }

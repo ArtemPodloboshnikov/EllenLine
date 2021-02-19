@@ -1,4 +1,3 @@
-import {useEffect} from 'react'
 import { sha256 } from 'js-sha256';
 //
 import Button from '../../CustomElements/Button';

@@ -651,27 +651,104 @@ router.delete('/languages', function(request, reply){
 
 router.get('/employees', function(request, reply){
 
-    // mysql.getConnection(function(err, connection) {
-    //     if (err) {
-    //         console.log(err);
-    //         return;
-    //     }
+    mysql.getConnection(function(err, connection) {
+        if (err) {
+            console.log(err);
+            return;
+        }
         
-    //     connection.query(`SELECT id_language as id, AES_DECRYPT(name, '${keysForTables.languages.name}') as name FROM languages`,
-    //     function (error, results, fields) {
+        connection.query(`SELECT id_employee as id, AES_DECRYPT(name, '${keysForTables.employees.name}') as name, AES_DECRYPT(email, '${keysForTables.employees.email}') as email, AES_DECRYPT(phone, '${keysForTables.employees.phone}') as phone, AES_DECRYPT(description, '${keysForTables.employees.description}') as description, AES_DECRYPT(password, '${keysForTables.employees.password}') as password, AES_DECRYPT(login, '${keysForTables.employees.login}') as login, AES_DECRYPT(profession, '${keysForTables.employees.profession}') as profession FROM employees`,
+        function (error, results, fields) {
 
-    //         connection.release();
-    //         if (error) console.log(error);
+            connection.release();
+            if (error) console.log(error);
 
-    //         let new_results = [];
+            let new_results = ConvertDataToString(results, [['id'], ['name'], ['email'], ['phone', 'phone', true], ['description'], ['password'], ['login'], ['profession']]);
+           
+            let employees = [];
+            if (Boolean(request.query.isHire == 'true'))
+            {
+                new_results.map((res)=>{
+                  
+                    if (res.password !== null && res.login !== null)
+                    {
 
-    //         results.map((language)=>{
+                        employees.push(res);
+                    }
 
-    //             new_results.push({id: language.id, name: language.name.toString()});
-    //         });
-    //         reply.send(new_results);
-    //     });
-    // })
+                })
+            }
+            else
+            {
+                new_results.map((res)=>{
+                   
+                    if (res.password === null && res.login === null)
+                    {
+
+                        employees.push(res);
+                    }
+
+                })
+            }
+            
+            reply.send(employees);
+        });
+    })
+})
+
+router.post('/employees', function(request, reply){
+
+    
+    const dataName = [request.body.name, keysForTables.employees.name]
+    const dataEmail = [request.body.email, keysForTables.employees.email];
+    const dataPhone = [request.body.phone, keysForTables.employees.phone];
+    const dataDescription = [request.body.description, keysForTables.employees.description];
+    const dataProfession = [request.body.profession, keysForTables.employees.profession];
+
+    mysql.getConnection(function(err, connection) {
+        if (err) {
+            console.log(err);
+            return;
+        }
+        
+        connection.query('INSERT INTO employees SET name = AES_ENCRYPT(?), email = AES_ENCRYPT(?), phone = AES_ENCRYPT(?), description = AES_ENCRYPT(?), profession = AES_ENCRYPT(?)',
+        [dataName, dataEmail, dataPhone, dataDescription, dataProfession], 
+        function (error, results, fields) {
+
+            connection.release();
+            if (error) console.log(error);
+
+            reply.sendStatus(200);
+        });
+    })
+})
+
+router.put('/employees', function(request, reply){
+
+    
+    let sql = '';
+    if (request.query.hire !== undefined)
+    {
+        sql = sqlQueryUpdate('employees', [['login', transliterate(request.body.login), keysForTables.employees.login],
+                                           ['password', request.body.password, keysForTables.employees.password]])
+        sql = multiplyConditions(sql, [{value: request.body.id, password: ''}], 'id_employee', 'IN')
+    }
+    console.log(sql)
+    mysql.getConnection(function(err, connection) {
+        if (err) {
+            console.log(err);
+            return;
+        }
+        
+        connection.query(sql,
+        function (error, results, fields) {
+
+            connection.release();
+            if (error) console.log(error);
+
+            reply.sendStatus(200);
+        });
+    })
 })
 
 router.get('/countries', function(request, reply){

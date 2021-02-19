@@ -1,4 +1,5 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState } from 'react';
+import dateParser from '../../functions/DateParser';
 import classes from './InputDate.module.scss';
 
 const InputDate = (props) => {
@@ -6,14 +7,7 @@ const InputDate = (props) => {
         if(!props.date)
         {
             let date = new Date();
-            let year = date.getFullYear();
-            let mounth = date.getMonth() + 1;
-            if(mounth < 10)
-                mounth = '0' + mounth;
-            let day = date.getDate();
-            if(day < 10)
-                day = '0' + day;
-            return year + '-' + mounth + '-' + day;
+            dateParser(date.toString(), true);
         }
         else return props.date;
     });

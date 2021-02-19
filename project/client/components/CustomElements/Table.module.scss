@@ -1,0 +1,23 @@
+@import '../../styles/index.scss';
+
+.table
+{
+    & input
+    {
+        @extend %font;
+        font-size: 1em;
+        text-align: center;
+        color: $primary_color;
+        width: 100%;
+        &::placeholder
+        {
+            text-align: center;
+            color: $primary_font_color;
+        }
+    }
+    & td > button > i::before
+    {
+        font-size: 1.5em;
+        color: $primary_color;
+    }    
+}

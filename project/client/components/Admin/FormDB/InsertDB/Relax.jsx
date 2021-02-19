@@ -14,7 +14,7 @@ import SelectOption from '../../../CustomElements/SelectOption';
 
 const Relax = (props) => {
    
-    const {register, handleSubmit, errors} = useForm()
+    const {register, handleSubmit, errors} = useForm();
     const [formData, setFormData] = useState({}); 
     const [dbData, setDbData] = useState({});
     const [message, setMessage] = useState({style: {display: 'none'}, status: '', body: ''});
