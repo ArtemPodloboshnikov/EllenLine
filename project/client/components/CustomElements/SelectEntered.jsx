@@ -16,7 +16,7 @@ const SelectEntered = (props) => {
         setArrowClass(classes.arrowDown);
         setPossibleData([]);
         if (current_value == 'Ничего')
-            current_value = undefined;
+            current_value = ' ';
         if (props.type == 'multiply')
         {
             let arrayValues = document.getElementsByName(props.name)[0].value.split(', ');

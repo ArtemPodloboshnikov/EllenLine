@@ -13,6 +13,7 @@ const keysForTables = { countries: {name: 'nBZiLpGdcwsFngZU', description: 'aSTC
                         typeOfRoom: 'J0lVoFFfCKd7', coordinates: '@Of68#h?tB8a'},
                         promocode: {name: '}#oJI\6:-?Bu'},
                         orders: {title: '7|<nbImVb*yT', client_name: 'nDV=huJu4:mZ',
-                        phone: '0OC>CZsR:\}C', email: 'PV.spODDe4UO', clients: '5$=AJajtA=Nz'}} 
+                        phone: '0OC>CZsR:\}C', email: 'PV.spODDe4UO', clients: '5$=AJajtA=Nz'},
+                        roles: {name: 'oBR6!,B:nZ6n', pages: '*ahfR21!fggp'}} 
 
 module.exports = keysForTables;

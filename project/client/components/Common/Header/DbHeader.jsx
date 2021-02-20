@@ -160,11 +160,11 @@ const DbHeader = (props) => {
             const {category} = history.query;
             switch (category)
             {
-                case 'list': linkColors = ['#333333', '#fff', '#fff']; break;
+                case 'list': linkColors = ['#FFDD00', '#fff', '#fff']; break;
 
-                case 'roles': linkColors = ['#fff', '#333333', '#fff']; break;
+                case 'roles': linkColors = ['#fff', '#FFDD00', '#fff']; break;
 
-                case 'candidates': linkColors = ['#fff', '#fff', '#333333']; break;
+                case 'candidates': linkColors = ['#fff', '#fff', '#FFDD00']; break;
             }
             header[0] = (
                 <div className={classes.header_employees}>

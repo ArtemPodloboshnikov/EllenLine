@@ -4,7 +4,11 @@ import classes from './InputText.module.scss'
 const InputText = (props) => {
     
     const [value, setValue] = useState(props.value);
-    
+    let passwordClass = '';
+    if (props.type == 'password')
+    {
+        passwordClass = 'password';
+    }
     const printValue = (e) =>{
 
         if (props.value == e.target.value)
@@ -24,7 +28,7 @@ const InputText = (props) => {
     return (
         <div className={classes.wrap + ' ' + props.className}>
             <input key={props.name} name={props.name} ref={props.register} onBlur={props.onBlur}
-            className={classes.input + ' ' + props.classInput}
+            className={classes.input + ' ' + props.classInput + ' ' + passwordClass}
             value={value == '' ? props.value : value} onChange={printValue} placeholder={props.placeholder}
             />
         </div>

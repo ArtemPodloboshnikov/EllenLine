@@ -1,7 +1,31 @@
-.table{
+@import '../../../styles/index.scss';
+@import './Table.module.scss';
 
-    width: 80%;
-    margin: 0 auto;
-    height: fit-content;
-    margin-top: 3%;
+.message_content
+{
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+}
+.button 
+{
+    height: 10vh;
+    width: 70%;
+    border: 5px solid $sub_color !important;
+    @extend %grid_center;
+
+    & i
+    {
+        color: $sub_color;
+        font-size: 2em;
+    }
+
+    
+}
+.button:hover
+{
+    & i
+    {
+        color: $primary_color !important;
+    }
+    background-color: $sub_color !important;
 }

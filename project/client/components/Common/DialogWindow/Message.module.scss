@@ -20,7 +20,8 @@
     grid-template-rows: 1fr 2fr 1fr;
     position: fixed;
     width: 30%;
-    height: 60vh;
+    min-height: 60vh;
+    max-height: 83vh;
     z-index: 102;
     left: 50%;
     top: 50%;
@@ -39,6 +40,7 @@
     @extend %font;
     border-bottom: 5px solid $sub_color;
     display: grid;
+    overflow-y: auto;
 }
 .title, .body{
     width: 100%;
@@ -47,9 +49,7 @@
     font-family: 'Mediator Serif Regular';
 }
 .close{
-
-    
-    
+      
     cursor: pointer;
 }
 .close::before, .close::after{

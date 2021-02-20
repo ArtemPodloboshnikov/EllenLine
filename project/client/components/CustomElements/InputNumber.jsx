@@ -61,7 +61,7 @@ const InputNumber = (props) => {
                 if (props.label != 'none')
                 {
 
-                    <label>{(props.title !== undefined)? props.title : (props.placeholder !== undefined ? props.placeholder : '')}</label>
+                    return <label>{(props.title !== undefined)? props.title : (props.placeholder !== undefined ? props.placeholder : '')}</label>
                 }
 
             })()}
@@ -69,7 +69,7 @@ const InputNumber = (props) => {
                 <input className={classes.input + ' ' + props.classInput}  
                     type="number"
                     placeholder={props.placeholder} 
-                    value={isNaN(value) ? props.value : value} 
+                    value={value} 
                     name={props.name}
                     ref={props.register}
                     onBlur={props.onBlur}

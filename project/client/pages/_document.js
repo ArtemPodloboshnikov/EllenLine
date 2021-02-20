@@ -19,6 +19,7 @@ class MyDocument extends Document {
           <link rel="apple-touch-icon" href="/images/logo.svg" />
           <link rel="manifest" href="/manifest.json" />
           <script src="https://kit.fontawesome.com/5116ed660a.js" crossorigin="anonymous"></script>
+          <script src="https://smtpjs.com/v3/smtp.js"></script>
         </Head>
         <body>
           <Main />

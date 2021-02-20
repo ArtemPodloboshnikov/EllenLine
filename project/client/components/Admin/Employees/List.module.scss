@@ -1,0 +1,61 @@
+@import '../../../styles/index.scss';
+@import './Table.module.scss';
+
+.message_content
+{
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+}
+.inputNumberWrap 
+{
+    grid-column: 1 / 3;
+    width: 50%;
+    justify-self: center;
+    & > label
+    {
+        color: $placeholder_color !important;
+        font-size: 1em !important;
+    }
+}
+.inputNumber input::placeholder
+{
+    color: $placeholder_color;
+}
+.inputText, .inputNumber, .button
+{
+    height: 10vh;
+    width: 85%;
+    border: 5px solid $sub_color !important;
+    justify-self: center;
+
+    & input, div
+    {
+        color: $sub_color;
+        font-size: 1em;
+    }
+    & div:last-child
+    {
+        border-top: 5px solid $sub_color;
+    }
+    & > .button:hover
+    {
+        & > input
+        {
+            color: $primary_color !important;
+        }
+        background-color: $sub_color !important;
+    }
+}
+.inputNumber
+{
+    width: 100%;
+
+    & > input 
+    {
+        border-right: 5px solid $sub_color;
+    }
+}
+.input_top
+{
+    margin-top: 5%;
+}

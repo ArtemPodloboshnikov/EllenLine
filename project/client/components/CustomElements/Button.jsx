@@ -14,7 +14,15 @@ const Button = (props) => {
                 {
                     return (
 
-                        <button type={type}>
+                        <button type={type} onClick={() => {
+                
+                            if (props.onClick !== undefined) 
+                            {
+
+                                props.onClick();
+                            }
+                            
+                        }}>
                             {props.value}
                         </button>
                     )

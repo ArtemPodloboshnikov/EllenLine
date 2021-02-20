@@ -35,7 +35,7 @@ const AdminHeader = (props) => {
            <a>База данных</a>
         </Link>
         <Link href='/admin/activity'>
-           <a>Активность на сайте</a>
+           <a>Трафик</a>
         </Link>
         <Link href='/admin/orders'>
            <a>Заказы</a>
