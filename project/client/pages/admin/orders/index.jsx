@@ -54,7 +54,7 @@ const index = () => {
     
     return (
         <AdminLayout title='База данных' sector='orders'>
-            <Table titles={[{value: 'Id', key: 'id'}, {value: 'Название', key: 'title'}, 
+            <Table titles={[{value: 'Название', key: 'title'}, 
                       {value: 'Цена', key: 'price'}, {value: 'Клиенты', key: 'clients'}, 
                       {value: 'Имя заказчика', key: 'client_name'}, {value: 'Телефон', key: 'phone'}, 
                       {value: 'Email', key: 'email'}, {value: 'Дата начала', key: 'date_start'}, 

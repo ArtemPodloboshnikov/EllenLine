@@ -591,7 +591,7 @@ router.get('/roles', function(request, reply){
             return;
         }
         
-        connection.query(`SELECT id_role as id, AES_DECRYPT(name, '${keysForTables.roles.name}') as name, AES_DECRYPT(name, '${keysForTables.roles.pages}') as pages FROM roles`,
+        connection.query(`SELECT id_role as id, AES_DECRYPT(name, '${keysForTables.roles.name}') as name, AES_DECRYPT(pages, '${keysForTables.roles.pages}') as pages FROM roles`,
         function (error, results, fields) {
 
             connection.release();
@@ -606,44 +606,87 @@ router.get('/roles', function(request, reply){
 
 router.post('/roles', function(request, reply){
 
+    const dataName = [request.body.name, keysForTables.roles.name];
+    const dataPages = [request.body.pages.join(', '), keysForTables.roles.pages];
+
     mysql.getConnection(function(err, connection) {
         if (err) {
             console.log(err);
             return;
         }
         
-        connection.query(`SELECT id_role as id, AES_DECRYPT(name, '${keysForTables.roles.name}') as name, AES_DECRYPT(name, '${keysForTables.roles.pages}') as pages FROM roles`,
+        connection.query(`INSERT INTO roles SET name = AES_ENCRYPT(?), pages = AES_ENCRYPT(?)`,
+        [dataName, dataPages],
         function (error, results, fields) {
 
             connection.release();
             if (error) console.log(error);
 
-            let new_results = ConvertDataToString(results, [['id'], ['name'], ['pages']]);
-
-            reply.send(new_results);
+            reply.sendStatus(200);
         });
     })
 })
 
 router.put('/roles', function(request, reply){
 
+    const dataName = [request.body.name, keysForTables.roles.name];
+    const dataPages = [request.body.pages.join(', '), keysForTables.roles.pages];
+
     mysql.getConnection(function(err, connection) {
         if (err) {
             console.log(err);
             return;
         }
         
-        connection.query(`SELECT id_role as id, AES_DECRYPT(name, '${keysForTables.roles.name}') as name, AES_DECRYPT(name, '${keysForTables.roles.pages}') as pages FROM roles`,
+        connection.query(`UPDATE roles SET name = AES_ENCRYPT(?), pages = AES_ENCRYPT(?) WHERE id_role = ?`,
+        [dataName, dataPages, request.body.id],
         function (error, results, fields) {
 
             connection.release();
             if (error) console.log(error);
 
-            let new_results = ConvertDataToString(results, [['id'], ['name'], ['pages']]);
-
-            reply.send(new_results);
+            reply.sendStatus(200);
         });
     })
+})
+
+router.delete('/roles', function(request, reply){
+
+  
+
+    async.series([
+        function(done)
+        {
+            mysql.query(`UPDATE employees SET id_role = NULL WHERE id_role = ?`,
+            [request.body.id],
+            function (error, results) {
+    
+                if (error) console.log(error);
+    
+                done();
+            });
+      
+            
+         },
+        function(done)
+        {
+            mysql.query(`DELETE FROM roles WHERE id_role = ?`,
+            [request.body.id],
+            function (error, results) {
+
+                if (error) console.log(error);
+
+                done();
+            });
+            
+        }
+        
+        
+    ], function(err){
+
+        if (err) console.log(err);
+        reply.sendStatus(200);
+    })  
 })
 
 router.get('/languages', function(request, reply){
@@ -716,16 +759,21 @@ router.get('/employees', function(request, reply){
 
     let sql = '';
 
+    if (request.query.verify !== undefined)
+    {
+        sql = `SELECT AES_DECRYPT(roles.pages, '${keysForTables.roles.pages}') as pages FROM employees INNER JOIN roles ON roles.id_role = employees.id_role WHERE employees.login = AES_ENCRYPT('${request.query.login}', '${keysForTables.employees.login}') AND employees.password = AES_ENCRYPT('${request.query.password}', '${keysForTables.employees.password}')`
+    }
+    else
     if (request.query.for == 'roles')
     {
         
-        sql = `SELECT id_employee as id, AES_DECRYPT(name, '${keysForTables.employees.name}') as name, AES_DECRYPT(profession, '${keysForTables.employees.profession}') as profession FROM employees`
+        sql = `SELECT id_employee as id, AES_DECRYPT(name, '${keysForTables.employees.name}') as name, AES_DECRYPT(profession, '${keysForTables.employees.profession}') as profession, id_role FROM employees`
     }
     else
     {
         sql = `SELECT id_employee as id, AES_DECRYPT(name, '${keysForTables.employees.name}') as name, AES_DECRYPT(email, '${keysForTables.employees.email}') as email, AES_DECRYPT(phone, '${keysForTables.employees.phone}') as phone, AES_DECRYPT(description, '${keysForTables.employees.description}') as description, AES_DECRYPT(password, '${keysForTables.employees.password}') as password, AES_DECRYPT(login, '${keysForTables.employees.login}') as login, AES_DECRYPT(profession, '${keysForTables.employees.profession}') as profession, salary FROM employees`;
     }
-
+    
     mysql.getConnection(function(err, connection) {
         if (err) {
             console.log(err);
@@ -734,17 +782,29 @@ router.get('/employees', function(request, reply){
         
         connection.query(sql,
         function (error, results, fields) {
-
+        
             connection.release();
             if (error) console.log(error);
-
+           
             let new_results = ConvertDataToString(results, [['id'], ['name'], ['email'], ['salary'],
                                                             ['phone', 'phone', true], ['description'], 
-                                                            ['password'], ['login'], ['profession']]);
+                                                            ['password'], ['login'], ['profession'], 
+                                                            ['id_role'], ['pages']]);
             let employees = [];
-
+           
+            if (request.query.verify !== undefined)
+            {
+               // console.log(new_results[0].pages)
+                if (new_results[0] !== undefined)
+                    employees = new_results[0].pages.split(', ');
+            }
+            else
             if (request.query.for == 'roles')
+            {
                 employees = new_results;
+
+            }
+            else
             if (Boolean(request.query.isHire == 'true'))
             {
                 new_results.map((res)=>{
@@ -769,7 +829,7 @@ router.get('/employees', function(request, reply){
 
                 })
             }
-            
+      
             reply.send(employees);
         });
     })
@@ -819,6 +879,12 @@ router.put('/employees', function(request, reply){
                                            ['password', request.body.password, keysForTables.employees.password],
                                            ['salary', request.body.salary]])
         sql = multiplyConditions(sql, [{value: request.body.id, password: ''}], 'id_employee', 'IN')
+    }
+    else
+    if (request.query.idRole !== undefined)
+    {
+        sql = sqlQueryUpdate('employees', [['id_role', request.body.id_role]])
+        sql = multiplyConditions(sql, [{value: request.body.id_employee}], 'id_employee', 'IN')
     }
     console.log(sql)
     mysql.getConnection(function(err, connection) {

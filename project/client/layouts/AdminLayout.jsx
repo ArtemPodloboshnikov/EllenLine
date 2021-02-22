@@ -2,11 +2,11 @@ import AdminHeader from '../components/Common/Header/AdminHeader';
 import DbHeader from '../components/Common/Header/DbHeader';
 import OrdersHeader from '../components/Common/Header/OrdersHeader';
 import Head from 'next/head';
+import {useState} from 'react';
+import AuthorizationContext from './authorization';
 
 export default function AdminLayout ({children, sector, title = 'Эллинлайн'}){
-
-    console.log(sector);
-
+    
     function ConvertSector(to_sector) {
         switch (to_sector) {
 
@@ -28,8 +28,8 @@ export default function AdminLayout ({children, sector, title = 'Эллинла�
                 <title>{title}</title>
             </Head>
             <main>
-                {ConvertSector(sector)}
-                {children}
+                    {ConvertSector(sector)}
+                    {children}
             </main>
         </>
     )

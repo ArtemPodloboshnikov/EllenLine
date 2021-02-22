@@ -25,41 +25,148 @@ const Roles = () => {
     const [indexData, setIndexData] = useState(-1);
     const [roles, setRoles] = useState({});
     const [dbData, setDbData] = useState({});
-    const [pages, setPages] = useState([]);
-    const pagesAll = ['Промокоды', 'Сотрудники', 'Заказы', 'Трафик', 'Страницы', 'Финансы', 'База данных'];
+    const [currentRole, setCurrentRole] = useState([]);
+    const pagesAll = ['Промокоды', 'Сотрудники', 'Заказы', 'Трафик', 'Страницы', 'Финансы', 'База данных', '*'];
     let rolesNameId = {};
     let rolesNamePages = {};
-    let rolesName = Object.keys(rolesNameId) || [];
+    
     const rolesPages = (roleName) =>{
         
         return rolesNamePages[roleName];
     }
-    console.log(rolesPages)
-    if (rolesName.length != 0)
+    function updateDataBeforeActionOfForm(status, method)
     {
+        setMessage({style: {display: 'grid'}, status: status, method: method})
+        setIndexData(-1);
+        setDbData({});
+    }
+    function whichPages(data, changeField)
+    {
+        data.pages = data[changeField];
+        delete data[changeField];
+
+        if (data.pages == '*')
+        {
+            const pages_all = [...pagesAll].filter((page) => page !== '*');
+            data.pages = pages_all;
+        } 
+        else
+        {
+
+            data.pages = data.pages.split(', ');
+        }
+    }
+    
+    if (Object.keys(roles).length != 0)
+    {
+        let rolesIdName = {}
         roles.map((role)=>{
 
             rolesNameId[role.name] = role.id;
             rolesNamePages[role.name] = role.pages;
+            rolesIdName[role.id] = role.name;
         })
+
+        
+        Object.values(dbData).map((employee)=>{
+
+            employee.role = rolesIdName[employee.id_role];
+        }) 
+
+    }
+    console.log(rolesNameId)
+    let rolesName = Object.keys(rolesNameId) || [];
+
+    const handleAdd = (data) =>{
+
+        
+        whichPages(data, 'pagesInsert');
+        
+        async function add(info)
+        {
+            const res = await fetch(Global.urlServer + '/api/roles', {
+
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json;charset=utf-8'
+                },
+                body: JSON.stringify(info)
+            });
+            updateDataBeforeActionOfForm(res.status, 'insert');
+        }
+
+        add(data);
     }
     const handleEdit = (data) =>{
 
-        async function edit()
+        let temp_data = {...data};
+        data.id = rolesNameId[temp_data.name];
+        data.name = temp_data.newName;
+        delete data.newName;
+        whichPages(data, 'pagesUpdate');
+        console.log(data)
+        async function edit(info)
         {
-            const res = await fetch(Global.urlServer + '/api/');
+            const res = await fetch(Global.urlServer + '/api/roles', {
+
+                method: 'PUT',
+                headers: {
+                    'Content-Type': 'application/json;charset=utf-8'
+                },
+                body: JSON.stringify(info)
+            });
+
+            updateDataBeforeActionOfForm(res.status, 'update');
+            
         }
-        console.log(data);
+
+        edit(data)
     }
     
     const handleDelete = (data) =>{
 
-        console.log(data)
+        data.id = rolesNameId[data.nameDelete];
+        delete data.nameDelete;
+       
+        async function deleteData(info)
+        {
+            const res = await fetch(Global.urlServer + '/api/roles', {
+
+                method: 'DELETE',
+                headers: {
+                    'Content-Type': 'application/json;charset=utf-8'
+                },
+                body: JSON.stringify(info)
+            });
+
+            updateDataBeforeActionOfForm(res.status, 'delete');
+            
+        }
+
+        deleteData(data)
     }
 
     const handleGive = (data) =>{
-
         console.log(data)
+        data.id_role = rolesNameId[data.nameGive];
+        delete data.nameGive;
+        
+        async function update(info)
+        {
+            const res = await fetch(Global.urlServer + '/api/employees?idRole=true', {
+
+                method: 'PUT',
+                headers: {
+                    'Content-Type': 'application/json;charset=utf-8'
+                },
+                body: JSON.stringify(info)
+            });
+
+            updateDataBeforeActionOfForm(res.status, 'update');
+            setDialogWindow({style: {display: 'none'}, title: '', text: ''})
+        }
+
+        update(data)
     }
     useEffect(()=>{
 
@@ -72,7 +179,6 @@ const Roles = () => {
             res = await fetch(Global.urlServer + '/api/roles');
             json = await res.json();
             setRoles(json);
-
             setIndexData(-2);
         } 
         
@@ -90,12 +196,10 @@ const Roles = () => {
 
                 return (
                 <form className={classes.message_content} onSubmit={handleSubmitGive(handleGive)}>
-                    <SelectEntered className={classes.select} type='select' name='roles' arrowSize={arrowSize}
+                    <SelectEntered className={classes.select} type='select' name='nameGive' arrowSize={arrowSize}
                     register={registerGive({required: true})} options={rolesName} placeholder='Роли'/>
-                    <SelectEntered className={classes.select} type='multiply' name='pagesForMan' arrowSize={arrowSize}
-                    register={registerGive({required: true})} options={pagesAll} placeholder='Страницы'/>
                     <Button value='Изменить' className={classes.button}/>
-                    <input type='hidden' name='index' value={indexData}/>
+                    <input type='hidden' name='id_employee' ref={registerGive({required: true})} value={dbData[indexData].id}/>
                 </form>
                 )
 
@@ -110,21 +214,23 @@ const Roles = () => {
         <>
             <div className={classes.forms}>
                 <form className={classForm.form + ' ' + classes.form} onSubmit={handleSubmitDelete(handleDelete)}>
-                    <SelectEntered arrowSize={arrowSize} className={classes.select} type='select' name='roles' 
+                    <SelectEntered arrowSize={arrowSize} className={classes.select} type='select' name='nameDelete' 
                     register={registerDelete({required: true})} options={rolesName} placeholder='Роли'/>
                     <Button className={classes.button} value='Удалить роль'/>
                 </form>   
                 <form className={classForm.form + ' ' + classes.form} onSubmit={handleSubmitEdit(handleEdit)}>
-                    <SelectEntered className={classes.inputText} register={registerEdit({required: true})} 
-                    name='name' placeholder='Название роли' options={rolesName} onChangeFunction={(obj)=>setPages(rolesPages(obj.value))}/>
-                    <SelectEntered className={classes.select} type='multiply' name='pages' arrowSize={arrowSize}
-                    register={registerEdit({required: true})} options={pages} placeholder='Страницы'/>
+                    <SelectEntered className={classes.inputText} arrowSize={arrowSize}  register={registerEdit({required: true})}
+                    name='name' placeholder='Название роли' options={rolesName} onChangeFunction={(obj)=>setCurrentRole(obj.value)}/>
+                    <InputText className={classes.inputText} register={registerEdit({required: true})} 
+                    name='newName' placeholder='Новое название' value={currentRole}/>
+                    <SelectEntered className={classes.select} type='multiply' name='pagesUpdate' arrowSize={arrowSize}
+                    register={registerEdit({required: true})} options={pagesAll} value={rolesPages(currentRole)} placeholder='Страницы'/>
                     <Button className={classes.button} value='Изменить роль'/>
                 </form>   
-                <form className={classForm.form + ' ' + classes.form} onSubmit={handleSubmitAdd(handleEdit)}>
+                <form className={classForm.form + ' ' + classes.form} onSubmit={handleSubmitAdd(handleAdd)}>
                     <InputText className={classes.inputText} register={registerAdd({required: true})} 
                     name='name' placeholder='Название роли'/>
-                    <SelectEntered className={classes.select} type='multiply' name='pages' arrowSize={arrowSize}
+                    <SelectEntered className={classes.select} type='multiply' name='pagesInsert' arrowSize={arrowSize}
                     register={registerAdd({required: true})} options={pagesAll} placeholder='Страницы'/>
                     <Button className={classes.button} value='Добавить роль'/>
                 </form>   
@@ -132,7 +238,7 @@ const Roles = () => {
 
             <Message setFunction={setMessage} status={message.status} method={message.method} style={message.style}/>
             <ShowInfo setFunction={setDialogWindow} style={dialogWindow.style} title={dialogWindow.title} text={dialogWindow.text}/>
-            <Table titles={[{value: 'Имя', key: 'name'}, {value: 'Профессия', key: 'profession'}]} 
+            <Table titles={[{value: 'Имя', key: 'name'}, {value: 'Профессия', key: 'profession'}, {value: 'Роль', key: 'role'}]} 
             info={dbData} className={classes.table} ActionButton={({index})=>{
                 return <button onClick={()=>{
 

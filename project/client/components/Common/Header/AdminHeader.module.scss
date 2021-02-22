@@ -8,6 +8,10 @@
     display: grid;
     grid-template-columns: repeat(3, 1fr);
     grid-template-rows: repeat(3, 1fr);
+    grid-template-areas: 
+    'db traffic orders'
+    '. promocode .'
+    'pages employees finance';
     justify-items: center;
     align-items: center;
     & > a{
@@ -16,5 +20,33 @@
         font-family: 'Mediator Serif';
         font-size: 1.6em;
         cursor: pointer;
+    }
+    .db
+    {
+        grid-area: db;
+    }
+    .traffic
+    {
+        grid-area: traffic;
+    }
+    .orders
+    {
+        grid-area: orders;
+    }
+    .promocode
+    {
+        grid-area: promocode;
+    }
+    .pages
+    {
+        grid-area: pages;
+    }
+    .employees
+    {
+        grid-area: employees;
+    }
+    .finance
+    {
+        grid-area: finance;
     }
 }

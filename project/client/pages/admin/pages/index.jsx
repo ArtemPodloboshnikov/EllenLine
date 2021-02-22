@@ -9,7 +9,7 @@ import TextArea from '../../../components/CustomElements/TextArea';
 import DynamicList from '../../../components/CustomElements/DynamicList';
 import Button from '../../../components/CustomElements/Button';
 import Terms from '../../../components/Terms/Terms';
-import Message from '../../../components/Common/DialogWindow/Message';
+import Message from '../../../components/Common/DialogWindow/MessageDB';
 //
 import classes from './index.module.scss';
 

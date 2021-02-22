@@ -106,8 +106,9 @@ const Table = ({titles, info, className, ActionButton}) => {
                     value = (value)? 'Да' : 'Нет';
                 }
                 else
-                if (value !== undefined)
+                if (value !== undefined && value !== null)
                 {
+                    
                     if (value.length > 20)
                     {
                         let text = value;

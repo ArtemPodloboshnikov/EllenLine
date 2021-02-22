@@ -1,0 +1,39 @@
+@import '../../styles/index.scss';
+
+.wrap
+{
+    width: 100%;
+    height: 100vh;
+    background-color: $primary_color;
+    display: grid;
+    grid-row-gap: 3%;
+
+    & input
+    {
+        color: $sub_color;
+    }
+    & > div
+    {
+        border: 5px solid $sub_color;
+        height: 10vh;
+        width: 30%;
+        @extend %grid_center;
+    }
+    & > div:first-child
+    {
+        align-self: end;
+    }
+    & > div:nth-child(2), div:nth-child(3)
+    {
+        align-self: start;
+    }
+    & > div:hover:nth-child(3)
+    {
+        background-color: $sub_color;
+
+        & > input 
+        {
+            color: $primary_color;
+        }
+    }
+}
