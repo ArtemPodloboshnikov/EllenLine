@@ -43,7 +43,7 @@ const AdminHeader = (props) => {
       // jsxStyle[indexStyle] = jsxStyle[indexStyle].substring(0, jsxStyle[indexStyle].length - 1);
       // jsxStyle[indexStyle] += ' ';
       jsxStyle[indexStyle] += `${adminPages[page]}` + ' ';
-      if (indexColumn <= 3)
+      if (indexColumn < 3)
          indexColumn++;
     }
    console.log(indexStyle)

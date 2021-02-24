@@ -32,13 +32,13 @@ router.get('/orders', function(request, reply){
             return;
         }
         
-        connection.query(`SELECT id_order as id, AES_DECRYPT(title, '${keysForTables.orders.title}') as title, price, AES_DECRYPT(client_name, '${keysForTables.orders.client_name}') as client_name, AES_DECRYPT(phone, '${keysForTables.orders.phone}') as phone, AES_DECRYPT(email, '${keysForTables.orders.email}') as email, AES_DECRYPT(clients, '${keysForTables.orders.clients}') as clients, date_start, date_end, time, isPaid FROM orders`,
+        connection.query(`SELECT id_order as id, AES_DECRYPT(title, '${keysForTables.orders.title}') as title, price, AES_DECRYPT(client_name, '${keysForTables.orders.client_name}') as client_name, AES_DECRYPT(phone, '${keysForTables.orders.phone}') as phone, AES_DECRYPT(email, '${keysForTables.orders.email}') as email, AES_DECRYPT(clients, '${keysForTables.orders.clients}') as clients, date_start, date_end, time, isPaid, payment_id FROM orders`,
         function (error, results, fields) {
 
             connection.release();
             if (error) console.log(error);
 
-            let new_results = ConvertDataToString(results, [['id'], ['title'], ['price'], ['client_name'], ['phone', 'phone', true], ['email'], ['date_start'], ['date_end'], ['time'], ['isPaid'], ['clients']]);
+            let new_results = ConvertDataToString(results, [['id'], ['title'], ['price'], ['client_name'], ['phone', 'phone', true], ['email'], ['date_start'], ['date_end'], ['time'], ['isPaid'], ['clients'], ['payment_id']]);
 
             reply.send(new_results);
         });
@@ -81,48 +81,64 @@ router.post('/orders', function(request, reply){
         time = request.body.time;
     }
     async.series([
-        function(done)
-        {
-            mysql.query(`INSERT INTO orders SET title = AES_ENCRYPT(?), phone = AES_ENCRYPT(?), email = AES_ENCRYPT(?), client_name = AES_ENCRYPT(?), price = ?, clients = AES_ENCRYPT(?), date_start = ?, date_end = ?, ${idServiceColumn} = ?, time = ?`,
-            [titleData, phoneData, emailData, clientNameData, request.body.price, clientsData, request.body.date_start, request.body.date_end, request.body.idService, time], 
-            function (error, results, fields) {
 
-                if (error) console.log(error);
-                
-                done();
-            });
-            
-         },
         function(done)
         {
-            mysql.query(`SELECT id_order as id FROM orders ORDER BY id_order DESC LIMIT 1`,
+            mysql.query(`SELECT id_order as id FROM orders WHERE title = AES_ENCRYPT(?) AND phone = AES_ENCRYPT(?) AND email = AES_ENCRYPT(?) AND client_name = AES_ENCRYPT(?) AND isPaid = 0`,
+            [titleData, phoneData, emailData, clientNameData],
             function (error, results, fields) {
 
                 if (error) console.log(error);
                 
                 let new_results = ConvertDataToString(results, [['id']]);
-
-                outputs = new_results;
+                
+                if (new_results[0] !== undefined)
+                    outputs = new_results;
+                console.log(outputs)
                 done();
             });
             
         },
-        // function(done)
-        // {
-           
-        //     mysql.query('INSERT INTO countries_bind_cities SET id_city=?, id_country=?',
-        //     [lastCityId, request.body.idCountry], 
-        //     function (error, results, fields) {
+        function(done)
+        {
+            if (outputs.length == 0)
+            {
+                mysql.query(`INSERT INTO orders SET title = AES_ENCRYPT(?), phone = AES_ENCRYPT(?), email = AES_ENCRYPT(?), client_name = AES_ENCRYPT(?), price = ?, clients = AES_ENCRYPT(?), date_start = ?, date_end = ?, ${idServiceColumn} = ?, time = ?`,
+                [titleData, phoneData, emailData, clientNameData, request.body.price, clientsData, request.body.date_start, request.body.date_end, request.body.idService, time], 
+                function (error, results, fields) {
+    
+                    if (error) console.log(error);
+                    
+                });
 
-        //         if (error) console.log(error);
-
-        //         done();
-        //     });
+            }
             
-        // }
+            done();
+         },
+        function(done)
+        {
+            if (outputs.length == 0)
+            {
+                
+                mysql.query(`SELECT id_order as id FROM orders WHERE title = AES_ENCRYPT(?) AND phone = AES_ENCRYPT(?) AND email = AES_ENCRYPT(?) AND client_name = AES_ENCRYPT(?) AND isPaid = 0`,
+                [titleData, phoneData, emailData, clientNameData],
+                function (error, results, fields) {
+    
+                    if (error) console.log(error);
+                    console.log(`results: ${results}`)
+                    let new_results = ConvertDataToString(results, [['id']]);
+                    
+                    outputs = new_results;
+                    console.log(outputs)
+                    done();
+                });
+            }
+            
+            
+        }
         
     ], function(err){
-
+        console.log(outputs)
         if (err) console.log(err);
         reply.send(outputs);
     })  
@@ -130,73 +146,89 @@ router.post('/orders', function(request, reply){
 
 router.put('/orders', function(request, reply){
 
-        if (request.query.success !== undefined)
+    if (request.query.success !== undefined)
+    {
+        let outputs = [];
+        let idServiceColumn = '';
+        let id = request.body.id;
+        const id_order = request.body.id_order;
+        const payment_id = request.body.payment_id;
+        let type = request.body.type;
+        if (type == 'relax')
         {
-            let outputs = [];
-            let idServiceColumn = '';
-            let id = request.body.id;
-            let type = request.body.type;
-            if (type == 'relax')
-            {
-                idServiceColumn = 'id_relax'
-            }
-            else
-            if(type == 'treatments')
-            {
-                idServiceColumn = 'id_treatment'
-            }
-            else
-            if(type == 'tours')
-            {
-                idServiceColumn = 'id_tour'
-            }
+            idServiceColumn = 'id_relax'
+        }
+        else
+        if(type == 'treatments')
+        {
+            idServiceColumn = 'id_treatment'
+        }
+        else
+        if(type == 'tours')
+        {
+            idServiceColumn = 'id_tour'
+        }
 
-            async.series([
-                function(done)
-                {
-                    mysql.query(`UPDATE orders SET isPaid = true WHERE ${idServiceColumn} = ?`,
-                    [id],
-                    function (error, results) {
-            
-                        if (error) console.log(error);
-            
-                        done();
-                    });
-              
-                    
-                 },
-                function(done)
-                {//`UPDATE ${type} as table1 SET table1.count = (SELECT table2.count - 1  FROM (SELECT count FROM ${type} WHERE ${idServiceColumn} = ?) as table2) WHERE table1.${idServiceColumn} = ?`
-                    if (type == 'relax') type += '_';
-                    mysql.query(`UPDATE ${type} as table1 JOIN ${type} as table2 ON table2.${idServiceColumn} = ? SET table1.count = table2.count - 1 WHERE table1.${idServiceColumn} = ? AND table1.count > 0`,
-                    [id, id],
-                    function (error, results, fields) {
+        async.series([
+            function(done)
+            {
+                mysql.query(`UPDATE orders SET isPaid = true, payment_id = ? WHERE ${idServiceColumn} = ? AND id_order = ?`,
+                [payment_id, id, id_order],
+                function (error, results) {
         
-                        if (error) console.log(error);
-                        
-                        done();
-                    });
-                    
-                },
-                function(done)
-                {
-                   
-                    mysql.query(`SELECT count FROM ${type} WHERE ${idServiceColumn} = ?`,
-                    [id], 
-                    function (error, results, fields) {
+                    if (error) console.log(error);
         
-                        if (error) console.log(error);
-                        outputs = ConvertDataToString(results, [['count']])
-                        done();
-                    });
-                    
-                }
+                    done();
+                });
+            
                 
-            ], function(err){
-        
-                if (err) console.log(err);
-                reply.send(outputs);
-            })  
+                },
+            function(done)
+            {//`UPDATE ${type} as table1 SET table1.count = (SELECT table2.count - 1  FROM (SELECT count FROM ${type} WHERE ${idServiceColumn} = ?) as table2) WHERE table1.${idServiceColumn} = ?`
+                if (type == 'relax') type += '_';
+                mysql.query(`UPDATE ${type} as table1 JOIN ${type} as table2 ON table2.${idServiceColumn} = ? SET table1.count = table2.count - 1 WHERE table1.${idServiceColumn} = ? AND table1.count > 0`,
+                [id, id],
+                function (error, results, fields) {
+    
+                    if (error) console.log(error);
+                    
+                    done();
+                });
+                
+            },
+            // function(done)
+            // {
+                
+            //     mysql.query(`SELECT count FROM ${type} WHERE ${idServiceColumn} = ?`,
+            //     [id], 
+            //     function (error, results, fields) {
+    
+            //         if (error) console.log(error);
+            //         outputs = ConvertDataToString(results, [['count']])
+            //         done();
+            //     });
+                
+            // },
+            function(done)
+            {
+                
+                mysql.query(`SELECT date_start, date_end, time, AES_DECRYPT(client_name, '${keysForTables.orders.client_name}') as client_name, AES_DECRYPT(clients, '${keysForTables.orders.clients}') as clients, price, AES_DECRYPT(title, '${keysForTables.orders.title}') as title, AES_DECRYPT(email, '${keysForTables.orders.email}') as email FROM orders WHERE ${idServiceColumn} = ? AND id_order = ?`,
+                [id, id_order], 
+                function (error, results, fields) {
+    
+                    if (error) console.log(error);
+                    const data = ConvertDataToString(results, [['date_start'], ['date_end'], ['client_name'], ['clients'], ['price'], ['title'], ['email']]);
+                    outputs = data;
+                    done();
+                });
+                
+            }
+            
+        ], function(err){
+    
+            if (err) console.log(err);
+            reply.send(outputs);
+        })  
            
                 
                 
@@ -206,10 +238,11 @@ router.put('/orders', function(request, reply){
     {
 
         let time = '';
-        titleData = [request.body.title, keysForTables.orders.title];
-        phoneData = [request.body.phone, keysForTables.orders.phone];
-        emailData = [request.body.email, keysForTables.orders.email];
-        clientNameData = [request.body.client_name, keysForTables.orders.client_name];
+        const titleData = [request.body.title, keysForTables.orders.title];
+        const phoneData = [request.body.phone, keysForTables.orders.phone];
+        const emailData = [request.body.email, keysForTables.orders.email];
+        const clientNameData = [request.body.client_name, keysForTables.orders.client_name];
+        const clientsData = [request.body.clients.join(', '), keysForTables.orders.clients];
         
         if (request.body.time === undefined)
         {
@@ -226,8 +259,8 @@ router.put('/orders', function(request, reply){
                 return;
             }
             
-            connection.query('UPDATE orders SET title = AES_ENCRYPT(?), phone = AES_ENCRYPT(?), email = AES_ENCRYPT(?), client_name = AES_ENCRYPT(?), price = ?, date_start = ?, date_end = ?, time = ? WHERE id_order = ?',
-            [titleData, phoneData, emailData, clientNameData, request.body.price, request.body.date_start, request.body.date_end, time, request.query.id],
+            connection.query('UPDATE orders SET title = AES_ENCRYPT(?), phone = AES_ENCRYPT(?), email = AES_ENCRYPT(?), client_name = AES_ENCRYPT(?), clients = AES_ENCRYPT(?), price = ?, date_start = ?, date_end = ?, time = ? WHERE id_order = ?',
+            [titleData, phoneData, emailData, clientNameData, clientsData, request.body.price, request.body.date_start, request.body.date_end, time, request.query.id],
             function (error, results) {
     
                 connection.release();
@@ -237,6 +270,27 @@ router.put('/orders', function(request, reply){
             });
         })
     }
+})
+
+router.delete('/orders', function(request, reply){
+
+    mysql.getConnection(function(err, connection) {
+        if (err) {
+            console.log(err);
+            return;
+        }
+        
+        connection.query(`DELETE FROM orders WHERE id_order = ?`,
+        [request.body.id],
+        function (error, results, fields) {
+
+            connection.release();
+            if (error) console.log(error);
+
+
+            reply.sendStatus(200);
+        });
+    })
 })
 
 router.get('/treatment', function(request, reply){

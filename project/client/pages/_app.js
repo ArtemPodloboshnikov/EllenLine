@@ -2,12 +2,14 @@ import './../styles/globals.scss';
 import Authorization from '../components/Admin/Authorization';
 import AuthorizationContext from '../layouts/authorization';
 import Error from './_error';
-import {useState} from 'react';
+import {useState, useContext} from 'react';
 import {useRouter} from 'next/router';
 
 function MyApp({ Component, pageProps }) {
-
-  const [authorization, setAuthorization] = useState({isVerify: false, pages: ''});
+  
+  const {isVerify: origin_isVerify, pages: origin_pages} = useContext(AuthorizationContext);
+  console.log(origin_isVerify)
+  const [authorization, setAuthorization] = useState((origin_isVerify === undefined)?{isVerify: false, pages: ''}: {isVerify: origin_isVerify, pages: origin_pages});
   const router = useRouter();
   const route = router.route;
   

@@ -11,7 +11,15 @@ const ShowInfo = (props) => {
                     {props.text}
                 </div>
                 <div>
-                    <div className={messageStyle.close} onClick={() => props.setFunction({style: {display: 'none'}, title: props.title, text: ''})}></div>
+                    <div className={messageStyle.close} onClick={() => {
+
+                        props.setFunction({style: {display: 'none'}, title: props.title, text: ''});
+
+                        if (props.function_on_close !== undefined)
+                        {
+                            props.function_on_close();
+                        }
+                    }}></div>
                 </div>
             </div>
             <div className={messageStyle.wrap} style={props.style}>

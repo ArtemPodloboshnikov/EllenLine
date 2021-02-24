@@ -6,6 +6,8 @@ import InfoSection from '../../../../../components/Common/InfoSection/InfoSectio
 import Providers from '../../../../../components/Common/Providers/Providers.jsx';
 import Timetable from '../../../../../components/Common/Timetable/Timetable.jsx';
 import ClientLayout from '../../../../../layouts/ClientLayout.jsx';
+import ShowInfo from '../../../../../components/Common/DialogWindow/ShowInfo';
+import templateMail from '../../../../../MailTemplates/OrderMail';
 //
 import Global from '../../../../global.js';
 import classes from './index.module.scss';
@@ -17,6 +19,10 @@ const Resort = ({data}) => {
     const type = router.query.type;
     const resort = router.query.resort;
     const id = router.query.id;
+    const url_callback = Global.url + '/resorts/' + type + '/' + resort + '/' + id;
+    const [mail, setMail] = useState(false);
+    const [dialogWindow, setDialogWindow] = useState({style: {display: 'none'}, title: '', text: '', function_on_close: ()=>{}});
+
     //relax, tours, cruises
     // const id = props.id;
     // const images = props.images;
@@ -39,43 +45,116 @@ const Resort = ({data}) => {
     console.log(type)
     useEffect(() => {
 
-        async function get()
+        if (router.query.result == 'success' && !mail)
         {
-            
-            const res = await fetch(`${Global.urlServer}/api/${type}?id=${id}`)
-            let item = await res.json();
-            item = item[0];
-            
-            setDbData({
-            
-                    //relax, tours, cruises
-                    id: item.id,
-                    images: item.images,
-                    title: item.title,
-                    price: item.price,
-                    services: JSON.parse(item.services),
-                    text: item.description,
-                    address: item.address,
-                    points: item.coordinates.split(','),
-                    discount: item.discount,
-                    countServices: item.count,
-                    //relax
-                    stars: item.stars || null,
-                    pricePerChild: item.pricePerChild || null,
-                    typeOfRoom: item.typeOfRoom || null,
-                    //tours, cruises
-                    info: item.info || null,
-                    timetable: item.timetable || null,
-                    duration: item.duration || null
-                }
-            );
-                
+            setMail(true);
+            updateOrderAndService();
             
         }
+        else
+        if (router.query.result == 'fail')
+        {
+            deleteOrder();
+        }
+        else
         if (!data)
         {
             get();
         }
+        async function deleteOrder()
+        {
+            const res = await fetch(`${Global.urlServer}/api/orders`, {
+                method: 'DELETE',
+                headers: {
+                    'Content-Type': 'application/json;charset=utf-8'
+                },
+                body: JSON.stringify({
+                    id: router.query.orderId
+                })
+            })
+
+            router.push(url_callback.split('?')[0]);
+        }
+        async function updateOrderAndService()
+        {
+          
+            const res = await fetch(`${Global.urlServer}/api/orders?success=true`, {
+                method: 'PUT',
+                headers: {
+                    'Content-Type': 'application/json;charset=utf-8'
+                },
+                body: JSON.stringify({
+                    id: id,
+                    id_order: router.query.orderId,
+                    payment_id: router.query.payment_id,
+                    type: type
+                })
+            })
+            console.log(router)
+            const json = await res.json();
+            console.log(json)
+            get();
+            const sendMail = await Email.send({
+                Host : "smtp.timeweb.ru",
+                Username : "info@ellinline.ru",
+                Password : "6ca46WQE",
+                To : json[0].email,
+                From : "info@ellinline.ru",
+                Subject : "Эллинлайн: Информация о вашем заказе",
+                Body : templateMail(router.query.payment_id, json[0].title, json[0].client_name, json[0].clients, json[0].price, json[0].date_start, json[0].date_end, json[0].time)
+            })
+            console.log(url_callback)
+            
+            
+            if (sendMail == 'OK')
+            {
+                    
+                setDialogWindow({style: {display: 'grid'}, title: 'Письмо отправлено', text: 'Вся информация о заказе пришла к вам на почту (проверьте папку "Спам", если не нашли письма).', function_on_close: ()=>{router.push(url_callback.split('?')[0]);}});
+            }
+
+            
+           
+        
+   
+            
+        
+        }
+        async function get()
+        {
+     
+      
+                const res = await fetch(`${Global.urlServer}/api/${type}?id=${id}`)
+                let item = await res.json();
+                item = item[0];
+                console.log(item)
+                setDbData({
+                
+                        //relax, tours, cruises
+                        id: item.id,
+                        images: item.images,
+                        title: item.title,
+                        price: item.price,
+                        services: JSON.parse(item.services),
+                        text: item.description,
+                        address: item.address,
+                        points: item.coordinates.split(','),
+                        discount: item.discount,
+                        countServices: item.count,
+                        //relax
+                        stars: item.stars || null,
+                        pricePerChild: item.pricePerChild || null,
+                        typeOfRoom: item.typeOfRoom || null,
+                        //tours, cruises
+                        info: item.info || null,
+                        timetable: item.timetable || null,
+                        duration: item.duration || null
+                    }
+                );
+                    
+                
+            
+        }
+        
     }, [])
 
     const WrapForPreloader = ({data, type}) =>{
@@ -111,8 +190,9 @@ const Resort = ({data}) => {
                 discount={data.discount}
                 type={type}
                 countServices={data.countServices}
-                url_callback={Global.url + '/resorts/' + type + '/' + resort + '/' + id}
+                url_callback={url_callback}
                 />
+                <ShowInfo function_on_close={dialogWindow.function_on_close} setFunction={setDialogWindow} style={dialogWindow.style} title={dialogWindow.title} text={dialogWindow.text} />
             </div>
         )
 

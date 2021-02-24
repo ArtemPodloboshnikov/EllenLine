@@ -1,5 +1,6 @@
 import { useEffect, useState } from 'react';
 import additionalPrices from '../../../functions/AdditionalPrices';
+import dateParser from '../../../functions/DateParser';
 import Global from '../../../pages/global';
 import {useForm} from 'react-hook-form';
 import {useRouter} from 'next/router';
@@ -9,7 +10,7 @@ import InputText from '../../CustomElements/InputText.jsx';
 import InputDate from '../../CustomElements/InputDate.jsx';
 import PromoCode from '../../CustomElements/PromoCode';
 import SelectEntered from '../../CustomElements/SelectEntered';
-import InputMask from '../../CustomElements/InputMask.jsx';
+import ShowInfo from '../../Common/DialogWindow/ShowInfo';
 import Button from '../../CustomElements/Button.jsx';
 import InputNumber from '../../CustomElements/InputNumber.jsx';
 import PayWindow from '../../Common/DialogWindow/PayWindow';
@@ -34,16 +35,15 @@ const FormBooking = (props) => {
     const {register, handleSubmit, errors} = useForm();
     const [message, setMessage] = useState({style: {display: 'none'}});
     const [orderId, setOrderId] = useState(0);
-    const router = useRouter();
     const title = props.title;
     const id = props.id;
     const type = props.type;
-    const url_callback = props.url_callback;
+    let url_callback = props.url_callback + '?orderId=' + orderId;
     const [countServices, setCountServices] = useState(props.countServices);
     const arrowSize = [30, 30];
     const [currency, setCurrency] = useState('RUB');
     const [currencyData, setCurrencyData] = useState({value: 1, name: 'Рублей'});
-    const [valueDynamicSelect, setValueDynamicSelect] = useState([false]);
+    const [valueDynamicSelect, setValueDynamicSelect] = useState([false, '']);
     const [countParent, setCountParent] = useState(1);
     const pricePerChild = props.pricePerChild;
     const pricePerTeenager = props.pricePerTeenager;
@@ -51,7 +51,7 @@ const FormBooking = (props) => {
     const someoneAndPrice = additionalPrices({who: 'Ребёнок', price: pricePerChild}, 
                                              {who: 'Подросток', price: pricePerTeenager}, 
                                              {who: 'Питомец', price: pricePerPet});
-    console.log(countServices)
+    console.log(`countServices: ${countServices}`)
     let someoneElse = [];
     someoneAndPrice.map(someone =>{
 
@@ -97,31 +97,12 @@ const FormBooking = (props) => {
         setValueDynamicSelect(temp_valueDynamicSelect)
     }
 
-    if (router.query.result == 'success')
-    {
-        async function updateOrderAndService()
-        {
-            const res = await fetch(`${Global.urlServer}/api/orders?success=true`, {
-                method: 'PUT',
-                headers: {
-                    'Content-Type': 'application/json;charset=utf-8'
-                },
-                body: JSON.stringify({
-                    id: id,
-                    type: type
-                })
-            })
 
-            const json = await res.json();
-            setCountServices(json[0].count)
-            
-        }
-        updateOrderAndService();
-    }
     useEffect(()=>{
 
         async function insertOrder(data)
         {
+            let json = [];
             if (orderId == 0)
             {
 
@@ -133,13 +114,14 @@ const FormBooking = (props) => {
                     body: JSON.stringify(data)
                 })
     
-                const json = await res.json();
-                setOrderId(json[0].id);
+                json = await res.json();
                 console.log(json)
+                setOrderId(json[0].id);
             }
-            else
+            
+            if (orderId != 0 || json.length != 0)
             {
-                fetch(`${Global.urlServer}/api/orders?id=${orderId}`, {
+                fetch(`${Global.urlServer}/api/orders?id=${(orderId != 0)? orderId : json[0].id}`, {
                     method: 'PUT',
                     headers: {
                         'Content-Type': 'application/json;charset=utf-8'
@@ -153,7 +135,7 @@ const FormBooking = (props) => {
         if (message.style.display != 'none')
         {
             let people = [];
-            people.push(countParent + ((countParent == 1)? 'человек': ' человека'))
+            people.push(countParent + ((countParent == 1)? ' человек': ' человека'))
             let index = 1;
             let count_people = [];
             let flag = false;
@@ -163,7 +145,7 @@ const FormBooking = (props) => {
                 for ( ;j < people.length; j++)
                 {
                     let man = people[j].split(' ');
-                    if (valueDynamicSelect[i] == '' || valueDynamicSelect[i] === undefined) 
+                    if (valueDynamicSelect[i] == '' || valueDynamicSelect[i] == ' ' || valueDynamicSelect[i] === undefined) 
                     {
                         flag = true;
                         break;
@@ -278,7 +260,7 @@ const FormBooking = (props) => {
                 sections.room_or_tickets = 
                 <>
                     <SelectEntered className={classes.parents} type='select' value={'1 человек'}
-                                options={[ '1 человек', '2 человека', '3 человека', '4 человека' ]} onChangeFunction={(object) => {
+                                options={[ '1 человек', '2 человека', '3 человека', '4 человека']} onChangeFunction={(object) => {
                                     
                                     let countPeople = 0;
                                     if (object.value !== undefined)
@@ -312,8 +294,9 @@ const FormBooking = (props) => {
                                     temp_valueDynamicSelect[0] = true;
                                     temp_valueDynamicSelect[object.index + 1] = object.value;
                                     setValueDynamicSelect(temp_valueDynamicSelect);
+                                    
                                 }}
-                                options={someoneElse}
+                                options={someoneElse} name='extension' values={valueDynamicSelect}
                                 placeholder='Кто-то ещё' arrowSize={arrowSize}/>
                 </>;
                 break;

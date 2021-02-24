@@ -20,8 +20,8 @@ const SelectOption = (props) => {
                     {/* <select className={props.classSelect}>
                         {element}
                     </select> */}
-                    <SelectEntered className={props.classSelect} options={options} onChangeFunction={props.onChangeFunction}
-                    placeholder={placeholder} type='select' arrowSize={props.arrowSize} index={params.index}/>
+                    <SelectEntered className={props.classSelect} options={options} onChangeFunction={props.onChangeFunction} value={props.values[params.index + 1]}
+                    placeholder={placeholder} type='select' arrowSize={props.arrowSize} index={params.index} name={props.name + params.index}/>
                     <div className={classes.rightButton} onClick={AddSelectOption} aria-hidden="true"><Image layout='fill' src='/images/plus.svg'/></div>
                 </div>
             )

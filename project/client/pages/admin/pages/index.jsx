@@ -17,7 +17,7 @@ const index = () => {
 
     const [page, setPage] = useState('Условия оплаты');
     const [data, setData] = useState({});
-    const {register, handleSubmit, errors} = useForm();
+    const {register, handleSubmit} = useForm();
     const [formData, setFormData] = useState({}); 
     const [typesOfInfo, setTypesOfInfo] = useState({});
     const [preview, setPreview] = useState(false);
@@ -146,8 +146,8 @@ const index = () => {
     }, [preview])
 
     useEffect(()=>{
-
-        async function update()
+        console.log(`preview: ${preview}; update: ${update}`)
+        async function updateAction()
         {
             const temp_page = page.toLowerCase().replace(' ', '_');
             const response = await fetch(encodeURI(Global.urlServer + '/file/pages?namePage=' + temp_page), {
@@ -160,7 +160,7 @@ const index = () => {
             setUpdate(false);
             setMessage({style: {display: 'grid'}, status: response.status, method: 'update'});
         }
-        async function preview()
+        async function previewAction()
         {
             const res = await fetch(Global.urlServer + '/file/pages', {
                 method: 'POST',
@@ -177,13 +177,13 @@ const index = () => {
         console.log(formData)
         if (preview)
         {
-            preview()
+            previewAction()
             
         }
 
         if (update)
         {
-            update()
+            updateAction()
             
         } 
          

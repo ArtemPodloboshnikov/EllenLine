@@ -32,7 +32,7 @@ const SelectEntered = (props) => {
         
         if (props.onChangeFunction !== undefined)
         {
-            props.onChangeFunction({value: current_value, index: index});
+            props.onChangeFunction({value: current_value, index: index, setValue: setValue});
         }
         
         if (props.type != 'select')
