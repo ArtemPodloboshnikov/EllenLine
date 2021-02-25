@@ -1,6 +1,6 @@
 export default class Global {
-    static url = 'https://ellen-line-84grpew8p-artempodloboshnikov.vercel.app:3000';
-    static urlServer = 'https://ellen-line-84grpew8p-artempodloboshnikov.vercel.app:4000';
+    static url = 'http://localhost:3000';
+    static urlServer = 'http://localhost:4000';
     //Возможно стоит поместить этот массив в БД, а может нет :/
     static GetConvert(type) {
         switch(type)
