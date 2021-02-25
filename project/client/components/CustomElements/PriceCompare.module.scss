@@ -7,16 +7,18 @@
     'input more'
     'input equally'
     'input less';
-    justify-items: center
+    justify-items: center;
 }
 .more, .equally, .less{
 
     @extend %as_button;
     color: $primary_color;
-    font-size: 1.3em;
-    font-family: 'Mediator Serif Regular';
+    @extend %font;
+    font-size: 1.2em;
     width: 100%;
     text-align: center;
+    display: grid;
+    align-items: center;
 }
 .more{
 

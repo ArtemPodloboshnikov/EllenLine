@@ -76,8 +76,8 @@ a:active .list_item{
     display: grid;
     padding: 5px;
     gap: 5px;
-    grid-template-areas: 'add price'
-                         'add services';
+    grid-template-areas: '. price'
+                         'services services';
 }
 
 .bottom::before{
@@ -94,24 +94,24 @@ a:active .list_item{
     font-size: 1.35em;
 }
 
-.address, .price, .services{
+.price, .services{
     z-index: 1;
     position: absolute;
     color: $sub_color;
 }
 
-.address{
-    grid-area: add;
-    display: grid;
-    height: 100%;
-    grid-template-columns: 1fr 4fr;
-}
+// .address{
+//     grid-area: add;
+//     display: grid;
+//     height: 100%;
+//     grid-template-columns: 1fr 4fr;
+// }
 
-.address p{
-    text-align: center;
-}
+// .address p{
+//     text-align: center;
+// }
 
-.address i, .address p, 
+
 .price i, .price p,
 .services i{
     justify-self: center;
@@ -135,7 +135,11 @@ a:active .list_item{
 .services{
     grid-area: services;
     display: grid;
+    justify-items: center;
+    grid-template-columns: repeat(auto-fit, minmax(20px, 1fr));
     gap: 5px;
     width: 100%;
     height: 100%;
+    padding-left: 3%;
+    padding-right: 3%;
 }

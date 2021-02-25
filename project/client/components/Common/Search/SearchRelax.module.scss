@@ -1,4 +1,3 @@
-//@import '../../../styles/index.scss';
 
 .sanatorium
 {
@@ -14,7 +13,7 @@
     
    width: 80%;
    justify-self: center;
-   height: 15vh;
+   height: 10vh;
 }
 .country{
     grid-area: country;
@@ -38,10 +37,24 @@
 .stars_input
 {
     width: 100%;
+    & input, & div
+    {
+        font-size: 1.1em;
+    }
 }
 .price{
 
     grid-area: price;
+
+    & input:first-child
+    {
+        font-size: 1em;
+    }
+    & input
+    {
+        font-size: 0.7em;
+    }
+   
 }
 @media screen and (max-width: 1024px)
 {
@@ -52,7 +65,7 @@
                              'name stars';
     }
     .sanatorium .country, .sanatorium .city, .input, .sanatorium .stars{
-        font-size: 1.5em;
+        font-size: 1em;
     }
 }
 @media screen and (max-width: 425px)

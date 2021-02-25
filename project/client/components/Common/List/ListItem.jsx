@@ -49,8 +49,10 @@ const ListItem = (props) => {
                     {
                         let column_offset = {gridColumn: `${++countColumn}`};
                         elements.push(
-                            <div id='hint' data-text={icon.word} style={column_offset}>
-                                <i class={`fa fa-${icon.icon}`} aria-hidden="true"></i>
+                            <div style={column_offset}>
+                                <div id='hint' data-text={icon.word}>
+                                    <i class={`fa fa-${icon.icon}`} aria-hidden="true"></i>
+                                </div>
                             </div>
                         );
                         
@@ -78,10 +80,10 @@ const ListItem = (props) => {
                     </h1>
                 </div>
                 <div className={classes.bottom}>
-                    <div className={classes.address}>
+                    {/* <div className={classes.address}>
                         <i class="fa fa-map-marker" aria-hidden="true"></i>
                         <p>{address}</p>
-                    </div>
+                    </div> */}
                     <div className={classes.price}>
                         <i class="fa fa-money" aria-hidden="true"></i>
                         <p>{price} руб.</p>

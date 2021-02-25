@@ -1,4 +1,4 @@
-$primary_color: #0062FF;
+$primary_color: #4782e1;
 $sub_color: #fff;
 $primary_font_color: #333333;
 $placeholder_color: #FFDD00;
@@ -23,7 +23,7 @@ $disabled_color_title: #628CD0;
 %font
 {
     font-family: 'Mediator Serif';
-    font-size: 1.5em;
+    font-size: 1em;
 }
 
 %border 
@@ -94,13 +94,13 @@ $disabled_color_title: #628CD0;
     user-select: none;
 }
 
-@mixin blur ($bgColor: (255, 255, 255, 0.5), $blur: 5px)
+@mixin blur($bgColor: (255, 255, 255, 0.5), $blur: 5px)
 {
     backdrop-filter: blur($blur);
     background-color: rgba(nth($bgColor, 1), nth($bgColor, 2), nth($bgColor, 3), nth($bgColor, 4)); 
     z-index: 40;
 }
-@mixin double_choose_block ($width: 80%, $height: 10vh, $font-size: 2.5em, $font: 'Kazimir')
+@mixin double_choose_block($width: 80%, $height: 10vh, $font-size: 2.3em, $font: 'Kazimir')
 {
     display: grid;
     height: $height;
@@ -118,8 +118,7 @@ $disabled_color_title: #628CD0;
         font-family: $font;
         display: grid;
         justify-items: center;
-        cursor: pointer;
-        user-select: none;
+        @extend %as_button;
         font-size: $font-size;
         color: $sub_color;
 

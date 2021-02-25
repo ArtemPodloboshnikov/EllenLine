@@ -6,7 +6,7 @@ import PriceCompare from '../../CustomElements/PriceCompare';
 
 const Search = (props) => {
 
-    let arrowSize = [30, 30];
+    let arrowSize = [25, 25];
 
     return (
         <div className={classes.sanatorium + ' ' + props.className}>
@@ -16,7 +16,7 @@ const Search = (props) => {
 
             }}/>
            
-            <SelectEntered className={classes.country} name='country' arrowWidth={arrowSize[0]} arrowHeight={arrowSize[1]}
+            <SelectEntered className={classes.country} name='country' arrowSize={arrowSize}
                           placeholder="Страна" 
                           options={props.countries} onBlur={(e)=>{
 
@@ -24,7 +24,7 @@ const Search = (props) => {
 
             }}/>
 
-            <SelectEntered className={classes.city} name='city' arrowWidth={arrowSize[0]} arrowHeight={arrowSize[1]}
+            <SelectEntered className={classes.city} name='city' arrowSize={arrowSize}
                           placeholder="Город"
                           options={props.cities} onBlur={(e)=>{
 

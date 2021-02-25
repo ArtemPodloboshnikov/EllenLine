@@ -73,7 +73,11 @@ const InfoSection = (props) => {
                         <h2>от {price} руб.</h2>
                         <span>за человека</span>
                     </div>
-                    <Button value='Забронировать' className={classes.booking_btn} />
+                    <Button type='button' value='Забронировать' className={classes.booking_btn} onClick={(e)=>{
+
+                        document.getElementById('formBooking').scrollIntoView({behavior: 'smooth', block: 'start'})
+
+                    }}/>
                 </div>
                 <div className={classes.wallet}>
                     <i class="fa fa-credit-card" aria-hidden="true"></i>

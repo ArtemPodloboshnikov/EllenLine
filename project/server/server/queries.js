@@ -93,7 +93,11 @@ router.post('/orders', function(request, reply){
                 let new_results = ConvertDataToString(results, [['id']]);
                 
                 if (new_results[0] !== undefined)
+                {
                     outputs = new_results;
+                    reply.send(outputs);
+
+                }
                 console.log(outputs)
                 done();
             });
@@ -114,14 +118,13 @@ router.post('/orders', function(request, reply){
             }
             
             done();
-         },
+        },
         function(done)
         {
             if (outputs.length == 0)
             {
                 
-                mysql.query(`SELECT id_order as id FROM orders WHERE title = AES_ENCRYPT(?) AND phone = AES_ENCRYPT(?) AND email = AES_ENCRYPT(?) AND client_name = AES_ENCRYPT(?) AND isPaid = 0`,
-                [titleData, phoneData, emailData, clientNameData],
+                mysql.query(`SELECT id_order as id FROM orders ORDER BY id_order DESC LIMIT 1`,
                 function (error, results, fields) {
     
                     if (error) console.log(error);
@@ -130,7 +133,7 @@ router.post('/orders', function(request, reply){
                     
                     outputs = new_results;
                     console.log(outputs)
-                    done();
+                    reply.send(outputs);
                 });
             }
             
@@ -274,13 +277,23 @@ router.put('/orders', function(request, reply){
 
 router.delete('/orders', function(request, reply){
 
+    let sql = '';
+
+    if (request.query.for == 'orderList')
+    {
+        sql = ``;
+    }
+    else
+    {
+        sql = `DELETE FROM orders WHERE id_order = ?`;
+    }
     mysql.getConnection(function(err, connection) {
         if (err) {
             console.log(err);
             return;
         }
         
-        connection.query(`DELETE FROM orders WHERE id_order = ?`,
+        connection.query(sql,
         [request.body.id],
         function (error, results, fields) {
 

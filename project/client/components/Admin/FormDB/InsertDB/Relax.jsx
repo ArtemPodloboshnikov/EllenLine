@@ -202,8 +202,8 @@ const Relax = (props) => {
                 className={classes.textarea} classTitle={classes.textarea__title} 
                 classTextArea={classes.textarea__text} title='Описание' placeholder='Введите описание'/>
 
-                <InputNumber register={register({required: true})} name='stars' 
-                className={classes.inputNumber} placeholder='★' min='1' max='5'/>
+                <InputNumber register={register({required: true})} name='stars' label='none'
+                className={classes.inputNumber} classWrap={classes.wrapNumber} placeholder='★' min='1' max='5'/>
 
                 <FilesUploader register={register({required: true})} name='files' 
                 className={classes.filesUploader} classInput={classes.filesUploader__text} 
@@ -227,18 +227,18 @@ const Relax = (props) => {
                 <EditMap name='coordinates' cityName={cityName} className={classes.map} zoom={zoom}/>
                 {/* <SelectOption type='dynamic' /> */}
                 <div className={classes.form__services} style={{gridTemplateRows: `repeat(${servicesRows}, 1fr`, height: `${servicesRows * 10}vh`}}>
-                    <DynamicList name='inStock' register={register({required: true})} className={classes.dynamicList} 
+                    <DynamicList name='inStock' register={register({required: true})} className={classes.dynamicList} classWrap={classes.dynamicListWrap}
                     classInput={classes.dynamicList__input} placeholder='В наличии' rows={servicesRows} setRows={setServicesRows}/>
-                    <DynamicList name='commonServices' register={register({required: true})} className={classes.dynamicList} 
+                    <DynamicList name='commonServices' register={register({required: true})} className={classes.dynamicList} classWrap={classes.dynamicListWrap}
                     classInput={classes.dynamicList__input} placeholder='Общие услуги' rows={servicesRows} setRows={setServicesRows}/>
-                    <DynamicList name='servicesRoom' register={register({required: true})} className={classes.dynamicList} 
+                    <DynamicList name='servicesRoom' register={register({required: true})} className={classes.dynamicList} classWrap={classes.dynamicListWrap}
                     classInput={classes.dynamicList__input} placeholder='Услуги в номерах' rows={servicesRows} setRows={setServicesRows}/>
                 </div>
 
-                <InputNumber register={register({required: true})} name='price' 
+                <InputNumber classWrap={classes.wrapNumber + ' ' + classes.top_3} register={register({required: true})} name='price' 
                 className={classes.inputNumber} placeholder='Цена' min='1'/>
 
-                <InputNumber register={register({required: true})} name='discount' 
+                <InputNumber classWrap={classes.wrapNumber} register={register({required: true})} name='discount' 
                 className={classes.inputNumber} placeholder='Скидка' min='0' max='100' value='0'/>
 
                 <Button className={classes.button} classInput={classes.button__text} value='Внести' />

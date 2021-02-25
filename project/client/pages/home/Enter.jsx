@@ -1,4 +1,5 @@
 import { useEffect, useState } from 'react';
+import Global from '../global';
 import Services from './Services.jsx';
 import Advantages from './Advantages.jsx';
 import Reviews from './Reviews.jsx';
@@ -17,7 +18,7 @@ export default function Home(){
         async function getData()
         {
     
-          const response =  await fetch('http://localhost:4000/file/getHomePage');
+          const response =  await fetch(Global.urlServer + '/file/getHomePage');
           const json = await response.json();
           setData(json);
         }

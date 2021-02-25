@@ -1,41 +1,40 @@
 import AdminLayout from '../../../layouts/AdminLayout';
 import {useEffect, useState} from 'react';
+import Message from '../../../components/Common/DialogWindow/MessageDB';
 import Global from '../../global';
 import Table from '../../../components/CustomElements/Table';
 import classes from './index.module.scss';
 
 const index = () => {
 
-    const [data, setData] = useState([]);
+    const [dbData, setDbData] = useState([]);
+    const [indexData, setIndexData] = useState(-1);
+    const [message, setMessage] = useState({style: {display: 'none'}, status: '', method: 'delete'});
 
-    // const dateParser = (date) =>{
+    console.log(dbData)
 
-    //     return date.getDate() + '-' + (date.getMonth() + 1) + '-' + date.getFullYear()
-    // }
-    // const getTable = (info) =>{
+    useEffect(()=>{ 
 
-    //     let table = [<tr><th>id</th><th>Название</th><th>Цена</th><th>Клиенты</th><th>Имя заказчика</th><th>Телефон</th><th>Email</th><th>Дата начала</th><th>Дата конца</th><th>Время</th><th>Оплачено</th></tr>];
-    //     info.map((i)=>{
-            
-    //         let date_start = new Date(i.date_start);
-    //         date_start = dateParser(date_start);
+        async function deleteOrder()
+        {
+            const res = await fetch(`${Global.urlServer}/api/orders?for=orderList`, {
+                method: 'DELETE',
+                headers: {
+                    'Content-Type': 'application/json;charset=utf-8'
+                },
+                body: JSON.stringify({
+                    id: dbData[indexData].id
+                })
+            })
+            setMessage({style: {display: 'grid'}, status: res.status, method: message.method})
+            setDbData([]);
+            setIndexData(-1);
+        }
+        if (indexData > 0)
+            deleteOrder()
 
-    //         let date_end = new Date(i.date_end);
-    //         date_end = dateParser(date_end);
+    }, [indexData])
 
-    //         table.push(<tr><td>{i.id}</td><td>{i.title}</td><td>{i.price}</td><td>{i.clients}</td><td>{i.client_name}</td><td>{i.phone}</td><td>{i.email}</td><td>{date_start}</td><td>{date_end}</td><td>{i.time}</td><td>{(i.isPaid)? 'Да': 'Нет'}</td></tr>);
-    //     })
-    //     return (
-
-    //         <table className={classes.table}>
-    //             {table}
-    //         </table>
-      
-
-    //     )
-
-    // }
-    console.log(data)
     useEffect(()=>{ 
 
         async function get()
@@ -43,23 +42,31 @@ const index = () => {
             const res = await fetch(`${Global.urlServer}/api/orders`);
             const json = await res.json();
 
-            setData(json)
+            setDbData(json)
+            setIndexData(-2);
         }
+        if (indexData == -1 && dbData.length == 0)
+            get()
 
-        get()
-
-    }, [])
+    }, [indexData])
 
        
     
     return (
         <AdminLayout title='База данных' sector='orders'>
+            <Message setFunction={setMessage} style={message.style} status={message.status} method={message.method}/>
             <Table titles={[{value: 'Id', key: 'payment_id'}, {value: 'Название', key: 'title'}, 
                       {value: 'Цена', key: 'price'}, {value: 'Клиенты', key: 'clients'}, 
                       {value: 'Имя заказчика', key: 'client_name'}, {value: 'Телефон', key: 'phone'}, 
                       {value: 'Email', key: 'email'}, {value: 'Дата начала', key: 'date_start'}, 
                       {value: 'Дата конца', key: 'date_end'}, {value: 'Время', key: 'time'}, 
-                      {value: 'Оплачено', key: 'isPaid'}]} info={data} className={classes.table}/>
+                      {value: 'Оплачено', key: 'isPaid'}]} info={dbData} className={classes.table} ActionButton={({index})=>{
+                        return <button onClick={()=>{
+
+                            setIndexData(index);
+
+                        }}><i class="far fa-times-circle"></i></button>
+            }}/>
         </AdminLayout>
     )
 }

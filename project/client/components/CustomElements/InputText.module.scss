@@ -1,29 +1,25 @@
-// @import '../../index.scss';
+@import '../../styles/index.scss';
+
  .wrap{
 
     transform: skewX(-20deg);
-    background-color: #0062FF;
+    background-color: $primary_color;
     display: grid;
     justify-items: center;
     align-items: center;
 }
 .input::placeholder{
 
-    color: #FFDD00;
+    color: $placeholder_color;
     text-align: center;
 }
 .input{
     background-color: transparent !important;
-    font-family: 'Mediator Serif Regular';
-    font-size: 1.5em;
+    @extend %font;
     width: 98%;
     position: relative;
     transform: skewX(20deg);
     border: none;
-    color: #fff;
+    color: $sub_color;
     text-align: center;
-} 
-// .input
-// {
-//     @extend %border;
-// }
+}

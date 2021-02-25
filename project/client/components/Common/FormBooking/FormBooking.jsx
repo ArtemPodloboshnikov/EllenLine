@@ -115,10 +115,10 @@ const FormBooking = (props) => {
                 })
     
                 json = await res.json();
-                console.log(json)
+                console.log(`json: ${json[0]}`)
                 setOrderId(json[0].id);
             }
-            
+            console.log(`121: orderId ${orderId}`)
             if (orderId != 0 || json.length != 0)
             {
                 fetch(`${Global.urlServer}/api/orders?id=${(orderId != 0)? orderId : json[0].id}`, {
@@ -359,7 +359,7 @@ const FormBooking = (props) => {
     }
 
     return(
-        <div className={classes.wrap + ' ' + props.className}>
+        <div className={classes.wrap + ' ' + props.className} id='formBooking'>
             <div className={(countServices <= 0)? classes.booking_off : classes.booking_on}>
                 <h1>Нет в наличии 😔</h1>
             </div>

@@ -12,6 +12,10 @@
 
     width: 50%;
 }
+.top_3
+{
+    margin-top: 3%;
+}
 .textarea{
 
     justify-self: center;
@@ -27,15 +31,39 @@
 }
 .inputNumber{
 
-    width: 30%;
-    height: 10vh;
+    width: 100%;
+    height: 11vh;
     justify-self: center;
+
+    & input, & div
+    {
+        font-size: 1.5em;
+    }
+}
+.wrapNumber
+{
+    justify-self: center;
+    width: 30%;
+
+    & label
+    {
+        font-size: 1.5em;
+    }
+}
+.dynamicListWrap
+{
+    font-size: 1.5em;
 }
 .dynamicList{
 
     width: 105%;
     height: 5vh;
     justify-self: start;
+
+    & *
+    {
+        font-size: 1em;
+    }
     
 }
 .form__services{
@@ -77,4 +105,9 @@
     justify-self: center;
     width: 50%;
     height: 10vh;
+
+    & input
+    {
+        font-size: 1.5em;
+    }
 }

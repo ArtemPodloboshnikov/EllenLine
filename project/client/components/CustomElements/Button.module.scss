@@ -22,8 +22,7 @@
 }
 .input
 {
-    font-family: 'Mediator Serif Regular';
-    font-size: 1.5em;
+    @extend %font;
     width: 98%;
     position: relative;
     transform: skewX(20deg);
@@ -37,7 +36,7 @@
     width: 98%;
     min-height: 10% !important;
     max-height: 90% !important;
-    cursor: pointer;
+    @extend %as_button;
     position: relative;
     transform: skewX(20deg);
     display: grid;
