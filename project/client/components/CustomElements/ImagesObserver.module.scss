@@ -5,7 +5,9 @@
     display: grid;
     justify-content: center;
     grid-template-columns: repeat(auto-fit, minmax(10vw, 30vw));
-    grid-gap: 3%;
+    grid-template-rows: min-content;
+    grid-gap: 2em;
+   
     .image
     {
         border: 5px solid $primary_color !important;

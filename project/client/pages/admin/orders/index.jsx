@@ -17,7 +17,7 @@ const index = () => {
 
         async function deleteOrder()
         {
-            const res = await fetch(`${Global.urlServer}/api/orders?for=orderList`, {
+            const res = await fetch(`${Global.urlServer}/api/orders`, {
                 method: 'DELETE',
                 headers: {
                     'Content-Type': 'application/json;charset=utf-8'

@@ -1,5 +1,6 @@
 import { useState, useEffect } from 'react';
 import { useRouter } from 'next/router';
+import mathPriceWithDiscount from '../../../../../functions/MathPriceWithDiscount';
 //
 import FormBooking from '../../../../../components/Common/FormBooking/FormBooking.jsx';
 import InfoSection from '../../../../../components/Common/InfoSection/InfoSection.jsx';
@@ -77,7 +78,7 @@ const Resort = ({data}) => {
         }
         async function updateOrderAndService()
         {
-          
+          console.log(`id: ${id} type: ${type}`)
             const res = await fetch(`${Global.urlServer}/api/orders?success=true`, {
                 method: 'PUT',
                 headers: {
@@ -163,7 +164,7 @@ const Resort = ({data}) => {
             <div className={classes.resort}>
                 <InfoSection 
                 title={data.title + ': ' + data.typeOfRoom} 
-                price={data.price} 
+                price={data.discount != 0 ? mathPriceWithDiscount(data.discount, data.price) : data.price} 
                 text={data.text}
                 images={data.images}
                 type={type}

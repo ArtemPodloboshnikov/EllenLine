@@ -17,9 +17,6 @@ const SelectOption = (props) => {
             return (
                 <div className={classes.dynamic_option}>
                     <div className={classes.leftButton} onClick={DeleteSelectOption} aria-hidden="true"><Image id={params.index} layout='fill' src='/images/minus.svg'/></div>
-                    {/* <select className={props.classSelect}>
-                        {element}
-                    </select> */}
                     <SelectEntered className={props.classSelect} options={options} onChangeFunction={props.onChangeFunction} value={props.values[params.index + 1]}
                     placeholder={placeholder} type='select' arrowSize={props.arrowSize} index={params.index} name={props.name + params.index}/>
                     <div className={classes.rightButton} onClick={AddSelectOption} aria-hidden="true"><Image layout='fill' src='/images/plus.svg'/></div>

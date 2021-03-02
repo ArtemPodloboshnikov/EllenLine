@@ -1,5 +1,6 @@
 import {useState} from 'react'
 import classes from './InputNumber.module.scss'
+import Image from 'next/image';
 
 const InputNumber = (props) => {
 

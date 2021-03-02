@@ -41,8 +41,7 @@
 .plus, .minus{
 
     @extend %as_button;
-    background-color: transparent;
-    font-size: 1.5em;
+    position: relative;
 }
 .plus{
 

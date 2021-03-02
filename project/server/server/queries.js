@@ -96,6 +96,7 @@ router.post('/orders', function(request, reply){
                 {
                     outputs = new_results;
                     reply.send(outputs);
+                    return;
 
                 }
                 console.log(outputs)
@@ -134,6 +135,7 @@ router.post('/orders', function(request, reply){
                     outputs = new_results;
                     console.log(outputs)
                     reply.send(outputs);
+                    return;
                 });
             }
             
@@ -157,6 +159,7 @@ router.put('/orders', function(request, reply){
         const id_order = request.body.id_order;
         const payment_id = request.body.payment_id;
         let type = request.body.type;
+        console.log(request.body)
         if (type == 'relax')
         {
             idServiceColumn = 'id_relax'
@@ -277,23 +280,13 @@ router.put('/orders', function(request, reply){
 
 router.delete('/orders', function(request, reply){
 
-    let sql = '';
-
-    if (request.query.for == 'orderList')
-    {
-        sql = ``;
-    }
-    else
-    {
-        sql = `DELETE FROM orders WHERE id_order = ?`;
-    }
     mysql.getConnection(function(err, connection) {
         if (err) {
             console.log(err);
             return;
         }
         
-        connection.query(sql,
+        connection.query(`DELETE FROM orders WHERE id_order = ?`,
         [request.body.id],
         function (error, results, fields) {
 
@@ -511,7 +504,7 @@ router.get('/relax', function(request, reply){
     if (request.query.type != undefined)
     {
 
-        sql = `SELECT AES_DECRYPT(relax_.title, '${keysForTables.relax.title}') as title, AES_DECRYPT(relax_.services, '${keysForTables.relax.services}') as services, AES_DECRYPT(relax_.photos, '${keysForTables.relax.photos}') as photos, AES_DECRYPT(relax_.address, '${keysForTables.relax.address}') as address, AES_DECRYPT(relax_.type, '${keysForTables.relax.type}') as type, AES_DECRYPT(relax_.typeOfRoom, '${keysForTables.relax.typeOfRoom}') as typeOfRoom, relax_.price, relax_.id_relax as id, relax_.id_city as id_city, countries.id_country as id_country, AES_DECRYPT(countries.name, '${keysForTables.countries.name}') as county_name, AES_DECRYPT(cities.name, '${keysForTables.cities.name}') as city_name, relax_.stars as stars, relax_.count as count FROM relax_ INNER JOIN cities ON cities.id_city = relax_.id_city INNER JOIN countries_bind_cities ON countries_bind_cities.id_city = cities.id_city INNER JOIN countries ON countries.id_country = countries_bind_cities.id_country WHERE relax_.type = AES_ENCRYPT('${request.query.type}', '${keysForTables.relax.type}')`;
+        sql = `SELECT AES_DECRYPT(relax_.title, '${keysForTables.relax.title}') as title, AES_DECRYPT(relax_.services, '${keysForTables.relax.services}') as services, AES_DECRYPT(relax_.photos, '${keysForTables.relax.photos}') as photos, AES_DECRYPT(relax_.address, '${keysForTables.relax.address}') as address, AES_DECRYPT(relax_.type, '${keysForTables.relax.type}') as type, AES_DECRYPT(relax_.typeOfRoom, '${keysForTables.relax.typeOfRoom}') as typeOfRoom, relax_.price, relax_.id_relax as id, relax_.id_city as id_city, countries.id_country as id_country, AES_DECRYPT(countries.name, '${keysForTables.countries.name}') as county_name, AES_DECRYPT(cities.name, '${keysForTables.cities.name}') as city_name, relax_.stars as stars, relax_.count as count, relax_.discount as discount FROM relax_ INNER JOIN cities ON cities.id_city = relax_.id_city INNER JOIN countries_bind_cities ON countries_bind_cities.id_city = cities.id_city INNER JOIN countries ON countries.id_country = countries_bind_cities.id_country WHERE relax_.type = AES_ENCRYPT('${request.query.type}', '${keysForTables.relax.type}')`;
     }
     else
     if (request.query.only != undefined)
@@ -579,6 +572,7 @@ router.post('/relax', function(request, reply){
 
 router.put('/relax', function(request, reply){
     
+    let fields = [];
     let paths = []
     request.body.photosPath.map((path)=>{
 
@@ -586,15 +580,59 @@ router.put('/relax', function(request, reply){
     })
     request.body.photosPath = paths;
 
-    let sql = sqlQueryUpdate('relax_', 
-                             [['title', request.body.title, keysForTables.relax.title],
-                              ['address', request.body.address, keysForTables.relax.address],
-                              ['description', request.body.description, keysForTables.relax.description],
-                              ['services', JSON.stringify(request.body.services), keysForTables.relax.services],
-                              ['coordinates', request.body.coordinates.join(','), keysForTables.relax.coordinates],
-                              ['photos', request.body.photosPath.join(), keysForTables.relax.photos],
-                              ['type', request.body.type.toLowerCase(), keysForTables.relax.type],
-                              ['typeOfRoom', request.body.typeOfRoom, keysForTables.relax.typeOfRoom]])
+    Object.keys(request.body).map((key)=>{
+
+        switch (key)
+        {
+            case 'title':
+            {
+                fields.push(['title', request.body.title, keysForTables.relax.title])
+                break;
+            }
+            case 'address':
+            {
+                fields.push(['address', request.body.address, keysForTables.relax.address])
+                break;
+            }
+            case 'description':
+            {
+                fields.push(['description', request.body.description, keysForTables.relax.description])
+                break;
+            }
+            case 'services':
+            {
+                fields.push(['services', JSON.stringify(request.body.services), keysForTables.relax.services])
+                break;
+            }
+            case 'coordinates':
+            {
+                fields.push(['coordinates', request.body.coordinates.join(','), keysForTables.relax.coordinates])
+                break;
+            }
+            case 'photosPath':
+            {
+                fields.push(['photos', request.body.photosPath.join(), keysForTables.relax.photos])
+                break;
+            }
+            case 'type':
+            {
+                fields.push(['type', request.body.type.toLowerCase(), keysForTables.relax.type])
+                break;
+            }
+            case 'typeOfRoom':
+            {
+                fields.push(['typeOfRoom', request.body.typeOfRoom, keysForTables.relax.typeOfRoom])
+                break;
+            }
+            case 'id_city':
+            {
+                fields.push(['id_city', request.body.id_city])
+            }
+        }
+    })
+
+    let sql = sqlQueryUpdate('relax_', fields)
+    sql = multiplyConditions(sql, [{value: request.body.id, password: ''}], 'id_relax', 'IN')
     console.log(sql)
     mysql.getConnection(function(err, connection) {
         if (err) {

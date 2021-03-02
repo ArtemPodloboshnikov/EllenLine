@@ -55,18 +55,7 @@
     font-family: 'Mediator Serif';
     font-size: 1.6em;
 }
-[type="radio"]:checked + .radio_button::after,
-[type="radio"]:not(:checked) + .radio_button::after{
 
-    
-    background: $primary_color;
-}
-[type="radio"]:checked + .radio_button::before,
-[type="radio"]:not(:checked) + .radio_button::before{
-
-    background: $sub_color;
-    border: 1px solid $sub_color;
-}
 /* .trips p::before, .relax p::before{
 
     content: '';
@@ -157,6 +146,6 @@
 }
 .header_employees > a{
 
+    @extend %font;
     font-size: 2em;
-    font-family: 'Mediator Serif Regular';
 }

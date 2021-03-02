@@ -231,7 +231,7 @@ const Relax = (props) => {
                     classInput={classes.dynamicList__input} placeholder='В наличии' rows={servicesRows} setRows={setServicesRows}/>
                     <DynamicList name='commonServices' register={register({required: true})} className={classes.dynamicList} classWrap={classes.dynamicListWrap}
                     classInput={classes.dynamicList__input} placeholder='Общие услуги' rows={servicesRows} setRows={setServicesRows}/>
-                    <DynamicList name='servicesRoom' register={register({required: true})} className={classes.dynamicList} classWrap={classes.dynamicListWrap}
+                    <DynamicList name='servicesRoom' register={register({required: true})} className={classes.dynamicList} classWrap={classes.dynamicListWrap}  
                     classInput={classes.dynamicList__input} placeholder='Услуги в номерах' rows={servicesRows} setRows={setServicesRows}/>
                 </div>
 

@@ -24,6 +24,7 @@ const CreateInput = (params)=>{
 const DynamicList = (props) => {
    console.log(props.value)
     const [value, setValue] = useState(props.value || ['']);
+    
     const printValue = (e) => {
 
         let new_value = [...value];
@@ -45,8 +46,13 @@ const DynamicList = (props) => {
 
         inputs.push(
             <>
-                <CreateInput register={props.register} name={props.name} 
-                classInput={props.classInput} id={i} value={value} onChange={printValue} 
+                <CreateInput 
+                register={props.register} 
+                name={props.name} 
+                classInput={props.classInput} 
+                id={i} 
+                value={value} 
+                onChange={printValue} 
                 placeholder={props.placeholder} 
                 type={props.type}
                 plusOnClick={()=>{

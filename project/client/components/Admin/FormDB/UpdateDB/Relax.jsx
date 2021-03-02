@@ -1,5 +1,9 @@
-import {useState, useEffect} from 'react'
-import classes from './Relax.module.scss'
+import {useState, useEffect} from 'react';
+import {arrayConcat, getPhotosPath, getExistingPhotosNames} from '../../functions';
+import {useForm} from 'react-hook-form';
+//
+import classes from './Relax.module.scss';
+//
 import InputText from '../../../CustomElements/InputText'
 import TextArea from '../../../CustomElements/TextArea'
 import InputNumber from '../../../CustomElements/InputNumber'
@@ -10,16 +14,17 @@ import FilesUploader from '../../../CustomElements/FilesUploader'
 import EditMap from '../../../Common/Map/EditMap';
 import SelectEntered from '../../../CustomElements/SelectEntered'
 import SelectOption from '../../../CustomElements/SelectOption';
-import {arrayConcat, getPhotosPath, getExistingPhotosNames} from '../../functions';
 import ChangeItemFromDB from '../../../Common/ChangeItemFromDB/ChangeItemFromDB'
 import ImagesObserver from '../../../CustomElements/ImagesObserver';
+import Table from '../../../CustomElements/Table';
+import Checkbox from '../../../CustomElements/Checkbox';
 
 const Sanatorium = (props) => {
    
     const [formData, setFormData] = useState({}); 
+    const {register, handleSubmit} = useForm();
     const [dbData, setDbData] = useState({});
     const [message, setMessage] = useState({style: {display: 'none'}, status: '', body: '', method: 'none'});
-    const [countryName, setCountryName] = useState('Россия');
     const [cityName, setCityName] = useState('Санкт-Петербург');
     const [zoom, setZoom] = useState();
     const [servicesRows, setServicesRows] = useState(0);
@@ -35,21 +40,32 @@ const Sanatorium = (props) => {
     const [typeOfRoom, setTypeOfRoom] = useState();
     const [photos, setPhotos] = useState();
     const [tempPhotos, setTempPhotos] = useState(['']);
-    const [institution, setInstitution] = useState('');
-    let contries_cities = {countries: {}, cities: {}};
+    const [institution, setInstitution] = useState({uuid: ''});
+    const [inputsCheckbox, setInputsCheckbox] = useState({title: false, description: false, stars: false, type: false, 
+                                          typeOfRoom: false, country: false, city: false, address: false,
+                                          price: false, discount: false, id: false})
+    let inputs = [];
+    let cities = {};
     let dataHotels = {' ': {}};
 
     console.log(tempPhotos)
-    const handleOnSubmit = ()=>{
+    const handleOnSubmit = (data)=>{
         console.log(document.getElementsByName('fileUploader')[0])
-        let data = {};
         let loadPhotosName = new FormData();
         let deletedPhotos = getExistingPhotosNames(photos, tempPhotos)
         //getServices(data);
-        if (document.getElementById('existing_photos').checked == true)
-            getPhotosPath(data, loadPhotosName, document.getElementsByName('fileUploader')[0])
+        //if (document.getElementById('existing_photos').checked == true)
+        getPhotosPath(data, loadPhotosName, document.getElementsByName('fileUploader')[0])
         data.photosPath = arrayConcat(data.photosPath, tempPhotos);
-        console.log(data.photosPath);
+        if (data.photosPath.length == 0)
+        {
+            data.photosPath = ['../no_image.jpg'];
+        }
+       
+        console.log(deletedPhotos);
+        data.id = institution.id
+        data.id_city = cities[data.city];
+        delete data.city
         // if (document.getElementsByName('coordinates')[0] != undefined)
         // {
 
@@ -60,38 +76,142 @@ const Sanatorium = (props) => {
         // data.price = Number.parseInt(data.price);
         // data.discount = Number.parseInt(data.discount);
         // data.stars = Number.parseInt(data.stars);
+        console.log(data)
         setFormData({photos: loadPhotosName, deletedPhotos: deletedPhotos, json: data})
     }
 
-   
+    let citiesNameId = {};
 
     if (Object.keys(dbData).length != 0) 
     {
         
-        dbData.countryWithCities.map(data => {
+       
+        
+        dbData.cities.map(data => {
             
-            contries_cities.cities[data.cityName] = data.idCity;
+            cities[data.name] = data.id;
+            citiesNameId[data.id] = data.name;
         });
-        dbData.countries.map(data=>{
-
-            contries_cities.countries[data.name] = data.id;
-        })
         dbData.dataHotels.map(data=>{
+
+            
            
-            dataHotels[data.title + ': ' + data.typeOfRoom + ' - ' + data.idItem] = data; 
+            let temp_data = {...data}
+            dataHotels[data.title + ': ' + data.typeOfRoom] = temp_data; 
+            dataHotels[data.title + ': ' + data.typeOfRoom].services = [JSON.parse(temp_data.services)];
+            console.log(data.services)
             if (data.images != undefined)
             {
-                dataHotels[data.title + ': ' + data.typeOfRoom + ' - ' + data.idItem].photos = data.images.split(',');
+                dataHotels[data.title + ': ' + data.typeOfRoom].photos = data.images.split(',');
+                let images = dataHotels[data.title + ': ' + data.typeOfRoom].photos;
+                if (images.length > 1 && images[images.length - 1] == '../no_image.jpg')
+                {
+                    dataHotels[data.title + ': ' + data.typeOfRoom].photos = images.splice(0, 1);
+                }
+                
             }
             if (data.type != undefined)
             {
-                dataHotels[data.title + ': ' + data.typeOfRoom + ' - ' + data.idItem].type = data.type.toUpperCase()[0] + data.type.split('').splice(1).join('');
+                dataHotels[data.title + ': ' + data.typeOfRoom].type = data.type.toUpperCase()[0] + data.type.split('').splice(1).join('');
             }
         })
        
     }
     
+    Object.keys(inputsCheckbox).map((key)=>{
+        
+        const isCheck = (component) =>{
+
+            if (inputsCheckbox[key])
+            {
     
+                inputs.push(component)
+            }
+            else
+            {
+                inputs = inputs.filter((elem) => {return elem != component});
+            }
+        }
+        switch (key)
+        {
+            case 'title': {
+
+                const component = <InputText register={register({required: true})} className={classes.inputText} 
+                                   placeholder='Название' name='title'/>;
+                isCheck(component)
+
+                break;
+            }
+            case 'price': {
+
+                const component = <InputNumber name='price' className={classes.inputNumber} register={register({required: true})}
+                                  placeholder='Цена' min='1' classWrap={classes.inputNumberWrap}/>;
+                isCheck(component)
+
+                break;
+            }
+            case 'discount': {
+
+                const component = <InputNumber name='discount' className={classes.inputNumber} register={register({required: true})}
+                                  placeholder='Скидка' min='1' classWrap={classes.inputNumberWrap}/>;
+                isCheck(component)
+
+                break;
+            }
+            case 'stars': {
+
+                const component = <InputNumber name='stars' className={classes.inputNumber} register={register({required: true})}
+                                  placeholder='Звёзды' min='1' max='5' classWrap={classes.inputNumberWrap}/>;
+                isCheck(component)
+
+                break;
+            }
+            case 'description': {
+
+                const component = <TextArea name='description' className={classes.textarea} register={register({required: true})}
+                                  classTitle={classes.textarea__title} classTextArea={classes.textarea__text} 
+                                  title='Описание' placeholder='Введите описание'/>;
+                isCheck(component)
+
+                break;
+            }
+            case 'type': {
+
+                const component = <SelectEntered name='type' className={classes.select} register={register({required: true})}
+                                  placeholder='Тип заведения' options={['Пансионат', 'Отель']} type='select'/>;
+                isCheck(component)
+
+                break;
+            }
+            case 'typeOfRoom': {
+
+                const component = <InputText name='typeOfRoom' className={classes.inputText} 
+                                  placeholder='Тип заведения' register={register({required: true})}/>;
+                isCheck(component)
+
+                break;
+            }
+            case 'city': {
+
+                const component = <SelectEntered name='city' className={classes.select} register={register({required: true})}
+                                  placeholder='Город' options={Object.keys(cities)}/>;
+                isCheck(component)
+
+                break;
+            }
+            case 'address': {
+
+                const component = <InputText name='address' className={classes.inputText} register={register({required: true})}
+                                  classInput={classes.inputText__input} placeholder='Адрес'/>
+                isCheck(component)
+
+                break;
+            }
+
+        }
+    })
+
+    console.log(institution)
 
     const getServices = (data)=>{
 
@@ -135,27 +255,34 @@ const Sanatorium = (props) => {
         data.services = {inStock: inStock, servicesRoom: servicesRoom, commonServices: commonServices}
     }
     
-    useEffect(()=>{
 
-        if (institution != '')
-        {
-           
-            
-            setTitle(dataHotels[institution].title);
-            setDescription(dataHotels[institution].description);
-            setStars(dataHotels[institution].stars);
-            setType(dataHotels[institution].type);
-            setTypeOfRoom(dataHotels[institution].typeOfRoom);
-            setCountry(dataHotels[institution].country);
-            setCity(dataHotels[institution].city);
-            setAddress(dataHotels[institution].address);
-            setPhotos(dataHotels[institution].photos);
-            setTempPhotos(dataHotels[institution].photos)
-            setPrice(dataHotels[institution].price);
-            setDiscount(dataHotels[institution].discount)
+
+    if (institution.uuid != '')
+    {
+        
+        const newObject = (obj, names) =>{
+
+            names.map((name)=>{
+
+                obj[name] = dataHotels[institution.uuid][name]
+            })
+
+            return obj
         }
+        console.log(newObject({uuid: '', city: citiesNameId[dataHotels[institution.uuid].id_city]}, ['title', 'description', 'stars', 'type', 
+                                                    'typeOfRoom', 'address',
+                                                    'price', 'discount', 'id', 'services']))
+        setInstitution(newObject({uuid: '', city: citiesNameId[dataHotels[institution.uuid].id_city]}, 
+                                             ['title', 'description', 'stars', 'type', 
+                                              'typeOfRoom', 'address', 'services',
+                                              'price', 'discount', 'id']))
 
-    }, [institution])
+        setPhotos(dataHotels[institution.uuid].photos);
+        setTempPhotos(dataHotels[institution.uuid].photos)
+
+    }
+
+   
     
     useEffect(()=>{
 
@@ -164,12 +291,12 @@ const Sanatorium = (props) => {
         {
             let result = {};
 
-            await fetch('http://localhost:4000/api/countries?with=cities&whereCountryName=' + countryName)
+            await fetch('http://localhost:4000/api/cities')
               .then((response) => {
                 return response.json();
               })
               .then((data) => {
-                result = {countryWithCities: data};
+                result = {cities: data};
               });
 
             await fetch('http://localhost:4000/api/countries')
@@ -185,15 +312,16 @@ const Sanatorium = (props) => {
                 return response.json();
               })
               .then((data) => {
-                result = {...result, dataHotels: eval(data)};
+                result = {...result, dataHotels: data};
               });
-            
+            console.log(result.dataHotels)
             setDbData(result);
         }
-        get();
+        if (Object.keys(dbData).length == 0)
+            get();
 
 
-    }, [countryName])
+    }, [dbData])
 
     useEffect(()=>{
 
@@ -273,6 +401,7 @@ const Sanatorium = (props) => {
             // if (formData.deletedPhotos.length != 0)
             //     deletePhotos(formData.deletedPhotos)
             //if (formData.)
+            setDbData({});
         }
 
     }, [formData])
@@ -291,7 +420,7 @@ const Sanatorium = (props) => {
         }
     }
 
-    const onBlurAddress = (e)=>{
+    function onBlurAddress(e){
 
         if (e.target.value != '')
         {
@@ -300,16 +429,43 @@ const Sanatorium = (props) => {
             onBlurCheckbox(e.target.value, address, 'address')
         }
     }
-    console.log(dbData)
+    // console.log(institution.services[0].inStock)
     return (
 
         <>
             <Message setFunction={setMessage} style={message.style} status={message.status} body={message.body} method={message.method}/>
-            <ChangeItemFromDB type='relax' options={Object.keys(dataHotels)} onChangeFunction={setInstitution}
-            idsChecked={['title', 'description', 'type', 'typeOfRoom', 'country', 'city', 'address']}
+            <ChangeItemFromDB type='relax' options={Object.keys(dataHotels)} onChangeFunction={(obj)=>setInstitution({uuid: obj.value})}
             />
-            <form className={props.className + ' ' + classes.form}>
-                <div className={classes.block}>
+            <div style={{overflowX: 'hidden'}}>
+            <Table titles={[{value: 'Название', key: 'title'}, {value: 'Цена', key: 'price'}, 
+                            {value: 'Скидка', key: 'discount'}, {value: 'Звёзды', key: 'stars'}, 
+                            {value: 'Описание', key: 'description'}, {value: 'Тип', key: 'type'}, 
+                            {value: 'Тип комнаты', key: 'typeOfRoom'}, {value: 'Город', key: 'city'}, 
+                            {value: 'Адрес', key: 'address'}]} 
+                    info={[institution]} className={classes.table} checkbox={inputsCheckbox} setCheckbox={setInputsCheckbox}/></div>
+            
+            <form className={props.className + ' ' + classes.form} onSubmit={handleSubmit(handleOnSubmit)}>
+                {inputs}
+
+                {/* <div className={classes.form__services} style={{gridTemplateRows: `repeat(${servicesRows}, 1fr)`, height: `${servicesRows * 10}vh`}}>
+                    <DynamicList name='inStock' className={classes.dynamicList} value={institution.services !== undefined? institution.services[0].inStock : ['']}
+                    classInput={classes.dynamicList__input} placeholder='В наличии' rows={servicesRows} setRows={setServicesRows} register={register({required: true})}/>
+                    <DynamicList name='commonServices' className={classes.dynamicList} value={institution.services !== undefined? institution.services[0].commonServices : [''] }
+                    classInput={classes.dynamicList__input} placeholder='Общие услуги' rows={servicesRows} setRows={setServicesRows} register={register({required: true})}/>
+                    <DynamicList name='servicesRoom' className={classes.dynamicList} value={institution.services !== undefined? institution.services[0].servicesRoom : ['']}
+                    classInput={classes.dynamicList__input} placeholder='Услуги в номерах' rows={servicesRows} setRows={setServicesRows} register={register({required: true})}/>
+                </div> */}
+
+                <ImagesObserver prefix='/images/Relax/' pathImages={photos || (!dbData.dataHotels ? ['images/logo.svg'] : dbData.dataHotels[0].images.split(','))} 
+                tempPhotos={tempPhotos} setTempPhotos={setTempPhotos} className={classes.imagesObserver}/>
+
+                <FilesUploader name='fileUploader'
+                className={classes.filesUploader} classInput={classes.filesUploader__text} 
+                classPlaceholder={classes.filesUploader__placeholder} placeholder='Фото отеля/пансионата' />
+
+                <Button className={classes.button} 
+                classInput={classes.button__text} value='Обновить' />
+                {/* <div className={classes.block}>
                     <InputText name='title' className={classes.inputText} value={title || (!dbData.dataHotels ? '' : dbData.dataHotels[0].title)}
                     classInput={classes.inputText__input} placeholder='Название' 
                     onBlur={(e)=>{
@@ -349,15 +505,7 @@ const Sanatorium = (props) => {
                     />
                 </div>
 
-                <div className={classes.block}>
-                    <ImagesObserver prefix='/images/RelaxDynamic/' pathImages={photos || (!dbData.dataHotels ? ['/images/logo.svg'] : dbData.dataHotels[0].images.split(','))} 
-                    tempPhotos={tempPhotos} setTempPhotos={setTempPhotos} idCheckbox='existing_photos' className={classes.imagesObserver}/>
-                    <input type='checkbox' id='existing_photos' disabled={true} />
-                </div>
 
-                <FilesUploader name='fileUploader'
-                className={classes.filesUploader} classInput={classes.filesUploader__text} 
-                classPlaceholder={classes.filesUploader__placeholder} placeholder='Фото отеля/пансионата' />
                 <div className={classes.block}>
                     <SelectEntered name='type' value={type || (!dbData.dataHotels ? '' : dbData.dataHotels[0].type)}
                     className={classes.select} placeholder='Тип заведения' options={['Пансионат', 'Отель']} type='select'
@@ -398,8 +546,8 @@ const Sanatorium = (props) => {
                     }}
                     />
 
-                </div>
-                <div className={classes.block}>
+                </div> */}
+                {/* <div className={classes.block}>
                     <SelectEntered name='city' onChangeFunction={setCityName}
                     className={classes.select} placeholder='Город' options={Object.keys(contries_cities.cities)} value={city || (!dbData.dataHotels ? '' : dbData.dataHotels[0].city_name)} onBlur={(e)=>{
 
@@ -425,7 +573,7 @@ const Sanatorium = (props) => {
 
                 <EditMap name='coordinates' cityName={cityName} className={classes.map} zoom={zoom}/>
                 {/* <SelectOption type='dynamic' /> */}
-                <div className={classes.form__services} style={{gridTemplateRows: `repeat(${servicesRows}, 1fr`, height: `${servicesRows * 10}vh`}}>
+                {/* <div className={classes.form__services} style={{gridTemplateRows: `repeat(${servicesRows}, 1fr`, height: `${servicesRows * 10}vh`}}>
                     <DynamicList name='inStock' className={classes.dynamicList} 
                     classInput={classes.dynamicList__input} placeholder='В наличии' rows={servicesRows} setRows={setServicesRows}/>
                     <DynamicList name='commonServices' className={classes.dynamicList} 
@@ -463,7 +611,7 @@ const Sanatorium = (props) => {
                 </div>
                 
                 <Button type='button' className={classes.button} onClick={handleOnSubmit} 
-                classInput={classes.button__text} value='Обновить' />
+                classInput={classes.button__text} value='Обновить' /> */}
                     
             </form>
             

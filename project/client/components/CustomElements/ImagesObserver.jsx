@@ -6,7 +6,6 @@ const ImagesObserver = (props) => {
 
     let images = [];
     let i = 0;
-    let row = 1;
     let filter = ''; 
     const deleteImage = (e) => {
 
@@ -52,12 +51,12 @@ const ImagesObserver = (props) => {
                 <div onClick={recoverImage} id={path}><input name={path} type='hidden' value={i}/>Восстановить</div>
             </div>
         )
-        row++;
+    
         i++;
     })
    
     return (
-        <div className={classes.wrap + ' ' + props.className} style={{gridTemplateRows: `repeat(${row/2}, 1fr)`}}>
+        <div className={classes.wrap + ' ' + props.className}>
             {images}
         </div>
     )

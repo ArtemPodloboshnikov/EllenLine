@@ -77,7 +77,7 @@ const Resorts = ({data}) => {
             }
             const res = await fetch(encodeURI(`${Global.urlServer}/api/${type}?type=${category}`))
             const json = await res.json();
-                
+            console.log(json)    
             setDbData(json);
                 
             

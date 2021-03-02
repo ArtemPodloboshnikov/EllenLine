@@ -1,9 +1,10 @@
 import {useState} from 'react'
 import ShowInfo from '../Common/DialogWindow/ShowInfo';
+import Checkbox from './Checkbox';
 import dateParser from '../../functions/DateParser';
 import classes from './Table.module.scss';
 
-const Table = ({titles, info, className, ActionButton}) => {
+const Table = ({titles, info, className, ActionButton, setCheckbox, checkbox=false}) => {
 
     if (Object.keys(info).length)
     {
@@ -26,17 +27,44 @@ const Table = ({titles, info, className, ActionButton}) => {
 
         let table = [];
         let search_inputs = [];
-        for (let i = 0; i < Object.keys(titles).length; i++)
+        if (checkbox)
+        {
+            for (let i = 0; i < Object.keys(titles).length; i++)
+            {
+    
+                search_inputs.push(
+                    <td>
+                        <Checkbox value={titles[i].key} id={titles[i].key + '_cbx'} 
+                        name={titles[i].key + '_check'} onInput={(e)=>{
+                            
+                            let temp_checkbox = {...checkbox};
+                            if (temp_checkbox[e.target.value])
+                                temp_checkbox[e.target.value] = false;
+                            else
+                                temp_checkbox[e.target.value] = true;
+                            setCheckbox(temp_checkbox)
+                            
+                        }}/>
+                    </td>
+                );
+    
+            }
+        }
+        else
         {
 
-            search_inputs.push(<td><input value={searchValues[i]} onChange={(e)=>{
-                
-                let temp_searchValues = [...searchValues];
-                temp_searchValues[i] = e.target.value;
-                setSearchValues(temp_searchValues);
-
-            }} placeholder='Поиск'/></td>);
-
+            for (let i = 0; i < Object.keys(titles).length; i++)
+            {
+    
+                search_inputs.push(<td><input value={searchValues[i]} onChange={(e)=>{
+                    
+                    let temp_searchValues = [...searchValues];
+                    temp_searchValues[i] = e.target.value;
+                    setSearchValues(temp_searchValues);
+    
+                }} placeholder='Поиск'/></td>);
+    
+            }
         }
         
         let titles_content = [];

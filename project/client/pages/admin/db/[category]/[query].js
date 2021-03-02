@@ -76,7 +76,7 @@ export default function QueryDB(){
 
                             case 'insert':  return <CountriesInsert className={classes.form}/>
 
-                            case 'update': return <CountriesUpdate className={classes.form}/>
+                            case 'update': return;
 
                             case 'delete': return <CountriesDelete className={classes.form}/>
                         }

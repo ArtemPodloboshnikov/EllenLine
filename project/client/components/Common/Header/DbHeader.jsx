@@ -84,16 +84,13 @@ const DbHeader = (props) => {
                 </div>
                 <div className={classes.header_db__queries + ' ' + queries_none}>
                         <div>
-                            <input type='radio' name='query' id='insert' onChange={radioChangeQueries}/>
-                            <label className='radio_button' for='insert'>Внести</label>
+                            <label className='radio_button' id='insert' onClick={radioChangeQueries}>Внести</label>
                         </div>
                         <div>
-                            <input type='radio' name='query' id='update' onChange={radioChangeQueries}/>
-                            <label className='radio_button' for='update'>Обновить</label>
+                            <label className='radio_button' id='update' onClick={radioChangeQueries}>Обновить</label>
                         </div>
                         <div>
-                            <input type='radio' name='query' id='delete' onChange={radioChangeQueries}/>
-                            <label className='radio_button' for='delete'>Удалить</label>
+                            <label className='radio_button' id='delete' onClick={radioChangeQueries}>Удалить</label>
                         </div>
                 </div>
                 <div className={classes.header_db__relax}>

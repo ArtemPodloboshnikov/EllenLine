@@ -2,7 +2,6 @@ import { useEffect, useState } from 'react';
 import Global from '../global';
 import Services from './Services.jsx';
 import Advantages from './Advantages.jsx';
-import Reviews from './Reviews.jsx';
 import Clients from './Clients.jsx';
 import QRcode from './QRcode.jsx';
 import classes from './Enter.module.scss';
@@ -32,7 +31,6 @@ export default function Home(){
         <div className={classes.home}>
             <Services data={data.services}/>
             <Advantages data={data.advantages}/>
-            <Reviews/>
             <Clients/>
             <QRcode/>
         </div>

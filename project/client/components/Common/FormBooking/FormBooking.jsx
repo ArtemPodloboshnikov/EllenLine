@@ -1,6 +1,6 @@
 import { useEffect, useState } from 'react';
 import additionalPrices from '../../../functions/AdditionalPrices';
-import dateParser from '../../../functions/DateParser';
+import mathPriceWithDiscount from '../../../functions/MathPriceWithDiscount';
 import Global from '../../../pages/global';
 import {useForm} from 'react-hook-form';
 import {useRouter} from 'next/router';
@@ -57,12 +57,6 @@ const FormBooking = (props) => {
 
         someoneElse.push(someone.who);
     })
-    
-    function mathPriceWithDiscount(discount_value, price_value)
-    {
-
-        return price_value - Math.round((parseFloat(discount_value) / 100) * price_value);
-    }
     
     console.log(someoneAndPrice)
     console.log(valueDynamicSelect)
@@ -145,12 +139,13 @@ const FormBooking = (props) => {
                 for ( ;j < people.length; j++)
                 {
                     let man = people[j].split(' ');
+          
                     if (valueDynamicSelect[i] == '' || valueDynamicSelect[i] == ' ' || valueDynamicSelect[i] === undefined) 
                     {
                         flag = true;
                         break;
                     }
-                    if (man[1] == valueDynamicSelect[i])
+                    if (man[1] == valueDynamicSelect[i] && i != j)
                     {
                         index = j;
                         if (count_people[index] === undefined) count_people[index] = 1;
@@ -170,12 +165,18 @@ const FormBooking = (props) => {
                 }
                 people[index] = ((count_people[index] !== undefined)? count_people[index] : 1) + ' ' + (valueDynamicSelect[index]);
             }
+            console.log(people)
+            if (people[1] == '1 ' || people[1] == '1  ') people[1] = '';
 
-            let pluralElemets = {'Ребёнок': {4: 'Ребёнка', 5: 'Детей'}, 'Питомец': {4: 'Питомца', 5: 'Питомцев'}, 'Подросток': {4: 'Подростка', 5: 'Подростков'}}
-            for (let i = 1; i < people.length; i++)
+            if (people[1] != '')
             {
-                let man = people[i].split(' ');
-                people[i] = man[0] + ' ' + ((man[0] == 1)? man[1] : ((man[0] <= 4)? pluralElemets[man[1]][4]: pluralElemets[man[1]][5]))
+                
+                let pluralElemets = {'Ребёнок': {4: 'Ребёнка', 5: 'Детей'}, 'Питомец': {4: 'Питомца', 5: 'Питомцев'}, 'Подросток': {4: 'Подростка', 5: 'Подростков'}}
+                for (let i = 1; i < people.length; i++)
+                {
+                    let man = people[i].split(' ');
+                    people[i] = man[0] + ' ' + ((man[0] == 1)? man[1] : ((man[0] <= 4)? pluralElemets[man[1]][4]: pluralElemets[man[1]][5]))
+                }
             }
             let data = {client_name: clientid,
                         email: client_email,

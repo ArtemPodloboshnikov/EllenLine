@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import mathPriceWithDiscount from '../../../functions/MathPriceWithDiscount';
 //
 import ListItem from './ListItem.jsx';
 //
@@ -119,12 +120,25 @@ const List = (props) => {
     const items = props.items;
     const path = props.path;
     const conditions = props.conditions;
-
+    console.log(items)
     function InsertItems() {
         const elements = [];
         if(items && items.length != 0)
         {
-            
+            items.map((item)=>{
+                console.log(item)
+                if (item.discount != 0)
+                {
+                    let temp_item = {...item};
+                    console.log(mathPriceWithDiscount(temp_item.discount, temp_item.price))
+                    let price = mathPriceWithDiscount(temp_item.discount, temp_item.price);
+                    temp_item.price = price 
+                    console.log(temp_item)
+                    // item = null;
+                    console.log(item)
+                    item = Object.assign({}, temp_item)
+                }
+            })
             const result = checkSearch(items, conditions);
             for(let i = 0; i < result.length; i++)
             {

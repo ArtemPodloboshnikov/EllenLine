@@ -7,7 +7,6 @@ const ListItem = (props) => {
     const id = props.id;
     const images = props.images.split(',');
     const title = props.title;
-    const address = props.address;
     const price = props.price;
     const services = JSON.parse(props.services);
     const category = props.category;
