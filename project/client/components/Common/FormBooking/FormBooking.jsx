@@ -190,7 +190,7 @@ const FormBooking = (props) => {
                         clients: people
                        }
             if (time !== undefined) data.time = time;
-            console.log(data)
+            
             insertOrder(data);
         }
         

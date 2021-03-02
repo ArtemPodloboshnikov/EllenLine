@@ -1,0 +1,199 @@
+@import './../../../styles/index.scss';
+//show animation variables
+$show_time: 1s;
+$easing: linear;
+//Start width nav panel from left
+$start_width: 45px;
+
+.back
+{
+    z-index: 100;
+    background-color: $primary_color;
+    position: fixed;
+    top: 0;
+    bottom: 0;
+    left: 0;
+    // //
+    // transition: width $show_time $easing;
+
+    
+}
+
+.aside
+{
+    display: none;
+    // position: sticky;
+    top: 10px;
+    left: 0;
+    bottom: 0;
+    height: min-content;
+    padding-left: 5px;
+    width: $start_width;
+    // background-color: $primary_color;
+    //
+    transition: width $show_time $easing;
+
+    & > img
+    {
+        display: block;
+        margin: 10px auto;
+        opacity: 0;
+        //
+        transition: opacity ($show_time / 2) $easing;
+    }
+
+    &.active
+    {
+        $expand: 1;
+        //
+        width: 300px;
+
+        & > img
+        {
+            opacity: 1;
+        }
+
+        & > i
+        {
+            transform: rotate(180deg);
+        }
+
+        .menu
+        {
+            opacity: 1;
+
+            p, a
+            {
+                // white-space: normal;
+            }
+        }
+    }
+
+
+    i, p
+    {
+        color: $sub_color;
+    }
+
+    & > i
+    {
+        z-index: inherit;
+        position: absolute;
+        top: 50%;
+        right: 0;
+        padding: 0 $start_width / 8;
+        font-size: 2.2em;
+        transform-origin: .5 .5;
+        //
+        transition: 
+        transform $show_time $easing;
+    }
+
+
+
+    .menu
+    {
+        opacity: 0;
+        padding-right: $start_width;
+        overflow: hidden;
+        //
+        transition: opacity $show_time $easing;
+
+        p, .root
+        {
+            border-bottom: 1px solid black;
+            padding-left: 5px;
+            overflow: hidden;
+        }
+
+        p, a
+        {
+            white-space: nowrap;
+        }
+
+        p, i
+        {
+            margin: 0 auto;
+            font-size: 1.75em;
+        }
+
+        a
+        {
+            &:active
+            {
+                color: $attention_color;
+            }
+        }
+
+        .option, .root
+        {
+            
+        }
+        
+        .root
+        {
+            display: grid;
+            grid-template-columns: fit-content(20px) 1fr;
+            grid-auto-rows: auto;
+            grid-column-start: 2;
+            grid-column-end: 3;
+            column-gap: 5px;
+            padding-bottom: 10px;
+
+            & > p
+            {
+                margin-left: 0;
+            }
+
+            & > i
+            {
+                @extend %grid_center;
+                grid-column: 0;
+                display: block;
+                //
+                transition: transform .25s linear;
+            }
+
+            &.active
+            {
+
+                & > i
+                {
+                    @extend %grid_center;
+                    grid-column: 0;
+                    display: block;
+                    transform: rotate(180deg);
+                }
+
+                .submenu
+                {
+                    max-height: 150px;
+                }
+            }
+
+            .submenu
+            {
+                grid-column: 2;
+                grid-row: 2;
+                padding-left: 5px;
+                max-height: 0;
+                overflow: hidden;
+                //
+                transition: max-height $show_time $easing;
+
+                p
+                {
+                    font-size: 1.25em;
+                }
+            }
+        }
+    }
+}
+
+@media screen and (max-width: 1024px)
+{
+    .aside
+    {
+        display: block;
+    }
+}

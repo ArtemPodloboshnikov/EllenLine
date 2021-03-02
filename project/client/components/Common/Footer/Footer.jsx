@@ -6,10 +6,10 @@ import Image from 'next/image';
 
 const homeOnMap= [{coordinates: [59.87026708231266, 30.26207174039379], hintContent: 'Эллинлайн', balloonContentBody: 'ул. Зайцева, 3, корп. 2, Санкт-Петербург'}];
 const cityCoordinates = [59.9073, 30.3276];
-const Footer = () => {
+const Footer = (props) => {
 
         return (
-        <div className={ classes.footer }>
+        <div className={ classes.footer + ' ' + props.className}>
             <PresentationMap className={ classes.footer__map } id="map" cityCoordinates={cityCoordinates} points={homeOnMap}/>
             
             <div className={classes.footer__links}>

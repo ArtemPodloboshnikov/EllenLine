@@ -1,10 +1,11 @@
 import React from 'react'
+//
 import classes from './QRcode.module.scss';
 
 const QRcode = () => {
     return (
-        <div className='section'>
-            <div className='section__title_right'>
+        <div className={classes.section}>
+            <div className={classes.title}>
                 <p>Safe travels </p>
             </div>
             <div className={classes.code}>

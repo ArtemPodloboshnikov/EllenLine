@@ -75,6 +75,7 @@
 
     & > div:first-child
     {
+        margin-left: -1px;
         grid-column: 1 / 2;
         background-color: $primary_color;
         display: grid;
