@@ -5,3 +5,13 @@
     @extend %title;
     margin: 25px auto;
 }
+.nemoTravel
+{
+    padding-left: 5%;
+    padding-right: 5%;
+    *
+    {
+
+        @extend %font;
+    }
+}

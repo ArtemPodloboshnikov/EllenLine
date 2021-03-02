@@ -2,7 +2,7 @@ import classes from './Header.module.scss';
 import Link from 'next/link'
 import { useEffect, useState } from 'react'
 import UpToHeader from '../UpToHeader/UpToHeader';
-import SidebarHeader from './SidebarHeader';
+// import SidebarHeader from './SidebarHeader';
 import ReactPlayer from 'react-player'
 import SearchByName from '../Search/SearchByName';
 import Image from 'next/image';
@@ -114,7 +114,7 @@ const Header = (props) => {
                     </div>
                 </header>
                 
-                <SidebarHeader/>
+                {/* <SidebarHeader/> */}
                 {(()=>{
 
                     if (scroll > 500){

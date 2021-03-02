@@ -64,7 +64,7 @@ $start_width: 45px;
 
             p, a
             {
-                // white-space: normal;
+                @extend %font;
             }
         }
     }

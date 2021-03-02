@@ -78,7 +78,7 @@ const Resort = ({data}) => {
         }
         async function updateOrderAndService()
         {
-          console.log(`id: ${id} type: ${type}`)
+         
             const res = await fetch(`${Global.urlServer}/api/orders?success=true`, {
                 method: 'PUT',
                 headers: {

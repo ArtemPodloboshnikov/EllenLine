@@ -18,3 +18,27 @@
     }
 
 }
+
+
+@media screen and (max-width: 1024px)
+{
+    .resort
+    {
+
+        .map
+        {
+            height: 400px;
+        }
+    }
+}
+@media screen and (max-width: 768px)
+{
+    .resort
+    {
+
+        .map
+        {
+            height: 325px;
+        }
+    }
+}
