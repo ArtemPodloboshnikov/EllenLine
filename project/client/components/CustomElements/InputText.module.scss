@@ -1,0 +1,29 @@
+// @import '../../index.scss';
+ .wrap{
+
+    transform: skewX(-20deg);
+    background-color: #0062FF;
+    display: grid;
+    justify-items: center;
+    align-items: center;
+}
+.input::placeholder{
+
+    color: #FFDD00;
+    text-align: center;
+}
+.input{
+    background-color: transparent !important;
+    font-family: 'Mediator Serif Regular';
+    font-size: 1.25em;
+    width: 98%;
+    position: relative;
+    transform: skewX(20deg);
+    border: none;
+    color: #fff;
+    text-align: center;
+} 
+// .input
+// {
+//     @extend %border;
+// }

@@ -1,0 +1,139 @@
+@import '../../styles/index.scss';
+@import './index.module.scss';
+
+.section
+{
+    .title
+    {
+        @extend %title;
+        margin-top: 40px;
+    }
+}
+
+.clients_border{
+
+    background-color: $primary_color;
+}
+.clients_border:after{
+
+    top: 10px;
+    left: 0px;
+    right: 0px;
+    bottom: 10px;
+}
+.clients{
+
+    width: 100%;
+    height: 195vh;
+    position: relative;
+    display: grid;
+    align-items: center;
+    justify-items: center;
+}
+.clients:after{
+
+    background-color: $sub_color;
+    position: absolute;
+    content: '';
+}
+.clients, .clients:after{
+    clip-path: polygon(0% 22%, 43% 13%, 64% 19%, 85% 12%, 100% 19%, 100% 80%, 64% 85%, 30% 78%, 0% 83%);
+}
+.clients__content{
+
+    width: 100%;
+    height: 50%;
+    display: grid;
+    justify-items: center;
+    align-items: center;
+    grid-template-columns: repeat(3, 1fr);
+    /* ZIMIN */
+    row-gap: 15%;
+    position: relative;
+    z-index: 2;
+    justify-content: center;
+    padding: 100px 0;
+}
+.clients__content img{
+
+    object-fit: contain;
+    width: 100%;
+    /* ZIMIN */
+    height: 130%;
+}
+.dhl_margin{
+
+    margin-left: 6%;
+}
+.friedrichEbert_column{
+
+    grid-column: 3;
+}
+/* ZIMIN */
+@media screen and (max-width: 768px)
+{
+    .friedrichEbert_column{
+        grid-column: 1;
+    }
+    .dhl_margin{
+
+        margin-left: 0%;
+    }
+    .clients__content{
+
+        grid-template-columns: repeat(2, 1fr);
+        gap: 10px;
+        width: 70%;
+        /* ZIMIN */
+        /* height: 250vh; */
+        /* margin-left: 15%; */
+        padding: 15px 0;
+        margin: 0 auto;
+    }
+    /* ZIMIN */
+    .clients__content img{
+        height: unset;
+    }   
+}
+/* iPads: вертикальная ориентация */
+@media only screen and (min-device-width : 768px) and (max-device-width : 1024px) and (orientation : portrait) {
+    
+    .friedrichEbert_column{
+        grid-column: 1;
+    }
+    .dhl_margin{
+
+        margin-left: 0%;
+    }
+    .clients__content{
+
+        grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+        grid-row-gap: 0%;
+        width: 20%;
+        height: 250vh;
+        margin-left: 40%;
+    }
+
+}
+/* iPads: горизонтальная ориентация */
+@media only screen and (min-device-width : 768px) and (max-device-width : 1366px) and (orientation : landscape) {
+
+    .friedrichEbert_column{
+        grid-column: 1;
+    }
+    .dhl_margin{
+
+        margin-left: 0%;
+    }
+    .clients__content{
+
+        grid-template-columns: repeat(2, 1fr);
+        grid-row-gap: 0%;
+        width: 70%;
+        height: 250vh;
+        /* ZIMIN */
+        /* margin-left: 15%; */
+        margin: 0 auto;
+    }
+
+}

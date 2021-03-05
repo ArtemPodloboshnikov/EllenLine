@@ -1,0 +1,30 @@
+@import '../../styles/index.scss';
+@import './index.module.scss';
+
+.section
+{
+    display: grid;
+    grid-template-columns: 1fr;
+    grid-auto-rows: auto;
+    row-gap: 30px;
+
+    .title
+    {
+        @extend %title;
+    }
+
+    .code
+    {
+        display: grid;
+        justify-items: center;
+        align-items: center;
+        justify-content: center;
+        align-content: center;
+
+        img
+        {
+    
+            width: 50%;
+        }
+    }
+}

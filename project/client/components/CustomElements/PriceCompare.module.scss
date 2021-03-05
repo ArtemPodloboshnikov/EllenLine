@@ -1,0 +1,34 @@
+@import '../../styles//index.scss';
+
+.inputPrice{
+
+    display: grid;
+    grid-template-areas: 
+    'input more'
+    'input equally'
+    'input less';
+    justify-items: center
+}
+.more, .equally, .less{
+
+    @extend %as_button;
+    color: $primary_color;
+    font-size: 1.3em;
+    font-family: 'Mediator Serif Regular';
+    width: 100%;
+    text-align: center;
+}
+.more{
+
+    grid-area: more;
+    border-bottom: 5px solid $primary_color;
+}
+.equally{
+
+    grid-area: equally;
+    border-bottom: 5px solid $primary_color;
+}
+.less{
+
+    grid-area: less;
+}

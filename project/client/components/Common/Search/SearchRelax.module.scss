@@ -1,0 +1,67 @@
+//@import '../../../styles/index.scss';
+
+.sanatorium
+{
+
+    display: grid;
+    /* height: calc(50px + 1vh); */
+    margin-top: 5%;
+    grid-template-areas: 'name country city stars price';
+    grid-template-columns: repeat(5, 1fr);
+    gap: 1%;
+}
+.country, .city, .input, .stars, .price{
+    
+   width: 80%;
+   justify-self: center;
+   height: 15vh;
+}
+.country{
+    grid-area: country;
+    
+}
+.city
+{
+    grid-area: city;
+    
+}
+.input{
+
+    grid-area: name;
+    /* width: 50vw; */
+    /* height: 10vh; */
+}
+.stars{
+
+    grid-area: stars;
+}
+.price{
+
+    grid-area: price;
+}
+@media screen and (max-width: 1024px)
+{
+    .sanatorium{
+        grid-template-columns: 50% 50%;
+        grid-template-rows: repeat(2, 1fr);
+        grid-template-areas: 'country city'
+                             'name stars';
+    }
+    .sanatorium .country, .sanatorium .city, .input, .sanatorium .stars{
+        font-size: 1.5em;
+    }
+}
+@media screen and (max-width: 425px)
+{
+    .sanatorium{
+        grid-template-columns: 1fr;
+        grid-template-rows: repeat(4, 1fr);
+        grid-template-areas: 'country'
+                             'city'
+                             'name'
+                             'stars';
+    }
+    .sanatorium .country, .sanatorium .city, .input, .sanatorium .stars{
+        font-size: 1em;
+    }
+}

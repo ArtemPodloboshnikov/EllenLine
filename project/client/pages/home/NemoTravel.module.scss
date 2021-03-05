@@ -1,0 +1,7 @@
+@import './index.module.scss';
+
+.title
+{
+    @extend %title;
+    margin: 25px auto;
+}

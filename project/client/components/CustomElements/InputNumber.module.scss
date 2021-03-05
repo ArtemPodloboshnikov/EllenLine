@@ -1,0 +1,46 @@
+@import '../../styles/index.scss';
+
+.inputNumber{
+
+    display: grid;
+    grid-template-columns: 2fr 1fr;
+    grid-template-areas: 
+    'input plus'
+    'input minus';
+    border: 5px solid $primary_color;
+}
+.input, .plus, .minus{
+
+    font-family: 'Mediator Serif Regular';
+    font-size: 1.5em;
+    color: $primary_color;
+    text-align: center;
+    width: 100%;
+    height: 100%;
+}
+.input::placeholder{
+
+    text-align: center;
+    color: $primary_color
+}
+.input{
+
+    grid-area: input;
+    border-right: 5px solid $primary_color;
+   
+}
+.plus, .minus{
+
+    cursor: pointer;
+    user-select: none;
+    background-color: transparent;
+}
+.plus{
+
+    grid-area: plus;
+}
+.minus{
+
+    border-top: 5px solid $primary_color;
+    grid-area: minus;
+}
