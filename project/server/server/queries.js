@@ -559,8 +559,8 @@ router.post('/relax', function(request, reply){
             return;
         }
         
-        connection.query('INSERT INTO relax_  SET title = AES_ENCRYPT(?), address = AES_ENCRYPT(?), description = AES_ENCRYPT(?), stars = ?, services = AES_ENCRYPT(?), coordinates = AES_ENCRYPT(?), photos = AES_ENCRYPT(?), price = ?, type = AES_ENCRYPT(?), typeOfRoom = AES_ENCRYPT(?), id_city = ?',
-        [dataTitle, dataAddress, dataDescription, request.body.stars, dataServices, dataCoordinates, dataPhotos, request.body.price, dataType, dataTypeOfRoom, request.body.idCity], function (error, results) {
+        connection.query('INSERT INTO relax_  SET title = AES_ENCRYPT(?), address = AES_ENCRYPT(?), description = AES_ENCRYPT(?), stars = ?, services = AES_ENCRYPT(?), coordinates = AES_ENCRYPT(?), photos = AES_ENCRYPT(?), price = ?, pricePerChild = ?, pricePerTeenager = ?, pricePerPet = ? type = AES_ENCRYPT(?), typeOfRoom = AES_ENCRYPT(?), id_city = ?',
+        [dataTitle, dataAddress, dataDescription, request.body.stars, dataServices, dataCoordinates, dataPhotos, request.body.price, request.body.pricePerChild, request.body.pricePerTeenager, request.body.pricePerPet, dataType, dataTypeOfRoom, request.body.idCity], function (error, results) {
 
             connection.release();
             if (error) console.log(error);
@@ -1036,7 +1036,7 @@ router.get('/countries', function(request, reply){
     let sql = '';
     if (request.query.with == 'description')
     {
-        sql = `SELECT id_country as id, AES_DECRYPT(name, '${keysForTables.countries.name}') as name, AES_DECRYPT(description, '${keysForTables.countries.description}') as description FROM countries`;
+        sql = `SELECT id_country as id, AES_DECRYPT(name, '${keysForTables.countries.name}') as name FROM countries`;
     }
     else
     if (request.query.with == 'cities')
@@ -1096,7 +1096,6 @@ router.post('/countries', function(request, reply){
 
     
     const dataName = [request.body.name, keysForTables.countries.name]
-    const dataDescription = [request.body.description, keysForTables.countries.description];
     
     mysql.getConnection(function(err, connection) {
         if (err) {
@@ -1104,7 +1103,7 @@ router.post('/countries', function(request, reply){
             return;
         }
         
-        connection.query('INSERT INTO countries SET name = AES_ENCRYPT(?), description = AES_ENCRYPT(?)',
+        connection.query('INSERT INTO countries SET name = AES_ENCRYPT(?)',
         [dataName, dataDescription], 
         function (error, results, fields) {
 
@@ -1115,28 +1114,28 @@ router.post('/countries', function(request, reply){
         });
     })
 })
-router.put('/countries', function(request, reply){
+// router.put('/countries', function(request, reply){
 
     
-    const dataDescription = [request.body.description, keysForTables.countries.description];
-    const id = request.body.id;
-    mysql.getConnection(function(err, connection) {
-        if (err) {
-            console.log(err);
-            return;
-        }
+//     const dataDescription = [request.body.description];
+//     const id = request.body.id;
+//     mysql.getConnection(function(err, connection) {
+//         if (err) {
+//             console.log(err);
+//             return;
+//         }
         
-        connection.query('UPDATE countries SET description = AES_ENCRYPT(?) WHERE id_country=?',
-        [dataDescription, id], 
-        function (error, results, fields) {
+//         connection.query('UPDATE countries SET description = AES_ENCRYPT(?) WHERE id_country=?',
+//         [dataDescription, id], 
+//         function (error, results, fields) {
 
-            connection.release();
-            if (error) console.log(error);
+//             connection.release();
+//             if (error) console.log(error);
 
-            reply.sendStatus(200);
-        });
-    })
-})
+//             reply.sendStatus(200);
+//         });
+//     })
+// })
 
 router.delete('/countries', function(request, reply){
 

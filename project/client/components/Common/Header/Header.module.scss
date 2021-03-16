@@ -56,6 +56,7 @@
     height: auto;
     margin-left: -2%;
     justify-items: center;
+    z-index: 5;
     @extend %shadow;
 }
 .treeTours{
@@ -90,11 +91,21 @@
     grid-area: buttons;
     grid-column-gap: 2.3%;
 }
-.header__buttons > label > img{
+.header__buttons
+{
+    & > label > img
+    {
+        width: 40%;
+        cursor: pointer;
+        transform: scale(-1, 1);
+        
+    }
 
-    width: 40%;
-    cursor: pointer;
-    transform: scale(-1, 1);
+    & > a > i
+    {
+        font-size: 3em;
+        color: $side_color;
+    }
 }
 .search{
 
@@ -183,6 +194,12 @@
 
     margin-left: 15%;
 }
+.header__logo
+{
+    grid-area: logo;
+    justify-self: center;
+    margin-top: -15%;
+}
 .header__links{
 
     display: grid;
@@ -210,7 +227,7 @@
     grid-template-columns: repeat(10, 1fr);
     grid-template-rows: repeat(9, 10%);
     grid-template-areas: 
-    '. buttons buttons buttons buttons buttons buttons buttons buttons buttons'
+    'logo buttons buttons buttons buttons buttons buttons buttons buttons buttons'
     '. . . . . . . . . .'
     'links . . . . . . . . .'
     'links . . . . . . . . .'

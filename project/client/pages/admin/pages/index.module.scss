@@ -1,5 +1,10 @@
 @import '../../../styles/index.scss';
 
+.wrap
+{
+    display: grid;
+    grid-template-columns: repeat(2, 2fr);
+}
 .pages
 {
     display: grid;
@@ -53,8 +58,18 @@
                 height: 90vh;
                 grid-column: 2 / 3;
                 margin-top: 5%;
+
+                p
+                {
+                    font-size: 0.8em !important;
+                }
+
+                textarea
+                {
+                    font-size: 1em !important;
+                }
             }
-            
+
             .dynamicSelectWrap
             {
                 grid-column: 2 / 3;

@@ -1,10 +1,5 @@
-@import './index.module.scss';
+@import '../../styles/index.scss';
 
-.title
-{
-    @extend %title;
-    margin: 25px auto;
-}
 .nemoTravel
 {
     padding-left: 5%;

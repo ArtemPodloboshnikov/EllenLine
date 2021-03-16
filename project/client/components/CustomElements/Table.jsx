@@ -95,21 +95,6 @@ const Table = ({titles, info, className, ActionButton, setCheckbox, checkbox=fal
                 const patternDate = new RegExp('date', 'gi');
                 const patternTime = new RegExp('time', 'gi');
 
-                if (searchValues[j] != '')
-                {
-                    const patternSearch = new RegExp(`${searchValues[j]}`, 'gi');
-                  
-                    if (patternSearch.test(value))
-                    {
-                        flags.push(true);
-                    }
-                    else
-                    {
-                        flags.push(false);
-                    }
-
-                }
-
                 if (patternDate.test(titles[j].key))
                 {
                     value = dateParser(value);
@@ -140,9 +125,24 @@ const Table = ({titles, info, className, ActionButton, setCheckbox, checkbox=fal
                     if (value.length > 20)
                     {
                         let text = value;
-                        const onClick = ()=>setMessage({style: {display: 'grid'}, text: text, title: titles[j].value})
-                        value = <button onClick={onClick}><i class="fas fa-file-alt"></i></button>
+                        // const onClick = ()=>setMessage({style: {display: 'grid'}, text: text, title: titles[j].value})
+                        value = <div className='hint'>{text.substring(0, 10) + '...'}<div>{text}</div></div>
                     }
+                }
+
+                if (searchValues[j] != '')
+                {
+                    const patternSearch = new RegExp(`${searchValues[j]}`, 'gi');
+                  
+                    if (patternSearch.test(value))
+                    {
+                        flags.push(true);
+                    }
+                    else
+                    {
+                        flags.push(false);
+                    }
+
                 }
 
                 table_content.push(<td>{value}</td>)

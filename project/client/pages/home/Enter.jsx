@@ -5,7 +5,6 @@ import Advantages from './Advantages.jsx';
 import Clients from './Clients.jsx';
 import QRcode from './QRcode.jsx';
 import classes from './Enter.module.scss';
-import NemoTravel from './NemoTravel.jsx';
 
 // Стоит выделить Home в отдельный компонент в папку Home, вместе со стилями
 export default function Home(){
@@ -32,7 +31,6 @@ export default function Home(){
         <div className={classes.home}>
             {/* <Services data={data.services}/>
             <Advantages data={data.advantages}/> */}
-            <NemoTravel/>
             <Clients/>
             <QRcode/>
         </div>

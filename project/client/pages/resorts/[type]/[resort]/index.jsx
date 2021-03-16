@@ -89,7 +89,13 @@ const Resorts = ({data}) => {
     }, [resort])
 
     return (
-        <ClientLayout title={Global.GetConvert(type)[resort]} description={dbData !== null ? Global.GetConvert(type)['discription'] : ''} keywords={dbData !== null ? `${Global.GetConvert(type)[resort]}, ${type}` : ''} preloader={!dbData}>
+        <ClientLayout 
+            title={Global.GetConvert(type)[resort]} 
+            description={dbData !== null ? Global.GetConvert(type)['discription'] : ''} 
+            keywords={dbData !== null ? `${Global.GetConvert(type)[resort]}, ${type}` : ''} 
+            preloader={!dbData}
+            crumbs={[{href: '/resorts/[type]', as: `/resorts/${type}`, text: Global.GetConvert(type).name}, 
+                     {href: '/resorts/[type]/[resort]', as: `/resorts/${type}/${resort}`, text: Global.GetConvert(type)[resort]}]}>
             <SearchRelax className={classes.search} setSearchStars={setSearchStars} setSearchCountry={setSearchCountry}
             setSearchCity={setSearchCity} setSearchPrice={setSearchPrice} setSearchName={setSearchName}
             cities={cities} countries={countries}/>

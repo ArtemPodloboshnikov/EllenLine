@@ -59,7 +59,7 @@ const index = () => {
                 case 'text':{
 
                     editor_component.push(<TextArea title={temp_data[key].title} placeholder='Напишите текст' value={temp_data[key].content}
-                    name={key} className={classes.textarea} register={register({required: true})}/>);
+                    name={key} className={classes.textarea} register={register({required: true})} classTitle={classes.textareaTitle} classTextArea={classes.textareaText}/>);
                     break;
                 } 
                 case 'card':
@@ -204,24 +204,26 @@ const index = () => {
     return (
         <AdminLayout title='Страницы' sector='admin'>
             <Message setFunction={setMessage} style={message.style} status={message.status} method={message.method} />
-            <form className={classes.pages} onSubmit={handleSubmit(handleOnSubmit)}>
-                <SelectEntered name='page' onChangeFunction={(obj) => setPage(obj.value)}
-                type='select' options={['Домашняя', 'Условия оплаты']} value={page} className={classes.select_page}/>
-                <div className={classes.pages__editor}>
-                    {editor}
-                    <div className={classes.controls}>
-                        <Button value='Предпросмотр' className={classes.button} onClick={()=>{
+            <div className={classes.wrap}>
+                <form className={classes.pages} onSubmit={handleSubmit(handleOnSubmit)}>
+                    <SelectEntered name='page' onChangeFunction={(obj) => setPage(obj.value)}
+                    type='select' options={['Домашняя', 'Условия оплаты']} value={page} className={classes.select_page}/>
+                    <div className={classes.pages__editor}>
+                        {editor}
+                        <div className={classes.controls}>
+                            <Button value='Предпросмотр' className={classes.button} onClick={()=>{
 
-                            setPreview(true)
-                        }}
-                        />
-                        <Button className={classes.button} value='Обновить' onClick={()=>{
+                                setPreview(true)
+                            }}
+                            />
+                            <Button className={classes.button} value='Обновить' onClick={()=>{
 
-                            setUpdate(true);
+                                setUpdate(true);
 
-                        }}/>
+                            }}/>
+                        </div>
                     </div>
-                </div>
+                </form>
                 <div className={classes.pages__preview}>
                         {(()=>{
 
@@ -232,7 +234,7 @@ const index = () => {
 
                         })()}
                 </div>
-            </form>
+            </div>
         </AdminLayout>
     )
 }

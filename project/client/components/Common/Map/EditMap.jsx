@@ -15,11 +15,11 @@ function EditMap(props){
     const newPlacemark = (event) => {
         
         let map = event;
-       // console.log(map)
+       console.log(map)
         if (map !== null)
         {
             map.events.add('click', (e) =>{
-
+                console.log(map.balloon)
                 if (!map.balloon.isOpen()) {
                     let coords = e.get('coords');
                     map.balloon.open(coords, {

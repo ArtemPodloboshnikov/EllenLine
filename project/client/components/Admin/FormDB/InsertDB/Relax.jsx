@@ -21,7 +21,7 @@ const Relax = (props) => {
     const [countryName, setCountryName] = useState('Россия');
     const [cityName, setCityName] = useState('Санкт-Петербург');
     const [zoom, setZoom] = useState();
-    const [servicesRows, setServicesRows] = useState(0);
+    const [servicesRows, setServicesRows] = useState(1);
   
     const handleOnSubmit = (data)=>{
 
@@ -215,10 +215,10 @@ const Relax = (props) => {
                 <InputText register={register({required: true})} name='typeOfRoom' className={classes.inputText + ' ' + classes.inputText_width50} 
                 classInput={classes.inputText__input} placeholder='Тип номера'/>
 
-                <SelectEntered register={register({required: true})} name='country' value={countryName} onChangeFunction={setCountryName}
+                <SelectEntered register={register({required: true})} name='country' value={countryName} onChangeFunction={(obj)=>setCountryName(obj.value)}
                 className={classes.select} placeholder='Страна' options={Object.keys(contries_cities.countries)}/>
 
-                <SelectEntered register={register({required: true})} name='city' onChangeFunction={setCityName}
+                <SelectEntered register={register({required: true})} name='city' onChangeFunction={(obj)=>setCityName(obj.value)}
                 className={classes.select} placeholder='Город' options={Object.keys(contries_cities.cities)} />
 
                 <InputText register={register({required: true})} name='address' className={classes.inputText} 
@@ -235,8 +235,17 @@ const Relax = (props) => {
                     classInput={classes.dynamicList__input} placeholder='Услуги в номерах' rows={servicesRows} setRows={setServicesRows}/>
                 </div>
 
-                <InputNumber classWrap={classes.wrapNumber + ' ' + classes.top_3} register={register({required: true})} name='price' 
+                <InputNumber classWrap={classes.wrapNumber + ' ' + classes.number_top} register={register({required: true})} name='price' 
                 className={classes.inputNumber} placeholder='Цена' min='1'/>
+
+                <InputNumber register={register({required: true})} className={classes.inputNumber} name='pricePerChild' value={0}
+                classWrap={classes.wrapNumber + ' ' + classes.number_top} placeholder='Цена для детей' min='0'/>
+
+                <InputNumber register={register({required: true})} className={classes.inputNumber} name='pricePerTeenager' value={0}
+                classWrap={classes.wrapNumber + ' ' + classes.number_top} placeholder='Цена для подростков' min='0'/>
+
+                <InputNumber register={register({required: true})} className={classes.inputNumber} name='pricePerPet' value={0}
+                classWrap={classes.wrapNumber + ' ' + classes.number_top} placeholder='Цена для питомцев' min='0'/>
 
                 <InputNumber classWrap={classes.wrapNumber} register={register({required: true})} name='discount' 
                 className={classes.inputNumber} placeholder='Скидка' min='0' max='100' value='0'/>

@@ -52,8 +52,9 @@
 .header_db__queries label{
 
     color: $sub_color;
-    font-family: 'Mediator Serif';
+    @extend %font;
     font-size: 1.6em;
+    @extend %as_button;
 }
 
 /* .trips p::before, .relax p::before{

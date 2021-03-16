@@ -19,7 +19,9 @@ const Relax = () => {
 
 
     return (
-        <ClientLayout title={convert[Object.keys(convert)[0]]}>
+        <ClientLayout 
+            title={convert[Object.keys(convert)[0]]}
+            crumbs={[{href: '/resorts/[type]', as: `/resorts/${type}`, text: Global.GetConvert(type).name}]}>
             <ChooseResort 
             path={type} 
             convert={convert}/>

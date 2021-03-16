@@ -1,4 +1,30 @@
+@import '../../../styles/index.scss';
 
+.wrap
+{
+    border: 3px solid $primary_color;
+    margin-left: 2%;
+    margin-right: 2%;
+    margin-top: 2%;
+    
+    & > legend
+    {
+        
+        text-align: center;
+        & > button
+        {
+            border: 3px solid $primary_color;
+            color: $primary_color;
+            font-size: 1.5em;
+
+            &:hover
+            {
+                color: $side_color;
+                background-color: $primary_color;
+            }
+        }
+    }
+}
 .sanatorium
 {
 

@@ -19,7 +19,7 @@
   font-weight: 400;
   font-style: normal;
 }
-#hint
+.hint
 {
   position: relative;
   display: grid;
@@ -27,11 +27,15 @@
   justify-items: center;
   width: fit-content;
 }
-
-#hint:hover:after 
+.hint > div
+{
+  display: none;
+}
+.hint:hover > div 
 {
   content: attr(data-text);
   @extend %shadow;
+  display: block;
   position: absolute;
   left: 0;
   bottom: 0;
@@ -40,6 +44,10 @@
   text-align: center;
   @extend %font;
   width: auto;
+  padding: 5%;
+  max-height: 10vw;
+  overflow-y: auto;
+  overflow-x: hidden;
 }
 
 h1, h2, h3, h4, h5{

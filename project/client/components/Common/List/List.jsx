@@ -33,7 +33,7 @@ const checkSearch = (data, conditions) =>{
 
         data.map((elem)=>{
             
-            let flag = false;
+            let flags = [];
             for(let i = 0; i < conditions.length; i++)
             {
                 if (elem[conditions[i].key] != undefined && conditions[i].value != '')
@@ -53,11 +53,11 @@ const checkSearch = (data, conditions) =>{
                             case '>':{
                                 if (elem[conditions[i].key] > value)
                                 {
-                                    flag = true;
+                                    flags.push(true);
                                 }
                                 else
                                 {
-                                    flag = false;
+                                    flags.push(false);
                                     
                                 }
                                 break;
@@ -65,12 +65,12 @@ const checkSearch = (data, conditions) =>{
                             case '=':{
                                 if (elem[conditions[i].key] == value)
                                 {
-                                    flag = true;
+                                    flags.push(true);
                                 
                                 }
                                 else
                                 {
-                                    flag = false;
+                                    flags.push(false);
                                 
                                 }
                                 break;
@@ -78,11 +78,11 @@ const checkSearch = (data, conditions) =>{
                             case '<':{
                                 if (elem[conditions[i].key] < value)
                                 {
-                                    flag = true;
+                                    flags.push(true);
                                 }
                                 else
                                 {
-                                    flag = false;
+                                    flags.push(false);
                                     
                                 }
                                 break;
@@ -92,20 +92,44 @@ const checkSearch = (data, conditions) =>{
                     else
                     if (pattern.test(elem[conditions[i].key]))
                     {
-                        flag = true;
+                        flags.push(true);
+                    }
+                    else
+                    {
+                        flags.push(false);
                     }
                     // else
                     // {
                     //     flag = false;
                     //     break;
                     // }
-                    
-                    if (!flag) break;
+                    let isBreak = false;
+
+                    for (let flag of flags)
+                    {
+                        
+                        if (!flag)
+                        {
+                            isBreak = true;
+                            break;
+                        }
+                    }
+
+                    if (isBreak) break;
                 }
             }
-
-            if (flag) array.push(elem)
+            console.log(flags)
+            let isPush = true;
+            for (let flag of flags)
+            {
+                if (!flag)
+                {
+                    isPush = false;
+                    break;
+                } 
+            }
             
+            if (isPush) array.push(elem)
         })
 
         console.log(array)
@@ -125,20 +149,32 @@ const List = (props) => {
         const elements = [];
         if(items && items.length != 0)
         {
+            let prices = [];
             items.map((item)=>{
                 console.log(item)
                 if (item.discount != 0)
                 {
                     let temp_item = {...item};
-                    console.log(mathPriceWithDiscount(temp_item.discount, temp_item.price))
+                    //console.log(mathPriceWithDiscount(temp_item.discount, temp_item.price))
                     let price = mathPriceWithDiscount(temp_item.discount, temp_item.price);
                     temp_item.price = price 
                     console.log(temp_item)
                     // item = null;
                     console.log(item)
-                    item = Object.assign({}, temp_item)
+                    // item.price = temp_item.price;
+                    prices.push(temp_item.price);
                 }
             })
+            let j = 0;
+            items.map((item)=>{
+                
+                if (item.discount != 0)
+                {
+                    item.price = prices[j];
+                    j++;
+                }
+            })
+            console.log(prices);
             const result = checkSearch(items, conditions);
             for(let i = 0; i < result.length; i++)
             {

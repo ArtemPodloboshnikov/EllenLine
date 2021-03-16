@@ -1,18 +1,23 @@
 .form{
 
-    height: 360vh !important;
+    // height: 360vh !important;
  
+}
+%top
+{
+    margin-top: 5% !important;
 }
 .inputText{
     justify-self: center;
     width: 70%;
     height: 10vh;
+    @extend %top;
 }
 .inputText_width50{
 
     width: 50%;
 }
-.top_3
+.number_top
 {
     margin-top: 5%;
 }
@@ -21,6 +26,7 @@
     justify-self: center;
     width: 70%;
     height: 62vh;
+    @extend %top;
 }
 .textarea__text{
     font-size: 1em !important;
@@ -44,8 +50,8 @@
 {
     justify-self: center;
     width: 30%;
-
-    & label
+    @extend %top;
+    & > label
     {
         font-size: 1.5em;
     }
@@ -74,6 +80,7 @@
     height: 10vh;
     justify-content: start;
     margin: 0 auto;
+    @extend %top;
     grid-column-gap: 3%;
     margin-left: 4.3%;
     /* background-color: red; */
@@ -83,6 +90,7 @@
     width: 80%;
     height: 30vh;
     justify-self: center;
+    @extend %top;
 }
 .filesUploader__text, .filesUploader__placeholder{
 
@@ -93,18 +101,21 @@
     width: 30%;
     height: 10vh;
     justify-self: center;
+    @extend %top;
 }
 .map{
 
     justify-self: center;
     width: 80%;
     height: 45vh;
+    @extend %top;
 }
 .select{
 
     justify-self: center;
     width: 50%;
     height: 10vh;
+    @extend %top;
 
     & input
     {

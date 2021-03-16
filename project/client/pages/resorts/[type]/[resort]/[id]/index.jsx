@@ -199,7 +199,14 @@ const Resort = ({data}) => {
 
     }
     return (
-        <ClientLayout title={dbData !== null ? dbData.title : 'Эллинлайн'} description={dbData !== null ? dbData.text : ''} keywords={dbData !== null ? `${dbData.title}, ${type}` : ''} preloader={!dbData}>
+        <ClientLayout 
+            title={dbData !== null ? dbData.title : 'Эллинлайн'} 
+            description={dbData !== null ? dbData.text : ''} 
+            keywords={dbData !== null ? `${dbData.title}, ${type}` : ''} 
+            preloader={!dbData}
+            crumbs={[{href: '/resorts/[type]', as: `/resorts/${type}`, text: Global.GetConvert(type).name}, 
+                     {href: '/resorts/[type]/[resort]', as: `/resorts/${type}/${resort}`, text: Global.GetConvert(type)[resort]},
+                     {href: '/resorts/[type]/[resort]/[id]', as: `/resorts/${type}/${resort}/${id}`, text: id},]}>
             <WrapForPreloader data={dbData} type={type}/>
         </ClientLayout>
     )

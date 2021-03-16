@@ -4,7 +4,6 @@ import classes from '../../../../styles/FormDB.module.scss';
 import {default as RelaxInsert} from '../../../../components/Admin/FormDB/InsertDB/Relax';
 import {default as RelaxUpdate} from '../../../../components/Admin/FormDB/UpdateDB/Relax';
 import {default as CountriesInsert} from '../../../../components/Admin/FormDB/InsertDB/Countries';
-import {default as CountriesUpdate} from '../../../../components/Admin/FormDB/UpdateDB/Countries';
 import {default as CountriesDelete} from '../../../../components/Admin/FormDB/DeleteDB/Countries';
 import {default as CitiesInsert} from '../../../../components/Admin/FormDB/InsertDB/Cities';
 import {default as CitiesUpdate} from '../../../../components/Admin/FormDB/UpdateDB/Cities';

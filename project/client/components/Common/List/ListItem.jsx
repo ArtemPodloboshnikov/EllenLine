@@ -49,8 +49,9 @@ const ListItem = (props) => {
                         let column_offset = {gridColumn: `${++countColumn}`};
                         elements.push(
                             <div style={column_offset}>
-                                <div id='hint' data-text={icon.word}>
-                                    <i class={`fa fa-${icon.icon}`} aria-hidden="true"></i>
+                                <div className='hint'>
+                                    <i className={`fa fa-${icon.icon}`} aria-hidden="true"></i>
+                                    <div>{icon.word}</div>
                                 </div>
                             </div>
                         );

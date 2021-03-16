@@ -1,0 +1,16 @@
+@import '../../styles/index.scss';
+
+.wrap
+{
+    display: block;
+    width: auto;
+    height: auto;
+    text-align: center;
+    @extend %font;
+    color: $primary_color;
+    & > *
+    {
+
+        color: $primary_color;
+    }
+}

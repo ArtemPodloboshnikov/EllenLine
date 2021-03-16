@@ -9,50 +9,66 @@ const Search = (props) => {
     let arrowSize = [25, 25];
 
     return (
-        <div className={classes.sanatorium + ' ' + props.className}>
-            <InputText className={classes.input} placeholder="Название" onBlur={(e)=>{
+        <fieldset className={classes.wrap}>
+            <legend><button onClick={()=>{
 
-                props.setSearchName({key: 'title', value: e.target.value})
+                props.setSearchName({key: 'title', value: document.getElementsByName('title')[0].value})
+                props.setSearchCountry({key: 'county_name', value: document.getElementsByName('country')[0].value})
+                props.setSearchCity({key: 'city_name', value: document.getElementsByName('city')[0].value})
+                props.setSearchStars({key: 'stars', value: document.getElementsByName('stars')[0].value})
 
-            }}/>
-           
-            <SelectEntered className={classes.country} name='country' arrowSize={arrowSize}
-                          placeholder="Страна" 
-                          options={props.countries} onBlur={(e)=>{
+            }}><i className={"fas fa-search " + classes.button__loupe}></i></button></legend>
+            <div className={classes.sanatorium + ' ' + props.className}>
 
-                props.setSearchCountry({key: 'county_name', value: e.target.value})
+                <InputText 
+                    name='title' 
+                    className={classes.input} 
+                    placeholder="Название"/>
+            
+                <SelectEntered 
+                    className={classes.country} 
+                    name='country' 
+                    arrowSize={arrowSize}
+                    placeholder="Страна" 
+                    options={props.countries}/>
 
-            }}/>
+                <SelectEntered 
+                    className={classes.city} 
+                    name='city' 
+                    arrowSize={arrowSize}
+                    placeholder="Город"
+                    options={props.cities}/>
 
-            <SelectEntered className={classes.city} name='city' arrowSize={arrowSize}
-                          placeholder="Город"
-                          options={props.cities} onBlur={(e)=>{
+                <InputNumber 
+                    label='none' 
+                    classWrap={classes.stars} 
+                    className={classes.stars_input} 
+                    placeholder="★" 
+                    min="1" 
+                    max="5" 
+                    name='stars'/>
 
-                props.setSearchCity({key: 'city_name', value: e.target.value})
+                <PriceCompare 
+                    className={classes.price} 
+                    min='1' 
+                    placeholder='Цена' 
+                    name='price' 
+                    onClick={(e)=>{
 
-            }}/>
+                    props.setSearchPrice({key: 'price', value: document.getElementsByName('price')[0].value, sign: e.target.value})
 
-            <InputNumber label='none' classWrap={classes.stars} className={classes.stars_input} placeholder="★" min="1" max="5" name='stars' onBlur={(e)=>{
+                }} 
+                onBlur={(e)=>{
 
-                props.setSearchStars({key: 'stars', value: e.target.value})
+                    if (e.target.value == '')
+                    {
 
-            }}/>
+                        props.setSearchPrice({key: 'price', value: '', sign: ''})
+                    }
 
-            <PriceCompare className={classes.price} min='1' placeholder='Цена' name='price' onClick={(e)=>{
-
-                props.setSearchPrice({key: 'price', value: document.getElementsByName('price')[0].value, sign: e.target.value})
-
-            }} 
-            onBlur={(e)=>{
-
-                if (e.target.value == '')
-                {
-
-                    props.setSearchPrice({key: 'price', value: '', sign: ''})
-                }
-
-            }}/>
-        </div>
+                }}/>
+            </div>
+        </fieldset>
     );
     
 }

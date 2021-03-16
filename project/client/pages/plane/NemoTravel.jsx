@@ -11,12 +11,11 @@ const NemoTravel = () => {
         });
     });
 
-    return <div>
-        <div className={classes.title}>
-            <p>Поиск авиабилетов</p>
-        </div>
+    return (
+    <div>
         <div id="fillNemoTravel" className={classes.nemoTravel}></div>
-    </div>;
+    </div>
+    );
 }
 
 export default NemoTravel;
