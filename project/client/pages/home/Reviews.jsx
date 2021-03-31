@@ -1,4 +1,5 @@
 import React from 'react'
+//
 import classes from './Reviews.module.scss';
 
 const Reviews = () => {
@@ -43,4 +44,4 @@ const Reviews = () => {
     )
 }
 
-export default Reviews
+export default Reviews;

@@ -8,15 +8,6 @@ import classes from './index.module.scss';
 
 const Home = () => {
 
-    async function GetAnswer() {
-        const result = await fetch(`${Global.url}/api/hello`);
-        const json = await result.json();
-        console.log(json);
-    }
-    useEffect(() => {
-        GetAnswer();
-    });
-
     return (
         <ClientLayout title='О нас'>
             <Enter/>
