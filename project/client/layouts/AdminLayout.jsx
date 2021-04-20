@@ -14,6 +14,7 @@ export default function AdminLayout ({children, sector, title = 'Эллинла�
 
             case 'promocode': 
             case 'employees':
+            case 'finance':
             case 'db': return <DbHeader sector={to_sector}/>;
 
 

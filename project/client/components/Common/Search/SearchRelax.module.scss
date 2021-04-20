@@ -2,15 +2,11 @@
 
 .wrap
 {
-    border: 3px solid $primary_color;
-    margin-left: 2%;
-    margin-right: 2%;
-    margin-top: 2%;
+    @extend %fieldset;
     
     & > legend
     {
         
-        text-align: center;
         & > button
         {
             border: 3px solid $primary_color;
@@ -27,15 +23,17 @@
 }
 .sanatorium
 {
-
     display: grid;
-    /* height: calc(50px + 1vh); */
-    margin-top: 5%;
-    grid-template-areas: 'name country city stars price';
-    grid-template-columns: repeat(5, 1fr);
+    
+    grid-template-areas: 
+    'name city price'
+    'country stars people';
+    grid-template-rows: repeat(2, 1fr);
+    grid-template-columns: repeat(3, 1fr);
     gap: 1%;
 }
-.country, .city, .input, .stars, .price{
+.country, .city, .input, .stars, .price, .people
+{
     
    width: 80%;
    justify-self: center;
@@ -68,7 +66,8 @@
         font-size: 1.1em;
     }
 }
-.price{
+.price, .people
+{
 
     grid-area: price;
 
@@ -78,17 +77,22 @@
     }
     & input
     {
-        font-size: 0.7em;
+        font-size: 0.5em;
     }
    
+}
+.people
+{
+    grid-area: people;
 }
 @media screen and (max-width: 1024px)
 {
     .sanatorium{
         grid-template-columns: 50% 50%;
-        grid-template-rows: repeat(2, 1fr);
+        grid-template-rows: repeat(3, 1fr);
         grid-template-areas: 'country city'
-                             'name stars';
+                             'name stars'
+                             'price people';
     }
     .sanatorium .country, .sanatorium .city, .input, .sanatorium .stars{
         font-size: 1em;
@@ -98,11 +102,13 @@
 {
     .sanatorium{
         grid-template-columns: 1fr;
-        grid-template-rows: repeat(4, 1fr);
+        grid-template-rows: repeat(6, 1fr);
         grid-template-areas: 'country'
                              'city'
                              'name'
-                             'stars';
+                             'stars'
+                             'price'
+                             'people';
     }
     .sanatorium .country, .sanatorium .city, .input, .sanatorium .stars{
         font-size: 1em;

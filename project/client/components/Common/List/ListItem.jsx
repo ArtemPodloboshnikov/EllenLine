@@ -17,7 +17,7 @@ const ListItem = (props) => {
         let elements = [];
         if(services && services.length != 0)
         {
-            console.log(services)
+            // console.log(services)
             for (let key in services)
             {
                 let countColumn = 0;
@@ -25,7 +25,7 @@ const ListItem = (props) => {
                 {
                     let service = services[key][i];
                     
-                    console.log(service)
+                    // console.log(service)
                     //This is just example, services will be another
                     // switch(service)
                     // {
@@ -48,9 +48,9 @@ const ListItem = (props) => {
                     {
                         let column_offset = {gridColumn: `${++countColumn}`};
                         elements.push(
-                            <div style={column_offset}>
+                            <div>
                                 <div className='hint'>
-                                    <i className={`fa fa-${icon.icon}`} aria-hidden="true"></i>
+                                    <i className={icon.icon} aria-hidden="true"></i>
                                     <div>{icon.word}</div>
                                 </div>
                             </div>

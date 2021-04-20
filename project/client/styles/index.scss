@@ -94,6 +94,19 @@ $disabled_color_title: #628CD0;
     user-select: none;
 }
 
+%fieldset
+{
+    border: 3px solid $primary_color;
+    margin-left: 2%;
+    margin-right: 2%;
+    margin-top: 2%;
+
+    & > legend
+    {
+        text-align: center;
+    }
+}
+
 @mixin blur($bgColor: (255, 255, 255, 0.5), $blur: 5px)
 {
     backdrop-filter: blur($blur);

@@ -33,7 +33,7 @@
 }
 .button__text, .inputText__input, .dynamicList__input, .textarea__title{
 
-    font-size: 1.5em;
+    // font-size: 1.5em;
 }
 .inputNumber{
 
@@ -43,7 +43,7 @@
 
     & input, & div
     {
-        font-size: 1.5em;
+        // font-size: 1.5em;
     }
 }
 .wrapNumber
@@ -53,12 +53,12 @@
     @extend %top;
     & > label
     {
-        font-size: 1.5em;
+        // font-size: 1.5em;
     }
 }
 .dynamicListWrap
 {
-    font-size: 1.5em;
+    // font-size: 1.5em;
 }
 .dynamicList{
 
@@ -119,6 +119,6 @@
 
     & input
     {
-        font-size: 1.5em;
+        // font-size: 1.5em;
     }
 }

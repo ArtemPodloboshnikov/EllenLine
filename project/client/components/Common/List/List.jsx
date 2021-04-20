@@ -9,7 +9,7 @@ const checkSearch = (data, conditions) =>{
 
     let array = [];
     let isSearch = true;
-    console.log(conditions)
+    // console.log(conditions)
     for(let i = 0; i < conditions.length; i++)
     {
 
@@ -40,12 +40,12 @@ const checkSearch = (data, conditions) =>{
                 {
                     let value = conditions[i].value;
                     const pattern = new RegExp(`^${value}`, 'gi');
-                    console.log(`pattern: ${pattern} elem[conditions[i].key]: ${elem[conditions[i].key]}`)
+                    // console.log(`pattern: ${pattern} elem[conditions[i].key]: ${elem[conditions[i].key]}`)
                     if (!isNaN(value))
                     {
                         value = parseInt(value);
                     }
-                // console.log(conditions[i])
+                console.log(conditions[i])
                     if (conditions[i].sign != undefined)
                     {
                         switch(conditions[i].sign)
@@ -118,7 +118,7 @@ const checkSearch = (data, conditions) =>{
                     if (isBreak) break;
                 }
             }
-            console.log(flags)
+            // console.log(flags)
             let isPush = true;
             for (let flag of flags)
             {
@@ -132,70 +132,118 @@ const checkSearch = (data, conditions) =>{
             if (isPush) array.push(elem)
         })
 
-        console.log(array)
+        // console.log(array)
         return array;
     }
     
     
 }
 
+const grouping = (groupName, containers, elements) =>{
+
+
+    containers.push(<fieldset className={classes.group}>
+
+        <legend>{groupName}</legend>
+        {(()=>{
+
+            return elements;
+        })()}
+    </fieldset>)
+
+    elements = [];
+
+}
+
 const List = (props) => {
     const resort = props.resort;
-    const items = props.items;
+    let items = props.items;
     const path = props.path;
     const conditions = props.conditions;
-    console.log(items)
+    // console.log(items)
     function InsertItems() {
-        const elements = [];
+        const containers = [];
+        let elements = [];
         if(items && items.length != 0)
         {
-            let prices = [];
-            items.map((item)=>{
-                console.log(item)
+            let new_items = [];
+            items.map((item, index)=>{
+                
+                // console.log(item)
                 if (item.discount != 0)
                 {
                     let temp_item = {...item};
                     //console.log(mathPriceWithDiscount(temp_item.discount, temp_item.price))
                     let price = mathPriceWithDiscount(temp_item.discount, temp_item.price);
-                    temp_item.price = price 
-                    console.log(temp_item)
+                    temp_item.price = price
+                    // console.log(temp_item)
                     // item = null;
-                    console.log(item)
-                    // item.price = temp_item.price;
-                    prices.push(temp_item.price);
+                    // console.log(item)
+                    //items[index] = temp_item;
+                    new_items.push(temp_item);
                 }
             })
-            let j = 0;
-            items.map((item)=>{
+
+            items = new_items;
+            new_items = null;
+            // let j = 0;
+            // items.map((item)=>{
                 
-                if (item.discount != 0)
-                {
-                    item.price = prices[j];
-                    j++;
-                }
-            })
-            console.log(prices);
-            const result = checkSearch(items, conditions);
-            for(let i = 0; i < result.length; i++)
+            //     if (item.discount != 0)
+            //     {
+            //         item.price = prices[j];
+            //         j++;
+            //     }
+            // })
+            // console.log(prices);
+            let result = checkSearch(items, conditions);
+            result.sort((prev, next) => {
+                if ( prev.title < next.title ) return -1;
+                if ( prev.title < next.title ) return 1;
+            });
+
+            console.log(result);
+
+            if (result.length != 0)
             {
-                let element = result[i];
-                elements.push(<ListItem category={resort}
-                                        path={path}
-                                        id={element.id}
-                                        title={element.title}
-                                        images={element.images}
-                                        address={element.address}
-                                        price={element.price}
-                                        services={element.services}/>);
+
+                    let groupName = result[0].title;
+                    for(let i = 0; i < result.length; i++)
+                    {
+                        
+                        let element = result[i];
+        
+                        if (element.title != groupName)
+                        {
+                            grouping(groupName, containers, elements);
+                            groupName = element.title;
+                        }
+        
+                        console.log(groupName)
+                        // console.log(element)
+                        elements.push(<ListItem category={resort}
+                                                path={path}
+                                                id={element.id}
+                                                title={element.typeOfRoom}
+                                                images={element.images}
+                                                address={element.address}
+                                                price={element.price}
+                                                services={element.services}/>);
+        
+                        if ((i + 1) == result.length)
+                        {
+                            grouping(groupName, containers, elements);
+                        }
+                    }
+                }
+                return containers;
             }
-        }
-        return elements;
     }
 
     return (
-        <div className={classes.list}>
+        <>
             {InsertItems()}           
-        </div>
+        </>
     )
 }
 

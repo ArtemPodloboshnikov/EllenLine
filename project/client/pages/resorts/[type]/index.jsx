@@ -5,7 +5,6 @@ import {useRouter} from 'next/router';
 import ClientLayout from '../../../layouts/ClientLayout.jsx';
 //
 import Global from '../../global.js';
-import classes from './index.module.scss';
 
 const ChooseResort = dynamic(() => import('../../../components/Common/ChooseResort/ChooseResort.jsx'), 
 {

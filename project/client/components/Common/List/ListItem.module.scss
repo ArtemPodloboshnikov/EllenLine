@@ -11,8 +11,8 @@ a:active .list_item{
 
 .list_item {
     position: relative;
-    height: 100%;   
-    width: 100%;
+    width: 30vw;
+    height: 75vh;   
     overflow: hidden;
     background-position: center;
     background-size: cover;
@@ -23,6 +23,7 @@ a:active .list_item{
     {
         cursor: pointer;
     }
+
 }
 
 .top, .bottom{
@@ -126,13 +127,15 @@ a:active .list_item{
     grid-template-columns: 1fr 3fr;
 }
 
-.price p{
+.price p
+{
     text-overflow: ellipsis;
     white-space: nowrap;
     text-overflow: ellipsis;
 }
 
-.services{
+.services
+{
     grid-area: services;
     display: grid;
     justify-items: center;
@@ -142,4 +145,10 @@ a:active .list_item{
     height: 100%;
     padding-left: 3%;
     padding-right: 3%;
+
+    & > div > .hint:hover div
+    {
+        position: relative;
+        overflow: visible;
+    }
 }

@@ -159,6 +159,29 @@ const DbHeader = (props) => {
                 <Link href='/admin/employees/candidates'><a style={{color: linkColors[2]}}>Кандидаты</a></Link> 
                 </div>
             )
+
+            break;
+        }
+
+        case 'finance':{
+
+            let linkColors = ['#fff', '#fff', '#fff'];
+            const {category} = history.query;
+            switch (category)
+            {
+                case 'list': linkColors = ['#FFDD00', '#fff', '#fff']; break;
+
+                case 'roles': linkColors = ['#fff', '#FFDD00', '#fff']; break;
+
+                case 'candidates': linkColors = ['#fff', '#fff', '#FFDD00']; break;
+            }
+            header[0] = (
+                <div className={classes.header_employees}>
+                <Link href='/admin/finance/list'><a style={{color: linkColors[0]}}>Список</a></Link> 
+                <Link href='/admin/finance/roles'><a style={{color: linkColors[1]}}>Роли</a></Link> 
+                <Link href='/admin/finance/candidates'><a style={{color: linkColors[2]}}>Кандидаты</a></Link> 
+                </div>
+            )
         }
         
     }

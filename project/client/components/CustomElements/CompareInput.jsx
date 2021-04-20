@@ -1,5 +1,5 @@
 import classes from './InputNumber.module.scss'
-import this_classes from './PriceCompare.module.scss'
+import this_classes from './CompareInput.module.scss'
 import {useState} from 'react';
 
 const PriceCompare = (props) => {
@@ -24,7 +24,7 @@ const PriceCompare = (props) => {
 
     return (
         <div className={classes.inputNumber + ' ' + this_classes.inputPrice +  ' ' + props.className}>
-        <input className={classes.input + ' ' + props.classInput}  
+            <input className={classes.input + ' ' + props.classInput}  
                type="number"
                placeholder={props.placeholder} 
                name={props.name}

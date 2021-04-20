@@ -2,7 +2,7 @@ import classes from './SearchRelax.module.scss';
 import InputText from '../../CustomElements/InputText.jsx';
 import SelectEntered from '../../CustomElements/SelectEntered.jsx';
 import InputNumber from '../../CustomElements/InputNumber.jsx';
-import PriceCompare from '../../CustomElements/PriceCompare';
+import CompareInput from '../../CustomElements/CompareInput';
 
 const Search = (props) => {
 
@@ -48,7 +48,7 @@ const Search = (props) => {
                     max="5" 
                     name='stars'/>
 
-                <PriceCompare 
+                <CompareInput 
                     className={classes.price} 
                     min='1' 
                     placeholder='Цена' 
@@ -64,6 +64,25 @@ const Search = (props) => {
                     {
 
                         props.setSearchPrice({key: 'price', value: '', sign: ''})
+                    }
+
+                }}/>
+                <CompareInput 
+                    className={classes.people} 
+                    min='1' 
+                    placeholder='Кл. людей' 
+                    name='count_people' 
+                    onClick={(e)=>{
+
+                    props.setSearchCountPeople({key: 'count_people', value: document.getElementsByName('count_people')[0].value, sign: e.target.value})
+
+                }} 
+                onBlur={(e)=>{
+
+                    if (e.target.value == '')
+                    {
+
+                        props.setSearchCountPeople({key: 'count_people', value: '', sign: ''})
                     }
 
                 }}/>

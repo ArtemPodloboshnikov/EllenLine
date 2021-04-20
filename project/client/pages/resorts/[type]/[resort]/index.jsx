@@ -24,6 +24,7 @@ const Resorts = ({data}) => {
     const [searchCity, setSearchCity] = useState({key: '', value: ''});
     const [searchPrice, setSearchPrice] = useState({key: '', value: '', sign: ''});
     const [searchName, setSearchName] = useState({key: '', value: ''});
+    const [searchCountPeople, setSearchCountPeople] = useState({key: '', value: '', sign: ''});
     const [conditions, setConditions] = useState([searchStars, searchCountry, searchCity, searchPrice, searchName]);
     
     
@@ -56,9 +57,9 @@ const Resorts = ({data}) => {
 
     useEffect(() => {
 
-        setConditions([searchStars, searchCountry, searchCity, searchPrice, searchName]);
+        setConditions([searchStars, searchCountry, searchCity, searchPrice, searchName, searchCountPeople]);
 
-    }, [searchStars, searchCountry, searchCity, searchPrice, searchName])
+    }, [searchStars, searchCountry, searchCity, searchPrice, searchName, searchCountPeople])
 
     useEffect(() => {
 
@@ -96,16 +97,29 @@ const Resorts = ({data}) => {
             preloader={!dbData}
             crumbs={[{href: '/resorts/[type]', as: `/resorts/${type}`, text: Global.GetConvert(type).name}, 
                      {href: '/resorts/[type]/[resort]', as: `/resorts/${type}/${resort}`, text: Global.GetConvert(type)[resort]}]}>
-            <SearchRelax className={classes.search} setSearchStars={setSearchStars} setSearchCountry={setSearchCountry}
-            setSearchCity={setSearchCity} setSearchPrice={setSearchPrice} setSearchName={setSearchName}
-            cities={cities} countries={countries}/>
-            <ChooseResort 
-            path={type} 
-            resort={resort}
-            convert={convert}
-            keyLeft={keyLeft}
-            keyRight={keyRight}
-            />
+            
+            {(()=>{
+
+                switch (type)
+                {
+                    case 'Saint-Petersburg': return;
+
+                    case 'relax': return <SearchRelax className={classes.search} setSearchStars={setSearchStars} setSearchCountry={setSearchCountry}
+                                         setSearchCity={setSearchCity} setSearchPrice={setSearchPrice} setSearchName={setSearchName} setSearchCountPeople={setSearchCountPeople}
+                                         cities={cities} countries={countries}/>;
+                }
+
+                if (type != 'Saint-Petersburg')
+                    return <ChooseResort 
+                            path={type} 
+                            resort={resort}
+                            convert={convert}
+                            keyLeft={keyLeft}
+                            keyRight={keyRight}
+                            />
+            })()}
+            
+            
             <List path={type} resort={resort} items={dbData} conditions={conditions}/>
         </ClientLayout>
     )

@@ -1,6 +1,14 @@
-const icons = {restaurant: {text: ['Ресторан'], icon: 'cutlery'}, 
-                    bar: {text: ['Бар'], icon: 'beer'}, 
-                    wifi: {text: ['Wi-fi', 'WiFi'], icon: 'wifi'}};
+const icons = { restaurant: {text: ['Ресторан'], icon: 'fas fa-utensils'}, 
+                bar: {text: ['Бар'], icon: 'fas fa-beer'}, 
+                wifi: {text: ['Wi-fi', 'WiFi'], icon: 'fas fa-wifi'},
+                parking: {text: ['Парковка'], icon: 'fas fa-parking'},
+                swimmingPool: {text: ['Бассейн'], icon: 'fas fa-swimming-pool'},
+                wheelChair: {text: ['Инвалиды', 'Инвалидов'], icon: 'fas fa-wheelchair'},
+                animals: {text: ['Животные', 'Животными'], icon: 'fas fa-paw'},
+                conditioner: {text: ['Кондиционер'], icon: 'fas fa-thermometer-empty'},
+                beach: {text: ['Пляж'], icon: 'fas fa-umbrella-beach'},
+                park: {text: ['Парк'], icon: 'fas fa-tree'},
+                };
 
 const iconsMaker = (text, returnWord) => {
 
@@ -24,7 +32,7 @@ const iconsMaker = (text, returnWord) => {
                     
                     if (returnWord)
                     {
-                        return {icon: icons[key].icon, word: keyWord}
+                        return {icon: icons[key].icon, word: icons[key].text[0]}
                     }
                     else
                     {

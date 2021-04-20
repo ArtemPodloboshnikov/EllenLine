@@ -1,0 +1,29 @@
+@import '../../../styles/index.scss';
+
+.finance
+{
+    display: grid;
+    justify-items: center;
+    align-items: center;
+    margin: 0 auto;
+    width: 80%;
+    height: 60%;
+    margin-top: 5%;
+}
+.chart
+{
+    margin-top: 3%;
+    margin: 0 auto;
+    color: $primary_color;
+    width: 80%;
+
+    & > div, & svg
+    {
+        width: 900px !important;
+    }
+    & *, & text
+    {
+        font-family: 'Mediator Serif';
+        font-size: 0.93em !important;
+    }
+}

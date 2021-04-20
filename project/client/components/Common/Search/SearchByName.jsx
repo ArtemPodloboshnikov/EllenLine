@@ -21,7 +21,7 @@ const SerachByName = (props) => {
     return (
         <form className={classes.search + ' ' + props.className} onSubmit={handleSubmit(handleOnSubmit)}>
             <SelectEntered register={register({required: true})} name='search_text'
-                className={classes.selected + ' ' + props.classNameSelected} placeholder='Введите название чего-либо' options={['Пансионат', 'Отель']}/>
+                classInput={classes.selected + ' ' + props.classNameSelected} placeholder='Введите название чего-либо' options={['Пансионат', 'Отель']}/>
             <Button className={classes.button + ' ' + props.classNameButton} register={register({required: true})}
              value={<p className={"fas fa-search " + classes.button__loupe}></p>}/>
         </form>
