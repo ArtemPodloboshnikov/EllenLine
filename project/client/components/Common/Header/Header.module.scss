@@ -111,6 +111,11 @@
 
     display: none;
 }
+.button__loupe
+{
+    color: $sub_color;
+    font-size: 2.5em;
+}
 #search_active{
 
     display: none;
@@ -127,10 +132,11 @@
     backdrop-filter: blur(5px);
     background-color: rgba(255, 255, 255, 0.3);
     animation: show_search 0.6s linear;
+    grid-template-rows: repeat(3, 1fr);
     grid-template-areas: 
     '. . . close'
     '. search search .'
-    '. . . .';
+    '. result result .';
 }
 .search__close{
 
@@ -160,6 +166,32 @@
 #search_close:checked ~ .search{
 
     display: none;
+}
+.search__result
+{
+    grid-area: result;
+    display: grid;
+
+    // & > div
+    // {
+    //     display: grid;
+    //     grid-auto-flow: row;
+    //     overflow-y: auto;
+    //     overflow: hidden;
+    //     height: 30vh;
+    //     width: 100%;
+
+    //     & > fieldset
+    //     {
+    //         height: auto;
+
+    //         & > div > div
+    //         {
+    //             height: 20vh;
+    //             font-size: 0.7em;
+    //         }
+    //     }
+    // }
 }
 @keyframes show_search{
 

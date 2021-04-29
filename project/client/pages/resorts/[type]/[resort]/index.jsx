@@ -66,16 +66,7 @@ const Resorts = ({data}) => {
         async function get()
         {
             
-            let category = '';
-            if (resort == 'hotels')
-            {
-                category = 'отель'
-            }
-            else 
-            if (resort == 'pensionats')
-            {
-                category = 'пансионат'
-            }
+            const category = Global.GetTypeRus(resort);
             const res = await fetch(encodeURI(`${Global.urlServer}/api/${type}?type=${category}`))
             const json = await res.json();
             console.log(json)    
@@ -95,15 +86,14 @@ const Resorts = ({data}) => {
             description={dbData !== null ? Global.GetConvert(type)['discription'] : ''} 
             keywords={dbData !== null ? `${Global.GetConvert(type)[resort]}, ${type}` : ''} 
             preloader={!dbData}
-            crumbs={[{href: '/resorts/[type]', as: `/resorts/${type}`, text: Global.GetConvert(type).name}, 
-                     {href: '/resorts/[type]/[resort]', as: `/resorts/${type}/${resort}`, text: Global.GetConvert(type)[resort]}]}>
+            >
             
             {(()=>{
 
                 switch (type)
                 {
                     case 'Saint-Petersburg': return;
-
+                    case 'treatment':
                     case 'relax': return <SearchRelax className={classes.search} setSearchStars={setSearchStars} setSearchCountry={setSearchCountry}
                                          setSearchCity={setSearchCity} setSearchPrice={setSearchPrice} setSearchName={setSearchName} setSearchCountPeople={setSearchCountPeople}
                                          cities={cities} countries={countries}/>;
@@ -134,16 +124,7 @@ Resorts.getInitialProps = async ({req, query}) => {
     }
     const type = query.type;
     const resort = query.resort;
-    let typeResort;
-    if (resort == 'hotels')
-    {
-        typeResort = 'отель'
-    }
-    else 
-    if (resort == 'pensionats')
-    {
-        typeResort = 'пансионат'
-    }
+    const typeResort = Global.GetTypeRus(resort);
     const res = await fetch(encodeURI(Global.urlServer + '/api/'+ type + '?type=' + typeResort));
     const items = await res.json();
     console.log(items)

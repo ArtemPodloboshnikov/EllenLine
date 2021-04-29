@@ -7,14 +7,34 @@ import ReactPlayer from 'react-player'
 import SearchByName from '../Search/SearchByName';
 import Image from 'next/image';
 import {useRouter} from 'next/router';
+import VerticalList from '../../Common/List/VerticalList';
+import Global from '../../../pages/global';
 
 const Header = (props) => {
 
     const [treeActive, setTreeActive] = useState('');
     const [scroll, setScroll] = useState(0);
+    const [dbData, setDbData] = useState();
+    const [searchWord, setSearchWord] = useState('');
     const router = useRouter();
     const route = router.route;
 
+    const handleOnSubmit = (data)=>{
+        
+        console.log(data)
+        async function get()
+        {
+            const res = await fetch(Global.urlServer + '/api/search?title=' + encodeURI(data.search_text));
+            const json = await res.json();
+            setDbData(json);
+            setSearchWord('');
+        }
+
+        if (data.search_text != '')
+        {
+            get();
+        }
+    }
     const handleScroll = () => {
         setScroll(window.scrollY);
         // console.log(scroll);
@@ -52,6 +72,13 @@ const Header = (props) => {
         return () => window.removeEventListener("scroll", handleScroll);
 
     }, []);
+
+    useEffect(()=>{
+
+        
+
+    }, [searchWord]);
+
     return (
         <div style={(()=>{
 
@@ -65,9 +92,15 @@ const Header = (props) => {
                 <input name='search_toggle' type='radio' id={classes.search_close}/>
                 <div className={classes.search}>
                     <label for={classes.search_close} className={classes.search__close}></label>
-                    <SearchByName className={classes.search__block} classNameSelected={classes.search__selected} 
+                    <SearchByName 
+                        className={classes.search__block} 
+                        classNameSelected={classes.search__selected} 
                         classNameButton={classes.search__button}
+                        handleOnSubmit={handleOnSubmit}
                     />
+                    <div className={classes.search__result}>
+                        <VerticalList items={dbData}/>
+                    </div>
                 </div>
                 <header className={classes.header} style={(route != '/' && route != '/home')? {height: '30vh', backgroundColor: '#4782e1', clipPath: 'none'} : {}}>
                     {(()=>{
@@ -114,7 +147,7 @@ const Header = (props) => {
 
                             <Link href='/plane'><a><i class="fas fa-plane"></i></a></Link>
  
-                            <label for={classes.search_active}><Image src='/images/Header/loupe.svg' width={50} height={50}/></label>
+                            <label for={classes.search_active}><i className={"fas fa-search " + classes.button__loupe}></i></label>
                         </div>
                         {(()=>{
 

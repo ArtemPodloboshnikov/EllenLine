@@ -34,7 +34,7 @@ const PresentationMap = (props) => {
                     <GeoObject 
                         geometry={{type: "Point", coordinates: point.coordinates}} 
                         properties={{hintContent: (point.hintContent || ''), balloonContentBody: (point.balloonContentBody || '')}} 
-                        modules={[...markState.modules]} 
+                        modules={markState.modules} 
                         options={{
                             iconLayout: 'default#image',
                             iconImageHref: '/images/marker.svg',

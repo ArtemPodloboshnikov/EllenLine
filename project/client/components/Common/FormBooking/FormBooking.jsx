@@ -249,6 +249,7 @@ const FormBooking = (props) => {
         };
         switch(type)
         {
+            case 'treatment':
             case 'relax':
             case 'cruises':
                 sections.title_date = 'Дата заезда';
@@ -352,7 +353,7 @@ const FormBooking = (props) => {
                 <PromoCode register={register({required: true})} name='promocode' className={classes.code}/>
                 <div className={classes.price + ' ' + sections.price_behavior}>
                     <span>Итого</span>
-                    <h1>{mathPriceWithDiscount(discount, price) + ' ' + currencyData.name}</h1>
+                    <h1>{((discount !== undefined) ?  mathPriceWithDiscount(discount, price) : price) + ' ' + currencyData.name}</h1>
                     
                 </div>
             </form>

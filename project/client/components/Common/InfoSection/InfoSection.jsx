@@ -20,6 +20,7 @@ const InfoSection = (props) => {
     const stars = props.stars;
     //tours, cruises
     const duration = props.duration;
+    const payment_term = props.payment_term;
     console.log('stars: ' + stars)
 
     function ExpandDescription(e) {
@@ -71,7 +72,7 @@ const InfoSection = (props) => {
                     {GenerateInfo()}
                     <div>
                         <h2>от {price} руб.</h2>
-                        <span>за человека</span>
+                        <span>за человека {payment_term !== null? payment_term : ''}</span>
                     </div>
                     <Button type='button' value='Забронировать' className={classes.booking_btn} onClick={(e)=>{
 

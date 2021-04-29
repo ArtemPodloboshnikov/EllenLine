@@ -148,7 +148,9 @@ const Resort = ({data}) => {
                         //tours, cruises
                         info: item.info || null,
                         timetable: item.timetable || null,
-                        duration: item.duration || null
+                        duration: item.duration || null,
+                        program: item.program || null,
+                        payment_term: item.payment_term || null
                     }
                 );
                     
@@ -159,16 +161,16 @@ const Resort = ({data}) => {
     }, [])
 
     const WrapForPreloader = ({data, type}) =>{
-
+        console.log(data)
         return (
             <div className={classes.resort}>
                 <InfoSection 
                 title={data.title + ': ' + data.typeOfRoom} 
-                price={data.discount != 0 ? mathPriceWithDiscount(data.discount, data.price) : data.price} 
+                price={(data.discount != 0 && data.discount !== undefined) ? mathPriceWithDiscount(data.discount, data.price) : data.price} 
                 text={data.text}
                 images={data.images}
                 type={type}
-                //
+                payment_term={data.payment_term}
                 stars={data.stars}
                 duration={data.duration}/>
 
@@ -176,7 +178,7 @@ const Resort = ({data}) => {
                 services={data.services} 
                 address={data.address}
                 type={type}
-                //
+                program={data.program}
                 info={data.info}
                 points={data.points}/>
 
@@ -203,10 +205,7 @@ const Resort = ({data}) => {
             title={dbData !== null ? dbData.title : 'Эллинлайн'} 
             description={dbData !== null ? dbData.text : ''} 
             keywords={dbData !== null ? `${dbData.title}, ${type}` : ''} 
-            preloader={!dbData}
-            crumbs={[{href: '/resorts/[type]', as: `/resorts/${type}`, text: Global.GetConvert(type).name}, 
-                     {href: '/resorts/[type]/[resort]', as: `/resorts/${type}/${resort}`, text: Global.GetConvert(type)[resort]},
-                     {href: '/resorts/[type]/[resort]/[id]', as: `/resorts/${type}/${resort}/${id}`, text: id},]}>
+            preloader={!dbData}>
             <WrapForPreloader data={dbData} type={type}/>
         </ClientLayout>
     )
@@ -248,7 +247,9 @@ Resort.getInitialProps = async ({req, query}) => {
             //tours, cruises
             info: item.info || null,
             timetable: item.timetable || null,
-            duration: item.duration || null
+            duration: item.duration || null,
+            program: item.program || null,
+            payment_term: item.payment_term || null
         }
     };
 }

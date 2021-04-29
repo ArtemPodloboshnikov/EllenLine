@@ -21,7 +21,8 @@
 }
 .hint
 {
-  position: relative;
+  position: absolute;
+  margin-top: 1px;
   display: grid;
   grid-template-rows: 1fr 1.2fr;
   justify-items: center;
@@ -33,7 +34,6 @@
 }
 .hint:hover > div 
 {
-  content: attr(data-text);
   @extend %shadow;
   display: block;
   position: absolute;
@@ -43,11 +43,14 @@
   color: $primary_color;
   text-align: center;
   @extend %font;
+  font-size: 0.5em;
+  text-align: start;
   width: auto;
   padding: 5%;
   max-height: 10vw;
   overflow-y: auto;
   overflow-x: hidden;
+  z-index: 20;
 }
 
 h1, h2, h3, h4, h5{

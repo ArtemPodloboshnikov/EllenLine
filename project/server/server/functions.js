@@ -1,5 +1,8 @@
 const multer  = require("multer");
 const markdown = require('markdown').markdown;
+const showdown = require('showdown');
+const converter = new showdown.Converter();
+converter.setOption('tables', true);
 
 function transliterate(word){
     let a = {"Ё":"YO","Й":"I","Ц":"TS","У":"U","К":"K","Е":"E","Н":"N","Г":"G","Ш":"SH","Щ":"SCH","З":"Z","Х":"H","Ъ":"'","ё":"yo","й":"i","ц":"ts","у":"u","к":"k","е":"e","н":"n","г":"g","ш":"sh","щ":"sch","з":"z","х":"h","ъ":"'","Ф":"F","Ы":"I","В":"V","А":"A","П":"P","Р":"R","О":"O","Л":"L","Д":"D","Ж":"ZH","Э":"E","ф":"f","ы":"i","в":"v","а":"a","п":"p","р":"r","о":"o","л":"l","д":"d","ж":"zh","э":"e","Я":"Ya","Ч":"CH","С":"S","М":"M","И":"I","Т":"T","Ь":"'","Б":"B","Ю":"YU","я":"ya","ч":"ch","с":"s","м":"m","и":"i","т":"t","ь":"'","б":"b","ю":"yu", " ":"_"};
@@ -88,8 +91,7 @@ function ConvertDataToString(array, keys)
 
                     if (isNumber(elem[key[0]]))
                     {
-
-                        object[key[0]] = elem[key[0]]
+                        object[key[0]] = elem[key[0]].toString() * 1;
                     }
                     else
                     {
@@ -177,27 +179,76 @@ function multiplyConditions(sql, conditions, column, view)
     return sql + new_conditions;
 }
 
-function parseMarkdownToHTML(object)
+function parseMarkdownTable(markup)
 {
+    let flagTr = true;
+    let words = '';
+    console.log(markup.replace('\n', ' ').split(' '))
+    markup.replace('\n', ' ').split(' ').map(sym =>{
 
-    for (let value of Object.values(object))
-    {
-        if (Array.isArray(value.content))
+        if (sym == '\n|')
         {
-            let temp_array = [];
-            for (let item of value.content)
+            words += '<tr>';
+        }
+        else
+        if (sym == '|')
+        {
+            if (flagTr)
             {
-                temp_array.push(markdown.toHTML(item))
+                flagTr = false;
+            }
+            else
+            {
+                flagTr = true;
             }
 
-            value.content = temp_array;
+            words += '</tr><tr>';
         }
         else
         {
-            
-            value.content = markdown.toHTML(value.content);
+            words += sym;
         }
+    })
+
+    return `<table>${words}</table>`;
+}
+
+function parseMarkdownToHTML(object)
+{
+
+    if (typeof object == 'object')
+    {
         
+        for (let value of Object.values(object))
+        {
+            if (Array.isArray(value.content))
+            {
+                let temp_array = [];
+                for (let item of value.content)
+                {
+                    temp_array.push(markdown.toHTML(item))
+                }
+    
+                value.content = temp_array;
+            }
+            else
+            {  
+                value.content = markdown.toHTML(value.content);
+            }
+            
+        }
+    }
+    else
+    {
+        console.log(converter.makeHtml(object)) 
+        let result = markdown.toHTML(object);
+        let checkHtml = /<([A-Za-z][A-Za-z0-9]*)\b[^>]*>(.*?)<\/\1>/.test(result);
+
+        if (!checkHtml)
+        {
+            result = converter.makeHtml(object);
+        }
+        return result;
     }
 }
 

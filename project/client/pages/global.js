@@ -1,6 +1,73 @@
 export default class Global {
     static url = 'http://localhost:3000';
     static urlServer = 'http://localhost:4000';
+
+    static GetTypeRus(resort)
+    {
+        let typeResort;
+        if (resort == 'hotels')
+        {
+            typeResort = 'отель'
+        }
+        else 
+        if (resort == 'pensionats')
+        {
+            typeResort = 'пансионат'
+        }
+        else 
+        if (resort == 'sanatoriums')
+        {
+            typeResort = 'санаторий'
+        }
+        else
+        if (resort == 'clinics')
+        {
+            typeResort = 'клиника'
+        }
+
+        return typeResort;
+    }
+    static GetTypeEn(resort)
+    {
+        let typeResort;
+        if (resort == 'отель')
+        {
+            typeResort = 'hotels'
+        }
+        else 
+        if (resort == 'пансионат')
+        {
+            typeResort = 'pensionats'
+        }
+        else 
+        if (resort == 'санаторий')
+        {
+            typeResort = 'sanatoriums'
+        }
+        else
+        if (resort == 'клиника')
+        {
+            typeResort = 'clinics'
+        }
+
+        return typeResort;
+    }
+    static GetResort(type)
+    {
+        switch(type)
+        {
+            case 'отель':
+            case 'пансионат': 
+            {
+                return 'relax';
+            }
+            case 'санаторий':
+            case 'клиника':
+            {
+                return 'treatment';
+            }
+        }
+    }
     //Возможно стоит поместить этот массив в БД, а может нет :/
     static GetConvert(type) {
         switch(type)

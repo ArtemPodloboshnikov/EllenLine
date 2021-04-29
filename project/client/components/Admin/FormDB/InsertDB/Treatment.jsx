@@ -31,59 +31,66 @@ const Sanatoriums = (props) => {
 
         let new_data = new FormData();
 
-        concatFormArray(data, data, ['commonServices', 'servicesRoom', 'inStock'])
-        // let commonServices = [];
-        // for (let i = 0; ; i++)
-        // {
+        let commonServices = [];
+        for (let i = 0; ; i++)
+        {
             
-        //     if (data['commonServices' + i] === undefined)
-        //     {
-        //         break;
-        //     }
-        //     commonServices.push(data['commonServices' + i]);
-        //     delete data['commonServices' + i]
-        // }
-        // data.commonServices = commonServices;
+            if (data['commonServices' + i] === undefined)
+            {
+                break;
+            }
+            commonServices.push(data['commonServices' + i]);
+            delete data['commonServices' + i]
+        }
 
-        // let servicesRoom = [];
-        // for (let i = 0; ; i++)
-        // {
+        let servicesRoom = [];
+        for (let i = 0; ; i++)
+        {
            
             
-        //     if (data['servicesRoom' + i] === undefined)
-        //     {
-        //         break;
-        //     }
-        //     servicesRoom.push(data['servicesRoom' + i]);
-        //     delete data['servicesRoom' + i];
-        // }
-        // data.servicesRoom = servicesRoom;
+            if (data['servicesRoom' + i] === undefined)
+            {
+                break;
+            }
+            servicesRoom.push(data['servicesRoom' + i]);
+            delete data['servicesRoom' + i];
+        }
 
-        // let inStock = [];
-        // for (let i = 0; ; i++)
-        // {
+        let inStock = [];
+        for (let i = 0; ; i++)
+        {
             
-        //     if (data['inStock' + i] === undefined)
-        //     {
-        //         break;
-        //     }
-        //     inStock.push(data['inStock' + i]);
-        //     delete data['inStock' + i];
-        // }
-        // data.inStock = inStock;
+            if (data['inStock' + i] === undefined)
+            {
+                break;
+            }
+            inStock.push(data['inStock' + i]);
+            delete data['inStock' + i];
+        }
 
-        getPhotosPaths(data, 'files', 'photosPath', new_data)
-        // data.photosPath = [];
-        // for (let i = 0; i < data.files.length; i++)
-        // {
-        //     new_data.append('photos[]', data.files[i], data.files[i].name);
-        //     data.photosPath.push(data.files[i].name);
-        // }
+        data.services = {inStock: inStock, servicesRoom: servicesRoom, commonServices: commonServices}
+        data.photosPath = [];
+        for (let i = 0; i < data.files.length; i++)
+        {
+            new_data.append('photos[]', data.files[i], data.files[i].name);
+            data.photosPath.push(data.files[i].name);
+        }
 
-        // delete data.files
-        data.coordinates = document.getElementsByName('coordinates')[0].value.split(',');
+        delete data.files
+
+        if (document.getElementsByName('coordinates')[0] != undefined)
+        {
+
+            data.coordinates = document.getElementsByName('coordinates')[0].value.split(',');
+        }
+
         data.idCity = contries_cities.cities[data.city];
         delete data.city;
+        data.count_people = Number.parseInt(data.count_people);
+        data.price = Number.parseInt(data.price);
+        data.discount = Number.parseInt(data.discount);
+        data.stars = Number.parseInt(data.stars);
+        data.pricePerChild = Number.parseInt(data.pricePerChild);
         setFormData({photos: new_data, json: data})
     }
 
@@ -162,13 +169,13 @@ const Sanatoriums = (props) => {
             });
             console.log(response);
 
-            if (response.status === 404)
+            if (response.status !== 404)
             {
-                setMessage({style: {display: 'grid'}, status: json.status, method: 'insert'});
+                setMessage({style: {display: 'grid'}, status: response.status, method: 'insert'});
                 console.log(message);
             }
             
-            alert('Data send');
+            //alert('Data send');
             
         }
         async function uploadPhotos(data)
@@ -191,8 +198,8 @@ const Sanatoriums = (props) => {
         if (Object.keys(formData).length != 0)
         {
             console.log(formData)
-            // insert(formData.json)
-            // uploadPhotos(formData.photos)
+            insert(formData.json)
+            uploadPhotos(formData.photos)
         }
 
     }, [formData])
@@ -224,8 +231,8 @@ const Sanatoriums = (props) => {
                 <SelectEntered register={register({required: true})} name='type'
                 className={classes.select} placeholder='Тип' options={['Клиника', 'Санаторий']} type='select'/>
 
-                {/* <SelectEntered register={register({required: true})} name='country' type='multiply'
-                className={classes.select} placeholder='Язык' options={Object.keys(contries_cities_languages.languages)} /> */}
+                <InputText register={register({required: true})} name='typeOfRoom' className={classes.inputText + ' ' + classes.inputText_width50} 
+                classInput={classes.inputText__input} placeholder='Тип номера'/>
 
                 <SelectEntered register={register({required: true})} name='country' value={countryName} onChangeFunction={(obj)=>setCountryName(obj.value)}
                 className={classes.select} placeholder='Страна' options={Object.keys(contries_cities.countries)}/>
@@ -234,7 +241,7 @@ const Sanatoriums = (props) => {
                 className={classes.select} placeholder='Город' options={Object.keys(contries_cities.cities)} />
 
                 <InputText register={register({required: true})} name='address' className={classes.inputText} 
-                classInput={classes.inputText__input} placeholder='Адрес встречи' onBlur={onBlurAddress}/>
+                classInput={classes.inputText__input} placeholder='Адрес' onBlur={onBlurAddress}/>
 
                 <EditMap name='coordinates' cityName={cityName} className={classes.map} zoom={zoom}/>
     
@@ -252,23 +259,30 @@ const Sanatoriums = (props) => {
                     classInput={classes.dynamicList__input} placeholder='Услуги в номерах' title='В номерах' rows={servicesRows} setRows={setServicesRows}/>
                 </div>
 
-                <TextArea register={register({required: true})} name='treatment'
+                <TextArea register={register({required: true})} name='program'
                 className={classes.textarea + ' ' + classes.textarea_top10} classTitle={classes.textarea__title} 
                 classTextArea={classes.textarea__text} title='Программа лечения' placeholder='Действует Markdown разметка'/>
+
+                <InputNumber classWrap={classes.inputNumber_wrap} register={register({required: true})} name='count_people' 
+                className={classes.inputNumber} placeholder='Кл. мест' min='1'/>
 
                 <InputNumber register={register({required: true})} name='price' 
                 className={classes.inputNumber} placeholder='Цена' min='1' classWrap={classes.inputNumber_wrap}/>
 
-                <InputNumber register={register({required: true})} name='pricePerChield' value='0'
+                <SelectEntered register={register({required: true})} name='payment_term' className={classes.inputText + ' ' + classes.inputText_width35} 
+                classInput={classes.inputText__input} placeholder='Условия оплаты (в час/за сутки ...)' options={['в сутки', 'в день', 'за час']}/>
+
+
+                <InputNumber register={register({required: true})} name='pricePerChild' value={0}
                 className={classes.inputNumber} placeholder='Цена для детей' min='0' classWrap={classes.inputNumber_wrap}/>
 
-                <InputNumber register={register({required: true})} name='pricePerTeenager' value='0'
+                <InputNumber register={register({required: true})} name='pricePerTeenager' value={0}
                 className={classes.inputNumber} placeholder='Цена для подростков' min='0' classWrap={classes.inputNumber_wrap}/>
 
-                <InputNumber register={register({required: true})} name='pricePerPet' value='0'
+                <InputNumber register={register({required: true})} name='pricePerPet' value={0}
                 className={classes.inputNumber} placeholder='Цена для питомцев' min='0' classWrap={classes.inputNumber_wrap}/>
 
-                <InputNumber register={register({required: true})} name='discount' value='0'
+                <InputNumber register={register({required: true})} name='discount' value={0}
                 className={classes.inputNumber} placeholder='Скидка' min='0' max='100' classWrap={classes.inputNumber_wrap}/>
 
                 <Button className={classes.button} classInput={classes.button__text} value='Внести' />

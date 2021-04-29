@@ -100,10 +100,12 @@ $disabled_color_title: #628CD0;
     margin-left: 2%;
     margin-right: 2%;
     margin-top: 2%;
-
+    
     & > legend
     {
         text-align: center;
+        position: relative;
+        z-index: 5;
     }
 }
 

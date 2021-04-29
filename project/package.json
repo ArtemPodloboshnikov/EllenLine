@@ -17,6 +17,7 @@
     "react-yandex-maps": "^4.6.0",
     "recompose": "^0.30.0",
     "sass": "^1.32.7",
+    "showdown": "^1.9.1",
     "web-vitals": "^0.2.4"
   },
   "scripts": {

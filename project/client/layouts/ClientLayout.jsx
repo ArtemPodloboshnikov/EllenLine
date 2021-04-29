@@ -5,9 +5,8 @@ import Header from '../components/Common/Header/Header';
 import Footer from '../components/Common/Footer/Footer';
 import Preloader from '../components/Common/Preloader/Preloader';
 import AsideHeader from '../components/Common/Header/AsideHeader';
-import BreadCrumbs from '../components/CustomElements/BreadCrumbs';
 
-export default function ClientLayout ({children, crumbs, title = 'Эллинлайн', description='Турфирма Эллинлайн предлагает экскурсионные туры по Санкт-Петербургу, туры по России, круизы, разнообразные направления, доступные цены.', keywords='турфирма, путешествия, отдых, отели, санатории, клиники, туры, экскурсии, круизы, Санкт-Петербург', preloader=false}){
+export default function ClientLayout ({children, title = 'Эллинлайн', description='Турфирма Эллинлайн предлагает экскурсионные туры по Санкт-Петербургу, туры по России, круизы, разнообразные направления, доступные цены.', keywords='турфирма, путешествия, отдых, отели, санатории, клиники, туры, экскурсии, круизы, Санкт-Петербург', preloader=false}){
 
     let preloaderAction;
     const [firstPreload, setFirstPreload] = useState(preloader);
@@ -36,15 +35,6 @@ export default function ClientLayout ({children, crumbs, title = 'Эллинла
             </Head>
             <Header/>
             <AsideHeader/>
-            {(()=>{
-                console.log(crumbs)
-                if (crumbs !== undefined)
-                {
-
-                    return <BreadCrumbs value={crumbs}/>   
-                }
-
-            })()}
             <main>
                 <Preloader action={preloaderAction}/>
                     {(()=>{

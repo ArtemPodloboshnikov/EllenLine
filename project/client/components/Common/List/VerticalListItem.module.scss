@@ -1,0 +1,61 @@
+@import '../../../styles/index.scss';
+
+.hint:hover > div
+{
+    font-size: 1em;
+    height: auto;
+    
+}
+
+.list__item
+{
+    width: 100%;
+    height: 30vh;
+    display: grid;
+    grid-template-columns: 2fr 1fr 1fr;
+    background-color: $primary_color;
+    & div
+    {
+        height: 30vh;
+        color: $sub_color;
+    }
+    & > div:nth-child(1)
+    {
+        width: 100%;
+        background-repeat: no-repeat;
+        background-size: cover;
+        background-position: center;
+        border-right: 5px solid $sub_color;
+
+    }
+
+    & > div:nth-child(2)
+    {
+        display: grid;
+        grid-template-rows: repeat(3, 1fr);
+        @extend %font;
+        justify-items: center;
+        width: 100%;
+
+        & > h1
+        {
+            font-size: 1em;
+            width: 200px;
+            overflow: hidden;
+            white-space: nowrap;
+            text-overflow: ellipsis;
+        }
+
+    }
+
+    & > div:nth-child(3)
+    {
+        display: grid;
+        justify-items: center;
+        grid-template-columns: repeat(5, 1fr);
+        grid-template-rows: repeat(5, 10vh);
+        gap: 5px;
+        width: 100%;
+        padding: 5%;
+    }
+}

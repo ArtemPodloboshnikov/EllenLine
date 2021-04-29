@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import mathPriceWithDiscount from '../../../functions/MathPriceWithDiscount';
+import Global from '../../../pages/global';
 //
 import ListItem from './ListItem.jsx';
 //
@@ -147,18 +148,14 @@ const grouping = (groupName, containers, elements) =>{
         <legend>{groupName}</legend>
         {(()=>{
 
-            return elements;
+            return <div>{elements}</div>;
         })()}
     </fieldset>)
-
-    elements = [];
 
 }
 
 const List = (props) => {
-    const resort = props.resort;
     let items = props.items;
-    const path = props.path;
     const conditions = props.conditions;
     // console.log(items)
     function InsertItems() {
@@ -170,9 +167,9 @@ const List = (props) => {
             items.map((item, index)=>{
                 
                 // console.log(item)
+                let temp_item = {...item};
                 if (item.discount != 0)
                 {
-                    let temp_item = {...item};
                     //console.log(mathPriceWithDiscount(temp_item.discount, temp_item.price))
                     let price = mathPriceWithDiscount(temp_item.discount, temp_item.price);
                     temp_item.price = price
@@ -180,8 +177,9 @@ const List = (props) => {
                     // item = null;
                     // console.log(item)
                     //items[index] = temp_item;
-                    new_items.push(temp_item);
                 }
+                
+                new_items.push(temp_item);
             })
 
             items = new_items;
@@ -217,12 +215,13 @@ const List = (props) => {
                         {
                             grouping(groupName, containers, elements);
                             groupName = element.title;
+                            elements = [];
                         }
         
                         console.log(groupName)
                         // console.log(element)
-                        elements.push(<ListItem category={resort}
-                                                path={path}
+                        elements.push(<ListItem category={Global.GetTypeEn(element.type)}
+                                                path={Global.GetResort(element.type)}
                                                 id={element.id}
                                                 title={element.typeOfRoom}
                                                 images={element.images}
@@ -233,6 +232,7 @@ const List = (props) => {
                         if ((i + 1) == result.length)
                         {
                             grouping(groupName, containers, elements);
+                            elements = [];
                         }
                     }
                 }

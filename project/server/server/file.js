@@ -79,7 +79,7 @@ router.put('/pages', (request, response)=>{
     }
 })
 
-router.post('/relaxPhotos', filesUploader(path.join('../../client/', 'public/', 'images/', 'Relax/')),function(request, reply){
+router.post('/relaxPhotos', filesUploader(path.join(__dirname, '../../client/', 'public/', 'images/', 'Relax/')),function(request, reply){
 
     
 
@@ -96,12 +96,13 @@ router.post('/relaxPhotos', filesUploader(path.join('../../client/', 'public/', 
     
 })
 
-router.delete('/relaxPhotos', function(request, reply){
-
+function deleteFile(nameFile, request, reply)
+{
     let flag = false;
-    request.body.map((name)=>{
+    console.log(request, reply)
+    request.query.photosName.map((name)=>{
         
-        fs.unlink(path.join('../../client/', 'public/', 'images/', 'Relax/', name), function(err){
+        fs.unlink(path.join(nameFile, name), function(err){
             if (err) {
                 console.log(err);
             } else 
@@ -114,10 +115,15 @@ router.delete('/relaxPhotos', function(request, reply){
     })
 
     if (flag) reply.sendStatus(200)
+
+}
+router.delete('/relaxPhotos', function(request, reply){
+
+    deleteFile(path.join(__dirname, '../../client/', 'public/', 'images/', 'Relax/'), request, reply);
     
 })
 
-router.post('/toursPhotos', filesUploader("images/Tours"),function(request, reply){
+router.post('/toursPhotos', filesUploader(path.join(__dirname, '../../client/', 'public/', 'images/', 'Tours/')),function(request, reply){
 
     
 
@@ -134,10 +140,9 @@ router.post('/toursPhotos', filesUploader("images/Tours"),function(request, repl
     
 })
 
-router.post('/treatmentPhotos', filesUploader(path.join('../../client/', 'public/', 'images/', 'Treatment/')),function(request, reply){
+router.post('/treatmentPhotos', filesUploader(path.join(__dirname, '../../client/', 'public/', 'images/', 'Treatment/')),function(request, reply){
 
     
-
     let filedata = request.body;
     if (filedata)
     {
@@ -148,6 +153,12 @@ router.post('/treatmentPhotos', filesUploader(path.join('../../client/', 'public
     {
         console.log('Файлы не загружены')
     }
+    
+})
+
+router.delete('/treatmentPhotos', function(request, reply){
+    // console.log(request)
+    deleteFile(path.join(__dirname, '../../client/', 'public/', 'images/', 'Treatment/'), request, reply);
     
 })
 

@@ -6,7 +6,7 @@ import classes from './ListItem.module.scss';
 const ListItem = (props) => {
     const id = props.id;
     const images = props.images.split(',');
-    const title = props.title;
+    const title = (props.title.length <= 10) ? props.title : props.title.substr(0, 6) + '...';
     const price = props.price;
     const services = JSON.parse(props.services);
     const category = props.category;

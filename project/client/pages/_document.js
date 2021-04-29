@@ -1,4 +1,6 @@
 import Document, { Html, Head, Main, NextScript } from 'next/document'
+import { YMInitializer } from 'react-yandex-metrika';
+
 
 class MyDocument extends Document {
   static async getInitialProps(ctx) {
@@ -27,6 +29,7 @@ class MyDocument extends Document {
           <Main />
           <NextScript />
         </body>
+          {/* <YMInitializer accounts={[76687501]} /> */}
       </Html>
     )
   }

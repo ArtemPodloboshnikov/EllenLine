@@ -97,6 +97,9 @@
     grid-template-rows: repeat(auto-fit, minmax(3.35vh, 4vh)) !important;
     padding-left: 2%;
     z-index: 10;
+	text-overflow: ellipsis;
+    white-space: nowrap;
+    overflow-x: hidden;
     & > *{
 
         cursor: pointer;

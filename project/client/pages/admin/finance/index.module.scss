@@ -12,6 +12,8 @@
 }
 .chart
 {
+    display: grid;
+    justify-items: center;
     margin-top: 3%;
     margin: 0 auto;
     color: $primary_color;
@@ -20,6 +22,8 @@
     & > div, & svg
     {
         width: 900px !important;
+        display: grid;
+        justify-items: center;
     }
     & *, & text
     {

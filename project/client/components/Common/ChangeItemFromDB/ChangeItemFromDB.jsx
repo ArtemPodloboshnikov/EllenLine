@@ -11,6 +11,11 @@ const ChangeItemFromDB = (props) => {
     {
         src = 'fas fa-hotel';
     }
+    else
+    if (props.type == 'treatment')
+    {
+        src = 'fas fa-clinic-medical';
+    }
     // const checkCheckbox = () => {
         
     //     for(let i = 0; i < props.idsChecked.length; i++)

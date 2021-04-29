@@ -47,12 +47,9 @@ const Countries = (props) => {
     return (
         <>
             <Message setFunction={setMessage} style={message.style} status={message.status} method={message.method}/>
-            <form className={props.className + ' ' + classes.form} onSubmit={handleSubmit(handleOnSubmit)}>
+            <form className={props.className} onSubmit={handleSubmit(handleOnSubmit)}>
                 <InputText register={register({required: true})} name='name' className={classes.inputText} 
                 placeholder='Название страны'/>
-                
-                <TextArea register={register({required: true})} name='description' classTextArea={classes.textarea__text}
-                className={classes.textarea} title='Описание' placeholder='Введите описание'/>
 
                 <Button className={classes.button} classInput={classes.button__text} value='Добавить' />
             </form>   

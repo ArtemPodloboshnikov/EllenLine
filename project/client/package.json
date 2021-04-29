@@ -18,6 +18,7 @@
     "react-player": "^2.8.2",
     "react-responsive": "^8.2.0",
     "react-yandex-maps": "^4.6.0",
+    "react-yandex-metrika": "^2.6.0",
     "sass": "^1.32.7"
   },
   "devDependencies": {

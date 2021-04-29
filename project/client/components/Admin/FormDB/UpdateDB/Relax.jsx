@@ -19,7 +19,7 @@ import ImagesObserver from '../../../CustomElements/ImagesObserver';
 import Table from '../../../CustomElements/Table';
 import Checkbox from '../../../CustomElements/Checkbox';
 
-const Sanatorium = (props) => {
+const Relax = (props) => {
    
     const [formData, setFormData] = useState({}); 
     const {register, handleSubmit} = useForm();
@@ -619,4 +619,4 @@ const Sanatorium = (props) => {
     )
 }
 
-export default Sanatorium
+export default Relax

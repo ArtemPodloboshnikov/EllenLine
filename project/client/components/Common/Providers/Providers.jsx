@@ -19,6 +19,7 @@ const Providers = (props) => {
     const info = props.info;
     //tours
     const points = props.points;
+    const program = props.program;
    
     
     function GenerateSections() {
@@ -103,6 +104,7 @@ const Providers = (props) => {
         };
         switch(type)
         {
+            case 'treatment':
             case 'relax':
                 sections.first = GenerateSection(
                 { 
@@ -182,10 +184,20 @@ const Providers = (props) => {
                 </div>
             </div>
             <PresentationMap 
-                    className={(type == 'relax') ? classes.relax__map : classes.relax__map_none}
+                    className={(type == 'relax' || type == 'treatment') ? classes.relax__map : classes.relax__map_none}
                     points={[{coordinates: points, 
                         hintContent: '', 
                         balloonContentBody: ''}]}/>
+
+            {(()=>{
+                
+                switch (type)
+                {
+                    case 'treatment': return <div className={classes.program} dangerouslySetInnerHTML={{__html: program}}/>;
+                }
+
+            })()}
+
         </>
 
     )

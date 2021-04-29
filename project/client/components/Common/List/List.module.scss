@@ -63,17 +63,24 @@
 {
     @extend %fieldset;
     display: grid;
-    grid-auto-flow: column;
     gap: 10px;
     position: relative;
     min-width: 96.3%;
-    height: 85vh;
+    height: 95vh;
     overflow-x: scroll;
-    // overflow-x: scroll;
+    & > div
+    {
+        justify-self: center;
+        
+        display: grid;
+        grid-auto-flow: column;
+        gap: 1%;
+    }
     & > legend
     {
         @extend %font;
         color: $primary_color;
+        width: 20vw;
     }
 }
 // @media screen and (max-width: 1024px)
