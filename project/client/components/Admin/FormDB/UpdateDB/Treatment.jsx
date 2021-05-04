@@ -1,5 +1,6 @@
 import {useState, useEffect} from 'react';
 import {arrayConcat, getPhotosPath, getExistingPhotosNames} from '../../functions';
+import servicesHandler from '../../../../functions/ServicesHandler';
 import {useForm} from 'react-hook-form';
 //
 import classes from './Treatment.module.scss';
@@ -27,7 +28,7 @@ const Treatment = (props) => {
     const [message, setMessage] = useState({style: {display: 'none'}, status: '', body: '', method: 'none'});
     const [cityName, setCityName] = useState('Санкт-Петербург');
     const [zoom, setZoom] = useState();
-    const [servicesRows, setServicesRows] = useState(0);
+    const [servicesRows, setServicesRows] = useState(10);
     const [title, setTitle] = useState();
     const [description, setDescription] = useState('');
     const [stars, setStars] = useState()
@@ -61,9 +62,19 @@ const Treatment = (props) => {
         {
             data.photosPath = ['../no_image.jpg'];
         }
-       
-        console.log(deletedPhotos);
-    
+        
+        if (data.inStock0 !== undefined || data.commonServices0 !== undefined || data.servicesRoom0 !== undefined)
+        {
+            let services = servicesHandler(data);
+            data.services = {inStock: services.inStock, servicesRoom: services.servicesRoom, commonServices: services.commonServices}
+        }
+        
+        if (document.getElementsByName('coordinates')[0] != undefined)
+        {
+
+            data.coordinates = document.getElementsByName('coordinates')[0].value.split(',');
+        }
+        
         data.id = institution.id
         data.id_city = cities[data.city];
         delete data.city
@@ -204,8 +215,21 @@ const Treatment = (props) => {
             }
             case 'city': {
 
-                const component = <SelectEntered name='city' className={classes.select} register={register({required: true})}
-                                  placeholder='Город' options={Object.keys(cities)}/>;
+                const onBlurAddress = (e)=>{
+
+                    if (e.target.value != '')
+                    {
+                        setCityName(e.target.value);
+                        setZoom(18);
+                    }
+                }
+
+                const component = 
+                <>
+                    <SelectEntered name='city' className={classes.select} register={register({required: true})}
+                                    placeholder='Город' options={Object.keys(cities)} onBlur={onBlurAddress}/>
+                    <EditMap name='coordinates' cityName={cityName} className={classes.map} zoom={zoom}/>
+                </>
                 isCheck(component)
 
                 break;
@@ -227,56 +251,28 @@ const Treatment = (props) => {
 
                 break;
             }
+            case 'services': {
+
+                const component = 
+                <div className={classes.form__services} style={{gridTemplateRows: `repeat(${servicesRows}, 1fr)`, height: `${servicesRows * 10}vh`}}>
+                    <DynamicList name='inStock' className={classes.dynamicList} value={institution.services !== undefined? institution.services[0].inStock : ['']}
+                    classInput={classes.dynamicList__input} placeholder='В наличии' rows={servicesRows} setRows={setServicesRows} register={register({required: true})}/>
+                    <DynamicList name='commonServices' className={classes.dynamicList} value={institution.services !== undefined? institution.services[0].commonServices : [''] }
+                    classInput={classes.dynamicList__input} placeholder='Общие услуги' rows={servicesRows} setRows={setServicesRows} register={register({required: true})}/>
+                    <DynamicList name='servicesRoom' className={classes.dynamicList} value={institution.services !== undefined? institution.services[0].servicesRoom : ['']}
+                    classInput={classes.dynamicList__input} placeholder='Услуги в номерах' rows={servicesRows} setRows={setServicesRows} register={register({required: true})}/>
+                </div>
+                
+                isCheck(component)
+                
+                break;
+            }
 
         }
     })
 
     console.log(institution)
-
-    const getServices = (data)=>{
-
-        let commonServices = [];
-        for (let i = 0; ; i++)
-        {
-            
-            if (data['commonServices' + i] === undefined)
-            {
-                break;
-            }
-            commonServices.push(data['commonServices' + i]);
-            delete data['commonServices' + i]
-        }
-
-        let servicesRoom = [];
-        for (let i = 0; ; i++)
-        {
-           
-            
-            if (data['servicesRoom' + i] === undefined)
-            {
-                break;
-            }
-            servicesRoom.push(data['servicesRoom' + i]);
-            delete data['servicesRoom' + i];
-        }
-
-        let inStock = [];
-        for (let i = 0; ; i++)
-        {
-            
-            if (data['inStock' + i] === undefined)
-            {
-                break;
-            }
-            inStock.push(data['inStock' + i]);
-            delete data['inStock' + i];
-        }
-
-        data.services = {inStock: inStock, servicesRoom: servicesRoom, commonServices: commonServices}
-    }
     
-
-
     if (institution.uuid != '')
     {
         
@@ -475,20 +471,11 @@ const Treatment = (props) => {
                             {value: 'Описание', key: 'description'}, {value: 'Тип', key: 'type'}, 
                             {value: 'Тип комнаты', key: 'typeOfRoom'}, {value: 'Город', key: 'city'}, 
                             {value: 'Адрес', key: 'address'}, {value: 'Программа лечения', key: 'program'},
-                            {value: 'Кл. мест', key: 'count_people'}]} 
+                            {value: 'Кл. мест', key: 'count_people'}, {value: 'Услуги', key: 'services'}]} 
                     info={[institution]} className={classes.table} checkbox={inputsCheckbox} setCheckbox={setInputsCheckbox}/></div>
             
             <form className={props.className + ' ' + classes.form} onSubmit={handleSubmit(handleOnSubmit)}>
                 {inputs}
-
-                {/* <div className={classes.form__services} style={{gridTemplateRows: `repeat(${servicesRows}, 1fr)`, height: `${servicesRows * 10}vh`}}>
-                    <DynamicList name='inStock' className={classes.dynamicList} value={institution.services !== undefined? institution.services[0].inStock : ['']}
-                    classInput={classes.dynamicList__input} placeholder='В наличии' rows={servicesRows} setRows={setServicesRows} register={register({required: true})}/>
-                    <DynamicList name='commonServices' className={classes.dynamicList} value={institution.services !== undefined? institution.services[0].commonServices : [''] }
-                    classInput={classes.dynamicList__input} placeholder='Общие услуги' rows={servicesRows} setRows={setServicesRows} register={register({required: true})}/>
-                    <DynamicList name='servicesRoom' className={classes.dynamicList} value={institution.services !== undefined? institution.services[0].servicesRoom : ['']}
-                    classInput={classes.dynamicList__input} placeholder='Услуги в номерах' rows={servicesRows} setRows={setServicesRows} register={register({required: true})}/>
-                </div> */}
 
                 <ImagesObserver prefix='/images/Treatment/' pathImages={photos || (!dbData.dataTreatment ? ['images/logo.svg'] : dbData.dataTreatment[0].images.split(','))} 
                 tempPhotos={tempPhotos} setTempPhotos={setTempPhotos} className={classes.imagesObserver}/>
@@ -496,7 +483,7 @@ const Treatment = (props) => {
                 <FilesUploader name='fileUploader'
                 className={classes.filesUploader} classInput={classes.filesUploader__text} 
                 classPlaceholder={classes.filesUploader__placeholder} placeholder='Фото отеля/пансионата' />
-
+                
                 <Button className={classes.button} 
                 classInput={classes.button__text} value='Обновить' />
                     

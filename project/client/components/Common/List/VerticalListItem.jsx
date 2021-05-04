@@ -49,14 +49,6 @@ const VerticalListItem = ({item}) => {
     const title = item.title;
     const id = item.id;
 
-    const splitString = (string) =>{
-
-        if (string.length > 20)
-        {
-            return string.substr(0, 16) + '...';
-        }
-    }
-
     return (
         <Link href={`/resorts/${path}/${category}/${id}`}>
             <div className={classes.list__item}>

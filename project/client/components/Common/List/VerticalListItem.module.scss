@@ -4,7 +4,8 @@
 {
     font-size: 1em;
     height: auto;
-    
+    width: auto;
+    top: 5vh;
 }
 
 .list__item
@@ -14,6 +15,8 @@
     display: grid;
     grid-template-columns: 2fr 1fr 1fr;
     background-color: $primary_color;
+    border-bottom: 5px solid $sub_color;
+    
     & div
     {
         height: 30vh;
@@ -26,6 +29,7 @@
         background-size: cover;
         background-position: center;
         border-right: 5px solid $sub_color;
+        border-bottom: 5px solid $sub_color;
 
     }
 
@@ -57,5 +61,12 @@
         gap: 5px;
         width: 100%;
         padding: 5%;
+
+        & > div
+        {
+            position: relative;
+            overflow: visible;
+        }
+        
     }
 }

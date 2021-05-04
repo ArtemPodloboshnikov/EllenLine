@@ -1,5 +1,6 @@
 import {useState, useEffect} from 'react';
 import {arrayConcat, getPhotosPath, getExistingPhotosNames} from '../../functions';
+import servicesHandler from '../../../../functions/ServicesHandler';
 import {useForm} from 'react-hook-form';
 //
 import classes from './Relax.module.scss';
@@ -27,7 +28,7 @@ const Relax = (props) => {
     const [message, setMessage] = useState({style: {display: 'none'}, status: '', body: '', method: 'none'});
     const [cityName, setCityName] = useState('Санкт-Петербург');
     const [zoom, setZoom] = useState();
-    const [servicesRows, setServicesRows] = useState(0);
+    const [servicesRows, setServicesRows] = useState(10);
     const [title, setTitle] = useState();
     const [description, setDescription] = useState('');
     const [stars, setStars] = useState()
@@ -60,6 +61,12 @@ const Relax = (props) => {
         if (data.photosPath.length == 0)
         {
             data.photosPath = ['../no_image.jpg'];
+        }
+
+        if (data.inStock0 !== undefined || data.commonServices0 !== undefined || data.servicesRoom0 !== undefined)
+        {
+            let services = servicesHandler(data);
+            data.services = {inStock: services.inStock, servicesRoom: services.servicesRoom, commonServices: services.commonServices}
         }
        
         console.log(deletedPhotos);
@@ -205,6 +212,22 @@ const Relax = (props) => {
                                   classInput={classes.inputText__input} placeholder='Адрес'/>
                 isCheck(component)
 
+                break;
+            }
+            case 'services': {
+
+                const component = 
+                <div className={classes.form__services} style={{gridTemplateRows: `repeat(${servicesRows}, 1fr)`, height: `${servicesRows * 10}vh`}}>
+                    <DynamicList name='inStock' className={classes.dynamicList} value={institution.services !== undefined? institution.services[0].inStock : ['']}
+                    classInput={classes.dynamicList__input} placeholder='В наличии' rows={servicesRows} setRows={setServicesRows} register={register({required: true})}/>
+                    <DynamicList name='commonServices' className={classes.dynamicList} value={institution.services !== undefined? institution.services[0].commonServices : [''] }
+                    classInput={classes.dynamicList__input} placeholder='Общие услуги' rows={servicesRows} setRows={setServicesRows} register={register({required: true})}/>
+                    <DynamicList name='servicesRoom' className={classes.dynamicList} value={institution.services !== undefined? institution.services[0].servicesRoom : ['']}
+                    classInput={classes.dynamicList__input} placeholder='Услуги в номерах' rows={servicesRows} setRows={setServicesRows} register={register({required: true})}/>
+                </div>
+                
+                isCheck(component)
+                
                 break;
             }
 
@@ -441,20 +464,12 @@ const Relax = (props) => {
                             {value: 'Скидка', key: 'discount'}, {value: 'Звёзды', key: 'stars'}, 
                             {value: 'Описание', key: 'description'}, {value: 'Тип', key: 'type'}, 
                             {value: 'Тип комнаты', key: 'typeOfRoom'}, {value: 'Город', key: 'city'}, 
-                            {value: 'Адрес', key: 'address'}]} 
+                            {value: 'Адрес', key: 'address'}, {value: 'Услуги', key: 'services'}]} 
                     info={[institution]} className={classes.table} checkbox={inputsCheckbox} setCheckbox={setInputsCheckbox}/></div>
             
             <form className={props.className + ' ' + classes.form} onSubmit={handleSubmit(handleOnSubmit)}>
                 {inputs}
 
-                {/* <div className={classes.form__services} style={{gridTemplateRows: `repeat(${servicesRows}, 1fr)`, height: `${servicesRows * 10}vh`}}>
-                    <DynamicList name='inStock' className={classes.dynamicList} value={institution.services !== undefined? institution.services[0].inStock : ['']}
-                    classInput={classes.dynamicList__input} placeholder='В наличии' rows={servicesRows} setRows={setServicesRows} register={register({required: true})}/>
-                    <DynamicList name='commonServices' className={classes.dynamicList} value={institution.services !== undefined? institution.services[0].commonServices : [''] }
-                    classInput={classes.dynamicList__input} placeholder='Общие услуги' rows={servicesRows} setRows={setServicesRows} register={register({required: true})}/>
-                    <DynamicList name='servicesRoom' className={classes.dynamicList} value={institution.services !== undefined? institution.services[0].servicesRoom : ['']}
-                    classInput={classes.dynamicList__input} placeholder='Услуги в номерах' rows={servicesRows} setRows={setServicesRows} register={register({required: true})}/>
-                </div> */}
 
                 <ImagesObserver prefix='/images/Relax/' pathImages={photos || (!dbData.dataHotels ? ['images/logo.svg'] : dbData.dataHotels[0].images.split(','))} 
                 tempPhotos={tempPhotos} setTempPhotos={setTempPhotos} className={classes.imagesObserver}/>
@@ -580,38 +595,8 @@ const Relax = (props) => {
                     classInput={classes.dynamicList__input} placeholder='Общие услуги' rows={servicesRows} setRows={setServicesRows}/>
                     <DynamicList name='servicesRoom' className={classes.dynamicList} 
                     classInput={classes.dynamicList__input} placeholder='Услуги в номерах' rows={servicesRows} setRows={setServicesRows}/>
-                </div>
-                
-                <div className={classes.block}>
-                    <InputNumber name='price' 
-                    className={classes.inputNumber} placeholder='Цена' min='1' value={price || (!dbData.dataHotels ? '' : dbData.dataHotels[0].price)} onBlur={(e)=>{
+                </div> */}
 
-                        onBlurCheckbox(e.target.value, price, 'price')
-                    }}
-                    />
-
-                    <input type='checkbox' id='price' disabled={true} onChange={()=>{
-
-                     
-                    }}
-                    />
-                </div>
-                <div className={classes.block}>{console.log(dbData.dataHotels)}
-                    <InputNumber name='discount' 
-                    className={classes.inputNumber} placeholder='Скидка' min='0' max='100' value={discount || (!dbData.dataHotels ? '' : dbData.dataHotels[0].discount)} onBlur={(e)=>{
-
-                        onBlurCheckbox(e.target.value, discount, 'discount')
-                    }}
-                    />
-                    <input type='checkbox' id='discount' disabled={true} onChange={()=>{
-
-                      
-                    }}
-                    />
-                </div>
-                
-                <Button type='button' className={classes.button} onClick={handleOnSubmit} 
-                classInput={classes.button__text} value='Обновить' /> */}
                     
             </form>
             

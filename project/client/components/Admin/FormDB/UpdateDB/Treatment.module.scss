@@ -60,7 +60,7 @@
     display: grid;
     grid-template-columns: repeat(3, 1fr);
     width: 90%;
-    height: 10vh;
+    height: fit-content;
     justify-content: start;
     margin: 0 auto;
     grid-column-gap: 3%;
@@ -96,6 +96,7 @@
     justify-self: center;
     width: 80%;
     height: 45vh;
+    margin-top: 3%;
 }
 .select{
 

@@ -90,7 +90,7 @@ const Table = ({titles, info, className, ActionButton, setCheckbox, checkbox=fal
             let flags = [true];
             for (let j = 0; j < Object.keys(titles).length; j++)
             {
-                
+                if (titles[j].key == 'services') continue;
                 let value = values[i][titles[j].key];
                 const patternDate = new RegExp('date', 'gi');
                 const patternTime = new RegExp('time', 'gi');

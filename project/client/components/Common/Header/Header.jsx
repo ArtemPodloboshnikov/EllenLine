@@ -115,7 +115,7 @@ const Header = (props) => {
                     <div className={classes.header__content} style={(route != '/' && route != '/home')?{gridTemplateAreas: "'buttons buttons buttons buttons buttons buttons buttons buttons buttons buttons' '. . . links links links links . . .'", gridTemplateRows: 'repeat(2, 1fr)'}:{}}>
                         <div className={classes.header__buttons}>
                             <Link href='/'><a className={classes.header__button}>О нас</a></Link>
-                            <Link href='/resorts/Saint-Petersburg'><a className={classes.header__button} style={{gridColumn: '2 / 4'}}>Санкт-Петербург</a></Link>
+                            <Link href='/resorts/Saint-Petersburg/all'><a className={classes.header__button} style={{gridColumn: '2 / 4'}}>Санкт-Петербург</a></Link>
                             <div>
                                 <Link href='/resorts/tours'><a id='treeTours_button' className={classes.header__button} onMouseOver={showTree} onMouseOut={hideTree}>Туры</a></Link>
                                 <div onMouseOver={showTree} onMouseOut={hideTree} id='treeTours' className={classes.treeTours}>

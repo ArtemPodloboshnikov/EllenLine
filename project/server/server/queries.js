@@ -629,27 +629,14 @@ router.get('/Saint-Petersburg', function(request, reply){
 
     let sql = '';
     // console.log('ID: ' + request.query.id + ' TYPE: ' + request.query.type)
-    if (request.query.id != undefined)
+ 
+    if (request.query.type == 'all')
     {
 
-        sql = `SELECT AES_DECRYPT(relax_.title, '${keysForTables.relax.title}') as title, AES_DECRYPT(relax_.services, '${keysForTables.relax.services}') as services, AES_DECRYPT(relax_.photos, '${keysForTables.relax.photos}') as photos, AES_DECRYPT(relax_.address, '${keysForTables.relax.address}') as address, AES_DECRYPT(relax_.type, '${keysForTables.relax.type}') as type, AES_DECRYPT(relax_.coordinates, '${keysForTables.relax.coordinates}') as coordinates, AES_DECRYPT(relax_.description, '${keysForTables.relax.description}') as description,  AES_DECRYPT(relax_.typeOfRoom, '${keysForTables.relax.typeOfRoom}') as typeOfRoom, relax_.price, relax_.stars as stars, relax_.id_city as id_city, relax_.id_relax as id, countries.id_country as id_country, relax_.pricePerChild as pricePerChild, relax_.discount as discount, relax_.count as count, relax_.count_people as count_people FROM relax_ INNER JOIN cities ON cities.id_city = relax_.id_city INNER JOIN countries_bind_cities ON countries_bind_cities.id_city = cities.id_city INNER JOIN countries ON countries.id_country = countries_bind_cities.id_country WHERE relax_.id_relax = ${request.query.id}`;
+        sql = `(SELECT AES_DECRYPT(treatments.title, '${keysForTables.treatment.title}') as title, AES_DECRYPT(treatments.services, '${keysForTables.treatment.services}') as services, AES_DECRYPT(treatments.photos, '${keysForTables.treatment.photos}') as photos, AES_DECRYPT(treatments.address, '${keysForTables.treatment.address}') as address, AES_DECRYPT(treatments.type, '${keysForTables.treatment.type}') as type, AES_DECRYPT(treatments.typeOfRoom, '${keysForTables.treatment.typeOfRoom}') as typeOfRoom, treatments.price as price, treatments.count_people as count_people, treatments.id_treatment as id, treatments.discount as discount, treatments.id_city as id_city FROM treatments INNER JOIN cities ON cities.id_city = treatments.id_city WHERE cities.name = AES_ENCRYPT('Санкт-Петербург', '${keysForTables.cities.name}')) UNION (SELECT AES_DECRYPT(relax_.title, '${keysForTables.relax.title}') as title, AES_DECRYPT(relax_.services, '${keysForTables.relax.services}') as services, AES_DECRYPT(relax_.photos, '${keysForTables.relax.photos}') as photos, AES_DECRYPT(relax_.address, '${keysForTables.relax.address}') as address, AES_DECRYPT(relax_.type, '${keysForTables.relax.type}') as type, AES_DECRYPT(relax_.typeOfRoom, '${keysForTables.relax.typeOfRoom}') as typeOfRoom, relax_.price as price, relax_.count_people as count_people, relax_.id_relax as id, relax_.discount as discount, relax_.id_city as id_city FROM relax_ INNER JOIN cities ON cities.id_city = relax_.id_city WHERE cities.name = AES_ENCRYPT('Санкт-Петербург', '${keysForTables.cities.name}'))`;
+        console.log(sql)
     }
-    else
-    if (request.query.type != undefined)
-    {
-
-        sql = `SELECT AES_DECRYPT(relax_.title, '${keysForTables.relax.title}') as title, AES_DECRYPT(relax_.services, '${keysForTables.relax.services}') as services, AES_DECRYPT(relax_.photos, '${keysForTables.relax.photos}') as photos, AES_DECRYPT(relax_.address, '${keysForTables.relax.address}') as address, AES_DECRYPT(relax_.type, '${keysForTables.relax.type}') as type, AES_DECRYPT(relax_.typeOfRoom, '${keysForTables.relax.typeOfRoom}') as typeOfRoom, relax_.price, relax_.id_relax as id, relax_.id_city as id_city, countries.id_country as id_country, AES_DECRYPT(countries.name, '${keysForTables.countries.name}') as county_name, AES_DECRYPT(cities.name, '${keysForTables.cities.name}') as city_name, relax_.stars as stars, relax_.count as count, relax_.discount as discount, relax_.count_people as count_people FROM relax_ INNER JOIN cities ON cities.id_city = relax_.id_city INNER JOIN countries_bind_cities ON countries_bind_cities.id_city = cities.id_city INNER JOIN countries ON countries.id_country = countries_bind_cities.id_country WHERE relax_.type = AES_ENCRYPT('${request.query.type}', '${keysForTables.relax.type}')`;
-    }
-    else
-    if (request.query.only != undefined)
-    {
-        sql = `SELECT id_relax as id, AES_DECRYPT(title, '${keysForTables.relax.title}') as title, AES_DECRYPT(typeOfRoom, '${keysForTables.relax.typeOfRoom}') as typeOfRoom FROM relax_`
-    }
-    else
-    {
-
-        sql = `SELECT AES_DECRYPT(relax_.title, '${keysForTables.relax.title}') as title, AES_DECRYPT(relax_.services, '${keysForTables.relax.services}') as services, AES_DECRYPT(relax_.photos, '${keysForTables.relax.photos}') as photos, AES_DECRYPT(relax_.address, '${keysForTables.relax.address}') as address, AES_DECRYPT(relax_.type, '${keysForTables.relax.type}') as type, AES_DECRYPT(relax_.coordinates, '${keysForTables.relax.coordinates}') as coordinates, AES_DECRYPT(relax_.description, '${keysForTables.relax.description}') as description,  AES_DECRYPT(relax_.typeOfRoom, '${keysForTables.relax.typeOfRoom}') as typeOfRoom, relax_.price, relax_.id_relax as id, relax_.id_city as id_city, countries.id_country as id_country, AES_DECRYPT(countries.name, '${keysForTables.countries.name}') as county_name, AES_DECRYPT(cities.name, '${keysForTables.cities.name}') as city_name, relax_.stars as stars, relax_.discount as discount FROM relax_ INNER JOIN cities ON cities.id_city = relax_.id_city INNER JOIN countries_bind_cities ON countries_bind_cities.id_city = cities.id_city INNER JOIN countries ON countries.id_country = countries_bind_cities.id_country`;
-    }
+    
     
     mysql.getConnection(function(err, connection) {
         if (err) {

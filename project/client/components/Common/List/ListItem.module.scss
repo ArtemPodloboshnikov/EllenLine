@@ -54,6 +54,21 @@ a:active .list_item{
     top: 0;
     justify-content: center;
     align-items: center;
+    grid-template-columns: repeat(4, 1fr);
+    grid-template-rows: repeat(4, 1fr);
+
+    & > h1
+    {
+
+        & > div
+        {
+            
+            & > div[class='hint']
+            {
+                position: relative;
+            }
+        }
+    }
 }
 
 .title{
@@ -77,7 +92,7 @@ a:active .list_item{
     display: grid;
     padding: 5px;
     gap: 5px;
-    grid-template-areas: '. price'
+    grid-template-areas: 'count price'
                          'services services';
 }
 
@@ -95,7 +110,7 @@ a:active .list_item{
     font-size: 1.35em;
 }
 
-.price, .services{
+.price, .count, .services{
     z-index: 1;
     position: absolute;
     color: $sub_color;
@@ -114,12 +129,13 @@ a:active .list_item{
 
 
 .price i, .price p,
-.services i{
+.services i, .count p{
     justify-self: center;
     align-self: center;
 }
 
-.price{
+.price, .count
+{
     grid-area: price;
     display: grid;
     width: 100%;
@@ -127,7 +143,20 @@ a:active .list_item{
     grid-template-columns: 1fr 3fr;
 }
 
-.price p
+.count
+{
+    grid-area: count;
+    justify-content: end;
+    column-gap: 30px;
+    margin-left: 5%;
+    padding-left: 16%;
+    & > p
+    {
+        justify-self: start;
+    }
+}
+
+.price p, .count p
 {
     text-overflow: ellipsis;
     white-space: nowrap;
@@ -146,8 +175,14 @@ a:active .list_item{
     padding-left: 3%;
     padding-right: 3%;
 
-    & > div > .hint:hover div
+    & *
     {
+        position: relative;
+        overflow: visible;
+    }
+    & > div > div[class="hint"] > div
+    {
+        font-size: 0.8em;
         position: relative;
         overflow: visible;
     }

@@ -6,7 +6,8 @@ import classes from './ListItem.module.scss';
 const ListItem = (props) => {
     const id = props.id;
     const images = props.images.split(',');
-    const title = (props.title.length <= 10) ? props.title : props.title.substr(0, 6) + '...';
+    const count_people = props.count_people;
+    const title = (props.title.length <= 12) ? props.title : <div><div className='hint'>{props.title.substr(0, 8) + '...'}<div>{props.title}</div></div></div>;
     const price = props.price;
     const services = JSON.parse(props.services);
     const category = props.category;
@@ -24,25 +25,6 @@ const ListItem = (props) => {
                 for(let i = 0; i < services[key].length; i++)
                 {
                     let service = services[key][i];
-                    
-                    // console.log(service)
-                    //This is just example, services will be another
-                    // switch(service)
-                    // {
-                    //     case 'food':
-                    //         service = <i class="fa fa-cutlery" aria-hidden="true"
-                    //                      style={column_offset}></i>;
-                    //         break;
-                    //     case 'bath':
-                    //         service = <i class="fa fa-bath" aria-hidden="true"
-                    //                      style={column_offset}></i>;
-                    //         break;
-                    //     default:
-                    //         //console.log(service + ' service don`t support');
-                    //         offset++;
-                    //         continue;
-                    // }
-                    //elements.push(<ConvertServic service={service} style={column_offset}/>);
                     let icon = iconsMaker(service, true);
                     if (icon)
                     {
@@ -75,7 +57,7 @@ const ListItem = (props) => {
             <div className={classes.list_item + ' ' + classes.className} onMouseEnter={onHover}
             style={{transition: 'background-image 3s easy', backgroundImage: `url(/images/${path.toUpperCase()[0] + path.split('').splice(1).join('')}/${images[photoIndex]})`}}>
                 <div className={classes.top}>
-                    <h1 className={classes.title}>
+                    <h1 className={classes.title} style={(()=>{ if (typeof title != 'string') return {gridColumn: '2 / 3', gridRow: '4 / 5'}})()}>
                         {title}
                     </h1>
                 </div>
@@ -84,6 +66,10 @@ const ListItem = (props) => {
                         <i class="fa fa-map-marker" aria-hidden="true"></i>
                         <p>{address}</p>
                     </div> */}
+                    <div className={classes.count}>
+                        <i class="fa fa-user-friends" aria-hidden="true"></i>
+                        <p>{count_people}</p>
+                    </div>
                     <div className={classes.price}>
                         <i class="fa fa-money" aria-hidden="true"></i>
                         <p>{price} руб.</p>

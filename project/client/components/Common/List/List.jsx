@@ -225,6 +225,7 @@ const List = (props) => {
                                                 id={element.id}
                                                 title={element.typeOfRoom}
                                                 images={element.images}
+                                                count_people={element.count_people}
                                                 address={element.address}
                                                 price={element.price}
                                                 services={element.services}/>);

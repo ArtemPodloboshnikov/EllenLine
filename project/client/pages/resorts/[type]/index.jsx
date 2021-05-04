@@ -21,9 +21,17 @@ const Relax = () => {
         <ClientLayout 
             title={convert[Object.keys(convert)[0]]}
             crumbs={[{href: '/resorts/[type]', as: `/resorts/${type}`, text: Global.GetConvert(type).name}]}>
-            <ChooseResort 
-            path={type} 
-            convert={convert}/>
+            {(()=>{
+
+                if (type != 'Saint-Petersburg')
+                {
+                    return <ChooseResort 
+                            path={type} 
+                            convert={convert}/>
+                }
+
+            })()}
+            
         </ClientLayout>
     )
 }

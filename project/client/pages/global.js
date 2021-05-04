@@ -24,7 +24,10 @@ export default class Global {
         {
             typeResort = 'клиника'
         }
-
+        else
+        {
+            typeResort = resort;
+        }
         return typeResort;
     }
     static GetTypeEn(resort)
@@ -49,7 +52,10 @@ export default class Global {
         {
             typeResort = 'clinics'
         }
-
+        else
+        {
+            typeResort = resort;
+        }
         return typeResort;
     }
     static GetResort(type)
@@ -99,6 +105,12 @@ export default class Global {
                     'clinics': 'Клиники',
                     'sanatoriums': 'Санатории',
                     'description': 'У нас вы сможете найти лечение по доступной цене'
+                }
+            case "Saint-Petersburg":
+                return {
+
+                    'name': 'Санкт-Петербург',
+                    'description': 'Все туры, санатории и отели в Санкт-Петербурге'
                 }
             default:
                 console.log(type + " don`t support")

@@ -98,8 +98,10 @@ const Resorts = ({data}) => {
                                          setSearchCity={setSearchCity} setSearchPrice={setSearchPrice} setSearchName={setSearchName} setSearchCountPeople={setSearchCountPeople}
                                          cities={cities} countries={countries}/>;
                 }
-
+                console.log(type)
                 if (type != 'Saint-Petersburg')
+                {
+
                     return <ChooseResort 
                             path={type} 
                             resort={resort}
@@ -107,10 +109,11 @@ const Resorts = ({data}) => {
                             keyLeft={keyLeft}
                             keyRight={keyRight}
                             />
+                }
             })()}
             
             
-            <List path={type} resort={resort} items={dbData} conditions={conditions}/>
+            <List items={dbData} conditions={conditions}/>
         </ClientLayout>
     )
 }
