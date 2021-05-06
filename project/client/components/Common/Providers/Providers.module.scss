@@ -30,7 +30,7 @@
     {
         margin: 0;
         @extend %font;
-        font-size: 2em;
+        font-size: 1.3em;
     }
 
     i 
@@ -47,7 +47,7 @@
 
         i, p, span
         {
-            font-size: 1.5em;
+            font-size: 0.8em;
             align-self: flex-start;
         }
         
@@ -166,7 +166,7 @@
         i
         {
             padding: 0 5px;
-            font-size: 3em;
+            // font-size: 3em;
         }
 
         h1
@@ -174,7 +174,7 @@
             justify-self: left;
             align-self: center;
             margin: 0; 
-            font-size: 1.7em; 
+            // font-size: 1.7em; 
         }
     }
 }

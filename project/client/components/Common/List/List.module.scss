@@ -51,12 +51,28 @@
 } */
 /* ZIMIN`S CLASSES */
 .list{
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(300px, 400px));
-    justify-content: center;
-    grid-auto-rows: 550px;
-    gap: 10px;
-    padding: 15px 10px;
+   
+    margin-top: 2.5%;
+
+    & > div:first-child
+    {
+        width: 100%;
+        display: grid;
+        grid-template-columns: repeat(4, 1fr);
+        text-align: center;
+        background-color: $primary_color;
+        @extend %font;
+        font-size: 1em;
+        color: $sub_color;
+        // & > div:not(div:last-child)
+        // {
+        //     border-right: 5px solid $sub_color;
+        // }
+        // & > div
+        // {
+        //     border-bottom: 5px solid $sub_color;
+        // }
+    }
 }
 
 .group
@@ -68,12 +84,13 @@
     min-width: 96.3%;
     height: 95vh;
     overflow-x: scroll;
+    grid-auto-flow: row;
     & > div
     {
         justify-self: center;
-        
+        width: 100%;
         display: grid;
-        grid-auto-flow: column;
+        grid-auto-flow: row;
         gap: 1%;
     }
     & > legend

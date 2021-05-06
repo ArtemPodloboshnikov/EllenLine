@@ -2,15 +2,24 @@ import React, { useState } from 'react';
 //
 import Slider from '../../CustomElements/Slider.jsx';
 import Button from '../../CustomElements/Button.jsx';
+import SelectEntered from '../../CustomElements/SelectEntered';
 //
 import classes from './InfoSection.module.scss';
 
 const InfoSection = (props) => {
-    const [title, setTitle] = useState(props.title);
-    const [price, setPrice] = useState(props.price);
-    const [text, setText] = useState(props.text);
-    const [images, setImages] = useState(props.images);
-    const [start, setStars] = useState(props.start);
+
+    let rooms_list = [];
+    const rooms = props.rooms;
+    rooms.map(room=>{
+
+        rooms_list.push(room.typeOfRoom);
+    })
+    const title = props.title;
+    const price = props.price;
+    const text = props.text;
+    const images = props.images;
+    const typeOfRoom = props.typeOfRoom;
+    // const [start, setStars] = useState(props.start);
     //
     const [expand, setExpand] = useState(false);
     const [index, setIndex] = useState(props.index ? props.index : 0);
@@ -21,7 +30,7 @@ const InfoSection = (props) => {
     //tours, cruises
     const duration = props.duration;
     const payment_term = props.payment_term;
-    console.log('stars: ' + stars)
+    console.log(rooms_list)
 
     function ExpandDescription(e) {
         let arrow = e.currentTarget;
@@ -65,7 +74,22 @@ const InfoSection = (props) => {
 
     return (
         <div className={classes.wrap}>
-            <h1>{title}</h1>
+            <h1>{title + ':'}<SelectEntered className={classes.room_type} 
+                             options={rooms_list} 
+                             value={typeOfRoom} 
+                             name='room'
+                             onChangeFunction={(data)=>{
+
+                                for (let key in rooms)
+                                {
+                                    if (rooms[key].typeOfRoom == data.value)
+                                    {
+                                        props.setRoomIndex(key)
+                                        break;
+                                    }
+                                }
+                             }}
+                             /></h1>
             <div className={classes.enter}>
                 <Slider className={classes.slider} images={images} index={index} type={type}/>
                 <div className={classes.info}>

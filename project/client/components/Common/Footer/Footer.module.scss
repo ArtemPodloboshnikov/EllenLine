@@ -4,10 +4,11 @@
 
     display: grid;
     width: 100%;
+    margin-top: 3%;
     /* ZIMIN */
     /* height: 100vh; */
     background-color: $primary_color;
-    clip-path: polygon(0% 0%, 46% 16%, 100% 7%, 100% 100%, 0% 100%);
+    // clip-path: polygon(0% 0%, 46% 16%, 100% 7%, 100% 100%, 0% 100%);
     display: grid;
     grid-template-columns: 20% 20% 20% 2.5% 30%;
     grid-template-rows: repeat(3, 1fr);
@@ -15,7 +16,13 @@
     ". . . . ."
     ". map map . info"
     ". map map . info"
-    ". links links . ."
+    ". links links . .";
+
+    & *
+    {
+
+        font-size: 0.8em;
+    }
   ;
 }
 .footer__map{

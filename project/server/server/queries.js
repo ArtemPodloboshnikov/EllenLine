@@ -334,10 +334,10 @@ router.get('/treatment', function(request, reply){
 
     let sql = '';
     // console.log('ID: ' + request.query.id + ' TYPE: ' + request.query.type)
-    if (request.query.id != undefined)
+    if (request.query.title != undefined)
     {
 
-        sql = `SELECT AES_DECRYPT(treatments.title, '${keysForTables.treatment.title}') as title, AES_DECRYPT(treatments.services, '${keysForTables.treatment.services}') as services, AES_DECRYPT(treatments.photos, '${keysForTables.treatment.photos}') as photos, AES_DECRYPT(treatments.address, '${keysForTables.treatment.address}') as address, AES_DECRYPT(treatments.type, '${keysForTables.treatment.type}') as type, AES_DECRYPT(treatments.coordinates, '${keysForTables.treatment.coordinates}') as coordinates, AES_DECRYPT(treatments.description, '${keysForTables.treatment.description}') as description,  AES_DECRYPT(treatments.typeOfRoom, '${keysForTables.treatment.typeOfRoom}') as typeOfRoom, AES_DECRYPT(treatments.payment_term, '${keysForTables.treatment.payment_term}') as payment_term, treatments.price, AES_DECRYPT(treatments.program, '${keysForTables.treatment.program}') as program, treatments.id_city as id_city, treatments.id_treatment as id, countries.id_country as id_country, treatments.pricePerChild as pricePerChild, treatments.pricePerTeenager as pricePerTeenager, treatments.pricePerPet as pricePerPet, treatments.count as count, treatments.count_people as count_people FROM treatments INNER JOIN cities ON cities.id_city = treatments.id_city INNER JOIN countries_bind_cities ON countries_bind_cities.id_city = cities.id_city INNER JOIN countries ON countries.id_country = countries_bind_cities.id_country WHERE treatments.id_treatment = ${request.query.id}`;
+        sql = `SELECT AES_DECRYPT(treatments.title, '${keysForTables.treatment.title}') as title, AES_DECRYPT(treatments.services, '${keysForTables.treatment.services}') as services, AES_DECRYPT(treatments.photos, '${keysForTables.treatment.photos}') as photos, AES_DECRYPT(treatments.address, '${keysForTables.treatment.address}') as address, AES_DECRYPT(treatments.type, '${keysForTables.treatment.type}') as type, AES_DECRYPT(treatments.coordinates, '${keysForTables.treatment.coordinates}') as coordinates, AES_DECRYPT(treatments.description, '${keysForTables.treatment.description}') as description,  AES_DECRYPT(treatments.typeOfRoom, '${keysForTables.treatment.typeOfRoom}') as typeOfRoom, AES_DECRYPT(treatments.payment_term, '${keysForTables.treatment.payment_term}') as payment_term, treatments.price, AES_DECRYPT(treatments.program, '${keysForTables.treatment.program}') as program, treatments.id_city as id_city, treatments.id_treatment as id, countries.id_country as id_country, treatments.pricePerChild as pricePerChild, treatments.pricePerTeenager as pricePerTeenager, treatments.pricePerPet as pricePerPet, treatments.count as count, treatments.count_people as count_people FROM treatments INNER JOIN cities ON cities.id_city = treatments.id_city INNER JOIN countries_bind_cities ON countries_bind_cities.id_city = cities.id_city INNER JOIN countries ON countries.id_country = countries_bind_cities.id_country WHERE treatments.title = AES_ENCRYPT('${request.query.title}', '${keysForTables.treatment.title}')`;
     }
     else
     if (request.query.type != undefined)
@@ -365,13 +365,14 @@ router.get('/treatment', function(request, reply){
             ['photos', 'images'], ['description'], ['id_city'], ['coordinates'], ['discount'], ['count'], ['count_people'], ['payment_term'],
             ['typeOfRoom'], ['id_country'], ['county_name'], ['city_name'], ['program'], ['pricePerChild'], ['pricePerTeenager'], ['pricePerPet']]);
 
-            if (request.query.origin === undefined && request.query.type === undefined)
+            if (request.query.markdown !== undefined)
             {
                 
                 for (let key in new_results)
                 {
     
                    new_results[key].program = parseMarkdownToHTML(new_results[key].program);
+                //    new_results[key].description = parseMarkdownToHTML(new_results[key].description);
                 }
             }
             reply.send(new_results);
@@ -660,10 +661,10 @@ router.get('/relax', function(request, reply){
 
     let sql = '';
     // console.log('ID: ' + request.query.id + ' TYPE: ' + request.query.type)
-    if (request.query.id != undefined)
+    if (request.query.title != undefined)
     {
 
-        sql = `SELECT AES_DECRYPT(relax_.title, '${keysForTables.relax.title}') as title, AES_DECRYPT(relax_.services, '${keysForTables.relax.services}') as services, AES_DECRYPT(relax_.photos, '${keysForTables.relax.photos}') as photos, AES_DECRYPT(relax_.address, '${keysForTables.relax.address}') as address, AES_DECRYPT(relax_.type, '${keysForTables.relax.type}') as type, AES_DECRYPT(relax_.coordinates, '${keysForTables.relax.coordinates}') as coordinates, AES_DECRYPT(relax_.description, '${keysForTables.relax.description}') as description,  AES_DECRYPT(relax_.typeOfRoom, '${keysForTables.relax.typeOfRoom}') as typeOfRoom, relax_.price, relax_.stars as stars, relax_.id_city as id_city, relax_.id_relax as id, countries.id_country as id_country, relax_.pricePerChild as pricePerChild, relax_.discount as discount, relax_.count as count, relax_.count_people as count_people FROM relax_ INNER JOIN cities ON cities.id_city = relax_.id_city INNER JOIN countries_bind_cities ON countries_bind_cities.id_city = cities.id_city INNER JOIN countries ON countries.id_country = countries_bind_cities.id_country WHERE relax_.id_relax = ${request.query.id}`;
+        sql = `SELECT AES_DECRYPT(relax_.title, '${keysForTables.relax.title}') as title, AES_DECRYPT(relax_.services, '${keysForTables.relax.services}') as services, AES_DECRYPT(relax_.photos, '${keysForTables.relax.photos}') as photos, AES_DECRYPT(relax_.address, '${keysForTables.relax.address}') as address, AES_DECRYPT(relax_.type, '${keysForTables.relax.type}') as type, AES_DECRYPT(relax_.coordinates, '${keysForTables.relax.coordinates}') as coordinates, AES_DECRYPT(relax_.description, '${keysForTables.relax.description}') as description,  AES_DECRYPT(relax_.typeOfRoom, '${keysForTables.relax.typeOfRoom}') as typeOfRoom, relax_.price, relax_.stars as stars, relax_.id_city as id_city, relax_.id_relax as id, countries.id_country as id_country, relax_.pricePerChild as pricePerChild, relax_.discount as discount, relax_.count as count, relax_.count_people as count_people FROM relax_ INNER JOIN cities ON cities.id_city = relax_.id_city INNER JOIN countries_bind_cities ON countries_bind_cities.id_city = cities.id_city INNER JOIN countries ON countries.id_country = countries_bind_cities.id_country WHERE relax_.title = AES_ENCRYPT('${request.query.title}', '${keysForTables.relax.title}')`;
     }
     else
     if (request.query.type != undefined)
@@ -695,6 +696,16 @@ router.get('/relax', function(request, reply){
             let new_results = ConvertDataToString(results, [['title'], ['services'], ['address'], ['price'], ['type'], ['id'], 
             ['photos', 'images'], ['description'], ['id_city'], ['coordinates'], ['discount'], ['count'], ['count_people'],
             ['typeOfRoom'], ['id_country'], ['county_name'], ['city_name'], ['stars'], ['pricePerChild'], ['pricePerTeenager'], ['pricePerPet']]);
+
+            if (request.query.markdown !== undefined)
+            {
+                
+                for (let key in new_results)
+                {
+                //    new_results[key].description = parseMarkdownToHTML(new_results[key].description);
+                }
+            }
+
             reply.send(new_results);
         });
     })

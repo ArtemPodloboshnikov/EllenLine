@@ -325,7 +325,7 @@ const Treatment = (props) => {
                 result = {...result, countries: data};
               });
            
-            await fetch('http://localhost:4000/api/treatment?origin=true')
+            await fetch('http://localhost:4000/api/treatment')
               .then((response) => {
                 return response.json();
               })

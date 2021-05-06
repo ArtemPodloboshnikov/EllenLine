@@ -200,8 +200,22 @@ const Relax = (props) => {
             }
             case 'city': {
 
-                const component = <SelectEntered name='city' className={classes.select} register={register({required: true})}
-                                  placeholder='Город' options={Object.keys(cities)}/>;
+                const onBlurAddress = (e)=>{
+
+                    if (e.target.value != '')
+                    {
+                        setCityName(e.target.value);
+                        setZoom(18);
+                    }
+                }
+
+                const component = 
+                <>
+                    <SelectEntered name='city' className={classes.select} register={register({required: true})}
+                                    placeholder='Город' options={Object.keys(cities)} onBlur={onBlurAddress}/>
+                    <EditMap name='coordinates' cityName={cityName} className={classes.map} zoom={zoom}/>
+                </>
+                
                 isCheck(component)
 
                 break;

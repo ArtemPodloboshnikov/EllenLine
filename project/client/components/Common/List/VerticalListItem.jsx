@@ -14,9 +14,8 @@ function ConvertServices(services){
         // console.log(services)
         for (let key in services)
         {
-            for(let i = 0; i < services[key].length; i++)
-            {
-                let service = services[key][i];
+
+                let service = services[key];
                 let icon = iconsMaker(service, true);
                 if (icon)
                 {
@@ -30,43 +29,38 @@ function ConvertServices(services){
                     );
                     
                 }
-            }
+            
         }
     }
     return icons;
 }
 
-const VerticalListItem = ({item}) => {
-    console.log(item)
-    const [photoIndex, setPhotoIndex] = useState(0);
-    const images = item.images.split(',');
-    const path = Global.GetResort(item.type);
-    const category = Global.GetTypeEn(item.type);
-    const price = item.price;
-    const count_people = item.count_people;
-    const services = JSON.parse(item.services);
-    const typeOfRoom = item.typeOfRoom;
-    const title = item.title;
-    const id = item.id;
+const VerticalListItem = (props) => {
+    console.log(props)
+
+    const path = Global.GetResort(props.type);
+    const category = Global.GetTypeEn(props.type);
+    const price = props.price;
+    const services = props.services;
+    const title = props.title;
 
     return (
-        <Link href={`/resorts/${path}/${category}/${id}`}>
+        
             <div className={classes.list__item}>
-                <div style={{backgroundImage: `url('/images/${path.toUpperCase()[0] + path.split('').splice(1).join('')}/${images[photoIndex]}')`, transition: 'background-image 3s easy'}}></div>
                 <div>
-                    <h1>{(typeOfRoom !== undefined) ? title + ': ' + typeOfRoom : title}</h1>
-                    <p>
-                        <i class="fa fa-money" aria-hidden="true"></i> {price} руб.
-                    </p>
-                    <p>
-                        <i class="fa fa-user-friends" aria-hidden="true"></i> {count_people}
-                    </p>
+                    <Link href={`/resorts/${path}/${category}/${title}`}>{(title.length >= 20) ? <div style={{position: 'relative'}}><div className='hint'>{title.substr(0, 6) + '...'}<div>{title}</div></div></div>: <h1>{title}</h1>}</Link>
                 </div>
                 <div>
-                    {ConvertServices(services)}
+                        {price} руб.
+                </div>
+                <div>
+                    {ConvertServices(services.inStock)}
+                </div>
+                <div>
+                    {ConvertServices(services.commonServices)}
                 </div>
             </div>
-        </Link>
+    
     )
 }
 

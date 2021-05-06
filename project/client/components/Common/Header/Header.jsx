@@ -102,17 +102,8 @@ const Header = (props) => {
                         <VerticalList items={dbData}/>
                     </div>
                 </div>
-                <header className={classes.header} style={(route != '/' && route != '/home')? {height: '30vh', backgroundColor: '#4782e1', clipPath: 'none'} : {}}>
-                    {(()=>{
-
-                        if (route == '/' || route == '/home')
-                        {
-                             
-                            return <ReactPlayer url='/videos/videoHeader.mp4' playing={true} loop={true} muted={true} class={classes.header__video} id="bgvideo"/> 
-                        }
-
-                    })()}
-                    <div className={classes.header__content} style={(route != '/' && route != '/home')?{gridTemplateAreas: "'buttons buttons buttons buttons buttons buttons buttons buttons buttons buttons' '. . . links links links links . . .'", gridTemplateRows: 'repeat(2, 1fr)'}:{}}>
+                <header className={classes.header}>
+                    <div className={classes.header__content}>
                         <div className={classes.header__buttons}>
                             <Link href='/'><a className={classes.header__button}>О нас</a></Link>
                             <Link href='/resorts/Saint-Petersburg/all'><a className={classes.header__button} style={{gridColumn: '2 / 4'}}>Санкт-Петербург</a></Link>
@@ -149,15 +140,8 @@ const Header = (props) => {
  
                             <label for={classes.search_active}><i className={"fas fa-search " + classes.button__loupe}></i></label>
                         </div>
-                        {(()=>{
-
-                            if (route == '/' || route == '/home')
-                            {
-                                
-                                return <Link href='/'><a className={classes.header__logo}><Image width={110} height={110} src='/images/logo.svg'/></a></Link>
-                            }
-
-                        })()}
+                        <Link href='/'><a className={classes.header__logo}><Image width={110} height={110} src='/images/logo.svg'/></a></Link>
+              
                         <div className={classes.header__phone}><a href='tel:+79219733344' className={classes.header__button}>+7 (921) 973 33 44</a></div>
                         <div className={classes.header__links} style={(route != '/' && route != '/home')?{gridTemplateColumns: "repeat(4, 1fr)", gridTemplateRows: "1fr", justifyItems: 'stretch', justifySelf: 'stretch'}:{}}>
                             <a href='https://vk.com/ellinline' className={classes.header__button}><Image src='/images/vk.svg' width={20} height={20}/></a>

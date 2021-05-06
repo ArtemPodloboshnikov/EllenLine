@@ -56,6 +56,7 @@
         padding-right: 5%;
         border-right: 5px solid $primary_color;
         padding: 5%;
+        font-size: 0.8em;
 
         .parents, .childs, .date
         {
@@ -124,6 +125,7 @@
             height: 8vh;
             width: 60%;
             justify-self: center;
+            font-size: 0.8em;
         }
 
         & > small
@@ -133,7 +135,7 @@
             padding: 5px 10px;
             background-color: $side_color;
             @extend %font;
-            font-size: 0.8em;
+            font-size: 0.5em;
             & > a 
             {
                 color: $attention_color;

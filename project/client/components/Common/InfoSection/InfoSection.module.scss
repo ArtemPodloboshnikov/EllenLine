@@ -5,7 +5,15 @@
     & > h1
     {
         font-family: 'Kazimir';
-        font-size: 3em;
+        font-size: 1.5em;
+        display: flex;
+        gap: 1%;
+
+        & > .room_type
+        {
+            width: 83.5%;
+            height: 7vh;
+        }
     }
 }
 .enter
@@ -23,7 +31,8 @@
     {
         grid-area: slider;
         align-self: center;
-        height: 500px;
+        height: 40vh;
+        width: 100%;
     }
 
     .info
@@ -49,14 +58,14 @@
             h2 
             {
                 @extend %font;
-                font-size: 2em;
+                font-size: 1em;
             }
             span 
             {
                 white-space: nowrap;
                 margin: 0 auto;
                 @extend %font;
-                font-size: 1em;
+                font-size: 0.8em;
             }
         }
     
@@ -132,7 +141,7 @@
     
         i
         {
-            font-size: calc(2em + 1vw);
+            font-size: 2em;
     
         }
     } 

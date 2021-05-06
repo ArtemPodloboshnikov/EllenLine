@@ -2,7 +2,8 @@ import React, { useState } from 'react';
 import mathPriceWithDiscount from '../../../functions/MathPriceWithDiscount';
 import Global from '../../../pages/global';
 //
-import ListItem from './ListItem.jsx';
+import VerticalListItem from './VerticalListItem';
+import Link from 'next/link';
 //
 import classes from './List.module.scss';
 
@@ -140,17 +141,35 @@ const checkSearch = (data, conditions) =>{
     
 }
 
-const grouping = (groupName, containers, elements) =>{
+const grouping = (containers, elements) =>{
 
+    console.log(elements)
+    let price = 0;
+    let min = elements[0].price;
+    let max = 0;
+    let services = '';
+    for (let element of elements)
+    {
+        const path = Global.GetResort(element.type);
+        const category = Global.GetTypeEn(element.type);
+        if (element.price > max)
+            max = element.price;
+        if (element.price < min)
+            min = element.price;
 
-    containers.push(<fieldset className={classes.group}>
+        if (element.services.length > services.length)
+            services = element.services;
+    }
 
-        <legend>{groupName}</legend>
-        {(()=>{
-
-            return <div>{elements}</div>;
-        })()}
-    </fieldset>)
+    price = (min != max)? `от ${min} до ${max}`: min;
+    services = JSON.parse(services);
+    services = {inStock: services.inStock, commonServices: services.commonServices};
+    containers.push(<VerticalListItem 
+                    price={price}
+                    services={services}
+                    type={elements[0].type}
+                    title={elements[0].title}
+                    />)
 
 }
 
@@ -205,7 +224,7 @@ const List = (props) => {
             if (result.length != 0)
             {
 
-                    let groupName = result[0].title;
+                   let groupName = result[0].title;
                     for(let i = 0; i < result.length; i++)
                     {
                         
@@ -213,26 +232,18 @@ const List = (props) => {
         
                         if (element.title != groupName)
                         {
-                            grouping(groupName, containers, elements);
+                            grouping(containers, elements);
                             groupName = element.title;
                             elements = [];
                         }
         
                         console.log(groupName)
-                        // console.log(element)
-                        elements.push(<ListItem category={Global.GetTypeEn(element.type)}
-                                                path={Global.GetResort(element.type)}
-                                                id={element.id}
-                                                title={element.typeOfRoom}
-                                                images={element.images}
-                                                count_people={element.count_people}
-                                                address={element.address}
-                                                price={element.price}
-                                                services={element.services}/>);
+                        console.log(element)
+                        elements.push(element);
         
                         if ((i + 1) == result.length)
                         {
-                            grouping(groupName, containers, elements);
+                            grouping(containers, elements);
                             elements = [];
                         }
                     }
@@ -242,9 +253,16 @@ const List = (props) => {
     }
 
     return (
-        <>
+        <div className={classes.list}>
+            <div>
+                <div>Название</div>
+                <div>Цена</div>
+                <div>{(()=>{ if (props.type == 'treatment'){ return 'Лечебный профиль'} else return 'В наличии'})()}</div>
+                <div>Общие услуги</div>
+                
+            </div>
             {InsertItems()}           
-        </>
+        </div>
     )
 }
 

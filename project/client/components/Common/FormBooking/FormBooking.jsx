@@ -3,7 +3,6 @@ import additionalPrices from '../../../functions/AdditionalPrices';
 import mathPriceWithDiscount from '../../../functions/MathPriceWithDiscount';
 import Global from '../../../pages/global';
 import {useForm} from 'react-hook-form';
-import {useRouter} from 'next/router';
 //
 import SelectOption from '../../CustomElements/SelectOption.jsx';
 import InputText from '../../CustomElements/InputText.jsx';
@@ -25,8 +24,8 @@ const FormBooking = (props) => {
     const [client_email, setClientEmail] = useState(undefined);
     const [client_phone, setClientPhone]= useState(undefined)
     const [promocodeName, setPromocodeName] = useState('');
-    const [dateStart, setDateStart] = useState(props.date_arrival);
     const [dateEnd, setDateEnd] = useState(props.date_leave);
+    const [dateStart, setDateStart] = useState(props.date_arrival);
     const [time, setTime] = useState(undefined);
     const origin_price = props.price;
     const [defaultPrice, setDefaultPrice] = useState(origin_price);
@@ -340,13 +339,13 @@ const FormBooking = (props) => {
                         'TJS', 'TRY', 'TMT', 
                         'UZS', 'UAH', 'CZK', 
                         'SEK', 'CHF', 'ZAR', 
-                        'KRW', 'JPY']}/>
+                        'KRW', 'JPY']} disabled={true}/>
+                {sections.date_or_time}
                 <InputDate className={classes.date} classInput={classes.date__input}
                         title={sections.title_date}
                         date={dateStart}
                         onChange={setDateStart}
                         />
-                {sections.date_or_time}
                 {/* ROW */}
                 {sections.room_or_tickets}
                 {/* ROW */}

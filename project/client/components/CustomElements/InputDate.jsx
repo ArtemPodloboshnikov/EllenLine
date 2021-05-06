@@ -9,7 +9,7 @@ const InputDate = (props) => {
             let date = new Date();
             dateParser(date.toString(), true);
         }
-        else return props.date;
+        else return dateParser(props.date.toString(), true);
     });
 
     const printValue = (e) =>{

@@ -113,7 +113,7 @@ const Resorts = ({data}) => {
             })()}
             
             
-            <List items={dbData} conditions={conditions}/>
+            <List items={dbData} conditions={conditions} type={type}/>
         </ClientLayout>
     )
 }
