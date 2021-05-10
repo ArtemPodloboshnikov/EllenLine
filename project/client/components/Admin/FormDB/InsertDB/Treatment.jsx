@@ -1,6 +1,6 @@
 import {useState, useEffect} from 'react';
 import { useForm } from "react-hook-form";
-import classes from './Treatment.module.scss';
+import classes from '../Common.module.scss';
 import concatFormArray from '../../../../functions/ConcatFormArray';
 import getPhotosPaths from '../../../../functions/GetPhotosPaths';
 import Global from '../../../../pages/global';

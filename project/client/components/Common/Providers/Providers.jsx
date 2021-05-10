@@ -30,7 +30,17 @@ const Providers = (props) => {
             console.log()
             const elements = [];
             massiv.map(element => {
-                elements.push(<i class={`fa fa-${iconsMaker(element)}`} aria-hidden="true"></i>);
+                let icon = iconsMaker(element, false, 'primary')
+                let res = '';
+                if (typeof icon == 'string')
+                {
+                    res = <i class={icon} aria-hidden="true"></i>
+                }
+                else
+                {
+                    res = <div className={classes.icon}>{icon}</div>
+                }
+                elements.push(res);
                 elements.push(<p>{element}</p>);
             });
             return elements;

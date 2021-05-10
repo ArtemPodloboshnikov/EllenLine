@@ -10,6 +10,15 @@
 {
     display: none;
 }
+.icon
+{
+    & > div
+    {
+        width: 2vw !important;
+        height: 2.5vh !important;
+        position: relative !important;
+    }
+}
 .program
 {
     width: 100%;

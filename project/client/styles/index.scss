@@ -1,4 +1,4 @@
-$primary_color: #2056BA;
+$primary_color: rgb(37, 54, 201);
 $sub_color: #fff;
 $primary_font_color: #333333;
 $placeholder_color: #FFDD00;
@@ -38,7 +38,12 @@ $disabled_color_title: #628CD0;
     align-self: center;
     justify-self: center;
 }
+%grid_items_center
+{
 
+    align-items: center;
+    justify-items: center;
+}
 %button
 {
     &:hover

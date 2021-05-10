@@ -28,14 +28,27 @@
   justify-items: center;
   width: fit-content;
 }
-.hint > div
+.hint > div:first-child
+{
+  width: 2vw !important;
+  height: 3vh !important;
+  position: relative !important;
+  display: grid !important;
+  justify-items: start !important;
+  & > img
+  {
+    position: relative !important;
+  }
+}
+.hint > div:last-child
 {
   display: none;
 }
-.hint:first-child:hover > div
+.hint:first-child:hover > div:last-child
 {
   @extend %shadow;
-  display: block;
+  display: grid;
+  @extend %grid_items_center;
   position: absolute;
   left: 0;
   bottom: 0;

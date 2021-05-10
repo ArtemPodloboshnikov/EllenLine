@@ -74,6 +74,34 @@ export default class Global {
             }
         }
     }
+
+    static GetTypes(type) {
+        switch(type)
+        {
+            case "relax":
+                return {
+                    'type1': 'Пансионат', 
+                    'type2': 'Отель',
+                };
+            case "cruises":
+                return {
+                    'type1': 'Речной',
+                    'type2': 'Морской',
+                };
+            case "tours":
+                return {
+                    'type1': 'Однодневный',
+                    'type2': 'Многодневный',
+                };
+            case "treatment":
+                return {
+                    'type1': 'Клиника',
+                    'type2': 'Санаторий',
+                }
+            
+        }
+    }   
+
     //Возможно стоит поместить этот массив в БД, а может нет :/
     static GetConvert(type) {
         switch(type)

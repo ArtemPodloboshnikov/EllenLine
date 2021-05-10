@@ -1,8 +1,10 @@
 import {useState, useEffect} from 'react'
 import { useForm } from "react-hook-form";
+import servicesHandler from '../../../../functions/ServicesHandler';
+import getPhotosPaths from '../../../../functions/GetPhotosPaths';
 import Global from '../../../../pages/global';
 //
-import classes from './Tours.module.scss'
+import classes from '../Common.module.scss';
 //
 import InputText from '../../../CustomElements/InputText'
 import TextArea from '../../../CustomElements/TextArea'
@@ -13,7 +15,6 @@ import Message from '../../../Common/DialogWindow/MessageDB';
 import FilesUploader from '../../../CustomElements/FilesUploader'
 import EditMap from '../../../Common/Map/EditMap';
 import SelectEntered from '../../../CustomElements/SelectEntered'
-import Program from '../../../CustomElements/Program'
 
 const Tours = (props) => {
    
@@ -30,57 +31,24 @@ const Tours = (props) => {
     const handleOnSubmit = (data)=>{
 
         let new_data = new FormData();
-        let commonServices = [];
-        for (let i = 0; ; i++)
-        {
-            
-            if (data['commonServices' + i] === undefined)
-            {
-                break;
-            }
-            commonServices.push(data['commonServices' + i]);
-            delete data['commonServices' + i]
-        }
-        data.commonServices = commonServices;
-
-        let servicesRoom = [];
-        for (let i = 0; ; i++)
-        {
-           
-            
-            if (data['servicesRoom' + i] === undefined)
-            {
-                break;
-            }
-            servicesRoom.push(data['servicesRoom' + i]);
-            delete data['servicesRoom' + i];
-        }
-        data.servicesRoom = servicesRoom;
-
-        let inStock = [];
-        for (let i = 0; ; i++)
-        {
-            
-            if (data['inStock' + i] === undefined)
-            {
-                break;
-            }
-            inStock.push(data['inStock' + i]);
-            delete data['inStock' + i];
-        }
-        data.inStock = inStock;
+        let services = servicesHandler(data, true);
+        data.services = {freeServices: services.freeServices, paidServices: services.paidServices}
 
         data.photosPath = [];
-        for (let i = 0; i < data.files.length; i++)
-        {
-            new_data.append('photos[]', data.files[i], data.files[i].name);
-            data.photosPath.push(data.files[i].name);
-        }
+        getPhotosPaths(data, 'files', 'photosPath', new_data)
 
         delete data.files
         data.coordinates = document.getElementsByName('coordinates')[0].value.split(',');
         data.idCity = contries_cities.cities[data.city];
         delete data.city;
+
+        let ids_languages = [];
+        data.languages.split(', ').map(language=>{
+
+            ids_languages.push(contries_cities_languages.languages[language])
+        })
+        data.id_languages = ids_languages;
+        delete data.languages;
         setFormData({photos: new_data, json: data})
     }
 
@@ -165,13 +133,12 @@ const Tours = (props) => {
             });
             console.log(response);
 
-            if (response.status === 404)
+            if (response.status !== 404)
             {
                 setMessage({style: {display: 'grid'}, status: json.status, method: 'insert'});
                 console.log(message);
             }
             
-            alert('Data send');
             
         }
         async function uploadPhotos(data)
@@ -211,7 +178,7 @@ const Tours = (props) => {
     return (
 
         <>
-            <Message setFunction={setMessage} style={message.style} status={message.status} method={message.method} />
+            <Message setFunction={setMessage} style={message.style} status={message.status} method={message.method}/>
             <form className={props.className + ' ' + classes.form} onSubmit={handleSubmit(handleOnSubmit)}>
                 <InputText register={register({required: true})} name='title' className={classes.inputText} 
                 classInput={classes.inputText__input} placeholder='Название'/>
@@ -227,7 +194,7 @@ const Tours = (props) => {
                 <SelectEntered register={register({required: true})} name='type'
                 className={classes.select} placeholder='Тип' options={['Однодневный', 'Многодневный']} type='select'/>
 
-                <SelectEntered register={register({required: true})} name='country' type='multiply'
+                <SelectEntered register={register({required: true})} name='languages' type='multiply'
                 className={classes.select} placeholder='Язык' options={Object.keys(contries_cities_languages.languages)} />
 
                 <SelectEntered register={register({required: true})} name='country' value={countryName} onChangeFunction={(obj)=>setCountryName(obj.value)}
@@ -241,7 +208,7 @@ const Tours = (props) => {
 
                 <EditMap name='coordinates' cityName={cityName} className={classes.map} zoom={zoom}/>
     
-                <div className={classes.form__services} style={{gridTemplateRows: `repeat(${servicesRows}, 1fr)`, height: `${servicesRows * 10}vh`}}>
+                <div className={classes.form__services} style={{gridTemplateRows: `repeat(${servicesRows}, 1fr)`, height: `${servicesRows * 10}vh`, gridTemplateColumns: 'repeat(2, 1fr)'}}>
                     <DynamicList name='freeServices' register={register({required: true})} className={classes.dynamicList} 
                     members={servicesMember} setMembers={setServicesMember} index={0}
                     classInput={classes.dynamicList__input} placeholder='Оплаченные услуги' rows={servicesRows} setRows={setServicesRows}/>
@@ -250,22 +217,27 @@ const Tours = (props) => {
                     classInput={classes.dynamicList__input} placeholder='Платные услуги' rows={servicesRows} setRows={setServicesRows}/>
                 </div>
 
-                <Program className={classes.program} heightVH={40} nameTextArea='program_text'/>
-                
+                <TextArea register={register({required: true})} name='program'
+                className={classes.textarea + ' ' + classes.textarea_top10} classTitle={classes.textarea__title} 
+                classTextArea={classes.textarea__text} title='Программа тура' placeholder='Действует Markdown разметка'/>
+
+                <InputNumber classWrap={classes.inputNumber_wrap} register={register({required: true})} name='count_people' 
+                className={classes.inputNumber} placeholder='Количество билетов' min='1'/>
+
                 <InputNumber register={register({required: true})} name='price' 
-                className={classes.inputNumber} placeholder='Цена' min='1'/>
+                className={classes.inputNumber} classWrap={classes.inputNumber_wrap} placeholder='Цена' min='1'/>
 
                 <InputNumber register={register({required: true})} name='pricePerChield' 
-                className={classes.inputNumber} placeholder='Цена для детей' min='0'/>
+                className={classes.inputNumber} classWrap={classes.inputNumber_wrap} placeholder='Цена для детей' min='0'/>
 
                 <InputNumber register={register({required: true})} name='pricePerTeenager' 
-                className={classes.inputNumber} placeholder='Цена для подростков' min='0'/>
+                className={classes.inputNumber}  classWrap={classes.inputNumber_wrap} placeholder='Цена для подростков' min='0'/>
 
                 <InputNumber register={register({required: true})} name='pricePerPet' 
-                className={classes.inputNumber} placeholder='Цена для питомцев' min='0'/>
+                className={classes.inputNumber} classWrap={classes.inputNumber_wrap} placeholder='Цена для питомцев' min='0'/>
 
                 <InputNumber register={register({required: true})} name='discount' 
-                className={classes.inputNumber} placeholder='Скидка' min='0' max='100' value='0'/>
+                className={classes.inputNumber} classWrap={classes.inputNumber_wrap} placeholder='Скидка' min='0' max='100' value='0'/>
 
                 <Button className={classes.button} classInput={classes.button__text} value='Внести' />
             </form>

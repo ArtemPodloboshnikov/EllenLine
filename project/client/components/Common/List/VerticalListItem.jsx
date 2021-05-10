@@ -16,13 +16,25 @@ function ConvertServices(services){
         {
 
                 let service = services[key];
-                let icon = iconsMaker(service, true);
+                let icon = iconsMaker(service, true, 'sub');
                 if (icon)
                 {
                     icons.push(
                         <div>
                             <div className={'hint ' + classes.hint}>
-                                <i className={icon.icon} aria-hidden="true"></i>
+                                {(()=>{
+
+                                    if (typeof icon.icon == 'string')
+                                    {
+                                        return <i className={icon.icon} aria-hidden="true"></i>
+                                    }
+                                    else
+                                    {
+                                        return icon.icon;
+                                    }
+
+                                })()}
+                                
                                 <div>{icon.word}</div>
                             </div>
                         </div>

@@ -47,15 +47,16 @@ const FormBooking = (props) => {
     const pricePerChild = props.pricePerChild;
     const pricePerTeenager = props.pricePerTeenager;
     const pricePerPet = props.pricePerPet;  
-    const someoneAndPrice = additionalPrices({who: 'Ребёнок', price: pricePerChild}, 
+    let someoneAndPrice = [{who: 'Ребёнок', price: pricePerChild}, 
                                              {who: 'Подросток', price: pricePerTeenager}, 
-                                             {who: 'Питомец', price: pricePerPet});
+                                             {who: 'Питомец', price: pricePerPet}];
     console.log(`countServices: ${countServices}`)
     let someoneElse = [];
     someoneAndPrice.map(someone =>{
 
         someoneElse.push(someone.who);
     })
+    someoneAndPrice = additionalPrices(someoneAndPrice);
     
     console.log(someoneAndPrice)
     console.log(valueDynamicSelect)

@@ -1,42 +1,76 @@
-export default function servicesHandler(data)
+export default function servicesHandler(data, tourFlag=false)
 {
-    let commonServices = [];
-
-    for (let i = 0; ; i++)
+    if (!tourFlag)
     {
-        
-        if (data['commonServices' + i] === undefined)
+        let commonServices = [];
+    
+        for (let i = 0; ; i++)
         {
-            break;
+            
+            if (data['commonServices' + i] === undefined)
+            {
+                break;
+            }
+            commonServices.push(data['commonServices' + i]);
+            delete data['commonServices' + i]
         }
-        commonServices.push(data['commonServices' + i]);
-        delete data['commonServices' + i]
-    }
+    
+        let servicesRoom = [];
+        for (let i = 0; ; i++)
+        {
+            
+            
+            if (data['servicesRoom' + i] === undefined)
+            {
+                break;
+            }
+            servicesRoom.push(data['servicesRoom' + i]);
+            delete data['servicesRoom' + i];
+        }
+    
+        let inStock = [];
+        for (let i = 0; ; i++)
+        {
+            
+            if (data['inStock' + i] === undefined)
+            {
+                break;
+            }
+            inStock.push(data['inStock' + i]);
+            delete data['inStock' + i];
+        }
+    
+        return {commonServices: commonServices, servicesRoom: servicesRoom, inStock: inStock}
 
-    let servicesRoom = [];
-    for (let i = 0; ; i++)
+    }
+    else
     {
-        
-        
-        if (data['servicesRoom' + i] === undefined)
+        let freeServices = [];
+    
+        for (let i = 0; ; i++)
         {
-            break;
+            
+            if (data['freeServices' + i] === undefined)
+            {
+                break;
+            }
+            freeServices.push(data['freeServices' + i]);
+            delete data['freeServices' + i]
         }
-        servicesRoom.push(data['servicesRoom' + i]);
-        delete data['servicesRoom' + i];
-    }
 
-    let inStock = [];
-    for (let i = 0; ; i++)
-    {
-        
-        if (data['inStock' + i] === undefined)
+        let paidServices = [];
+    
+        for (let i = 0; ; i++)
         {
-            break;
+            
+            if (data['paidServices' + i] === undefined)
+            {
+                break;
+            }
+            paidServices.push(data['paidServices' + i]);
+            delete data['paidServices' + i]
         }
-        inStock.push(data['inStock' + i]);
-        delete data['inStock' + i];
-    }
 
-    return {commonServices: commonServices, servicesRoom: servicesRoom, inStock: inStock}
+        return {freeServices: freeServices, paidServices: paidServices}
+    }
 }

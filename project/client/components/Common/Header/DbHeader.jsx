@@ -8,33 +8,34 @@ const DbHeader = (props) => {
     
     const history = useRouter();
     let header = [];
-   
+    let simple_color = 'rgb(37, 54, 201)';
+    let click_color = '#333333';
 
     switch (props.sector)
     {
         case 'db':{
 
             const [radioChecked, setRadioChecked] = useState('');
-            let textColor = ['#0062FF', '#0062FF', '#0062FF', '#0062FF', '#0062FF', '#0062FF', '#0062FF'];
+            let textColor = [simple_color, simple_color, simple_color, simple_color, simple_color, simple_color, simple_color];
             const {category} = history.query;
             
         
             let queries_none = '';
             switch (category)
             {
-                case 'cruises': textColor[0] = '#333333';
+                case 'cruises': textColor[0] = click_color;
                     break;
-                case 'tours': textColor[1] = '#333333';
+                case 'tours': textColor[1] = click_color;
                     break;
-                case 'relax': textColor[2] = '#333333';
+                case 'relax': textColor[2] = click_color;
                     break;
-                case 'treatment': textColor[3] = '#333333';
+                case 'treatment': textColor[3] = click_color;
                     break;
-                case 'countries': textColor[4] = '#333333';
+                case 'countries': textColor[4] = click_color;
                     break;
-                case 'cities': textColor[5] = '#333333';
+                case 'cities': textColor[5] = click_color;
                     break;
-                case 'languages': textColor[6] = '#333333';
+                case 'languages': textColor[6] = click_color;
                     break;
             } 
             
@@ -146,11 +147,11 @@ const DbHeader = (props) => {
             const {category} = history.query;
             switch (category)
             {
-                case 'list': linkColors = ['#FFDD00', '#fff', '#fff']; break;
+                case 'list': linkColors = [simple_color, '#fff', '#fff']; break;
 
-                case 'roles': linkColors = ['#fff', '#FFDD00', '#fff']; break;
+                case 'roles': linkColors = ['#fff', simple_color, '#fff']; break;
 
-                case 'candidates': linkColors = ['#fff', '#fff', '#FFDD00']; break;
+                case 'candidates': linkColors = ['#fff', '#fff', simple_color]; break;
             }
             header[0] = (
                 <div className={classes.header_employees}>
@@ -169,17 +170,17 @@ const DbHeader = (props) => {
             const {category} = history.query;
             switch (category)
             {
-                case 'list': linkColors = ['#FFDD00', '#fff', '#fff']; break;
+                case 'list': linkColors = [simple_color, '#fff', '#fff']; break;
 
-                case 'roles': linkColors = ['#fff', '#FFDD00', '#fff']; break;
+                case 'roles': linkColors = ['#fff', simple_color, '#fff']; break;
 
-                case 'candidates': linkColors = ['#fff', '#fff', '#FFDD00']; break;
+                case 'candidates': linkColors = ['#fff', '#fff', simple_color]; break;
             }
             header[0] = (
                 <div className={classes.header_employees}>
-                <Link href='/admin/finance/list'><a style={{color: linkColors[0]}}>Список</a></Link> 
-                <Link href='/admin/finance/roles'><a style={{color: linkColors[1]}}>Роли</a></Link> 
-                <Link href='/admin/finance/candidates'><a style={{color: linkColors[2]}}>Кандидаты</a></Link> 
+                    <Link href='/admin/finance/list'><a style={{color: linkColors[0]}}>Список</a></Link> 
+                    <Link href='/admin/finance/roles'><a style={{color: linkColors[1]}}>Роли</a></Link> 
+                    <Link href='/admin/finance/candidates'><a style={{color: linkColors[2]}}>Кандидаты</a></Link> 
                 </div>
             )
         }

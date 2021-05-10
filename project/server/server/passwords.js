@@ -3,7 +3,8 @@ const keysForTables = { countries: {name: 'nBZiLpGdcwsFngZU'},
                         relax: {title: 'e@0EP6ulantv', address: 'Reg#8MOj@r&Z', 
                         description: 'zuh3vY6Y%C9X', services: 'pmx#5gfxT6$o', 
                         photos: 'CcjOCJT%C@8U', type: 'cANbo@?hVuFc', 
-                        typeOfRoom: 'klaF%D?RE4xk', coordinates: 'Z61Xc5AZULg7'},
+                        typeOfRoom: 'klaF%D?RE4xk', coordinates: 'Z61Xc5AZULg7',
+                        payment_term: 'ryingH@ZJLA4e'},
                         employees: {name: '=HG=[3\}n3tI', description: 'i,fFzziCA53U',
                         phone: 'V~b-;c0NX9Ch', email: '`A|+j/sh/^Od', password: '/9.@;|1+J7iJ',
                         login: '`c@aO=B-]iK4', profession: 'oM2%n!ZEYh3i'},
@@ -14,6 +15,12 @@ const keysForTables = { countries: {name: 'nBZiLpGdcwsFngZU'},
                         promocode: {name: '}#oJI\6:-?Bu'},
                         orders: {title: '7|<nbImVb*yT', client_name: 'nDV=huJu4:mZ',
                         phone: '0OC>CZsR:\}C', email: 'PV.spODDe4UO', clients: '5$=AJajtA=Nz'},
-                        roles: {name: 'oBR6!,B:nZ6n', pages: '*ahfR21!fggp'}} 
+                        roles: {name: 'oBR6!,B:nZ6n', pages: '*ahfR21!fggp'},
+                        tours: {title: '3&MNegHxcPLd!', address: 'd2JGEvRJcttpy', description: 'b7zCb$zlB$%Vs',
+                        services: '3o6C#!nNSOCoa', photos: 'rpV9B%ZkCpm$7', coordinates: 'cTfhu?&JDb%Dm'},
+                        cruises: {title: 'ujyaD471dx?!', address: 'jVS5fcl2xmLB', description: 'zhz3FtN$MU?J',
+                        services: '$ygGtJLkUfaC', photos: '!8dXPRYOU81O', coordinates: 'lcDEP!E?7iX@',
+                        typeOfShip: '@GEiR$v4ARMR', typeOfRoom: 'OlPB&OgKAOkm', titleOfCompany: 'ut#24&zXGLE3',
+                        type: 'P2Fm%NKP7OgL'}} 
 
 module.exports = keysForTables;

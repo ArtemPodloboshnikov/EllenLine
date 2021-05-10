@@ -1,13 +1,13 @@
 import {useEffect, useState} from 'react'
 import {get, useForm} from 'react-hook-form';
 import Global from '../../../../pages/global';
-import classes from './Promocode.module.scss';
+import classes from '../Common.module.scss';
 //
 import SelectEntered from '../../../CustomElements/SelectEntered';
 import Button from '../../../CustomElements/Button';
 import Message from '../../../Common/DialogWindow/MessageDB';
 
-const Promocode = () => {
+const Promocode = (props) => {
 
     const {register, handleSubmit, errors} = useForm();
     const [formData, setFormData] = useState({});
@@ -70,7 +70,7 @@ const Promocode = () => {
     return (
         <>
             <Message setFunction={setMessage} style={message.style} status={message.status} method={message.method}/>
-            <form className={classes.form} onSubmit={handleSubmit(handleOnSubmit)}>
+            <form className={props.className} onSubmit={handleSubmit(handleOnSubmit)}>
                 <SelectEntered register={register({required: true})} name='promocode'
                 placeholder='Название промокода' className={classes.select} options={Object.keys(code)}/>
     

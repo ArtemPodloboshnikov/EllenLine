@@ -49,6 +49,7 @@ const Table = ({titles, info, className, ActionButton, setCheckbox, checkbox=fal
                 );
     
             }
+            
         }
         else
         {
@@ -81,95 +82,99 @@ const Table = ({titles, info, className, ActionButton, setCheckbox, checkbox=fal
         }
         table[0] = [<tr>{titles_content}</tr>];
         table[1] = [<tr>{search_inputs}</tr>];
-    
-        for (let i = 0; i < values.length; i++)
+        
+        if (!checkbox)
         {
-            
-    
-            let table_content = [];
-            let flags = [true];
-            for (let j = 0; j < Object.keys(titles).length; j++)
-            {
-                if (titles[j].key == 'services') continue;
-                let value = values[i][titles[j].key];
-                const patternDate = new RegExp('date', 'gi');
-                const patternTime = new RegExp('time', 'gi');
 
-                if (patternDate.test(titles[j].key))
+            for (let i = 0; i < values.length; i++)
+            {
+                
+        
+                let table_content = [];
+                let flags = [true];
+                for (let j = 0; j < Object.keys(titles).length; j++)
                 {
-                    value = dateParser(value);
-                }
-                else
-                if (patternTime.test(titles[j].key))
-                {
-                    if (value !== null)
+                    if (titles[j].key == 'services') continue;
+                    let value = values[i][titles[j].key];
+                    const patternDate = new RegExp('date', 'gi');
+                    const patternTime = new RegExp('time', 'gi');
+    
+                    if (patternDate.test(titles[j].key))
+                    {
+                        value = dateParser(value);
+                    }
+                    else
+                    if (patternTime.test(titles[j].key))
+                    {
+                        if (value !== null)
+                        {
+                            
+                            value = value.split(':');
+                            value = value[0] + ':' + value[1]
+                        }
+                        else
+                        {
+                            value = '';
+                        }
+                    }
+                    else
+                    if (titles[j].key == 'isPaid')
+                    {
+                        value = (value)? 'Да' : 'Нет';
+                    }
+                    else
+                    if (value !== undefined && value !== null)
                     {
                         
-                        value = value.split(':');
-                        value = value[0] + ':' + value[1]
+                        if (value.length > 20)
+                        {
+                            let text = value;
+                            // const onClick = ()=>setMessage({style: {display: 'grid'}, text: text, title: titles[j].value})
+                            value = <div className='hint'><div>{text.substring(0, 10) + '...'}</div><div>{text}</div></div>
+                        }
                     }
-                    else
+    
+                    if (searchValues[j] != '')
                     {
-                        value = '';
+                        const patternSearch = new RegExp(`${searchValues[j]}`, 'gi');
+                      
+                        if (patternSearch.test(value))
+                        {
+                            flags.push(true);
+                        }
+                        else
+                        {
+                            flags.push(false);
+                        }
+    
                     }
+    
+                    table_content.push(<td>{value}</td>)
                 }
-                else
-                if (titles[j].key == 'isPaid')
+    
+                let isSearched = true;
+                for (let flag of flags)
                 {
-                    value = (value)? 'Да' : 'Нет';
+    
+                    if (flag == false)
+                    {
+                        isSearched = false;
+                        break;
+                    }
                 }
-                else
-                if (value !== undefined && value !== null)
+    
+                
+                if (isSearched)
                 {
-                    
-                    if (value.length > 20)
+                    if (ActionButton !== undefined)
                     {
-                        let text = value;
-                        // const onClick = ()=>setMessage({style: {display: 'grid'}, text: text, title: titles[j].value})
-                        value = <div className='hint'>{text.substring(0, 10) + '...'}<div>{text}</div></div>
+                        table_content.push(<td><ActionButton index={i}/></td>)
                     }
-                }
-
-                if (searchValues[j] != '')
-                {
-                    const patternSearch = new RegExp(`${searchValues[j]}`, 'gi');
-                  
-                    if (patternSearch.test(value))
-                    {
-                        flags.push(true);
-                    }
-                    else
-                    {
-                        flags.push(false);
-                    }
-
-                }
-
-                table_content.push(<td>{value}</td>)
+    
+                    table.push(<tr>{table_content}</tr>)
+                } 
+                //table.push(<tr><td>{i.id}</td><td>{i.title}</td><td>{i.price}</td><td>{i.clients}</td><td>{i.client_name}</td><td>{i.phone}</td><td>{i.email}</td><td>{date_start}</td><td>{date_end}</td><td>{i.time}</td><td>{(i.isPaid)? 'Да': 'Нет'}</td></tr>);
             }
-
-            let isSearched = true;
-            for (let flag of flags)
-            {
-
-                if (flag == false)
-                {
-                    isSearched = false;
-                    break;
-                }
-            }
-
-            
-            if (isSearched)
-            {
-                if (ActionButton !== undefined)
-                {
-                    table_content.push(<td><ActionButton index={i}/></td>)
-                }
-
-                table.push(<tr>{table_content}</tr>)
-            } 
-            //table.push(<tr><td>{i.id}</td><td>{i.title}</td><td>{i.price}</td><td>{i.clients}</td><td>{i.client_name}</td><td>{i.phone}</td><td>{i.email}</td><td>{date_start}</td><td>{date_end}</td><td>{i.time}</td><td>{(i.isPaid)? 'Да': 'Нет'}</td></tr>);
         }
         return (
             <>

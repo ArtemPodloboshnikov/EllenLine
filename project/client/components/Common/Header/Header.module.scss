@@ -1,13 +1,22 @@
 @import '../../../styles/index.scss';
+$back: #e9c7e9;
 
 .header{
 
     width: 100%;
     height: 30vh;
-    background-color: $primary_color;
+    background-color: $back;
     position: relative;
-    max-height: 30vh;
+    // max-height: 30vh;
     overflow: hidden;
+    background-image: url('/images/header_spb.png'), linear-gradient(to right bottom, $back, #fc8755);
+    // background-repeat: space;
+    // background-size: cover;
+    background-position-x: left;
+    background-size: cover;
+    // background-size: 90%;
+    // background-repeat: repeat-x;
+    // background-position: center;
     // clip-path: polygon(0% 0%, 200% 0%, 30% 100%, 0% 70%);
 }
 // .header:after{
@@ -58,6 +67,11 @@
     justify-items: center;
     z-index: 5;
     @extend %shadow;
+    & > a
+    {
+
+        font-size: 0.8em;
+    }
 }
 .treeTours{
 
@@ -67,12 +81,12 @@
 .treeCruises{
 
     width: 7vw;
-    margin-left: 0.5%;
+    margin-left: -0.3%;
 }
 .treeTreatment
 {
     width: 8vw;
-    margin-left: 0.1%;
+    margin-left: -0.7%;
 }
 .tree_active{
 
@@ -84,15 +98,31 @@
 }
 .header__buttons{
 
-    display: grid;
+    display: flex;
     grid-template-columns: repeat(9, 1fr);
     align-items: center;
     justify-items: center;
+    gap: 3%;
+    justify-content: center;
     grid-area: buttons;
-    grid-column-gap: 2.3%;
+    font-weight: 600;
+    // grid-column-gap: 2.3%;
+
+    & > a, & > div
+    {
+        // margin-left: -100%;
+        // background-color: red;
+    }
+    & *
+    {
+        font-size: 1em;
+    }
 }
 .header__buttons
 {
+    width: 100%;
+    height: 10vh;
+    background-color: $primary_color;
     & > label > img
     {
         width: 40%;
@@ -103,7 +133,7 @@
 
     & > a > i
     {
-        font-size: 3em;
+        font-size: 1em;
         color: $side_color;
     }
 }
@@ -114,7 +144,7 @@
 .button__loupe
 {
     color: $sub_color;
-    font-size: 2.5em;
+    font-size: 1em;
 }
 #search_active{
 
@@ -230,16 +260,94 @@
 {
     grid-area: logo;
     justify-self: center;
-    margin-top: -15%;
+    margin-top: -13%;
+    margin-left: -24%;
+
+    & svg > path:nth-child(1)
+    {
+        fill: $primary_color;
+        stroke: $primary_color;
+    }
+    & svg > path:nth-child(2)
+    {
+        stroke: $sub_color;
+    }
+    & svg > path:nth-child(5)
+    {
+        stroke: $sub_color;
+    }
+}
+.header__date
+{
+    grid-area: date;
+    font-family: 'Kazimir';
+    color: $primary_color;
+    margin-top: -3%;
+    margin-left: -32%;
+    // width: 100%;
+    text-align: center;
+    height: 5vh;
+    // background-color: red;
+    align-self: start;
+    justify-self: start;
+
+    & > span:first-child
+    {
+        font-size: 0.8em;
+    }
+    & > span:last-child
+    {
+        font-size: 1em;
+        font-style: italic;
+        font-weight: 600;
+    }
+}
+.header__tel
+{
+    grid-area: tel;
+    // margin-top: 10%;
+    display: grid;
+    width: 10vw;
+    grid-template-rows: repeat(4, 35%);
+    justify-items: start;
+    margin-top: 0%;
+    margin-left: -50%;
+    & > a
+    {
+
+        font-family: 'Kazimir';
+        font-size: 0.58em;
+        margin-left: 12%;
+        color: $primary_color;
+    }
+    & > a:nth-child(1)
+    {
+        & > i
+        {
+
+            color: rgb(33, 197, 33);
+        }
+    }
+    & > a:nth-child(2)
+    {
+        font-size: 0.53em;
+    }
 }
 .header__links{
 
     display: grid;
     grid-area: links;
-    grid-template-columns: repeat(4 , 1fr);
+    grid-template-columns: repeat(4 , 5vw);
     grid-template-rows: 1fr;
-    justify-self: stretch;
-    justify-items: stretch;
+    margin-top: 15%;
+    margin-left: -123%;
+    
+    & svg > path
+    {
+        fill: $primary_color;
+    }
+    // justify-self: stretch;
+    // justify-items: stretch;
 }
 .header__phone{
 
@@ -256,18 +364,18 @@
 .header__content{
 
     display: grid;
-    grid-template-columns: repeat(10, 1fr);
+    grid-template-columns: repeat(6, 1fr);
     grid-template-rows: repeat(3, 25%);
     grid-template-areas: 
-    'logo buttons buttons buttons buttons buttons buttons buttons buttons buttons'
-    '. . . . . . . . . .'
-    '. . . links links links links . . .';
+    'logo date tel links links .'
+    '. . . links links .'
+    '. . . . . .';
     z-index: 3;
     position: absolute;
     top: 10%;
     width: 100%;
     height: 100%;
-
+    margin-top: 1%;
  
 }
 /* Настольные компьютеры и ноутбуки */
@@ -283,7 +391,7 @@
 
         width: 100%;
         height: 30vh;
-        background-color: $primary_color;
+        background-color: $back;
         position: relative;
         max-height: 30vh;
         overflow: hidden;
@@ -292,7 +400,7 @@
 
     .header__buttons{
     
-        grid-column-gap: 0.81%;
+        // grid-column-gap: 0.81%;
         grid-template-columns: repeat(9, 1fr);
     }
     .header__video{
@@ -306,7 +414,7 @@
 
         width: 100%;
         height: 30vh;
-        background-color: $primary_color;
+        background-color: $back;
         position: relative;
         max-height: 30vh;
         overflow: hidden;
@@ -330,7 +438,7 @@
 
         width: 100%;
         height: 30vh;
-        background-color: $primary_color;
+        background-color: $back;
         position: relative;
         max-height: 30vh;
         overflow: hidden;

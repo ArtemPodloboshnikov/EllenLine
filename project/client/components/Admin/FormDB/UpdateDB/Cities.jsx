@@ -1,10 +1,11 @@
 import React, {useState, useEffect} from 'react'
+import Global from '../../../../pages/global';
 import Message from '../../../Common/DialogWindow/MessageDB';
 import { useForm } from "react-hook-form";
 import InputText from '../../../CustomElements/InputText';
 import SelectEntered from '../../../CustomElements/SelectEntered';
 import Button from '../../../CustomElements/Button';
-import classes from './Cities.module.scss';
+import classes from '../Common.module.scss';
 
 const Cities = (props) => {
 
@@ -39,14 +40,14 @@ const Cities = (props) => {
         async function get()
         {
             let result = {};
-            await fetch('http://localhost:4000/api/countries')
+            await fetch(Global.urlServer + '/api/countries')
               .then((response) => {
                 return response.json();
               })
               .then((data) => {
                 result = {countries: data};
               });
-            await fetch('http://localhost:4000/api/cities')
+            await fetch(Global.urlServer + '/api/cities')
               .then((response) => {
                 return response.json();
               })
@@ -67,7 +68,7 @@ const Cities = (props) => {
         async function insert()
         {
        
-            const json =  await fetch('http://localhost:4000/api/cities', {
+            const json =  await fetch(Global.urlServer + '/api/cities', {
                 method: 'PUT',
                 headers: {
                   'Content-Type': 'application/json;charset=utf-8'

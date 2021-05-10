@@ -1,7 +1,7 @@
 import {useEffect, useState} from 'react'
 import {get, useForm} from 'react-hook-form';
 import Global from '../../../../pages/global';
-import classes from './Promocode.module.scss';
+import classes from '../Common.module.scss';
 //
 import SelectEntered from '../../../CustomElements/SelectEntered';
 import InputText from '../../../CustomElements/InputText';
@@ -9,7 +9,7 @@ import Button from '../../../CustomElements/Button';
 import InputNumber from '../../../CustomElements/InputNumber';
 import Message from '../../../Common/DialogWindow/MessageDB';
 
-const Promocode = () => {
+const Promocode = (props) => {
 
     const {register, handleSubmit, errors} = useForm();
     const [formData, setFormData] = useState({});
@@ -75,16 +75,16 @@ const Promocode = () => {
     return (
         <>
             <Message setFunction={setMessage} style={message.style} status={message.status} method={message.method}/>
-            <form className={classes.form} onSubmit={handleSubmit(handleOnSubmit)}>
+            <form className={props.className} onSubmit={handleSubmit(handleOnSubmit)}>
                 <SelectEntered register={register({required: true})} name='promocode' onChangeFunction={(obj) => {
                     setName(obj.value);
                     setDiscount(code[obj.value].discount);
                 }}
                 placeholder='Название промокода' className={classes.select} options={Object.keys(code)}/>
                 <InputText register={register({required: true})} name='name'
-                placeholder='Новое название' className={classes.input} value={name}/>
+                placeholder='Новое название' className={classes.inputText} value={name}/>
                 <InputNumber name='discount' placeholder='Скидка' min={0} max={100} value={discount}
-                className={classes.number} classWrap={classes.numberWrap} register={register({required: true})}/>
+                className={classes.inputNumber} classWrap={classes.inputNumber_wrap} register={register({required: true})}/>
                 <Button value='Обновить' className={classes.button} />
             </form>
         </>

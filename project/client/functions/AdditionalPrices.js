@@ -1,4 +1,4 @@
-export default function additionalPrices(...prices)
+export default function additionalPrices(prices)
 {
     let rest = [];
     for (let price of prices)

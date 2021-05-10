@@ -4,7 +4,7 @@ import { useForm } from "react-hook-form";
 import InputText from '../../../CustomElements/InputText';
 import SelectEntered from '../../../CustomElements/SelectEntered';
 import Button from '../../../CustomElements/Button';
-import classes from './Cities.module.scss';
+import classes from '../Common.module.scss';
 
 const Cities = (props) => {
 

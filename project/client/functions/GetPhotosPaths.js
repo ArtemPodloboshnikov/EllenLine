@@ -10,6 +10,7 @@ export default function getPhotosPaths(data, keyForData, keyOfNewArray, new_data
             data[keyOfNewArray].push(data.files[i].name);
         }
         else
+        if (component !== undefined)
         {
             new_data.append('photos[]', component[keyForData][i], component[keyForData][i].name);
             data[keyOfNewArray].push(component[keyForData][i].name);

@@ -1,9 +1,10 @@
 import {useState, useEffect} from 'react'
+import Global from '../../../../pages/global';
 import Message from '../../../Common/DialogWindow/MessageDB';
 import { useForm } from "react-hook-form";
 import InputText from '../../../CustomElements/InputText';
 import Button from '../../../CustomElements/Button';
-import classes from './Languages.module.scss';
+import classes from '../Common.module.scss';
 
 const Languages = (props) => {
 
@@ -20,7 +21,7 @@ const Languages = (props) => {
         async function insert()
         {
        
-            const json =  await fetch('http://localhost:4000/api/languages', {
+            const json =  await fetch(Global.urlServer + '/api/languages', {
                 method: 'POST',
                 headers: {
                   'Content-Type': 'application/json;charset=utf-8'
