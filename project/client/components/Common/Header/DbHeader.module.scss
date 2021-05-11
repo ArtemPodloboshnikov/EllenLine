@@ -1,6 +1,5 @@
 @import '../../../styles/index.scss';
 
-
 .header_db{
 
     width: 100%;
@@ -10,6 +9,16 @@
     display: grid;
     grid-auto-flow: row;
     padding-top: 3%;
+
+    & .back
+    {
+        position: absolute;
+
+        & > div
+        {
+            position: relative;
+        }
+    }
 }
 .header_db__parameters{
 
@@ -18,6 +27,15 @@
     justify-content: center;
     width: 80%;
     height: 10vh;
+}
+.arrow_back
+{
+    & *
+    {
+        color: $sub_color;
+        font-size: 1.5em;
+    }
+    justify-self: left;
 }
 .header_db__parameters > a{
 
@@ -56,32 +74,6 @@
     font-size: 1.6em;
     @extend %as_button;
 }
-
-/* .trips p::before, .relax p::before{
-
-    content: '';
-    background-color: red;
-    position: absolute;
-    width: 100%;
-    height: 100%;
-    clip-path: polygon(5% 0, 95% 0, 100% 100%, 0% 100%);
-    left: 3px;
-    top: 3px;
-    bottom: 3px;
-    right: -3px;
-    
-    
-}
-.trips p:nth-child(1){
-
-    position: relative;
-    z-index: 10;
-}
-.trips p:nth-child(2){
-
-    position: relative;
-    z-index: 10;
-} */
 .header_db__trips, .header_db__relax{
 
     display: grid;
@@ -121,19 +113,7 @@
     background-color: $sub_color;
     color: $primary_color;
 }
-
-.header_promocode
-{
-    width: 100%;
-    height: 50vh;
-    display: grid;
-    grid-template-columns: repeat(3, 1fr);
-    justify-items: center;
-    align-items: center;
-    background-color: $primary_color;
-}
-
-.header_employees{
+.header_standart{
 
     width: 100%;
     height: 50vh;
@@ -143,10 +123,44 @@
     display: grid;
     grid-auto-flow: row;
     padding-top: 3%;
+    grid-template-rows: repeat(3, 1fr);
     grid-template-columns: repeat(3, 1fr);
-}
-.header_employees > a{
+    
+    & a
+    {
+        @extend %font;
+        color: $sub_color;
+        font-size: 1.5em;
 
-    @extend %font;
-    font-size: 2em;
+    }
+    & > a:nth-child(2)
+    {
+        grid-row: 2 / 2;
+        grid-column: 1 / 1;    
+    }
+    & > a:nth-child(3)
+    {
+        grid-row: 2 / 2;
+        grid-column: 2 / 2;    
+    }
+    & > a:nth-child(4)
+    {
+        grid-row: 2 / 2;
+        grid-column: 3 / 3;    
+    }
+}
+.header_empty
+{
+    width: 100%;
+    height: 50vh;
+    background-color: $primary_color;
+    display: grid;
+    grid-template-rows: repeat(3, 1fr);
+
+    & > a{
+
+        @extend %font;
+        font-size: 2em;
+        color: $sub_color;
+    }
 }

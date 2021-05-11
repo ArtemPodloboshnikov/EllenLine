@@ -179,7 +179,7 @@ const Tours = (props) => {
 
         <>
             <Message setFunction={setMessage} style={message.style} status={message.status} method={message.method}/>
-            <form className={props.className + ' ' + classes.form} onSubmit={handleSubmit(handleOnSubmit)}>
+            <form className={classes.form} onSubmit={handleSubmit(handleOnSubmit)}>
                 <InputText register={register({required: true})} name='title' className={classes.inputText} 
                 classInput={classes.inputText__input} placeholder='Название'/>
             

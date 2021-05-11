@@ -20,8 +20,8 @@ router.get('/pages', (request, response)=>{
     const category = request.query.category;
     const namePage = request.query.namePage;
     const get = (array, key, isMarkdown=true) =>{
-
-        fs.readFile(array[key] + "/data.json", "utf8", 
+        console.log(path.join(__dirname, "../",  array[key], "/data.json"))
+        fs.readFile(path.join(__dirname, "../",  array[key], "/data.json"), "utf8", 
             function(error,data){
                 if(error) console.log(error);
                 data = JSON.parse(data);

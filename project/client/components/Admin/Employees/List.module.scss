@@ -14,7 +14,7 @@
     & > label
     {
         color: $placeholder_color !important;
-        font-size: 1em !important;
+        // font-size: 1em !important;
     }
 }
 .inputNumber input::placeholder
@@ -31,7 +31,7 @@
     & input, div
     {
         color: $sub_color;
-        font-size: 1em;
+        font-size: 0.65em;
     }
     & div:last-child
     {

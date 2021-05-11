@@ -163,7 +163,7 @@ const Cruises = (props) => {
     return (
         <>
         <Message setFunction={setMessage} style={message.style} status={message.status} method='insert'/>
-        <form className={props.className} onSubmit={handleSubmit(handleOnSubmit)}>
+        <form className={classes.form} onSubmit={handleSubmit(handleOnSubmit)}>
             <InputText register={register({required: true})} name='title' className={classes.inputText} 
             classInput={classes.inputText__input} placeholder='Название круиза'/>
 

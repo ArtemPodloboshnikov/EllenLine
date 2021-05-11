@@ -75,7 +75,7 @@ const Promocode = (props) => {
     return (
         <>
             <Message setFunction={setMessage} style={message.style} status={message.status} method={message.method}/>
-            <form className={props.className} onSubmit={handleSubmit(handleOnSubmit)}>
+            <form className={classes.form} onSubmit={handleSubmit(handleOnSubmit)}>
                 <SelectEntered register={register({required: true})} name='promocode' onChangeFunction={(obj) => {
                     setName(obj.value);
                     setDiscount(code[obj.value].discount);

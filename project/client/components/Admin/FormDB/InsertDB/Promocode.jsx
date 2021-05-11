@@ -75,7 +75,7 @@ const Promocode = (props) => {
     return (
         <>
             <Message setFunction={setMessage} style={message.style} status={message.status} method={message.method}/>
-            <form className={props.className} onSubmit={handleSubmit(handleOnSubmit)}>
+            <form className={classes.form} onSubmit={handleSubmit(handleOnSubmit)}>
                 <InputText register={register({required: true})} name='name' 
                 placeholder='Название промокода' className={classes.inputText} />
                 <InputNumber name='discount' placeholder='Скидка' min={0} max={100} 

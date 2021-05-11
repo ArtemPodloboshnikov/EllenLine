@@ -1,4 +1,5 @@
 import {useState, useEffect} from 'react'
+import Global from '../../../../pages/global';
 import Message from '../../../Common/DialogWindow/MessageDB';
 import { useForm } from "react-hook-form";
 import InputText from '../../../CustomElements/InputText';
@@ -79,7 +80,7 @@ const Cities = (props) => {
     return (
         <>
             <Message setFunction={setMessage} style={message.style} status={message.status} method={message.method}/>
-            <form className={props.className + ' ' + classes.form} onSubmit={handleSubmit(handleOnSubmit)}>
+            <form className={classes.form} onSubmit={handleSubmit(handleOnSubmit)}>
                 
                 <SelectEntered register={register({required: true})} name='country' className={classes.select} 
                 options={Object.keys(countries)} placeholder='Название страны'/>

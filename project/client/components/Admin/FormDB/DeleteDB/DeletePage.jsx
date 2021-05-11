@@ -80,7 +80,7 @@ const DeletePage = (props) => {
     return (
         <>
             <Message setFunction={setMessage} style={message.style} status={message.status} method='delete'/>
-            <form className={props.className} onSubmit={handleSubmit(handleOnSubmit)}>
+            <form className={classes.form} onSubmit={handleSubmit(handleOnSubmit)}>
                 <SelectEntered 
                 options={(Object.keys(namesAndIds).length != 0)? Object.keys(namesAndIds): []} 
                 placeholder='Название' 

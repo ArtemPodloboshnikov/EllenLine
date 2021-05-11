@@ -91,7 +91,7 @@ function ConvertDataToString(array, keys)
 
                     if (isNumber(elem[key[0]]))
                     {
-                        object[key[0]] = elem[key[0]].toString() * 1;
+                        object[key[0]] = (elem[key[0]] !== null)? elem[key[0]].toString() * 1 : null;
                     }
                     else
                     {

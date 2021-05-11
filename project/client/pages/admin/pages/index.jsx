@@ -202,7 +202,7 @@ const index = () => {
     // }
 
     return (
-        <AdminLayout title='Страницы' sector='admin'>
+        <AdminLayout title='Страницы' sector='pages'>
             <Message setFunction={setMessage} style={message.style} status={message.status} method={message.method} />
             <div className={classes.wrap}>
                 <form className={classes.pages} onSubmit={handleSubmit(handleOnSubmit)}>

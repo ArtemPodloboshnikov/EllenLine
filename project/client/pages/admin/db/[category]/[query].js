@@ -1,6 +1,5 @@
 import { useRouter } from 'next/router';
 import AdminLayout from '../../../../layouts/AdminLayout';
-import classes from '../../../../styles/FormDB.module.scss';
 import {default as RelaxInsert} from '../../../../components/Admin/FormDB/InsertDB/Relax';
 import {default as CountriesInsert} from '../../../../components/Admin/FormDB/InsertDB/Countries';
 import {default as CitiesInsert} from '../../../../components/Admin/FormDB/InsertDB/Cities';
@@ -28,9 +27,9 @@ export default function QueryDB(){
 
                        switch (query){
                             
-                            case 'insert':  return <RelaxInsert className={classes.form}/>;
+                            case 'insert':  return <RelaxInsert/>;
 
-                            case 'update': return <UpdatePage className={classes.form} 
+                            case 'update': return <UpdatePage
                                                     category={category} 
                                                     table={[{value: 'Название', key: 'title'}, {value: 'Цена', key: 'price'}, 
                                                     {value: 'Скидка', key: 'discount'}, {value: 'Звёзды', key: 'stars'}, 
@@ -40,16 +39,16 @@ export default function QueryDB(){
                                                     {value: 'Количество', key: 'count'}, {value: 'Кл. мест', key: 'count_people'},
                                                     {value: 'Условия оплаты', key: 'payment_term'}]}/>;
 
-                            case 'delete': return <DeletePage category={category} className={classes.form}/>;
+                            case 'delete': return <DeletePage category={category}/>;
                        }
                    }
                    case 'treatment':{
 
                         switch (query){
                             
-                            case 'insert':  return <TreatmentInsert className={classes.form}/>;
+                            case 'insert':  return <TreatmentInsert/>;
 
-                            case 'update': return <UpdatePage className={classes.form} 
+                            case 'update': return <UpdatePage
                                                     category={category} 
                                                     table={[{value: 'Название', key: 'title'}, {value: 'Цена', key: 'price'}, 
                                                     {value: 'Скидка', key: 'discount'}, {value: 'Условия оплаты', key: 'payment_term'},
@@ -59,16 +58,16 @@ export default function QueryDB(){
                                                     {value: 'Кл. мест', key: 'count_people'}, {value: 'Услуги', key: 'services'},
                                                     {value: 'Количество', key: 'count'}]}/>;
 
-                            case 'delete': return <DeletePage category={category} className={classes.form}/>;
+                            case 'delete': return <DeletePage category={category}/>;
                         }
                    }
                    case 'cruises':{
 
                         switch (query){
                             
-                            case 'insert':  return <CruisesInsert className={classes.form}/>;
+                            case 'insert':  return <CruisesInsert/>;
 
-                            case 'update': return <UpdatePage className={classes.form} 
+                            case 'update': return <UpdatePage
                                                     category={category} 
                                                     table={[{value: 'Название', key: 'title'}, {value: 'Тип', key: 'titleOfCompany'},
                                                     {value: 'Цена', key: 'price'}, {value: 'Скидка', key: 'discount'}, 
@@ -78,29 +77,29 @@ export default function QueryDB(){
                                                     {value: 'Адрес', key: 'address'}, {value: 'Кл. кают', key: 'count'},
                                                     {value: 'Кл. мест', key: 'count_people'}, {value: 'Услуги', key: 'services'}]}/>;
 
-                            case 'delete': return <DeletePage category={category} className={classes.form}/>;
+                            case 'delete': return <DeletePage category={category}/>;
                         }
                    }
                    case 'tours':{
 
                         switch (query){
                             
-                            case 'insert':  return <ToursInsert className={classes.form}/>;
+                            case 'insert':  return <ToursInsert/>;
 
                             case 'update': return;
 
-                            case 'delete': return <DeletePage category={category} className={classes.form}/>;
+                            case 'delete': return <DeletePage category={category}/>;
                         }
                    }
                    case 'countries':{
 
                         switch (query){
 
-                            case 'insert':  return <CountriesInsert className={classes.form}/>;
+                            case 'insert':  return <CountriesInsert/>;
 
                             case 'update': return;
 
-                            case 'delete': return <DeletePage category={category} className={classes.form}/>;
+                            case 'delete': return <DeletePage category={category}/>;
                         }
                    }
 
@@ -108,11 +107,11 @@ export default function QueryDB(){
 
                         switch (query){
 
-                            case 'insert':  return <CitiesInsert className={classes.form}/>;
+                            case 'insert':  return <CitiesInsert/>;
 
-                            case 'update': return <CitiesUpdate className={classes.form}/>;
+                            case 'update': return <CitiesUpdate/>;
 
-                            case 'delete': return <DeletePage category={category} className={classes.form}/>;
+                            case 'delete': return <DeletePage category={category}/>;
                         }
                    }
 
@@ -120,11 +119,11 @@ export default function QueryDB(){
 
                         switch (query){
 
-                            case 'insert':  return <LanguagesInsert className={classes.form}/>;
+                            case 'insert':  return <LanguagesInsert/>;
 
                             case 'update': return;
 
-                            case 'delete': return <DeletePage category={category} className={classes.form}/>;
+                            case 'delete': return <DeletePage category={category}/>;
                         }
                    }
                }

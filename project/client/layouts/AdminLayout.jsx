@@ -1,6 +1,5 @@
 import AdminHeader from '../components/Common/Header/AdminHeader';
 import DbHeader from '../components/Common/Header/DbHeader';
-import OrdersHeader from '../components/Common/Header/OrdersHeader';
 import Head from 'next/head';
 import {useState} from 'react';
 import AuthorizationContext from './authorization';
@@ -11,15 +10,13 @@ export default function AdminLayout ({children, sector, title = 'Эллинла�
         switch (to_sector) {
 
             case 'admin': return <AdminHeader/>;    
-
+            case 'orders':
             case 'promocode': 
             case 'employees':
+            case 'pages':
             case 'finance':
             case 'db': return <DbHeader sector={to_sector}/>;
 
-
-
-            case 'orders': return <OrdersHeader/>;
         }
     }
 

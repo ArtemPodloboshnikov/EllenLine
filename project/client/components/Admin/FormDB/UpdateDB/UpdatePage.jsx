@@ -491,7 +491,7 @@ const UpdatePage = (props) => {
             <Table titles={props.table} 
                     info={[institution]} className={classes.table} checkbox={inputsCheckbox} setCheckbox={setInputsCheckbox}/></div>
             
-            <form className={props.className + ' ' + classes.form} onSubmit={handleSubmit(handleOnSubmit)}>
+            <form className={classes.form} onSubmit={handleSubmit(handleOnSubmit)}>
                 {inputs}
 
                 <ImagesObserver prefix={`/images/${props.category[0].toUpperCase() + props.category.substring(1)}/`} pathImages={photos || (!dbData.dataTreatment ? ['images/logo.svg'] : dbData.dataTreatment[0].images.split(','))} 

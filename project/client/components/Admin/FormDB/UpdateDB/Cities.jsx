@@ -94,7 +94,7 @@ const Cities = (props) => {
     return (
         <>
             <Message setFunction={setMessage} style={message.style} status={message.status} body={message.body}/>
-            <form className={props.className + ' ' + classes.form} onSubmit={handleSubmit(handleOnSubmit)}>
+            <form className={classes.form} onSubmit={handleSubmit(handleOnSubmit)}>
                 
                 <SelectEntered register={register({required: true})} name='country' className={classes.select} 
                 options={Object.keys(contries_cities.countries)} placeholder='Название страны'/>

@@ -3,9 +3,7 @@ import Link from 'next/link'
 import { useEffect, useState } from 'react'
 import UpToHeader from '../UpToHeader/UpToHeader';
 // import SidebarHeader from './SidebarHeader';
-import ReactPlayer from 'react-player'
 import SearchByName from '../Search/SearchByName';
-import Image from 'next/image';
 import {useRouter} from 'next/router';
 import List from '../../Common/List/List';
 import Global from '../../../pages/global';
@@ -117,7 +115,7 @@ const Header = (props) => {
                         </div>
               
                         <div className={classes.header__phone}><a href='tel:+79219733344' className={classes.header__button}>+7 (921) 973 33 44</a></div>
-                        <div className={classes.header__links} style={(route != '/' && route != '/home')?{gridTemplateColumns: "repeat(4, 1fr)", gridTemplateRows: "1fr", justifyItems: 'stretch', justifySelf: 'stretch'}:{}}>
+                        <div className={classes.header__links}>
                             <a href='https://vk.com/ellinline' className={classes.header__button}><svg width="24" height="14" viewBox="0 0 24 14" fill="none" xmlns="http://www.w3.org/2000/svg">
 <path fill-rule="evenodd" clip-rule="evenodd" d="M11.546 13.2367H12.9201C12.9201 13.2367 13.3354 13.1911 13.5466 12.9618C13.7423 12.753 13.7362 12.3618 13.7362 12.3618C13.7362 12.3618 13.7086 10.5171 14.5644 10.2459C15.4201 9.97465 16.4918 12.0281 17.6404 12.8166C18.5081 13.4167 19.1682 13.2823 19.1682 13.2823L22.2382 13.2391C22.2382 13.2391 23.844 13.1395 23.0783 11.8769C23.0159 11.7737 22.6342 10.9432 20.798 9.23655C18.8777 7.45071 19.131 7.73875 21.4509 4.64834C22.8599 2.76169 23.4287 1.61554 23.2523 1.12107C23.0843 0.65541 22.045 0.775426 22.045 0.775426L18.5885 0.797029C18.4351 0.778863 18.2798 0.80642 18.142 0.876239C18.0107 0.972048 17.9058 1.09965 17.8372 1.24709C17.4792 2.17612 17.0523 3.07714 16.5602 3.94265C15.0204 6.55659 14.3999 6.69461 14.1599 6.53259C13.5742 6.15334 13.7206 5.01199 13.7206 4.20188C13.7206 1.66834 14.1047 0.612204 12.9717 0.338568C12.5901 0.247356 12.3141 0.188548 11.3527 0.175346C10.119 0.163345 9.07243 0.175346 8.48435 0.469385C8.0907 0.663811 7.78706 1.09347 7.97788 1.11867C8.20711 1.14868 8.72438 1.25789 8.99802 1.63114C9.35807 2.1112 9.34007 3.19135 9.34007 3.19135C9.34007 3.19135 9.53809 6.17614 8.8588 6.54819C8.39314 6.80143 7.75345 6.28296 6.38167 3.90784C5.91573 3.08386 5.50323 2.23079 5.14671 1.3539C5.08219 1.20438 4.98305 1.07233 4.85747 0.968652C4.69708 0.861746 4.51658 0.788649 4.327 0.753823L1.04576 0.775426C1.04576 0.775426 0.552498 0.789828 0.372474 1.00466C0.210453 1.19548 0.359272 1.58913 0.359272 1.58913C0.359272 1.58913 2.93721 7.60673 5.8428 10.6383C8.51315 13.4191 11.546 13.2367 11.546 13.2367Z" fill="white"/>
 </svg>

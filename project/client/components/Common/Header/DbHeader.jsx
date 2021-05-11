@@ -1,6 +1,7 @@
 import classes from './DbHeader.module.scss';
 import {useState} from 'react';
 import {useRouter} from 'next/router';
+import Button from '../../CustomElements/Button';
 import Link from 'next/link';
 
 const DbHeader = (props) => {
@@ -10,6 +11,40 @@ const DbHeader = (props) => {
     let header = [];
     let simple_color = 'rgb(37, 54, 201)';
     let click_color = '#333333';
+    let sub_color = '#fff';
+    let textShadow = `1px 0 0 ${click_color}, -1px 0 0 ${click_color}, 0 1px 0 ${click_color}, 0 -1px 0 ${click_color}, 1px 1px ${click_color}, -1px -1px 0 ${click_color}, 1px -1px 0 ${click_color}, -1px 1px 0 ${click_color}`;
+    const backFunction = ()=>{
+                
+        let address = history.route.split('/');
+        address.pop();
+        address = address.join('/');
+        history.push(address)
+    }
+
+    const standartLayout = (link1, link2, link3)=>{
+
+        let linkColors = ['#fff', '#fff', '#fff'];
+        const category = (history.query.category !== undefined)? history.query.category : history.query.queries;
+        switch (category)
+        {
+            case 'insert':
+            case 'list': linkColors = [textShadow, 'none', 'none']; break;
+
+            case 'update':
+            case 'roles': linkColors = ['none', textShadow, 'none']; break;
+
+            case 'delete':
+            case 'candidates': { linkColors = ['none', 'none', textShadow]; break; }
+        }
+        return (
+            <div className={classes.header_standart}>
+                <Button className={classes.arrow_back} onClick={()=>backFunction()} value={<i class="fa fa-arrow-left" aria-hidden="true"></i>}/>
+                <Link href={link1.url}><a style={{textShadow: linkColors[0]}}>{link1.text}</a></Link> 
+                <Link href={link2.url}><a style={{textShadow: linkColors[1]}}>{link2.text}</a></Link> 
+                <Link href={link3.url}><a style={{textShadow: linkColors[2]}}>{link3.text}</a></Link> 
+            </div>
+        )
+    }
 
     switch (props.sector)
     {
@@ -18,7 +53,6 @@ const DbHeader = (props) => {
             const [radioChecked, setRadioChecked] = useState('');
             let textColor = [simple_color, simple_color, simple_color, simple_color, simple_color, simple_color, simple_color];
             const {category} = history.query;
-            
         
             let queries_none = '';
             switch (category)
@@ -74,6 +108,9 @@ const DbHeader = (props) => {
 
             header[0] = (
             <div className={classes.header_db}>
+                <div className={classes.back}>
+                    <Button className={classes.arrow_back} onClick={()=>backFunction()} value={<i class="fa fa-arrow-left" aria-hidden="true"></i>}/>
+                </div>
                 <div className={classes.header_db__parameters}>
                     <Link href='/admin/db/countries'><a style={{color: textColor[4]}}>Страны</a></Link>
                     <Link href='/admin/db/cities'><a style={{color: textColor[5]}}>Города</a></Link>
@@ -85,13 +122,13 @@ const DbHeader = (props) => {
                 </div>
                 <div className={classes.header_db__queries + ' ' + queries_none}>
                         <div>
-                            <label className='radio_button' id='insert' onClick={radioChangeQueries}>Внести</label>
+                            <label className='radio_button' id='insert' style={(()=>{ if (radioChecked == '/insert') return {textShadow: textShadow}})()} onClick={radioChangeQueries}>Внести</label>
                         </div>
                         <div>
-                            <label className='radio_button' id='update' onClick={radioChangeQueries}>Обновить</label>
+                            <label className='radio_button' id='update' style={(()=>{ if (radioChecked == '/update') return {textShadow: textShadow}})()} onClick={radioChangeQueries}>Обновить</label>
                         </div>
                         <div>
-                            <label className='radio_button' id='delete' onClick={radioChangeQueries}>Удалить</label>
+                            <label className='radio_button' id='delete' style={(()=>{ if (radioChecked == '/delete') return {textShadow: textShadow}})()} onClick={radioChangeQueries}>Удалить</label>
                         </div>
                 </div>
                 <div className={classes.header_db__relax}>
@@ -105,84 +142,33 @@ const DbHeader = (props) => {
         }
         case 'promocode':{
 
-            const radioChangeQueries = (e) => {
-
-                
-                
-                switch(e.target.id)
-                {
-                    case 'insert': 
-                        history.push('/admin/promocode/insert');
-                        break;
-                    case 'update': 
-                        history.push('/admin/promocode/update');
-                        break;
-                    case 'delete': 
-                        history.push('/admin/promocode/delete');
-                        break;
-                }
-            }
-
-            header[0] = (
-
-                <div className={classes.header_promocode + ' ' + classes.header_db__queries}>
-                    <div>
-                        <label className='radio_button' id='insert' onClick={radioChangeQueries}>Внести</label>
-                    </div>
-                    <div>
-                        <label className='radio_button' id='update' onClick={radioChangeQueries}>Обновить</label>
-                    </div>
-                    <div>
-                        <label className='radio_button' id='delete' onClick={radioChangeQueries}>Удалить</label>
-                    </div>
-                </div>
-            )
+            header[0] = standartLayout({url: '/admin/promocode/insert', text: 'Внести'}, 
+                                       {url: '/admin/promocode/update', text: 'Обновить'}, 
+                                       {url: '/admin/promocode/delete', text: 'Удалить'});
 
             break;
         }
 
         case 'employees':{
 
-            let linkColors = ['#fff', '#fff', '#fff'];
-            const {category} = history.query;
-            switch (category)
-            {
-                case 'list': linkColors = [simple_color, '#fff', '#fff']; break;
-
-                case 'roles': linkColors = ['#fff', simple_color, '#fff']; break;
-
-                case 'candidates': linkColors = ['#fff', '#fff', simple_color]; break;
-            }
-            header[0] = (
-                <div className={classes.header_employees}>
-                <Link href='/admin/employees/list'><a style={{color: linkColors[0]}}>Список</a></Link> 
-                <Link href='/admin/employees/roles'><a style={{color: linkColors[1]}}>Роли</a></Link> 
-                <Link href='/admin/employees/candidates'><a style={{color: linkColors[2]}}>Кандидаты</a></Link> 
-                </div>
-            )
+            header[0] = standartLayout({url: '/admin/employees/list', text: 'Список'}, 
+                                       {url: '/admin/employees/roles', text: 'Роли'}, 
+                                       {url: '/admin/employees/candidates', text: 'Кандидаты'});
 
             break;
         }
 
-        case 'finance':{
+        case 'finance':
+        case 'pages':
+        case 'orders':{
 
-            let linkColors = ['#fff', '#fff', '#fff'];
-            const {category} = history.query;
-            switch (category)
-            {
-                case 'list': linkColors = [simple_color, '#fff', '#fff']; break;
-
-                case 'roles': linkColors = ['#fff', simple_color, '#fff']; break;
-
-                case 'candidates': linkColors = ['#fff', '#fff', simple_color]; break;
-            }
             header[0] = (
-                <div className={classes.header_employees}>
-                    <Link href='/admin/finance/list'><a style={{color: linkColors[0]}}>Список</a></Link> 
-                    <Link href='/admin/finance/roles'><a style={{color: linkColors[1]}}>Роли</a></Link> 
-                    <Link href='/admin/finance/candidates'><a style={{color: linkColors[2]}}>Кандидаты</a></Link> 
-                </div>
+            <div className={classes.header_empty}>
+                <Button className={classes.arrow_back} onClick={()=>backFunction()} value={<i class="fa fa-arrow-left" aria-hidden="true"></i>}/>
+            </div>
             )
+
+            break;
         }
         
     }
