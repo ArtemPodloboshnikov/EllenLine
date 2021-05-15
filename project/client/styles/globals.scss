@@ -318,7 +318,7 @@ input::-webkit-inner-spin-button {
   align-items: center;
   font-family: 'Kazimir';
   font-size: 3rem;
-  transform: skewY(-1.5deg);
+  // transform: skewY(-1.5deg);
   /* ZIMIN */
   display: flex;
   /* justify-items: center; */
@@ -326,12 +326,12 @@ input::-webkit-inner-spin-button {
 
 }
 .section__title_left{
-  transform: skewY(1.5deg);
+  // transform: skewY(1.5deg);
 }
 .section__title_right p, .section__title_left p{
 
   position: relative;
-  transform: skewY(1.5deg);
+  // transform: skewY(1.5deg);
   align-content: center;
   /* ZIMIN */ 
   display: block;
@@ -339,7 +339,7 @@ input::-webkit-inner-spin-button {
   width: 100%;
 }
 .section__title_left p{
-  transform: skewY(-1.5deg);
+  // transform: skewY(-1.5deg);
 }
 /* iPads: вертикальная ориентация */
 @media only screen and (min-device-width : 768px) and (max-device-width : 1024px) and (orientation : portrait) {

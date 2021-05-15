@@ -19,7 +19,7 @@ import Link from 'next/link';
 import classes from './FormBooking.module.scss';
 
 const FormBooking = (props) => {
-    
+    console.log(props.price);
     const [clientid , setClientid] = useState(undefined);
     const [client_email, setClientEmail] = useState(undefined);
     const [client_phone, setClientPhone]= useState(undefined)

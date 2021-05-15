@@ -58,7 +58,7 @@ const Resort = ({data}) => {
                     id: router.query.orderId
                 })
             })
-            const url_callback = Global.url + '/resorts/' + type + '/' + resort + '/' + dbData[roomIndex].id;
+            const url_callback = Global.url + '/resorts/' + type + '/' + resort + '/' + title;
             router.push(url_callback.split('?')[0]);
         }
         async function updateOrderAndService()
@@ -70,7 +70,7 @@ const Resort = ({data}) => {
                     'Content-Type': 'application/json;charset=utf-8'
                 },
                 body: JSON.stringify({
-                    id: id,
+                    id: dbData[roomIndex].id,
                     id_order: router.query.orderId,
                     payment_id: router.query.payment_id,
                     type: type
@@ -90,7 +90,7 @@ const Resort = ({data}) => {
                 Body : templateMail(router.query.payment_id, json[0].title, json[0].client_name, json[0].clients, json[0].price, json[0].date_start, json[0].date_end, json[0].time)
             })
 
-            const url_callback = Global.url + '/resorts/' + type + '/' + resort + '/' + dbData[roomIndex].id;
+            const url_callback = Global.url + '/resorts/' + type + '/' + resort + '/' + title;
             console.log(url_callback)
             
             
@@ -125,7 +125,7 @@ const Resort = ({data}) => {
 
     const WrapForPreloader = ({data, type}) =>{
         console.log(data)
-        const url_callback = Global.url + '/resorts/' + type + '/' + resort + '/' + data[roomIndex].id;
+        const url_callback = Global.url + '/resorts/' + type + '/' + resort + '/' + title;
         return (
             <div className={classes.resort}>
                 <InfoSection 
@@ -161,7 +161,7 @@ const Resort = ({data}) => {
                 date_leave={new Date()}
                 discount={data[roomIndex].discount}
                 type={type}
-                countServices={data[roomIndex].countServices}
+                countServices={data[roomIndex].count}
                 url_callback={url_callback}
                 />
                 <ShowInfo function_on_close={dialogWindow.function_on_close} setFunction={setDialogWindow} style={dialogWindow.style} title={dialogWindow.title} text={dialogWindow.text} />
