@@ -5,7 +5,6 @@ import ShowInfo from '../../Common/DialogWindow/ShowInfo';
 import Button from '../../../components/CustomElements/Button';
 //
 import {useEffect, useState} from 'react';
-import substitutionIds from '../../../functions/SubstitutionIds';
 import { sha256 } from 'js-sha256';
 import randomInt from '../../../functions/RandomInt';
 import Global from '../../../pages/global';

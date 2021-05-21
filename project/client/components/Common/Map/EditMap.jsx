@@ -3,7 +3,9 @@ import {useState, useEffect} from 'react'
 import classes from './YandexMap.module.scss';
 
 //const mapState = { center: [59.9073, 30.3276], zoom: 10 };
-//const markState = {points: [{geometry: [59.87026977960634, 30.26204491830366], hintContent: 'Эллинлайн', balloonContent: 'ул. Зайцева, 3, корп. 2, Санкт-Петербург'}]}
+// const markState = {points: [{geometry: [59.87026977960634, 30.26204491830366], hintContent: 'Эллинлайн', balloonContent: 'ул. Зайцева, 3, корп. 2, Санкт-Петербург'}],  modules: 
+//     ['geoObject.addon.balloon', 'geoObject.addon.hint']
+// }
 
 
 function EditMap(props){
@@ -19,8 +21,8 @@ function EditMap(props){
         if (map !== null)
         {
             map.events.add('click', (e) =>{
-                console.log(map.balloon)
-                if (!map.balloon.isOpen()) {
+                console.log(e)
+               if (!map.balloon.isOpen()) {
                     let coords = e.get('coords');
                     map.balloon.open(coords, {
                         contentHeader:'Метка поставлена',
@@ -74,13 +76,14 @@ function EditMap(props){
     let mapState = {center: cityCoordinates, zoom: props.zoom || 10};
   
    // console.log(cityCoordinates);
+   
 
     return   (<div className={props.className + ' ' + classes.wrap} id={props.id}>
             
             <YMaps enterprise query={{apikey: '5594e597-90cb-48f6-a139-b76c8a42a41a&lang=ru_RU'}} 
                version={"2.1"}>
        
-            <Map state={mapState} instanceRef={map => newPlacemark(map)}>
+            <Map id='map' state={mapState} instanceRef={map => newPlacemark(map)}>
            
             {/* <Clusterer options={{
                             preset: 'islands#invertedVioletClusterIcons',

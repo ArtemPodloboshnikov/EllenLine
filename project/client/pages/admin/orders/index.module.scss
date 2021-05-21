@@ -11,4 +11,9 @@
     {
         width: 25% !important;
     }
+
+    & button > i
+    {
+        cursor: pointer;
+    }
 }

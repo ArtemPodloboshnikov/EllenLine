@@ -329,7 +329,7 @@ router.put('/orders', function(request, reply){
 })
 
 router.delete('/orders', function(request, reply){
-
+console.log(request.body.id)
     deleteFromDB('orders', 'order', request.body.id, reply);
    
 })
@@ -485,6 +485,11 @@ router.put('/treatment', function(request, reply){
                 fields.push(['payment_term', request.body.payment_term, keysForTables.treatment.payment_term])
                 break;
             }
+            case 'id_promocode':
+            {
+                fields.push(['id_promocode', request.body.id_promocode])
+                break;
+            }
             case 'id_city':
             {
                 fields.push(['id_city', request.body.id_city])
@@ -534,7 +539,12 @@ router.get('/promocode', function(request, reply){
         {
             case 'relax_': id_column = 'id_relax'; break;
 
-            case 'treatments': id_column = 'id_treatment'; break;
+            case 'treatment': 
+            {
+                table = 'treatments';
+                id_column = 'id_treatment'; 
+                break;
+            }
 
         }
         sql = `SELECT promocode.discount as discount FROM promocode WHERE promocode.id_code = (SELECT ${table}.id_promocode FROM ${table} WHERE ${table}.${id_column} = ${id}) AND promocode.name = AES_ENCRYPT('${promocode}', '${keysForTables.promocode.name}')`;
@@ -562,6 +572,7 @@ router.get('/promocode', function(request, reply){
             connection.release();
             if (error) console.log(error);
             let new_results = ConvertDataToString(results, [['name'], ['id'], ['discount']]);
+            console.log(results)
             reply.send(new_results);
         });
     })
@@ -571,23 +582,42 @@ router.post('/promocode', function(request, reply){
     
 
     const dataName = [request.body.name, keysForTables.promocode.name];
-    
-    mysql.getConnection(function(err, connection) {
-        if (err) {
-            console.log(err);
-            return;
+    let id_code = 0;
+
+    async.series([
+        function(done)
+        {
+            mysql.query('INSERT INTO promocode SET name = AES_ENCRYPT(?), discount = ?',
+            [dataName, request.body.discount], 
+            function (error, results, fields) {
+
+                if (error) console.log(error);
+
+                 done();
+            });
+            
+        },
+        function(done)
+        {
+            mysql.query('SELECT id_code FROM promocode WHERE name = AES_ENCRYPT(?)',
+            [dataName],
+            function (error, results, fields) {
+
+                if (error) console.log(error);
+               
+                id_code = {id_code: results[0].id_code};
+                console.log(id_code);
+                done();
+            });
+            
         }
         
-        connection.query('INSERT INTO promocode SET name = AES_ENCRYPT(?), discount = ?',
-        [dataName, request.body.discount], 
-        function (error, results) {
+    ], function(err){
 
-            connection.release();
-            if (error) console.log(error);
+        if (err) console.log(err);
+        reply.send(id_code);
+    })  
 
-            reply.sendStatus(200);
-        });
-    })
 })
 
 router.put('/promocode', function(request, reply){
@@ -794,6 +824,11 @@ router.put('/relax', function(request, reply){
             case 'typeOfRoom':
             {
                 fields.push(['typeOfRoom', request.body.typeOfRoom, keysForTables.relax.typeOfRoom])
+                break;
+            }
+            case 'id_promocode':
+            {
+                fields.push(['id_promocode', request.body.id_promocode])
                 break;
             }
             case 'id_city':

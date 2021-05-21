@@ -179,40 +179,6 @@ function multiplyConditions(sql, conditions, column, view)
     return sql + new_conditions;
 }
 
-function parseMarkdownTable(markup)
-{
-    let flagTr = true;
-    let words = '';
-    console.log(markup.replace('\n', ' ').split(' '))
-    markup.replace('\n', ' ').split(' ').map(sym =>{
-
-        if (sym == '\n|')
-        {
-            words += '<tr>';
-        }
-        else
-        if (sym == '|')
-        {
-            if (flagTr)
-            {
-                flagTr = false;
-            }
-            else
-            {
-                flagTr = true;
-            }
-
-            words += '</tr><tr>';
-        }
-        else
-        {
-            words += sym;
-        }
-    })
-
-    return `<table>${words}</table>`;
-}
-
 function parseMarkdownToHTML(object)
 {
 

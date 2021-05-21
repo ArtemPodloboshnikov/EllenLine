@@ -30,7 +30,7 @@ const index = () => {
             setDbData([]);
             setIndexData(-1);
         }
-        if (indexData > 0)
+        if (indexData >= 0)
             deleteOrder()
 
     }, [indexData])
@@ -64,7 +64,7 @@ const index = () => {
                         return <button onClick={()=>{
 
                             setIndexData(index);
-
+                            console.log(index)
                         }}><i class="far fa-times-circle"></i></button>
             }}/>
         </AdminLayout>

@@ -16,6 +16,11 @@
 .table
 {
     font-size: 1em;
+
+    & > td > div > div:last-child
+    {
+        width: 10vw !important;
+    }
 }
 .imagesObserver
 {
