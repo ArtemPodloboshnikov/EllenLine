@@ -81,8 +81,12 @@ const Relax = (props) => {
         }
         data.idCity = contries_cities.cities[data.city];
         delete data.city;
+        data.count = Number.parseInt(data.count);
         data.count_people = Number.parseInt(data.count_people);
         data.price = Number.parseInt(data.price);
+        data.pricePerChild = Number.parseInt(data.pricePerChild);
+        data.pricePerTeenager = Number.parseInt(data.pricePerTeenager);
+        data.pricePerPet = Number.parseInt(data.pricePerPet);
         data.discount = Number.parseInt(data.discount);
         data.stars = Number.parseInt(data.stars);
         setFormData({photos: new_data, json: data})
@@ -235,6 +239,9 @@ const Relax = (props) => {
                     <DynamicList name='servicesRoom' register={register({required: true})} className={classes.dynamicList} classWrap={classes.dynamicListWrap}  
                     classInput={classes.dynamicList__input} placeholder='Услуги в номерах' rows={servicesRows} setRows={setServicesRows}/>
                 </div>
+
+                <InputNumber classWrap={classes.inputNumber_wrap + ' ' + classes.number_top} register={register({required: true})} name='count' 
+                className={classes.inputNumber} placeholder='Кл. комнат' min='1'/>
 
                 <InputNumber classWrap={classes.inputNumber_wrap + ' ' + classes.number_top} register={register({required: true})} name='count_people' 
                 className={classes.inputNumber} placeholder='Кл. мест' min='1'/>

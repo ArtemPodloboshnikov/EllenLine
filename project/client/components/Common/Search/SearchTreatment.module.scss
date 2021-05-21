@@ -1,0 +1,108 @@
+@import '../../../styles/index.scss';
+
+.wrap
+{
+    @extend %fieldset;
+    
+    & > legend
+    {
+        
+        & > button
+        {
+            border: 3px solid $primary_color;
+            color: $primary_color;
+            font-size: 1.5em;
+
+            &:hover
+            {
+                color: $side_color;
+                background-color: $primary_color;
+            }
+        }
+    }
+}
+.sanatorium
+{
+    display: grid;
+    grid-template-areas: 
+    'name city price'
+    'country profile people';
+    grid-template-rows: repeat(2, 1fr);
+    grid-template-columns: repeat(3, 1fr);
+    gap: 1%;
+}
+.country, .city, .input, .treatment_profile, .price, .people
+{
+    
+   width: 80%;
+   justify-self: center;
+   height: 8vh;
+   font-size: 0.8em;
+}
+.country{
+    grid-area: country;
+    
+}
+.city
+{
+    grid-area: city;
+    
+}
+.input{
+
+    grid-area: name;
+    /* width: 50vw; */
+    /* height: 10vh; */
+}
+.treatment_profile
+{
+    grid-area: profile;
+}
+.price, .people
+{
+
+    grid-area: price;
+
+    & input:first-child
+    {
+        font-size: 0.8em;
+    }
+    & input
+    {
+        font-size: 0.5em;
+    }
+   
+}
+.people
+{
+    grid-area: people;
+}
+@media screen and (max-width: 1024px)
+{
+    .sanatorium{
+        grid-template-columns: 50% 50%;
+        grid-template-rows: repeat(3, 1fr);
+        grid-template-areas: 'country city'
+                             'name profile'
+                             'price people';
+    }
+    .sanatorium .country, .sanatorium .city, .input, .sanatorium .stars{
+        font-size: 1em;
+    }
+}
+@media screen and (max-width: 425px)
+{
+    .sanatorium{
+        grid-template-columns: 1fr;
+        grid-template-rows: repeat(6, 1fr);
+        grid-template-areas: 'country'
+                             'city'
+                             'name'
+                             'profile'
+                             'price'
+                             'people';
+    }
+    .sanatorium .country, .sanatorium .city, .input, .sanatorium .stars{
+        font-size: 1em;
+    }
+}

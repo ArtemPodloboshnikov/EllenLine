@@ -11,7 +11,7 @@ const checkSearch = (data, conditions) =>{
 
     let array = [];
     let isSearch = true;
-    // console.log(conditions)
+    console.log(conditions)
     for(let i = 0; i < conditions.length; i++)
     {
 
@@ -42,7 +42,7 @@ const checkSearch = (data, conditions) =>{
                 {
                     let value = conditions[i].value;
                     const pattern = new RegExp(`^${value}`, 'gi');
-                    // console.log(`pattern: ${pattern} elem[conditions[i].key]: ${elem[conditions[i].key]}`)
+                    console.log(`conditions[i]: ${conditions[i]}`)
                     if (!isNaN(value))
                     {
                         value = parseInt(value);
@@ -92,6 +92,37 @@ const checkSearch = (data, conditions) =>{
                         }
                     }
                     else
+                    if (conditions[i].key == 'services' && conditions[i].value != '')
+                    {
+                        let values = value.split(', ');
+                        let services = JSON.parse(elem['services']);
+                        let flags_servises = [];
+                        services = services['inStock'];
+                        for (let val of values)
+                        {
+                            for (let service of services)
+                            {
+                                console.log(service)
+                                if (service == val)
+                                {
+                                    flags_servises.push(true);
+                                }
+                                
+
+                            }
+                        }
+                        console.log(flags_servises.length == values.length)
+                        if (flags_servises.length == values.length)
+                        {
+                            flags.push(true);
+                        }
+                        else
+                        {
+                            flags.push(false);
+                        }
+
+                    }
+                    else
                     if (pattern.test(elem[conditions[i].key]))
                     {
                         flags.push(true);
@@ -106,7 +137,7 @@ const checkSearch = (data, conditions) =>{
                     //     break;
                     // }
                     let isBreak = false;
-
+                    console.log(flags)
                     for (let flag of flags)
                     {
                         
@@ -143,7 +174,7 @@ const checkSearch = (data, conditions) =>{
 
 const grouping = (containers, elements) =>{
 
-    console.log(elements)
+    //console.log(elements)
     let price = 0;
     let min = elements[0].price;
     let max = 0;
@@ -237,8 +268,8 @@ const List = (props) => {
                             elements = [];
                         }
         
-                        console.log(groupName)
-                        console.log(element)
+                       //console.log(groupName)
+                       // console.log(element)
                         elements.push(element);
         
                         if ((i + 1) == result.length)

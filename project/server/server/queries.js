@@ -410,8 +410,8 @@ router.post('/treatment', function(request, reply){
             return;
         }
         
-        connection.query('INSERT INTO treatments  SET title = AES_ENCRYPT(?), address = AES_ENCRYPT(?), description = AES_ENCRYPT(?), services = AES_ENCRYPT(?), program = AES_ENCRYPT(?), coordinates = AES_ENCRYPT(?), photos = AES_ENCRYPT(?), price = ?, type = AES_ENCRYPT(?), typeOfRoom = AES_ENCRYPT(?), count_people = ?, pricePerChild = ?, pricePerTeenager = ?, pricePerPet = ?, payment_term = AES_ENCRYPT(?), id_city = ?',
-        [dataTitle, dataAddress, dataDescription, dataServices, dataProgram, dataCoordinates, dataPhotos, request.body.price, dataType, dataTypeOfRoom, request.body.count_people, request.body.pricePerChild, request.body.pricePerTeenager, request.body.pricePerPet, dataPaymentTerm, request.body.idCity], function (error, results) {
+        connection.query('INSERT INTO treatments  SET title = AES_ENCRYPT(?), address = AES_ENCRYPT(?), description = AES_ENCRYPT(?), services = AES_ENCRYPT(?), program = AES_ENCRYPT(?), coordinates = AES_ENCRYPT(?), photos = AES_ENCRYPT(?), price = ?, type = AES_ENCRYPT(?), typeOfRoom = AES_ENCRYPT(?), count_people = ?, count = ?, pricePerChild = ?, pricePerTeenager = ?, pricePerPet = ?, payment_term = AES_ENCRYPT(?), id_city = ?',
+        [dataTitle, dataAddress, dataDescription, dataServices, dataProgram, dataCoordinates, dataPhotos, request.body.price, dataType, dataTypeOfRoom, request.body.count_people, request.body.count, request.body.pricePerChild, request.body.pricePerTeenager, request.body.pricePerPet, dataPaymentTerm, request.body.idCity], function (error, results) {
 
             connection.release();
             if (error) console.log(error);
@@ -761,8 +761,8 @@ router.post('/relax', function(request, reply){
             return;
         }
         
-        connection.query('INSERT INTO relax_  SET title = AES_ENCRYPT(?), address = AES_ENCRYPT(?), description = AES_ENCRYPT(?), stars = ?, services = AES_ENCRYPT(?), coordinates = AES_ENCRYPT(?), photos = AES_ENCRYPT(?), price = ?, pricePerChild = ?, pricePerTeenager = ?, pricePerPet = ? type = AES_ENCRYPT(?), typeOfRoom = AES_ENCRYPT(?), count_people = ?, payment_term = AES_ENCRYPT(?), id_city = ?',
-        [dataTitle, dataAddress, dataDescription, request.body.stars, dataServices, dataCoordinates, dataPhotos, request.body.price, request.body.pricePerChild, request.body.pricePerTeenager, request.body.pricePerPet, dataType, dataTypeOfRoom, request.body.count_people, dataPaymentTerm, request.body.idCity], function (error, results) {
+        connection.query('INSERT INTO relax_  SET title = AES_ENCRYPT(?), address = AES_ENCRYPT(?), description = AES_ENCRYPT(?), stars = ?, services = AES_ENCRYPT(?), coordinates = AES_ENCRYPT(?), photos = AES_ENCRYPT(?), price = ?, pricePerChild = ?, pricePerTeenager = ?, pricePerPet = ?, type = AES_ENCRYPT(?), typeOfRoom = AES_ENCRYPT(?), count_people = ?, count = ?, payment_term = AES_ENCRYPT(?), id_city = ?',
+        [dataTitle, dataAddress, dataDescription, request.body.stars, dataServices, dataCoordinates, dataPhotos, request.body.price, request.body.pricePerChild, request.body.pricePerTeenager, request.body.pricePerPet, dataType, dataTypeOfRoom, request.body.count_people, request.body.count, dataPaymentTerm, request.body.idCity], function (error, results) {
 
             connection.release();
             if (error) console.log(error);

@@ -11,10 +11,8 @@ const Finance = () => {
     let sumByMonth = [];
     const accumulation = (array, obj) =>{
 
-        // console.log(array[0])
         for (let index in array)
         {
-            // console.log(array[index].month, obj.month)
             if (array[index].month === obj.month)
             {
                 array[index].amount += obj.amount;
@@ -44,32 +42,7 @@ const Finance = () => {
             })
         })
         console.log(sumByMonth)
-        // sumByMonth[0] = {mount: temp_sumByMonth[0].mount, amount: temp_sumByMonth[0].amount};
-        // console.log(sumByMonth[0])
-        // temp_sumByMonth.map(obj=>{
-            
-        //     let afterLength = sumByMonth.length;
-        //     console.log(obj)
-        //     sumByMonth.map((obj2, index)=>{
-        //         console.log(obj2)
-    
-        //         if (obj2.month === obj.month)
-        //         {
-        //             console.log(obj2.month === obj.month)
-        //             // let temp_obj2 = {...obj2};
-        //             sumByMonth[index] = { month: obj.month, amount: (obj2.amount + obj.amount) }
-        //         }
-                
-        //     })
-
-        //     if (sumByMonth.length == afterLength)
-        //     {
-        //         sumByMonth.push({month: obj.month, amount: obj.amount})
-        //     }
-        // })
-
-        // sumByMonth.splice(0, 1);
-        // temp_sumByMonth = null;
+     
     }
 
     useEffect(()=>{
@@ -117,13 +90,10 @@ const Finance = () => {
                             0: { axis: 'Temps' }
                         },
                         axes: {
-      // Adds labels to each axis; they don't have to match the axis names.
-                        y: {
-                            Temps: { label: 'Руб.' },
-                        },
-                        // series: {
-                        // 1: { curveType: 'function' },
-                        // },
+                            y: {
+                                Temps: { label: 'Руб.' },
+                            }
+                        
                         }
                     }}
                     rootProps={{ 'data-testid': '2' }}

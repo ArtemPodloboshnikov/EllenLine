@@ -3,6 +3,7 @@ import { useRouter } from 'next/router';
 //Jsx
 import ClientLayout from '../../../../layouts/ClientLayout';
 import SearchRelax from '../../../../components/Common/Search/SearchRelax';
+import SearchTreatment from '../../../../components/Common/Search/SearchTreatment';
 import List from '../../../../components/Common/List/List';
 import ChooseResort from '../../../../components/Common/ChooseResort/ChooseResort';
 //Js, scss
@@ -20,12 +21,13 @@ const Resorts = ({data}) => {
     const keyRight = convertKeys[2];
     const [dbData, setDbData] = useState(data);
     const [searchStars, setSearchStars] = useState({key: '', value: ''});
+    const [searchProfile, setSearchProfile] = useState({key: '', value: ''});
     const [searchCountry, setSearchCountry] = useState({key: '', value: ''});
     const [searchCity, setSearchCity] = useState({key: '', value: ''});
     const [searchPrice, setSearchPrice] = useState({key: '', value: '', sign: ''});
     const [searchName, setSearchName] = useState({key: '', value: ''});
     const [searchCountPeople, setSearchCountPeople] = useState({key: '', value: '', sign: ''});
-    const [conditions, setConditions] = useState([searchStars, searchCountry, searchCity, searchPrice, searchName]);
+    const [conditions, setConditions] = useState([searchStars, searchProfile, searchCountry, searchCity, searchPrice, searchName]);
     
     
     let cities = [];
@@ -57,9 +59,9 @@ const Resorts = ({data}) => {
 
     useEffect(() => {
 
-        setConditions([searchStars, searchCountry, searchCity, searchPrice, searchName, searchCountPeople]);
+        setConditions([searchStars, searchProfile, searchCountry, searchCity, searchPrice, searchName, searchCountPeople]);
 
-    }, [searchStars, searchCountry, searchCity, searchPrice, searchName, searchCountPeople])
+    }, [searchStars, searchProfile, searchCountry, searchCity, searchPrice, searchName, searchCountPeople])
 
     useEffect(() => {
 
@@ -93,7 +95,9 @@ const Resorts = ({data}) => {
                 switch (type)
                 {
                     case 'Saint-Petersburg': return;
-                    case 'treatment':
+                    case 'treatment': return <SearchTreatment className={classes.search} setSearchProfile={setSearchProfile} setSearchCountry={setSearchCountry}
+                                         setSearchCity={setSearchCity} setSearchPrice={setSearchPrice} setSearchName={setSearchName} setSearchCountPeople={setSearchCountPeople}
+                                         cities={cities} countries={countries}/>;
                     case 'relax': return <SearchRelax className={classes.search} setSearchStars={setSearchStars} setSearchCountry={setSearchCountry}
                                          setSearchCity={setSearchCity} setSearchPrice={setSearchPrice} setSearchName={setSearchName} setSearchCountPeople={setSearchCountPeople}
                                          cities={cities} countries={countries}/>;

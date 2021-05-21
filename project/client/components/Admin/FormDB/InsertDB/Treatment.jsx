@@ -263,6 +263,10 @@ const Sanatoriums = (props) => {
                 className={classes.textarea + ' ' + classes.textarea_top10} classTitle={classes.textarea__title} 
                 classTextArea={classes.textarea__text} title='Программа лечения' placeholder='Действует Markdown разметка'/>
 
+
+                <InputNumber classWrap={classes.inputNumber_wrap + ' ' + classes.number_top} register={register({required: true})} name='count' 
+                className={classes.inputNumber} placeholder='Кл. комнат' min='1'/>
+
                 <InputNumber classWrap={classes.inputNumber_wrap} register={register({required: true})} name='count_people' 
                 className={classes.inputNumber} placeholder='Кл. мест' min='1'/>
 

@@ -32,6 +32,11 @@
         justify-items: center;
         width: 100%;
         // border-right: 5px solid $sub_color;
+        & > h1
+        {
+            font-size: 1em;
+            cursor: pointer;
+        }
 
         & > div
         {
@@ -42,15 +47,12 @@
             justify-items: center;
             grid-template-columns: repeat(3, 1fr);
 
-            & h1
-            {
-                font-size: 1em;
-                grid-column: 2 / 2;
-            }
+            
 
             & > div
             {
                grid-column: 2 / 2;
+               cursor: pointer;
             }
             // width: 200px;
             // overflow: hidden;

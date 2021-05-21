@@ -80,10 +80,10 @@ function EditMap(props){
 
     return   (<div className={props.className + ' ' + classes.wrap} id={props.id}>
             
-            <YMaps enterprise query={{apikey: '5594e597-90cb-48f6-a139-b76c8a42a41a&lang=ru_RU'}} 
+            <YMaps enterprise query={{apikey: '5594e597-90cb-48f6-a139-b76c8a42a41a&lang=ru_RU', ns: 'use-load-option', load: 'Map,Placemark,control.ZoomControl,control.FullscreenControl,geoObject.addon.balloon'}} 
                version={"2.1"}>
        
-            <Map id='map' state={mapState} instanceRef={map => newPlacemark(map)}>
+            <Map state={mapState} instanceRef={map => newPlacemark(map)}>
            
             {/* <Clusterer options={{
                             preset: 'islands#invertedVioletClusterIcons',
