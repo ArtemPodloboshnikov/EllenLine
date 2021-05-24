@@ -76,7 +76,7 @@ const Promocode = (props) => {
         {
             let fetches = [];
 
-            const promices = formData.pages.map(page=>{
+            formData.pages.map(page=>{
                 
                 fetch(Global.urlServer + `/api/${page.type}`, {
                     
@@ -90,12 +90,12 @@ const Promocode = (props) => {
 
             })
 
-            Promise.all(promices);
             
         }
-        
+    
         async function insert()
         {
+           
             const res = await fetch(Global.urlServer + '/api/promocode', {
                 
                 method: 'POST',
@@ -109,14 +109,13 @@ const Promocode = (props) => {
             const json = await res.json();
             
             id_code = json.id_code;
-            setMessage({style: {display: 'grid'}, status: ((id_code > 0)? 'OK' : 'ERROR'), method: 'insert'});
+            setMessage({style: {display: 'grid'}, status: ((id_code > 0)? 200 : 'ERROR'), method: 'insert'});
+            update(id_code);
         }
         
-
         if (Object.keys(formData).length != 0)
         {
             insert();
-            update(id_code);
         }
 
     }, [formData])

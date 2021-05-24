@@ -422,14 +422,17 @@ router.post('/treatment', function(request, reply){
 })
 
 router.put('/treatment', function(request, reply){
-    
+    console.log(request.body)
     let fields = [];
     let paths = []
-    request.body.photosPath.map((path)=>{
-
-        paths.push(transliterate(path));
-    })
-    request.body.photosPath = paths;
+    if (request.body.photosPath !== undefined)
+    {
+        request.body.photosPath.map((path)=>{
+    
+            paths.push(transliterate(path));
+        })
+        request.body.photosPath = paths;
+    }
 
     Object.keys(request.body).map((key)=>{
 
