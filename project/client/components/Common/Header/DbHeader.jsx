@@ -14,9 +14,14 @@ const DbHeader = (props) => {
     let sub_color = '#fff';
     let textShadow = `1px 0 0 ${click_color}, -1px 0 0 ${click_color}, 0 1px 0 ${click_color}, 0 -1px 0 ${click_color}, 1px 1px ${click_color}, -1px -1px 0 ${click_color}, 1px -1px 0 ${click_color}, -1px 1px 0 ${click_color}`;
     const backFunction = ()=>{
-                
+        console.log(history)
         let address = history.route.split('/');
         address.pop();
+        const lastWord = address[address.length - 1];
+        if (lastWord.charAt(0) == '[' && lastWord.charAt(lastWord.length - 1) == ']')
+        {
+            address[address.length - 1] = history.query[lastWord.substr(1, lastWord.length - 2)]
+        }
         address = address.join('/');
         history.push(address)
     }
