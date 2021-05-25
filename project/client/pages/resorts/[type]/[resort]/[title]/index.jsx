@@ -70,7 +70,7 @@ const Resort = ({data}) => {
                     'Content-Type': 'application/json;charset=utf-8'
                 },
                 body: JSON.stringify({
-                    id: dbData[roomIndex].id,
+                    id: router.query.idService,
                     id_order: router.query.orderId,
                     payment_id: router.query.payment_id,
                     type: type
@@ -114,7 +114,7 @@ const Resort = ({data}) => {
                 const res = await fetch(`${Global.urlServer}/api/${type}?title=${encodeURI(title)}&markdown=true`)
                 let items = await res.json();
                 // item = item[0];
-                console.log(items)
+                //console.log(items)
                 setDbData(items);
                     
                 
@@ -194,7 +194,7 @@ Resort.getInitialProps = async ({req, query}) => {
     const res = await fetch(Global.urlServer + '/api/' + type + '?title=' + encodeURI(title) + '&markdown=true');
     let items = await res.json();
     // item = item[0];
-    console.log(items)
+    //console.log(items)
     return {
         data: items
     };

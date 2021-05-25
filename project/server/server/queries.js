@@ -205,9 +205,9 @@ router.put('/orders', function(request, reply){
     {
         let outputs = [];
         let idServiceColumn = '';
-        let id = request.body.id;
-        const id_order = request.body.id_order;
-        const payment_id = request.body.payment_id;
+        let id = Number.parseInt(request.body.id);
+        const id_order = Number.parseInt(request.body.id_order);
+        const payment_id = Number.parseInt(request.body.payment_id);
         let type = request.body.type;
         console.log(request.body)
         if (type == 'relax')
@@ -228,8 +228,8 @@ router.put('/orders', function(request, reply){
         async.series([
             function(done)
             {
-                mysql.query(`UPDATE orders SET isPaid = true, payment_id = ? WHERE ${idServiceColumn} = ? AND id_order = ?`,
-                [payment_id, id, id_order],
+                mysql.query(`UPDATE orders SET isPaid = true, payment_id = ? WHERE id_order = ?`,
+                [payment_id, id_order],
                 function (error, results) {
         
                     if (error) console.log(error);
@@ -238,7 +238,7 @@ router.put('/orders', function(request, reply){
                 });
             
                 
-                },
+            },
             function(done)
             {//`UPDATE ${type} as table1 SET table1.count = (SELECT table2.count - 1  FROM (SELECT count FROM ${type} WHERE ${idServiceColumn} = ?) as table2) WHERE table1.${idServiceColumn} = ?`
                 if (type == 'relax') type += '_';
@@ -268,13 +268,14 @@ router.put('/orders', function(request, reply){
             function(done)
             {
                 
-                mysql.query(`SELECT date_start, date_end, time, AES_DECRYPT(client_name, '${keysForTables.orders.client_name}') as client_name, AES_DECRYPT(clients, '${keysForTables.orders.clients}') as clients, price, AES_DECRYPT(title, '${keysForTables.orders.title}') as title, AES_DECRYPT(email, '${keysForTables.orders.email}') as email FROM orders WHERE ${idServiceColumn} = ? AND id_order = ?`,
-                [id, id_order], 
+                mysql.query(`SELECT date_start, date_end, time, AES_DECRYPT(client_name, '${keysForTables.orders.client_name}') as client_name, AES_DECRYPT(clients, '${keysForTables.orders.clients}') as clients, price, AES_DECRYPT(title, '${keysForTables.orders.title}') as title, AES_DECRYPT(email, '${keysForTables.orders.email}') as email FROM orders WHERE id_order = ?`,
+                [id_order], 
                 function (error, results, fields) {
     
                     if (error) console.log(error);
                     const data = ConvertDataToString(results, [['date_start'], ['date_end'], ['client_name'], ['clients'], ['price'], ['title'], ['email']]);
                     outputs = data;
+                    console.log(data)
                     done();
                 });
                 

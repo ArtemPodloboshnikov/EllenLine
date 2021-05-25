@@ -37,7 +37,7 @@ const FormBooking = (props) => {
     const title = props.title;
     const id = props.id;
     const type = props.type;
-    let url_callback = props.url_callback + '?orderId=' + orderId;
+    let url_callback = props.url_callback + '?orderId=' + orderId + '&idService=' + id;
     const [countServices, setCountServices] = useState(props.countServices);
     const arrowSize = [30, 30];
     const [currency, setCurrency] = useState('RUB');
