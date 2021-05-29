@@ -485,7 +485,7 @@ const UpdatePage = (props) => {
 
         <>
             <Message setFunction={setMessage} style={message.style} status={message.status} body={message.body} method={message.method}/>
-            <ChangeItemFromDB type='treatment' options={Object.keys(dataTreatment)} onChangeFunction={(obj)=>setInstitution({uuid: obj.value})}
+            <ChangeItemFromDB type={props.category} options={Object.keys(dataTreatment)} onChangeFunction={(obj)=>setInstitution({uuid: obj.value})}
             />
             <div style={{overflowX: 'hidden'}}>
             <Table titles={props.table} 
