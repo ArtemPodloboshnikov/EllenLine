@@ -1,14 +1,4 @@
 @import '../../styles/index.scss';
-@import './index.module.scss';
-
-.section
-{
-    .title
-    {
-        @extend %title;
-        margin-top: 40px;
-    }
-}
 
 .clients_border{
 
@@ -37,6 +27,9 @@
     content: '';
 }
 .clients, .clients:after{
+
+    
+   
     clip-path: polygon(0% 22%, 43% 13%, 64% 19%, 85% 12%, 100% 19%, 100% 80%, 64% 85%, 30% 78%, 0% 83%);
 }
 .clients__content{
@@ -57,9 +50,9 @@
 .clients__content img{
 
     object-fit: contain;
-    width: 100%;
+    width: 40%;
     /* ZIMIN */
-    height: 130%;
+    height: 100%;
 }
 .dhl_margin{
 

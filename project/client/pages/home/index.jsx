@@ -1,33 +1,38 @@
-import React from 'react';
-import Enter from './Enter.jsx';
-import ClientLayout from '../../layouts/ClientLayout.jsx';
+import { useEffect, useState } from 'react';
+import Services from './Services.jsx';
+import Advantages from './Advantages.jsx';
+import Reviews from './Reviews.jsx';
+import Clients from './Clients.jsx';
 import classes from './index.module.scss';
 
-const Home = () => {
+// Стоит выделить Home в отдельный компонент в папку Home, вместе со стилями
+export default function Home(){
+
+    const [data, setData] = useState({advantages: [], services: []});
+    useEffect(() => 
+    {
+        // Обновляем заголовок документа, используя API браузера
+
+        async function getData()
+        {
+    
+          const response =  await fetch('http://localhost:4000/file/getHomePage');
+          const json = await response.json();
+          setData(json);
+        }
+
+        getData();
+    }, []);
+
+    console.log(data);
 
     return (
-        <ClientLayout title='О нас'>
-            <div className={classes.content}>
-                <h1>Дорогие друзья!</h1>
-                <h2>Мы рады приветствовать Вас на нашем сайте</h2>
-                <p>Наша фирма, ООО «Эллинлайн», является туроператором (РТО 014483)</p>
-                <p>  Работаем на рынке туристских услуг с 1993 года и зарекомендовали себя как надежная и стабильная компания с высоким качеством обслуживания и профессиональной работой.</p>
-                <p>Имеем договор страхования гражданской ответственности за неисполнение или ненадлежащее исполнение обязательств по договору о реализации туристского продукта № 947/16-49 от 12/02/2016 с ПАО "Страховая компания Гайде" (191119, г. Санкт-Петербург, Лиговский пр-кт, д. 108, лит.А).</p>
-                <p>Размер финансового обеспечения 500.000 (пятьсот тысяч) рублей.</p>
-                <h1>За период деятельности туристической фирмы в числе наших заказчиков были:</h1>
-                <p>учредительный съезд «Либеральной партии России»;</p>
-                <p>мероприятия, проводимые партией «Справедливая Россия» в Санкт-Петербурге;</p>
-                <p>съезд Социалистического Интернационала;</p>
-                <p>ЕЭС ООН (экономические форумы, проводимые в Санкт-Петербурге);</p>
-                <p>Фонд Эберта;</p>
-                <p>международный съезд дерматовенерологов и косметологов;</p>
-                <p>ФГУП «Росморпорт»;</p>
-                <p>ОАО «Газпром»;</p>
-                <p>DHL;</p>
-                <p>делегация штата Миннесота во главе с губернатором.</p>
-            </div>
-        </ClientLayout>
+        <div className={classes.home}>
+            <Services data={data.services}/>
+            <Advantages data={data.advantages}/>
+            <Reviews/>
+            <Clients/>
+        </div>
     )
-}
 
-export default Home;
+}

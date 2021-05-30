@@ -1,5 +1,4 @@
 @import '../../styles/index.scss';
-@import './index.module.scss';
 
 .services{
     margin-top: 10%;
@@ -68,8 +67,8 @@
 
     position: relative;
     transform: rotate(-45deg) translate(-35%);
-    margin-left: 38%;
-    margin-top: 5%;
+    margin-left: 40%;
+    margin-top: -10%;
     z-index: 3;
     font-family: 'Kazimir';
     font-size: 3em;

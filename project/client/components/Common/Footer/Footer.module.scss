@@ -13,8 +13,8 @@
     grid-template-rows: repeat(3, 1fr);
     grid-template-areas: 
     ". . . . ."
-    ". map map . info"
-    ". map map . info"
+    "qr map map . info"
+    "qr map map . info"
     ". links links . .";
 
     & *
@@ -23,6 +23,15 @@
         font-size: 0.8em;
     }
   ;
+}
+.qr
+{
+    grid-area: qr;
+    display: grid;
+    grid-auto-flow: row;
+    @extend %grid_items_center;
+
+
 }
 .footer__map{
 

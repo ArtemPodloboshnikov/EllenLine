@@ -1,8 +1,6 @@
 import React from 'react'
-//
-import MediaQuery from 'react-responsive';
-//
 import classes from './Services.module.scss';
+import MediaQuery from 'react-responsive';
 
 const Services = (props) => {
     
@@ -48,11 +46,11 @@ const Services = (props) => {
 
     })
     return (
-        <div className={classes.section}>
-            <div className={classes.title}>
+        <div className="section">
+            <div className="section__title_left">
                 <p>Наши услуги</p>
             </div>
-            <div className={classes.services}>
+            <div className={ classes.services }>
                 <MediaQuery query="(min-device-width: 1433px)">
                     {servicesWeb}
                 </MediaQuery>

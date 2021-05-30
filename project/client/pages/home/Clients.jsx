@@ -1,13 +1,11 @@
 import React from 'react'
-//
-import MediaQuery from 'react-responsive';
-//
 import classes from './Clients.module.scss';
+import MediaQuery from 'react-responsive';
 
 const Clients = () => {
     return (
-        <div className={classes.section}>
-            <div className={classes.title}>
+        <div className="section">
+            <div className='section__title_right'>
                 <p>Наши клиенты</p>
             </div>
             <MediaQuery query="(min-device-width: 1433px)">

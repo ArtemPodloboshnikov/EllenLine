@@ -10,6 +10,9 @@ const Footer = (props) => {
 
         return (
         <div className={ classes.footer + ' ' + props.className}>
+            <div className={classes.qr}>
+                <Image src='/images/Home/qr_code.svg' width={200} height={200}/>
+            </div>
             <PresentationMap className={ classes.footer__map } id="map" cityCoordinates={cityCoordinates} points={homeOnMap}/>
             
             <div className={classes.footer__links}>

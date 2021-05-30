@@ -8,7 +8,7 @@ const router = express.Router();
 const name_page = {домашняя: 'HomePageData', условия_оплаты: 'PaymentPageData'};
 
 router.get('/getHomePage', (request, response)=>{
-    fs.readFile("HomePageData/data.json", "utf8", 
+    fs.readFile(path.join(__dirname, "../HomePageData/data.json"), "utf8", 
                 function(error,data){
                     if(error) console.log(error); // если возникла ошибка
                     response.send(data);  // выводим считанные данные

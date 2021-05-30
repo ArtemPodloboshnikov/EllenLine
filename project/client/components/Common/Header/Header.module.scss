@@ -1,37 +1,28 @@
 @import '../../../styles/index.scss';
-$back: #e9c7e9;
 
 .header{
 
     width: 100%;
-    height: 30vh;
-    background-color: $back;
+    height: 90vh;
+    background-color: red;
     position: relative;
-    // max-height: 30vh;
+    max-height: 90vh;
     overflow: hidden;
-    background-image: url('/images/header_spb.png'), linear-gradient(to right bottom, $back, #fc8755);
-    // background-repeat: space;
-    // background-size: cover;
-    background-position-x: left;
-    background-size: cover;
-    // background-size: 90%;
-    // background-repeat: repeat-x;
-    // background-position: center;
-    // clip-path: polygon(0% 0%, 200% 0%, 30% 100%, 0% 70%);
+    clip-path: polygon(0% 0%, 200% 0%, 30% 100%, 0% 70%);
 }
-// .header:after{
+.header:after{
 
-//     content: '';
-//     display: block;
-//     top: 0px;
-//     left: 0px;
-//     position: absolute;
-//     z-index: 2;
-//     background-color: $primary_color;
-//     opacity: 0.4;
-//     width: 100%;
-//     height: 100%;
-// }
+    content: '';
+    display: block;
+    top: 0px;
+    left: 0px;
+    position: absolute;
+    z-index: 2;
+    background-color: $primary_color;
+    opacity: 0.4;
+    width: 100%;
+    height: 100%;
+}
 .header__video{
 
     position: absolute;
@@ -65,13 +56,8 @@ $back: #e9c7e9;
     height: auto;
     margin-left: -2%;
     justify-items: center;
-    z-index: 40;
+    z-index: 5;
     @extend %shadow;
-    & > a
-    {
-
-        font-size: 0.8em;
-    }
 }
 .treeTours{
 
@@ -81,12 +67,12 @@ $back: #e9c7e9;
 .treeCruises{
 
     width: 7vw;
-    margin-left: -0.3%;
+    margin-left: 0.5%;
 }
 .treeTreatment
 {
     width: 8vw;
-    margin-left: -0.7%;
+    margin-left: 0.1%;
 }
 .tree_active{
 
@@ -98,31 +84,15 @@ $back: #e9c7e9;
 }
 .header__buttons{
 
-    display: flex;
+    display: grid;
     grid-template-columns: repeat(9, 1fr);
     align-items: center;
     justify-items: center;
-    gap: 3%;
-    justify-content: center;
     grid-area: buttons;
-    font-weight: 600;
-    // grid-column-gap: 2.3%;
-
-    & > a, & > div
-    {
-        // margin-left: -100%;
-        // background-color: red;
-    }
-    & *
-    {
-        font-size: 1em;
-    }
+    grid-column-gap: 2.3%;
 }
 .header__buttons
 {
-    width: 100%;
-    height: 10vh;
-    background-color: $primary_color;
     & > label > img
     {
         width: 40%;
@@ -133,7 +103,7 @@ $back: #e9c7e9;
 
     & > a > i
     {
-        font-size: 1em;
+        font-size: 3em;
         color: $side_color;
     }
 }
@@ -144,7 +114,7 @@ $back: #e9c7e9;
 .button__loupe
 {
     color: $sub_color;
-    font-size: 1em;
+    font-size: 2.5em;
 }
 #search_active{
 
@@ -260,94 +230,16 @@ $back: #e9c7e9;
 {
     grid-area: logo;
     justify-self: center;
-    margin-top: -13%;
-    margin-left: -24%;
-
-    & svg > path:nth-child(1)
-    {
-        fill: $primary_color;
-        stroke: $primary_color;
-    }
-    & svg > path:nth-child(2)
-    {
-        stroke: $sub_color;
-    }
-    & svg > path:nth-child(5)
-    {
-        stroke: $sub_color;
-    }
-}
-.header__date
-{
-    grid-area: date;
-    font-family: 'Kazimir';
-    color: $primary_color;
-    margin-top: -3%;
-    margin-left: -32%;
-    // width: 100%;
-    text-align: center;
-    height: 5vh;
-    // background-color: red;
-    align-self: start;
-    justify-self: start;
-
-    & > span:first-child
-    {
-        font-size: 0.8em;
-    }
-    & > span:last-child
-    {
-        font-size: 1em;
-        font-style: italic;
-        font-weight: 600;
-    }
-}
-.header__tel
-{
-    grid-area: tel;
-    // margin-top: 10%;
-    display: grid;
-    width: 10vw;
-    grid-template-rows: repeat(4, 35%);
-    justify-items: start;
-    margin-top: 0%;
-    margin-left: -50%;
-    & > a
-    {
-
-        font-family: 'Kazimir';
-        font-size: 0.58em;
-        margin-left: 12%;
-        color: $primary_color;
-    }
-    & > a:nth-child(1)
-    {
-        & > i
-        {
-
-            color: rgb(33, 197, 33);
-        }
-    }
-    & > a:nth-child(2)
-    {
-        font-size: 0.53em;
-    }
+    margin-top: -15%;
 }
 .header__links{
 
     display: grid;
     grid-area: links;
-    grid-template-columns: repeat(4 , 5vw);
-    grid-template-rows: 1fr;
-    margin-top: 15%;
-    margin-left: -123%;
-    
-    & svg > path
-    {
-        fill: $primary_color;
-    }
-    // justify-self: stretch;
-    // justify-items: stretch;
+    grid-template-columns: 1fr;
+    grid-template-rows: repeat(4, 1fr);
+    justify-self: center;
+    justify-items: center;
 }
 .header__phone{
 
@@ -364,18 +256,22 @@ $back: #e9c7e9;
 .header__content{
 
     display: grid;
-    grid-template-columns: repeat(6, 1fr);
-    grid-template-rows: repeat(3, 25%);
+    grid-template-columns: repeat(10, 1fr);
+    grid-template-rows: repeat(9, 10%);
     grid-template-areas: 
-    'logo date tel links links .'
-    '. . . links links .'
-    '. . . . . .';
+    'logo buttons buttons buttons buttons buttons buttons buttons buttons buttons'
+    '. . . . . . . . . .'
+    'links . . . . . . . . .'
+    'links . . . . . . . . .'
+    'links . . . . . . . . .'
+    'links . . . . . . . . .'
+    '. . . . . . . . . .';
     z-index: 3;
     position: absolute;
     top: 10%;
     width: 100%;
     height: 100%;
-    margin-top: 1%;
+
  
 }
 /* Настольные компьютеры и ноутбуки */
@@ -390,17 +286,17 @@ $back: #e9c7e9;
     .header{
 
         width: 100%;
-        height: 30vh;
-        background-color: $back;
+        height: 97vh;
+        background-color: red;
         position: relative;
-        max-height: 30vh;
+        max-height: 90vh;
         overflow: hidden;
-        // clip-path: polygon(0% 0%, 200% 0%, 30% 100%, 0% 70%);
+        clip-path: polygon(0% 0%, 200% 0%, 30% 100%, 0% 70%);
     }
 
     .header__buttons{
     
-        // grid-column-gap: 0.81%;
+        grid-column-gap: 0.81%;
         grid-template-columns: repeat(9, 1fr);
     }
     .header__video{
@@ -413,12 +309,12 @@ $back: #e9c7e9;
     .header{
 
         width: 100%;
-        height: 30vh;
-        background-color: $back;
+        height: 50vh;
+        background-color: red;
         position: relative;
-        max-height: 30vh;
+        max-height: 50vh;
         overflow: hidden;
-        // clip-path: polygon(0% 0%, 200% 0%, 30% 100%, 0% 70%);
+        clip-path: polygon(0% 0%, 200% 0%, 30% 100%, 0% 70%);
     }
 
     .header__buttons{
@@ -437,12 +333,12 @@ $back: #e9c7e9;
     .header{
 
         width: 100%;
-        height: 30vh;
-        background-color: $back;
+        height: 68vh;
+        background-color: red;
         position: relative;
-        max-height: 30vh;
+        max-height: 68vh;
         overflow: hidden;
-        // clip-path: polygon(0% 0%, 200% 0%, 30% 100%, 0% 70%);
+        clip-path: polygon(0% 0%, 200% 0%, 30% 100%, 0% 70%);
     }
     .header__video{
 

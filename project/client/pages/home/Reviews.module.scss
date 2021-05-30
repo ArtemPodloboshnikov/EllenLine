@@ -1,309 +1,238 @@
 @import '../../styles/index.scss';
-@import './index.module.scss';
 
-.section
-{
+.reviews{
+    margin-top: 10%;
+    width: 100%;
+    height: 67vh;
+    border-bottom: 7px solid $primary_color;
+    border-top: 7px solid $primary_color;
+    background-color: $sub_color;
+    grid-template-columns: 2fr 3fr;
     display: grid;
-    grid-template-columns: 1fr;
-    grid-auto-rows: auto;
-    margin-top: 30px;
-    row-gap: 30px;
-
-    .title
-    {
-        @extend %title;
-    }
-
-    .reviews
-    {
-        display: grid;
-        border-bottom: 3px solid $primary_color;
-        border-top: 3px solid $primary_color;
-        background-color: $sub_color;
-        padding: 10px;
-
-        .reviews__image
-        {
-            grid-row: 1;
-            display: grid;
-            justify-items: center;
-            align-items: center;
-
-            div
-            {
-
-                font-family: 'Kazimir';
-                color: $primary_color;
-                align-self: start;
-                text-align: center;
-            }
-            a
-            {
-
-                min-width: 50%;
-                min-height: 50%;
-                display: grid;
-                justify-self: center;
-                justify-items: center;
-                align-items: center;
-
-                img
-                {
-                    min-width: 100%;
-                    object-fit: cover;
-                }
-            }
-
-            h2
-            {
-                font-size: 2em;
-            }
-        }
-
-        .reviews__text
-        {
-            align-self: center;
-            font-family: 'Mediator Serif';
-            font-size: 1.4em;
-            color: $primary_font_color;
-
-            // p
-            // {
-            // }
-        }
-
-        &.left
-        {
-            grid-template-columns: 2fr 3fr;
-            .reviews__image
-            {
-                grid-column: 1;
-            }
-
-        }
-        &.right
-        {
-            grid-template-columns: 3fr 2fr;
-            .reviews__image
-            {
-                grid-column: 2;
-            }
-        }
-    }
 }
-@media screen and (max-width: 768px)
-{
-    .section
-    {
-        
-        .reviews
-        {
-
-            &.left, &.right
-            {
-                grid-template-rows: repeat(2, auto);
-                grid-template-columns: auto;
-
-                .reviews__text
-                {    
-                    grid-row: 2;
-                }
-            }
-            &.right
-            {
-                .reviews__image
-                {
-                    grid-column: 1;
-                }
-            }
-        }
-    }
+.reviews_left{
+    grid-template-columns: 3fr 2fr;
+}   
+.reviews__text_right{
+    padding-right: 10%;
 }
-@media screen and (max-width: 425px)
-{
-    .section
-    {
-
-        .reviews
-        {
-
-            .reviews__image
-            {
-                h2
-                {
-                    font-size: 1.25em;
-                }
-            }
-            .reviews__text
-            {
-
-                font-size: 1em;
-            }
-
-        }
-    }
+.reviews__text_left{
+    padding-left: 10%;
 }
-// @media screen and (max-width: 768px) {
+.reviews__text{
+
+    width: 100%;
+    align-self: center;
+    padding-left: 10%;
+    font-family: 'Mediator Serif';
+    font-size: 2.5vh;
+    color: $primary_font_color;
+}
+.reviews__image{
+
+    width: 100%;
+    height: 80%;
+    display: grid;
+    justify-items: center;
+    align-items: center;
+    grid-template-rows: 4fr 1fr;
+    margin-top: 6%;
+}
+.reviews__image div{
+
+    font-family: 'Kazimir';
+    color: $primary_color;
+    align-self: start;
+    text-align: center;
+}
+.reviews__image div > h3{
+
+    margin-top: -5%;
+}
+.reviews__image a{
+
+    min-width: 50%;
+    min-height: 50%;
+    display: grid;
+    justify-self: center;
+    justify-items: center;
+    align-items: center;
+}
+.reviews__image a > img{
+
+    min-width: 100%;
+    object-fit: cover;
+}
+/* ZIMIN */
+@media screen and (max-width: 768px) {
     
-//     .section_top{
+    .section_top{
 
-//     }
-//     .reviews__text_left{
+        margin-top: 30%;
+    }
+    .reviews__text_left{
 
-//         padding-right: 10px;
-//     }
-//     .reviews__text{
-//         font-size: 2em;
-//         grid-area: text;
-//     }
-//     .reviews__image{
+        padding-right: 10%;
+    }
+    .reviews__text{
+        font-size: 2.8vh;
+        grid-area: text;
+    }
+    .reviews__image{
 
-//         height: 100%;
-//         width: 100%;
-//         grid-area: image;
-//     }
-//     .reviews__image a > img{
-//         max-width: 900px;
-//     }
-//     .reviews__image a{
+        height: 100%;
+        width: 100%;
+        grid-area: image;
+    }
+    .reviews__image a > img{
+        max-width: 900px;
+    }
+    .reviews__image a{
        
-//         min-width: 80%;
-//         min-height: 80%;
-//     }
-//     .reviews{
+        min-width: 80%;
+        min-height: 80%;
+    }
+    .reviews{
        
        
-//         justify-items: center;
-//         grid-template-columns: 1fr;
-//         grid-template-areas: 
-//         'image'
-//         'text';
-//     }
-//     .reviews__image div > h2{
+        justify-items: center;
+        grid-template-columns: 1fr;
+        grid-template-areas: 
+        'image'
+        'text';
+        /* ZIMIN */
+        /* height: 220vh; */
+    }
+    .reviews_height{
 
-//         font-size: 2em;
-//     }
-//     .reviews__image div > h3{
+        /* ZIMIN */
+        /* height: 250vh; */
+    }
+    .reviews__image div > h2{
 
-//         font-size: 1em;
-//     }
-// }
+        font-size: 6vh;
+    }
+    .reviews__image div > h3{
+
+        font-size: 5vh;
+    }
+}
 /* iPads: вертикальная ориентация */
-// @media only screen and (min-device-width : 768px) and (max-device-width : 1024px) and (orientation : portrait) {
+@media only screen and (min-device-width : 768px) and (max-device-width : 1024px) and (orientation : portrait) {
     
-//     .section_top{
+    .section_top{
 
-//         margin-top: 30%;
-//     }
-//     .reviews__text_left{
+        margin-top: 30%;
+    }
+    .reviews__text_left{
 
-//         padding-right: 10%;
-//     }
-//     .reviews__text{
-//         font-size: 2.8vh;
-//         grid-area: text;
-//     }
-//     .reviews__image{
+        padding-right: 10%;
+    }
+    .reviews__text{
+        font-size: 2.8vh;
+        grid-area: text;
+    }
+    .reviews__image{
 
-//         height: 100%;
-//         width: 100%;
-//         grid-area: image;
-//     }
-//     .reviews__image a > img{
-//         max-width: 900px;
-//     }
-//     .reviews__image a{
+        height: 100%;
+        width: 100%;
+        grid-area: image;
+    }
+    .reviews__image a > img{
+        max-width: 900px;
+    }
+    .reviews__image a{
       
-//         min-width: 80%;
-//         min-height: 80%;
-//     }
-//     .reviews{
+        min-width: 80%;
+        min-height: 80%;
+    }
+    .reviews{
        
-//         justify-items: center;
-//         grid-template-columns: 1fr;
-//         grid-template-areas: 
-//         'image'
-//         'text';
-//         /* ZIMIN */
-//         /* height: 210vh; */
-//     }
-//     .reviews_height{
+        justify-items: center;
+        grid-template-columns: 1fr;
+        grid-template-areas: 
+        'image'
+        'text';
+        /* ZIMIN */
+        /* height: 210vh; */
+    }
+    .reviews_height{
 
-//         height: 250vh;
-//     }
-//     .reviews__image div > h2{
+        height: 250vh;
+    }
+    .reviews__image div > h2{
 
-//         font-size: 6vh;
-//     }
-//     .reviews__image div > h3{
+        font-size: 6vh;
+    }
+    .reviews__image div > h3{
 
-//         font-size: 5vh;
-//     }
+        font-size: 5vh;
+    }
 
-// }
-// /* iPads: горизонтальная ориентация */
-// @media only screen and (max-device-width : 768px) and (orientation : landscape) {
+}
+/* iPads: горизонтальная ориентация */
+@media only screen and (max-device-width : 768px) and (orientation : landscape) {
 
 
-//     .section_top{
+    .section_top{
 
-//         margin-top: 30%;
-//     }
-//     .reviews__text_left{
+        margin-top: 30%;
+    }
+    .reviews__text_left{
 
-//         padding-right: 10%;
-//     }
-//     .reviews__text{
-//         font-size: 2.8vh;
-//         grid-area: text;
-//     }
-//     .reviews__image{
+        padding-right: 10%;
+    }
+    .reviews__text{
+        font-size: 2.8vh;
+        grid-area: text;
+    }
+    .reviews__image{
 
-//         height: 100%;
-//         width: 100%;
-//         grid-area: image;
-//     }
-//     .reviews__image a > img{
-//         max-width: 900px;
-//     }
-//     .reviews__image a{
+        height: 100%;
+        width: 100%;
+        grid-area: image;
+    }
+    .reviews__image a > img{
+        max-width: 900px;
+    }
+    .reviews__image a{
        
-//         min-width: 80%;
-//         min-height: 80%;
-//     }
-//     .reviews{
+        min-width: 80%;
+        min-height: 80%;
+    }
+    .reviews{
        
        
-//         justify-items: center;
-//         grid-template-columns: 1fr;
-//         grid-template-areas: 
-//         'image'
-//         'text';
-//         /* ZIMIN */
-//         /* height: 220vh; */
-//     }
-//     .reviews_height{
+        justify-items: center;
+        grid-template-columns: 1fr;
+        grid-template-areas: 
+        'image'
+        'text';
+        /* ZIMIN */
+        /* height: 220vh; */
+    }
+    .reviews_height{
 
-//         height: 250vh;
-//     }
-//     .reviews__image div > h2{
+        height: 250vh;
+    }
+    .reviews__image div > h2{
 
-//         font-size: 6vh;
-//     }
-//     .reviews__image div > h3{
+        font-size: 6vh;
+    }
+    .reviews__image div > h3{
 
-//         font-size: 5vh;
-//     }
+        font-size: 5vh;
+    }
 
-// }
-// /* Смартфоны: вертикальная ориентация */
-// @media only screen and (max-width : 320px) {
+}
+/* Смартфоны: вертикальная ориентация */
+@media only screen and (max-width : 320px) {
 
   
 
-// }
-// /* Смартфоны: горизонтальная ориентация */
-// @media only screen and (min-width : 321px) {
+}
+/* Смартфоны: горизонтальная ориентация */
+@media only screen and (min-width : 321px) {
 
     
-// }
+}
