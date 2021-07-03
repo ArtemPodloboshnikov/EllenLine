@@ -82,8 +82,7 @@ const Header = (props) => {
     return (
         <div style={(()=>{
 
-            // if (Object.key(props.employee).length != 0)
-            //     return {display: 'none'}
+           
             
 
         })()}>
